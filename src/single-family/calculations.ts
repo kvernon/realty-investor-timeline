@@ -1,55 +1,55 @@
 /**
  *
  * @param purchasePrice
- * @param percentDown
+ * @param cashDownPercent
  * @param closingCostPercent
  * @param loanRatePercent
- * @param yearOnLoan
+ * @param loanTermInYears
  */
 export function getMonthlyPrincipalInterestTaxInterest(
   purchasePrice: number,
-  percentDown: number,
+  cashDownPercent: number,
   closingCostPercent: number,
   loanRatePercent: number,
-  yearOnLoan = 30
+  loanTermInYears = 30
 ): number {
   const avgTexasPropertyTaxPercent = 2.19;
   const annualTaxes: number =
-    (purchasePrice * avgTexasPropertyTaxPercent) / 100; //?
+    (purchasePrice * avgTexasPropertyTaxPercent) / 100;
 
   const fakeRateCalculation = 0.0053097345132743;
-  const annualInsurance: number = purchasePrice * fakeRateCalculation; //?
+  const annualInsurance: number = purchasePrice * fakeRateCalculation;
 
   const monthlyMortgage = getMonthlyMortgage(
     purchasePrice,
-    percentDown,
+    cashDownPercent,
     closingCostPercent,
     loanRatePercent,
-    yearOnLoan
+    loanTermInYears
   );
-  return monthlyMortgage + annualTaxes / 12 + annualInsurance / 12; //?
+  return monthlyMortgage + annualTaxes / 12 + annualInsurance / 12;
 }
 
 /**
  *
  * @param purchasePrice
- * @param percentDown
+ * @param cashDownPercent
  * @param closingCostPercent
  * @param loanRatePercent
- * @param yearOnLoan
+ * @param loanTermInYears
  */
 export function getMonthlyMortgage(
   purchasePrice: number,
-  percentDown: number,
+  cashDownPercent: number,
   closingCostPercent: number,
   loanRatePercent: number,
-  yearOnLoan = 30
+  loanTermInYears = 30
 ): number {
   //formula for M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1].
-  const cashDown = (purchasePrice * percentDown) / 100; //?
-  const p = purchasePrice - cashDown; //?
-  const i = loanRatePercent / 100 / 12; //?
-  const n = yearOnLoan * 12; //?
+  const cashDown = (purchasePrice * cashDownPercent) / 100;
+  const p = purchasePrice - cashDown;
+  const i = loanRatePercent / 100 / 12;
+  const n = loanTermInYears * 12;
 
   return (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
 }
