@@ -8,9 +8,10 @@ Will be a port of the version 1 at https://bitbucket.org/kellyvernon/realty-gene
 
 ## Needed things
 
-- Mortgage calc
+- Mortgage calc ✔
+- Hard Money Loan calc
 - Rent amount
 - Cash flow
-- Equity
+- Equity (simple)
 
 ## Future: Need a simple version, which allows for fast calcs
