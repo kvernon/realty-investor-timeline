@@ -1,5 +1,4 @@
 import { getMonthlyMortgage } from "../../src/single-family/calculations";
-import chance from "chance";
 
 describe("calculations unit tests", () => {
   describe("and getMonthlyMortgage", () => {

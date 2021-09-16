@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6a7705b-320d-4ae4-ac52-8901c3ef727a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/single-family/calculations.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/single-family/calculations.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/single-family/calculations.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/single-family/calculations.spec.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +62,7 @@
       <option name="presentableId" value="Default" />
       <updated>1631757505070</updated>
       <workItem from="1631757508755" duration="55000" />
-      <workItem from="1631757751073" duration="3617000" />
+      <workItem from="1631757751073" duration="3670000" />
     </task>
     <servers />
   </component>
