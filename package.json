@@ -42,5 +42,8 @@
   "lint-staged": {
     "*.ts": "eslint --config .eslint.js --cache --fix",
     "*.{ts,css,md}": "prettier --write"
+  },
+  "dependencies": {
+    "date-fns": "^2.24.0"
   }
 }
