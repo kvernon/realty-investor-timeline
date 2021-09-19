@@ -118,13 +118,6 @@ export class RentalSingleFamily {
       return this.monthlyCashFlow;
     }
 
-    if (
-      compareAsc(this.purchaseDate, today) === 1 &&
-      compareAsc(this.soldDate, today) > 1
-    ) {
-      return 0;
-    }
-
     return 0;
   }
 }

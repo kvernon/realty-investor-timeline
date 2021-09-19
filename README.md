@@ -9,9 +9,10 @@ Will be a port of the version 1 at https://bitbucket.org/kellyvernon/realty-gene
 ## Needed things
 
 - Mortgage calc ✔
-- Hard Money Loan calc
 - Rent amount ✔
-- Cash flow
+- Cash flow ✔
 - Equity (simple) ✔
-
-## Future: Need a simple version, which allows for fast calcs
+- TODO: Hard Money Loan calc ✋
+  - What would the transition look like in code?
+- TODO: Cash flow ramp (0 - 3 months depending on rehab, conventional, or existing tenant)
+  - Transition would be around Hard Money vs Conventional
