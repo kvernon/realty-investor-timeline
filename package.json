@@ -6,7 +6,8 @@
   "types": "./src/index.d.ts",
   "scripts": {
     "test": "jest",
-    "eslint:fix": "eslint --config .eslint.js --fix",
+    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx --config .eslintrc.json",
+    "eslint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --config .eslintrc.json --fix",
     "prepare": "husky install"
   },
   "repository": {
@@ -40,7 +41,7 @@
     "typescript": "^4.4.3"
   },
   "lint-staged": {
-    "*.ts": "eslint --config .eslint.js --cache --fix",
+    "*.ts": "eslint --config .eslintrc.json --cache --fix",
     "*.{ts,css,md}": "prettier --write"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import { isEqual } from "date-fns";
+import { isEqual, compareAsc } from "date-fns";
 
 export class RentalSingleFamily {
   /**
@@ -26,7 +26,7 @@ export class RentalSingleFamily {
    */
   rawEquity: number;
 
-  getEquityFromSell(today: Date) {
+  getEquityFromSell(today: Date): number {
     if (!this.soldDate) {
       return 0;
     }
@@ -102,5 +102,29 @@ export class RentalSingleFamily {
       return 0;
     }
     return this.monthlyRentAmount - this.monthlyPrincipalInterestTaxInterest;
+  }
+
+  /**
+   * 1. you must have purchased this home
+   * 2. this home must not have been sold
+   * @param today
+   */
+  getMonthlyCashFlowByDate(today: Date): number {
+    if (!this.purchaseDate) {
+      return 0;
+    }
+
+    if (!this.soldDate && compareAsc(this.purchaseDate, today) === -1) {
+      return this.monthlyCashFlow;
+    }
+
+    if (
+      compareAsc(this.purchaseDate, today) === 1 &&
+      compareAsc(this.soldDate, today) > 1
+    ) {
+      return 0;
+    }
+
+    return 0;
   }
 }

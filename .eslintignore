@@ -5,3 +5,4 @@ dist
 # don't lint nyc coverage output
 coverage
 jest.config.ts
+commitlint.config.js

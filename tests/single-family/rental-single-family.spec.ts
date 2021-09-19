@@ -169,4 +169,93 @@ describe("RentalSingleFamily unit tests", () => {
       });
     });
   });
+
+  describe("and getMonthlyCashFlowByDate", () => {
+    describe("and no purchaseDate", () => {
+      test("should return 0", () => {
+        expect(instance.getMonthlyCashFlowByDate(new Date(Date.now()))).toEqual(
+          0
+        );
+      });
+    });
+    describe("and purchaseDate", () => {
+      beforeEach(() => {
+        const date = new Date(Date.now());
+        const diff = chance.integer({ min: 2, max: 5 });
+
+        date.setUTCFullYear(date.getUTCFullYear() - diff);
+
+        instance.purchaseDate = date;
+      });
+
+      describe("and soldDate falsy", () => {
+        beforeEach(() => {
+          const date = new Date(Date.now());
+          const diff = chance.integer({ min: 2, max: 5 });
+          date.setUTCFullYear(date.getUTCFullYear() - diff);
+
+          instance.purchaseDate = date;
+          instance.rawEquity = chance.integer({ min: 1, max: 1000000 });
+          instance.minSellYears = 1;
+        });
+        describe("and soldDate truthy", () => {
+          beforeEach(() => {
+            instance.soldDate = new Date(
+              instance.purchaseDate.getUTCFullYear() + instance.minSellYears,
+              instance.purchaseDate.getUTCMonth(),
+              1
+            );
+          });
+          describe("and today is before", () => {
+            test("should be 0", () => {
+              const beforeSoldDate = new Date(
+                instance.purchaseDate.getFullYear(),
+                instance.purchaseDate.getMonth() - 1,
+                1
+              );
+
+              expect(instance.getMonthlyCashFlowByDate(beforeSoldDate)).toEqual(
+                0
+              );
+            });
+          });
+          describe("and today is soldDate", () => {
+            test("should be rawEquity", () => {
+              expect(
+                instance.getMonthlyCashFlowByDate(instance.soldDate)
+              ).toEqual(0);
+            });
+          });
+          describe("and today is after", () => {
+            test("should be 0", () => {
+              const monthAfterCanSell = new Date(
+                instance.soldDate.getFullYear(),
+                instance.soldDate.getMonth() - 1,
+                1
+              );
+
+              expect(
+                instance.getMonthlyCashFlowByDate(monthAfterCanSell)
+              ).toEqual(0);
+            });
+          });
+          describe("and falsy soldDate", () => {
+            test("should be 0", () => {
+              instance.soldDate = undefined;
+
+              const monthAfterCanSell = new Date(
+                instance.purchaseDate.getFullYear() + instance.minSellYears,
+                instance.purchaseDate.getMonth() - 1,
+                1
+              );
+
+              expect(
+                instance.getMonthlyCashFlowByDate(monthAfterCanSell)
+              ).toEqual(0);
+            });
+          });
+        });
+      });
+    });
+  });
 });
