@@ -6,3 +6,4 @@ dist
 coverage
 jest.config.ts
 commitlint.config.js
+/dist/

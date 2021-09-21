@@ -1,0 +1,101 @@
+version: 2.1
+
+executors:
+  my-custom-executor:
+    docker:
+      - image: cimg/node:14.17.6
+
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-build-<< pipeline.id >>
+      - run: npm ci
+      - run:
+          name: compiling to javascript
+          command: npm run build
+      - save_cache:
+          paths:
+            - node_modules
+          key: node-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - save_cache:
+          paths:
+            - dist
+          key: node-{{ .Branch }}-build-<< pipeline.id >>
+  lint:
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-build-<< pipeline.id >>
+      - run:
+          name: linting
+          command: npm run eslint
+  unit-test:
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-build-<< pipeline.id >>
+      - run:
+          name: unit testing
+          command:  npm run test
+  publish:
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-build-<< pipeline.id >>
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+      - run:
+          name: Publish package (pack run only)
+          command: npm pack
+#- run:
+#    name: release dry-run
+#    command: CI=true npx semantic-release || true
+# Orchestrate our job run sequence
+workflows:
+  build_lint_test_publish:
+    jobs:
+      - build
+      - lint:
+          requires:
+            - build
+      - unit-test:
+          requires:
+            - lint
+      - publish:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only: master
