@@ -1,15 +1,11 @@
 root = true
 
-[*]
+[{*.cjs,*.js,*.js,*.ts}]
 charset = utf-8
 end_of_line = crlf
-indent_size = 4
+indent_size = 2
 indent_style = space
 insert_final_newline = true
 max_line_length = 120
-tab_width = 4
-trim_trailing_whitespace = true
-
-[{*.cjs,*.js,*.js,*.ts}]
-indent_size = 2
 tab_width = 2
+trim_trailing_whitespace = true
