@@ -98,4 +98,4 @@ workflows:
             - unit-test
           filters:
             branches:
-              only: master
+              only: main
