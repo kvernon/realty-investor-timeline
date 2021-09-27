@@ -81,7 +81,7 @@ jobs:
           command: npm pack
       - run:
           name: release
-          command: CI=false npx semantic-release || true
+          command: CI=false npx semantic-release
 # Orchestrate our job run sequence
 workflows:
   build_lint_test_publish:
