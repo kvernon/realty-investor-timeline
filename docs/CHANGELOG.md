@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/kvernon/realty-investor-timeline/compare/v1.0.1...v1.0.2) (2021-09-27)
+
+
+### Bug Fixes
+
+* access public ([53e595b](https://github.com/kvernon/realty-investor-timeline/commit/53e595ba719f0116a4edafec415292e1e4c83596))
+
 ## [1.0.1](https://github.com/kvernon/realty-investor-timeline/compare/v1.0.0...v1.0.1) (2021-09-27)
 
 
