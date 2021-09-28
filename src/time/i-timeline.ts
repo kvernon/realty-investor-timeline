@@ -1,14 +1,4 @@
-import { IPropertyEntity } from '../single-family/i-property-entity';
-
-export interface IHistoricalReason {
-  reason: string;
-  date: Date;
-}
-
-export interface IHistoricalProperty {
-  property: IPropertyEntity;
-  reasons: IHistoricalReason[];
-}
+import { IHistoricalProperty } from './i-historical-property';
 
 export interface ITimeline {
   startDate: Date;

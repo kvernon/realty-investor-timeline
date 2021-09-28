@@ -1,4 +1,4 @@
-import { RentalSingleFamily } from '../../src/single-family/rental-single-family';
+import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { Chance } from 'chance';
 
 describe('RentalSingleFamily unit tests', () => {
@@ -87,7 +87,7 @@ describe('RentalSingleFamily unit tests', () => {
       instance.purchaseDate = date;
       instance.minSellYears = 1;
 
-      const expectedSellDate = new Date(date.getFullYear() + 1, date.getMonth(), 1);
+      const expectedSellDate = new Date(date.getUTCFullYear() + 1, date.getUTCMonth(), 1);
 
       expect(instance.minSellDate).toEqual(expectedSellDate);
     });

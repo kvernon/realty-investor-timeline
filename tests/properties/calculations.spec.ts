@@ -1,4 +1,4 @@
-import { getMonthlyPrincipalInterestTaxInterest, getMonthlyMortgage } from '../../src/single-family/calculations';
+import { getMonthlyPrincipalInterestTaxInterest, getMonthlyMortgage } from '../../src/properties/calculations';
 
 describe('calculations unit tests', () => {
   describe('and getMonthlyMortgage', () => {
