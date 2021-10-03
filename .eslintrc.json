@@ -1,29 +1,39 @@
 {
-    "$schema": "https://json.schemastore.org/eslintrc.json",
-    "root": true,
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-        "@typescript-eslint",
-        "jest"
+  "$schema": "https://json.schemastore.org/eslintrc.json",
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "jest"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:jest/recommended"
+  ],
+  "rules": {
+    "semi": "off",
+    "@typescript-eslint/semi": [
+      "error"
     ],
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "prettier",
-        "plugin:jest/recommended"
-    ],
-    "rules": {
-        "semi": "off",
-        "@typescript-eslint/semi": [
-            "error"
-        ],
-        "quotes": [
-            2,
-            "single"
-        ]
+    "quotes": [
+      2,
+      "single"
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "tests/**"
+      ],
+      "rules": {
+        "@typescript-eslint/no-var-requires": 0
+      }
     }
+  ]
 }

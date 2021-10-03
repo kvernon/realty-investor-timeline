@@ -1,25 +1,25 @@
 jest.mock('../../src/caching/value-cache');
 jest.mock('../../src/utils/data-number');
-jest.mock('../../src/single-family/rental-single-family');
+jest.mock('../../src/properties/rental-single-family');
 
 import { RentalGenerator } from '../../src/generators/rental-generator';
 import { ValueCache } from '../../src/caching/value-cache';
-import { RentalSingleFamily } from '../../src/single-family/rental-single-family';
+import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import * as DataNumbers from '../../src/utils/data-number';
-import * as DataProperty from '../../src/utils/data-property-entity';
+import { GenerateProperty } from '../../src/generators/factory-single-family';
 
 describe('Rental Generator tests', () => {
   let randomNumberBetween: jest.SpyInstance<number, [start: number, end: number]>;
-  let randomPropertyEntity: jest.SpyInstance;
+  let generic: jest.MockedFunction<GenerateProperty<RentalSingleFamily>>;
 
   beforeEach(() => {
     randomNumberBetween = jest.spyOn(DataNumbers, 'randomNumberBetween');
-    randomPropertyEntity = jest.spyOn(DataProperty, 'randomPropertyEntity');
+    generic = jest.fn();
   });
 
   afterEach(() => {
     randomNumberBetween = null;
-    randomPropertyEntity = null;
+    generic = null;
     jest.resetAllMocks();
     jest.resetAllMocks();
   });
@@ -30,8 +30,8 @@ describe('Rental Generator tests', () => {
         const valueCache = new ValueCache(null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
         const expectedValue: RentalSingleFamily[] = [];
         valueCache.getValue.mockReturnValue(expectedValue);
-        const gen = new RentalGenerator(valueCache);
-        expect(gen.getRentals(RentalSingleFamily)).toEqual(expectedValue);
+        const gen = new RentalGenerator(valueCache, generic);
+        expect(gen.getRentals(RentalSingleFamily, [])).toEqual(expectedValue);
       });
     });
 
@@ -41,11 +41,11 @@ describe('Rental Generator tests', () => {
 
         randomNumberBetween.mockReturnValueOnce(maxRentalOpportunities);
 
-        randomPropertyEntity.mockReturnValueOnce({});
-        randomPropertyEntity.mockReturnValueOnce({});
-        randomPropertyEntity.mockReturnValueOnce({});
-        randomPropertyEntity.mockReturnValueOnce({});
-        randomPropertyEntity.mockReturnValueOnce({});
+        generic.mockReturnValueOnce(new RentalSingleFamily());
+        generic.mockReturnValueOnce(new RentalSingleFamily());
+        generic.mockReturnValueOnce(new RentalSingleFamily());
+        generic.mockReturnValueOnce(new RentalSingleFamily());
+        generic.mockReturnValueOnce(new RentalSingleFamily());
 
         const expected = [
           new RentalSingleFamily(),
@@ -58,10 +58,10 @@ describe('Rental Generator tests', () => {
         const valueCache = new ValueCache(null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
         const emptyExpected: RentalSingleFamily[] = [];
         valueCache.getValue.mockReturnValue(emptyExpected);
-        const gen = new RentalGenerator(valueCache);
+        const gen = new RentalGenerator(valueCache, generic);
         gen.maxRentalOpportunities = maxRentalOpportunities;
 
-        const actual = gen.getRentals(RentalSingleFamily);
+        const actual = gen.getRentals(RentalSingleFamily, []);
         expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
       });
 
@@ -73,10 +73,10 @@ describe('Rental Generator tests', () => {
         const valueCache = new ValueCache(null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
         valueCache.getValue.mockReturnValue(expected);
 
-        const gen = new RentalGenerator(valueCache);
+        const gen = new RentalGenerator(valueCache, generic);
         gen.maxRentalOpportunities = maxRentalOpportunities;
 
-        const actual = gen.getRentals(RentalSingleFamily);
+        const actual = gen.getRentals(RentalSingleFamily, []);
         expect(actual).toEqual(expected);
       });
 
@@ -84,7 +84,7 @@ describe('Rental Generator tests', () => {
         test('and threshold within range', () => {
           const maxRentalOpportunities = 2;
 
-          randomPropertyEntity.mockReturnValueOnce({});
+          generic.mockReturnValueOnce(new RentalSingleFamily());
 
           // totalRandom
           randomNumberBetween.mockReturnValueOnce(1);
@@ -110,7 +110,7 @@ describe('Rental Generator tests', () => {
           const expected = [new RentalSingleFamily()];
           valueCache.getValue.mockReturnValue(expected);
 
-          const gen = new RentalGenerator(valueCache);
+          const gen = new RentalGenerator(valueCache, generic);
           gen.maxRentalOpportunities = maxRentalOpportunities;
 
           gen.lowestPriceDown = 200;
@@ -119,7 +119,7 @@ describe('Rental Generator tests', () => {
           gen.lowestMinSellInYears = 5;
           gen.highestMinSellInYears = 8;
 
-          const actual = gen.getRentals(RentalSingleFamily);
+          const actual = gen.getRentals(RentalSingleFamily, []);
           expect(actual).toEqual(expected);
         });
       });

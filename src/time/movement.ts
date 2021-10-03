@@ -2,8 +2,9 @@ import { ITimeline } from './i-timeline';
 import { IUserGoal } from '../account/i-user-goal';
 import { HasMetGoalOrMaxTime } from './has-met-goal-or-max-time';
 import { defaultHasMetGoalOrMaxTime } from './default-has-met-goal-or-max-time';
-import { RentalSingleFamily } from '../single-family/rental-single-family';
+import { RentalSingleFamily } from '../properties/rental-single-family';
 import { IRentalGenerator } from '../generators/rental-generator';
+import { IUser } from '../account/i-user';
 
 export interface ILoopOptions {
   startDate: Date;
@@ -13,7 +14,7 @@ export interface ILoopOptions {
   propertyGeneratorSingleFamily: IRentalGenerator<RentalSingleFamily>;
 }
 
-export function loop(options: ILoopOptions): ITimeline {
+export function loop(options: ILoopOptions, user: IUser): ITimeline {
   if (!options.hasMetGoalOrMaxTime) {
     options.hasMetGoalOrMaxTime = defaultHasMetGoalOrMaxTime;
   }
@@ -33,12 +34,14 @@ export function loop(options: ILoopOptions): ITimeline {
     result.endDate = new Date(today.getTime());
 
     if (result.rentals.length === 0) {
-      result.rentals = options.propertyGeneratorSingleFamily.getRentals(RentalSingleFamily).map((p) => ({
-        property: p,
-        reasons: [],
-      }));
+      result.rentals = options.propertyGeneratorSingleFamily
+        .getRentals(RentalSingleFamily, user.loanSettings)
+        .map((p) => ({
+          property: p,
+          reasons: [],
+        }));
     } else {
-      options.propertyGeneratorSingleFamily.getRentals(RentalSingleFamily).forEach((x) => {
+      options.propertyGeneratorSingleFamily.getRentals(RentalSingleFamily, user.loanSettings).forEach((x) => {
         if (!result.rentals.some((historicalProps) => historicalProps.property.id === x.id)) {
           result.rentals.push({ property: x, reasons: [] });
         }

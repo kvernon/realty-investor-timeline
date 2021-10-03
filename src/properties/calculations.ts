@@ -14,8 +14,7 @@ export function getMonthlyPrincipalInterestTaxInterest(
   loanTermInYears = 30
 ): number {
   const avgTexasPropertyTaxPercent = 2.19;
-  const annualTaxes: number =
-    (purchasePrice * avgTexasPropertyTaxPercent) / 100;
+  const annualTaxes: number = (purchasePrice * avgTexasPropertyTaxPercent) / 100;
 
   const fakeRateCalculation = 0.0053097345132743;
   const annualInsurance: number = purchasePrice * fakeRateCalculation;

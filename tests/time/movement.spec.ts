@@ -1,19 +1,26 @@
 import { ILoopOptions, loop } from '../../src/time/movement';
 import { Chance } from 'chance';
-import { IHistoricalProperty, ITimeline } from '../../src/time/i-timeline';
-import { RentalSingleFamily } from '../../src/single-family/rental-single-family';
+import { ITimeline } from '../../src/time/i-timeline';
+import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { IRentalGenerator } from '../../src/generators/rental-generator';
+import { IHistoricalProperty } from '../../src/time/i-historical-property';
+import { IUser } from '../../src/account/i-user';
 
 describe('movement unit tests', () => {
   let chance: Chance.Chance;
   let rentalGenerator: jest.Mocked<IRentalGenerator<RentalSingleFamily>>;
+  let user: jest.Mocked<IUser>;
 
   beforeEach(() => {
     chance = new Chance();
+    user = {
+      loanSettings: [],
+    } as jest.Mocked<IUser>;
   });
 
   afterEach(() => {
     chance = null;
+    user = null;
     rentalGenerator = null;
   });
 
@@ -52,7 +59,7 @@ describe('movement unit tests', () => {
           propertyGeneratorSingleFamily: rentalGenerator,
         };
 
-        expect(loop(options)).toEqual(expected);
+        expect(loop(options, user)).toEqual(expected);
       });
     });
 
@@ -84,7 +91,8 @@ describe('movement unit tests', () => {
           rentals: [],
         };
 
-        expect(loop(options)).toEqual(expected);
+        expect(loop(options, user)).toEqual(expected);
+        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, user.loanSettings);
       });
 
       test('should add rentals', () => {
@@ -98,7 +106,8 @@ describe('movement unit tests', () => {
 
         rentalGenerator.getRentals.mockReturnValue(<RentalSingleFamily[]>rentalSingleFamilies.map((x) => x.property));
 
-        expect(loop(options).rentals).toEqual(rentalSingleFamilies);
+        expect(loop(options, user).rentals).toEqual(rentalSingleFamilies);
+        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, user.loanSettings);
       });
 
       test('should contain no duplicate rentals', () => {
@@ -137,7 +146,8 @@ describe('movement unit tests', () => {
         );
 
         const expected = rentalSingleFamiliesOne.concat(rentalSingleFamiliesTwo);
-        expect(loop(options).rentals).toEqual(expected);
+        expect(loop(options, user).rentals).toEqual(expected);
+        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, user.loanSettings);
       });
     });
   });

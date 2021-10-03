@@ -1,7 +1,8 @@
 import { compareAsc, isEqual } from 'date-fns';
-import { IPropertyEntity } from './i-property-entity';
+import { IEntityExistence, IPropertyEntity } from './i-property-entity';
 import cloneDeep from 'lodash.clonedeep';
-export class RentalSingleFamily implements IPropertyEntity {
+
+export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
   /**
    * unique identifier
    */
