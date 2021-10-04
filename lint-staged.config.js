@@ -1,7 +1,7 @@
 module.exports = {
   '*.ts': [
   'eslint --config .eslintrc.json --cache --fix',
-  'npm run test:related -- '
+  'jest --findRelatedTests'
 ],
   '*.{ts,css,md}': 'prettier --write'
 };

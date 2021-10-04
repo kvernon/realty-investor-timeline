@@ -1,8 +1,8 @@
-export enum GoalRuleTypes {
+export enum PurchaseRuleTypes {
   none = 'none',
   minAfterRepairPrice = 'minAfterRepairPrice',
   minAskingPrice = 'minAskingPrice',
   maxEstimatedOutOfPocket = 'maxEstimatedOutOfPocket',
-  minEstimatedCashflowPerMonth = 'minEstimatedCashflowPerMonth',
+  minEstimatedCashFlowPerMonth = 'minEstimatedCashFlowPerMonth',
   minEstimatedCapitalGains = 'minEstimatedCapitalGains',
 }
