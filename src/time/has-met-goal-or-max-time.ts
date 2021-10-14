@@ -1,6 +1,6 @@
-import { IUserGoal } from '../account/i-user-goal';
+import { IUser } from '../account/i-user';
 
 /**
- * a way to determine if the loop should end based on the user's goals
+ * a way to determine if the loop should end based on the user's rules
  */
-export type HasMetGoalOrMaxTime = (start: Date, today: Date, user: IUserGoal, maxYears: number) => boolean;
+export type HasMetGoalOrMaxTime = (start: Date, today: Date, user: IUser, maxYears: number) => boolean;

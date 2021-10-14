@@ -5,6 +5,10 @@ import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { IRentalGenerator } from '../../src/generators/rental-generator';
 import { IHistoricalProperty } from '../../src/time/i-historical-property';
 import { IUser } from '../../src/account/i-user';
+import { IUserGoal } from '../../src/account/i-user-goal';
+import { ILedgerCollection } from '../../src/ledger/ledger-collection';
+import { LedgerItem } from '../../src/ledger/ledger-item';
+import { LedgerItemType } from '../../src/ledger/ledger-item-type';
 
 describe('movement unit tests', () => {
   let chance: Chance.Chance;
@@ -13,8 +17,23 @@ describe('movement unit tests', () => {
 
   beforeEach(() => {
     chance = new Chance();
+
+    const goals: jest.Mocked<IUserGoal> = {
+      metMonthlyGoal: jest.fn(),
+      monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
+    } as jest.Mocked<IUserGoal>;
+
+    const ledger: jest.Mocked<Partial<ILedgerCollection>> = {
+      add: jest.fn(),
+    } as jest.Mocked<Partial<ILedgerCollection>>;
+
     user = {
+      ledger,
+      goals,
       loanSettings: [],
+      getLedgerBalance: jest.fn(),
+      hasMoneyToInvest: jest.fn(),
+      monthlySavedAmount: chance.integer({ min: 1, max: 10 }),
     } as jest.Mocked<IUser>;
   });
 
@@ -37,6 +56,7 @@ describe('movement unit tests', () => {
         startDate: new Date(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1),
         endDate: new Date(startDate.getUTCFullYear() + maxYears, startDate.getUTCMonth(), 1),
         rentals: [],
+        user,
       };
 
       rentalGenerator = {
@@ -46,20 +66,36 @@ describe('movement unit tests', () => {
     });
 
     describe('and default while check', () => {
-      test('should loop maxYears times 12 months', () => {
+      let options: ILoopOptions;
+
+      beforeEach(() => {
         rentalGenerator.getRentals.mockReturnValue([]);
 
-        const options: ILoopOptions = {
+        options = {
           startDate,
-          goal: {
-            metMonthlyGoal: jest.fn(),
-            monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
-          },
           maxYears,
           propertyGeneratorSingleFamily: rentalGenerator,
         };
+      });
+
+      test('should loop maxYears times 12 months', () => {
+        expect(loop(options, user)).toEqual(expected);
+
+        const ledgerItem = new LedgerItem();
+        ledgerItem.amount = user.monthlySavedAmount;
+        ledgerItem.type = LedgerItemType.Salary;
+        ledgerItem.note = 'saved for month';
+
+        expect(user.ledger.add).toHaveBeenNthCalledWith(maxYears * 12, expect.objectContaining(ledgerItem));
+        expect(user.ledger.add).toBeCalledTimes(maxYears * 12);
+      });
+
+      test('and no monthlySavedAmount, should loop maxYears times 12 months', () => {
+        user.monthlySavedAmount = 0;
 
         expect(loop(options, user)).toEqual(expected);
+
+        expect(user.ledger.add).not.toBeCalled();
       });
     });
 
@@ -71,10 +107,6 @@ describe('movement unit tests', () => {
         hasMetGoalOrMaxTime = jest.fn();
         options = {
           startDate,
-          goal: {
-            metMonthlyGoal: jest.fn(),
-            monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
-          },
           maxYears,
           hasMetGoalOrMaxTime,
           propertyGeneratorSingleFamily: rentalGenerator,
@@ -89,6 +121,7 @@ describe('movement unit tests', () => {
           startDate: new Date(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1),
           endDate: new Date(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1),
           rentals: [],
+          user,
         };
 
         expect(loop(options, user)).toEqual(expected);

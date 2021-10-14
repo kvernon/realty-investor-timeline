@@ -153,6 +153,18 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
     return 0;
   }
 
+  getMonthlyPrincipalInterestTaxInterestByDate(today: Date): number {
+    if (!this.purchaseDate) {
+      return 0;
+    }
+
+    if (!this.soldDate && compareAsc(this.purchaseDate, today) === -1) {
+      return this.monthlyPrincipalInterestTaxInterest;
+    }
+
+    return 0;
+  }
+
   /**
    * make a copy
    */
