@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.1.0...v1.2.0) (2021-10-14)
+
+
+### Features
+
+* created ledger ([7c08707](https://github.com/kvernon/realty-investor-timeline/commit/7c08707f956c0a8222418b9999c87f8ebe3e5608))
+
 # [1.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.0.2...v1.1.0) (2021-10-03)
 
 
