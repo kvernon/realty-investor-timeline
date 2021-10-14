@@ -173,6 +173,108 @@ describe('RentalSingleFamily unit tests', () => {
     });
   });
 
+  describe('and isAvailableByDate', () => {
+    describe('and no availableStartDate', () => {
+      test('should be false', () => {
+        expect(instance.isAvailableByDate(new Date())).toBeFalsy();
+      });
+    });
+    describe('and no availableEndDate', () => {
+      test('should be false', () => {
+        instance.availableStartDate = new Date();
+        expect(instance.isAvailableByDate(new Date())).toBeFalsy();
+      });
+    });
+    describe('and availableStartDate and availableEndDate', () => {
+      describe('and today in range', () => {
+        test('should be true', () => {
+          instance.availableStartDate = new Date();
+          instance.availableEndDate = new Date(instance.availableStartDate.getTime());
+          instance.availableEndDate.setUTCFullYear(instance.availableStartDate.getUTCFullYear() + 1);
+
+          const today = new Date(instance.availableStartDate);
+          today.setUTCMonth(today.getUTCMonth() + 4);
+
+          expect(instance.isAvailableByDate(today)).toBeTruthy();
+        });
+      });
+      describe('and today out of range', () => {
+        test('should be false', () => {
+          instance.availableStartDate = new Date();
+          instance.availableEndDate = new Date(instance.availableStartDate.getTime());
+          instance.availableEndDate.setUTCFullYear(instance.availableStartDate.getUTCFullYear() + 1);
+
+          const today = new Date(instance.availableEndDate);
+          today.setUTCMonth(today.getUTCMonth() + 4);
+
+          expect(instance.isAvailableByDate(today)).toBeFalsy();
+        });
+      });
+    });
+  });
+
+  describe('and isOwned', () => {
+    describe('and no purchaseDate and no soldDate', () => {
+      test('should be false', () => {
+        expect(instance.isOwned).toBeFalsy();
+      });
+    });
+
+    describe('and no purchaseDate and soldDate', () => {
+      test('should be false', () => {
+        instance.soldDate = new Date();
+        expect(instance.isOwned).toBeFalsy();
+      });
+    });
+
+    describe('and purchaseDate and no soldDate', () => {
+      test('should be true', () => {
+        instance.purchaseDate = new Date();
+        expect(instance.isOwned).toBeTruthy();
+      });
+    });
+  });
+
+  describe('and getMonthlyPrincipalInterestTaxInterestByDate', () => {
+    describe('and no purchaseDate', () => {
+      test('should be 0', () => {
+        expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(new Date())).toEqual(0);
+      });
+    });
+    describe('and purchaseDate', () => {
+      describe('and soldDate', () => {
+        describe('and today after purchaseDate', () => {
+          test('should be 0', () => {
+            instance.purchaseDate = new Date();
+            instance.soldDate = new Date();
+            expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(new Date())).toEqual(0);
+          });
+        });
+        describe('and today before purchaseDate', () => {
+          test('should be 0', () => {
+            instance.purchaseDate = new Date();
+            instance.soldDate = new Date();
+
+            const today = new Date(instance.purchaseDate.getTime());
+            today.setUTCFullYear(instance.purchaseDate.getUTCFullYear() - 2);
+
+            expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(today)).toEqual(0);
+          });
+        });
+      });
+
+      describe('and no soldDate', () => {
+        test('should be 0', () => {
+          instance.purchaseDate = new Date();
+          instance.monthlyPrincipalInterestTaxInterest = chance.integer({ min: 9, max: 900 });
+          expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(new Date())).toEqual(
+            instance.monthlyPrincipalInterestTaxInterest
+          );
+        });
+      });
+    });
+  });
+
   describe('and getMonthlyCashFlowByDate', () => {
     describe('and no purchaseDate', () => {
       test('should return 0', () => {

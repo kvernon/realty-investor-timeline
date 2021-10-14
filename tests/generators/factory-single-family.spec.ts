@@ -34,7 +34,7 @@ describe('factory-single-family unit tests', () => {
 
       const genericGenerateProperty = jest.fn().mockReturnValueOnce(entity);
 
-      jest.doMock('../../src/properties/calculations', () => ({
+      jest.doMock('../../src/calculations/get-monthly-principal-interest-tax-interest', () => ({
         getMonthlyPrincipalInterestTaxInterest,
       }));
 

@@ -1,5 +1,7 @@
+import { getMonthlyMortgage } from './get-monthly-mortgage';
+
 /**
- *
+ * This gets you PITI!
  * @param purchasePrice
  * @param cashDownPercent
  * @param closingCostPercent
@@ -27,28 +29,4 @@ export function getMonthlyPrincipalInterestTaxInterest(
     loanTermInYears
   );
   return monthlyMortgage + annualTaxes / 12 + annualInsurance / 12;
-}
-
-/**
- *
- * @param purchasePrice
- * @param cashDownPercent
- * @param closingCostPercent
- * @param loanRatePercent
- * @param loanTermInYears
- */
-export function getMonthlyMortgage(
-  purchasePrice: number,
-  cashDownPercent: number,
-  closingCostPercent: number,
-  loanRatePercent: number,
-  loanTermInYears = 30
-): number {
-  //formula for M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1].
-  const cashDown = (purchasePrice * cashDownPercent) / 100;
-  const p = purchasePrice - cashDown;
-  const i = loanRatePercent / 100 / 12;
-  const n = loanTermInYears * 12;
-
-  return (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
 }

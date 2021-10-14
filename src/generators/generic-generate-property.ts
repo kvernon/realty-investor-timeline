@@ -1,7 +1,6 @@
 import { IEntityExistence, IPropertyEntity } from '../properties';
 import { IPropertyEntityOptions } from './i-property-entity-options';
-import { randomPropertyEntity } from '../utils';
-import { ILoanSetting } from '../account/i-loan-settings';
+import { randomPropertyEntity } from '../utils/data-property-entity';
 
 /**
  * used to dynamically create a rental and hydrate it

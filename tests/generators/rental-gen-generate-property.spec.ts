@@ -25,6 +25,7 @@ describe('generateProperty unit tests', () => {
     test('should throw', () => {
       expect(() =>
         genericGenerateProperty(RentalSingleFamily, null, {
+          isAvailableByDate: jest.fn(),
           availableEndDate: new Date(),
           availableStartDate: new Date(),
         })

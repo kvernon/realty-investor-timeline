@@ -1,17 +1,17 @@
-import { IPropertyEntity } from '../properties/i-property-entity';
-import { IValueCache } from '../caching/value-cache';
-import { randomNumberBetween } from '../utils/data-number';
-import { IPropertyEntityOptions } from './i-property-entity-options';
 import { GenerateProperty } from './factory-single-family';
+import { IPropertyEntityOptions } from './i-property-entity-options';
 import { ILoanSetting } from '../account/i-loan-settings';
+import { IValueCache } from '../caching/value-cache';
+import { IRentalPropertyEntity } from '../properties/i-rental-property-entity';
+import { randomNumberBetween } from '../utils/data-number';
 
-export interface IRentalGenerator<T extends IPropertyEntity> {
+export interface IRentalGenerator<T extends IRentalPropertyEntity> {
   getRentals(rentalClassType: new () => T, settings?: ILoanSetting[], today?: Date): T[];
 
   removeRentalById(id: string, rentalClassType: new () => T, today?: Date): void;
 }
 
-export class RentalGenerator<T extends IPropertyEntity> implements IPropertyEntityOptions, IRentalGenerator<T> {
+export class RentalGenerator<T extends IRentalPropertyEntity> implements IPropertyEntityOptions, IRentalGenerator<T> {
   public maxRentalOpportunities: number;
 
   public lowestPriceDown: number;
@@ -70,6 +70,7 @@ export class RentalGenerator<T extends IPropertyEntity> implements IPropertyEnti
         this.generateProperty(
           this,
           {
+            isAvailableByDate: jest.fn(),
             availableEndDate: this.rentalCache.expireDate,
             availableStartDate: today,
           },

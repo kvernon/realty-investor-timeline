@@ -1,3 +1,5 @@
+jest.mock('../../src/properties/rental-single-family');
+
 import { ILoopOptions, loop } from '../../src/time/movement';
 import { Chance } from 'chance';
 import { ITimeline } from '../../src/time/i-timeline';
@@ -30,9 +32,10 @@ describe('movement unit tests', () => {
     user = {
       ledger,
       goals,
+      purchaseRules: [],
       loanSettings: [],
       getLedgerBalance: jest.fn(),
-      hasMoneyToInvest: jest.fn(),
+      hasMoneyToInvest: jest.fn().mockReturnValue(true),
       monthlySavedAmount: chance.integer({ min: 1, max: 10 }),
     } as jest.Mocked<IUser>;
   });
@@ -47,17 +50,21 @@ describe('movement unit tests', () => {
     let maxYears: number;
     let startDate: Date;
     let expected: ITimeline;
-
+    let rental: jest.Mocked<RentalSingleFamily>;
+    let expectedCashFlow: number;
     beforeEach(() => {
       maxYears = chance.integer({ min: 1, max: 2 });
       startDate = new Date(Date.now());
 
-      expected = {
-        startDate: new Date(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1),
-        endDate: new Date(startDate.getUTCFullYear() + maxYears, startDate.getUTCMonth(), 1),
-        rentals: [],
-        user,
-      };
+      rental = new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
+      expectedCashFlow = chance.integer({ min: 100, max: 200 });
+      rental.getMonthlyCashFlowByDate.mockReturnValue(expectedCashFlow);
+      rental.id = 'rental.id';
+      rental.address = 'rental.address';
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      rental.isOwned = true;
 
       rentalGenerator = {
         getRentals: jest.fn(),
@@ -69,8 +76,6 @@ describe('movement unit tests', () => {
       let options: ILoopOptions;
 
       beforeEach(() => {
-        rentalGenerator.getRentals.mockReturnValue([]);
-
         options = {
           startDate,
           maxYears,
@@ -79,18 +84,40 @@ describe('movement unit tests', () => {
       });
 
       test('should loop maxYears times 12 months', () => {
+        expected = {
+          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
+          endDate: new Date(Date.UTC(startDate.getUTCFullYear() + maxYears, startDate.getUTCMonth(), 1)),
+          rentals: [{ property: rental, reasons: [] }],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
         expect(loop(options, user)).toEqual(expected);
 
-        const ledgerItem = new LedgerItem();
-        ledgerItem.amount = user.monthlySavedAmount;
-        ledgerItem.type = LedgerItemType.Salary;
-        ledgerItem.note = 'saved for month';
+        const ledgerItemSalary = new LedgerItem();
+        ledgerItemSalary.amount = user.monthlySavedAmount;
+        ledgerItemSalary.type = LedgerItemType.Salary;
+        ledgerItemSalary.note = 'saved for month';
 
-        expect(user.ledger.add).toHaveBeenNthCalledWith(maxYears * 12, expect.objectContaining(ledgerItem));
-        expect(user.ledger.add).toBeCalledTimes(maxYears * 12);
+        const ledgerItemCashFlow = new LedgerItem();
+        ledgerItemCashFlow.amount = rental.getMonthlyCashFlowByDate(null);
+        ledgerItemCashFlow.type = LedgerItemType.CashFlow;
+        ledgerItemCashFlow.note = `for: ${rental.address}, id: ${rental.id}`;
+
+        expect(user.ledger.add).toHaveBeenNthCalledWith(maxYears * 12, expect.objectContaining(ledgerItemCashFlow));
+        expect(user.ledger.add).toHaveBeenNthCalledWith(23, expect.objectContaining(ledgerItemSalary));
       });
 
       test('and no monthlySavedAmount, should loop maxYears times 12 months', () => {
+        expected = {
+          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
+          endDate: new Date(Date.UTC(startDate.getUTCFullYear() + maxYears, startDate.getUTCMonth(), 1)),
+          rentals: [],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([]);
+
         user.monthlySavedAmount = 0;
 
         expect(loop(options, user)).toEqual(expected);
@@ -118,8 +145,8 @@ describe('movement unit tests', () => {
         hasMetGoalOrMaxTime.mockReturnValueOnce(true);
 
         const expected: ITimeline = {
-          startDate: new Date(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1),
-          endDate: new Date(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1),
+          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
+          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1)),
           rentals: [],
           user,
         };
@@ -181,6 +208,54 @@ describe('movement unit tests', () => {
         const expected = rentalSingleFamiliesOne.concat(rentalSingleFamiliesTwo);
         expect(loop(options, user).rentals).toEqual(expected);
         expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, user.loanSettings);
+      });
+
+      test('and properties to sell, should do it', () => {
+        hasMetGoalOrMaxTime.mockReturnValueOnce(true);
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        rental.isOwned = true;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        rental.minSellDate = new Date(rental.purchaseDate);
+        rental.canSell.mockReturnValueOnce(true);
+        rental.getEquityFromSell.mockReturnValueOnce(22222);
+
+        rentalGenerator.getRentals.mockReturnValueOnce([rental]);
+
+        expected = {
+          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
+          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1)),
+          rentals: [
+            {
+              property: rental,
+              reasons: [],
+            },
+          ],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+
+        user.monthlySavedAmount = 0;
+
+        expect(loop(options, user)).toEqual(expected);
+
+        const ledgerCashflow = new LedgerItem();
+        ledgerCashflow.amount = expectedCashFlow;
+        ledgerCashflow.created = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1));
+        ledgerCashflow.note = 'for: rental.address, id: rental.id';
+        ledgerCashflow.type = LedgerItemType.CashFlow;
+
+        const ledgerEquity = new LedgerItem();
+        ledgerEquity.amount = 22222;
+        ledgerEquity.created = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1));
+        ledgerEquity.note = 'for: rental.address, id: rental.id';
+        ledgerEquity.type = LedgerItemType.Equity;
+
+        expect(user.ledger.add).toBeCalledWith(ledgerCashflow);
+        expect(user.ledger.add).toBeCalledWith(ledgerEquity);
       });
     });
   });
