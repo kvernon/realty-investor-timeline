@@ -1,11 +1,12 @@
-import { RentalSingleFamily } from '../properties/rental-single-family';
 import { genericGenerateProperty } from './generic-generate-property';
 import { IPropertyEntityOptions } from './i-property-entity-options';
-import { getMonthlyPrincipalInterestTaxInterest } from '../properties/calculations';
-import { IEntityExistence, IPropertyEntity } from '../properties/i-property-entity';
 import { ILoanSetting } from '../account/i-loan-settings';
-import { PropertyType } from '../account/property-type';
 import { LoanSettings } from '../account/loan-settings';
+import { PropertyType } from '../account/property-type';
+import { IEntityExistence } from '../properties/i-entity-existence';
+import { IPropertyEntity } from '../properties/i-property-entity';
+import { RentalSingleFamily } from '../properties/rental-single-family';
+import { getMonthlyPrincipalInterestTaxInterest } from '../calculations/get-monthly-principal-interest-tax-interest';
 
 export type GenerateProperty<T extends IPropertyEntity> = (
   options: IPropertyEntityOptions,

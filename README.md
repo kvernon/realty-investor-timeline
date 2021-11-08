@@ -55,7 +55,7 @@ This project _sports_ a non gitflow workflow.
 
 #### Branches
 
-`Main` and `feature/*`
+`main` and `feature/*`
 
 #### The (CI/CD) Flow
 
@@ -78,15 +78,42 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
   - Transition would be around Hard Money vs Conventional
 - TODO: delay 1st mortgage payment
 - TODO: figure out 1031 exchange
-- TODO: Determine how long to hold onto a property
 
 ## Missing features
 
-1. publisher
-2. user
-3. apartments (passive investing)
-4. ledger
+1. user
+2. apartments (passive investor)
 
 ## Future
 
 - Refine the build process to remove /dist/src from library drill down
+
+## calling
+
+As this is still in progress, the current flow is as follows:
+
+```typescript
+import * as all from "@cubedelement.com/realty-investor-timeline";
+
+const metGoal: all.HasMetGoalOrMaxTime = (
+  start: Date,
+  today: Date,
+  user: all.IUser,
+  maxYears: number
+): boolean => {
+  if (user.goals.metMonthlyGoal(today)) {
+    return true;
+  }
+
+  return false;
+};
+
+const results = all.loop(
+  {
+    startDate: new Date(),
+    maxYears: 30,
+    hasMetGoalOrMaxTime: metGoal,
+  },
+  user
+);
+```

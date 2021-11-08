@@ -1,8 +1,18 @@
+import 'reflect-metadata';
 import { compareAsc, isEqual } from 'date-fns';
-import { IEntityExistence, IPropertyEntity } from './i-property-entity';
 import cloneDeep from 'lodash.clonedeep';
+import { IEntityExistence } from './i-entity-existence';
+import { IRentalPropertyEntity } from './i-rental-property-entity';
+import { IRentalSavings } from './i-rental-savings';
+import { InvestmentReason } from '../investments/investment-reasons-decorator';
+import { InvestmentReasons } from '../investments/investment-reasons';
+import { IRentalInvestorValidator } from '../investments/rental-investor-validator';
+import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
+import { canInvestByUser } from '../calculations/can-invest-by-user';
+import { UserInvestResult } from '../investments';
+import { IUserInvestorCheck } from '../account/i-user-investor-check';
 
-export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
+export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRentalPropertyEntity {
   /**
    * unique identifier
    */
@@ -22,6 +32,25 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
    */
   availableEndDate: Date;
 
+  isAvailableByDate(today: Date): boolean {
+    return compareAsc(this.availableStartDate, today) === -1 && compareAsc(today, this.availableEndDate) === -1;
+  }
+
+  @InvestmentReason(InvestmentReasons.PropertyIsAlreadyOwned)
+  get isOwned(): boolean {
+    return this.purchaseDate && !this.soldDate;
+  }
+
+  /**
+   * get a user, and other owned properties, to determine if a user can invest
+   * @param user
+   * @param date
+   * @param properties
+   */
+  canInvestByUser(user: IUserInvestorCheck, date: Date, properties: IRentalSavings[]): IRentalInvestorValidator {
+    return canInvestByUser(this, user, date, properties);
+  }
+
   /**
    * At the time of purchase the ARV of the property
    */
@@ -32,12 +61,19 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
    */
   sellPriceAppreciationPercent = 4;
 
-  /**
-   * lame way to apply {@link sellPriceAppreciationPercent} to rolling over the years the property was owned
-   * @param today
-   */
-  sellPriceByDate(today: Date): number {
-    const differenceInYears = today.getUTCFullYear() - this.purchaseDate.getUTCFullYear();
+  @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, PurchaseRuleTypes.minEstimatedCapitalGains)
+  get projectedEquityCapture(): number {
+    return this.purchasePrice - this.sellPriceInOneYear;
+  }
+
+  private get sellPriceInOneYear(): number {
+    const date = new Date(this.purchaseDate);
+    date.setUTCFullYear(this.purchaseDate.getUTCFullYear() + 1);
+    return this.getSellPriceEstimate(this.purchaseDate, date);
+  }
+
+  private getSellPriceEstimate(purchase: Date, sell: Date): number {
+    const differenceInYears = sell.getUTCFullYear() - purchase.getUTCFullYear();
 
     let result = this.purchasePrice;
     for (let i = 0; i < differenceInYears; i++) {
@@ -45,6 +81,14 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
     }
 
     return result;
+  }
+
+  /**
+   * lame way to apply {@link sellPriceAppreciationPercent} to rolling over the years the property was owned
+   * @param today
+   */
+  sellPriceByDate(today: Date): number {
+    return this.getSellPriceEstimate(this.purchaseDate, today);
   }
 
   /**
@@ -57,11 +101,19 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
    */
   cashDownPercent: number;
 
+  get costDownPrice(): number {
+    return this.purchasePrice * this.costDownPrice;
+  }
+
   /**
    * total rent price of the property
    */
   monthlyRentAmount: number;
 
+  /**
+   * Determines the equity of a sale by date. Note: {@link soldDate} must be populated and today and it must match
+   * @param today
+   */
   getEquityFromSell(today: Date): number {
     if (!this.soldDate) {
       return 0;
@@ -74,6 +126,11 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
     return 0;
   }
 
+  /**
+   * returns a UTC date from date supplied where it is {@code new Date(value.getUTCFullYear(), value.getUTCMonth(), 1)}
+   * @param value
+   * @private
+   */
   private getMinimalDate(value: Date | undefined): Date | undefined {
     if (!value) {
       return undefined;
@@ -122,6 +179,18 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
    */
   minSellYears = 0;
 
+  /**
+   * looks at {@link isOwned} and also compares dates to see if the property can sell;
+   * @param today
+   */
+  canSell(today: Date): boolean {
+    if (!this.isOwned) {
+      return false;
+    }
+
+    return compareAsc(this.minSellDate, today) !== -1 || isEqual(this.minSellDate, today);
+  }
+
   get minSellDate(): Date {
     return new Date(this.purchaseDate.getUTCFullYear() + this.minSellYears, this.purchaseDate.getUTCMonth(), 1);
   }
@@ -129,6 +198,7 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
   /**
    * the rent minus monthly payment, default is zero
    */
+  @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, PurchaseRuleTypes.minEstimatedCashFlowPerMonth)
   get monthlyCashFlow(): number {
     if (!this.monthlyRentAmount || !this.monthlyPrincipalInterestTaxInterest) {
       return 0;
@@ -153,6 +223,10 @@ export class RentalSingleFamily implements IPropertyEntity, IEntityExistence {
     return 0;
   }
 
+  /**
+   * used to determine what the cost of property is per month. If no purchase date or it has a sold date, then 0, otherwise there is an amount
+   * @param today
+   */
   getMonthlyPrincipalInterestTaxInterestByDate(today: Date): number {
     if (!this.purchaseDate) {
       return 0;

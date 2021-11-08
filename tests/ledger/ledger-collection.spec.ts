@@ -107,6 +107,11 @@ describe('LedgerCollection unit tests', () => {
     });
   });
   describe('and getSummaryMonth', () => {
+    describe('and no date', () => {
+      test('should throw', () => {
+        expect(() => instance.getSummaryMonth(null)).toThrow('no date supplied');
+      });
+    });
     describe('and no ledgerItem', () => {
       test('should return empty data', () => {
         const dateUtc = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
@@ -170,6 +175,11 @@ describe('LedgerCollection unit tests', () => {
     });
   });
   describe('and getCashFlowMonth', () => {
+    describe('and no date', () => {
+      test('should throw error', () => {
+        expect(() => instance.getCashFlowMonth(null)).toThrow('no date supplied');
+      });
+    });
     describe('and no ledgerItem', () => {
       test('should return empty data', () => {
         expect(instance.getCashFlowMonth(dateUtc)).toEqual(0);
@@ -177,9 +187,9 @@ describe('LedgerCollection unit tests', () => {
     });
     describe('and ledgerItems', () => {
       test('should return empty data', () => {
-        const cashFlow = new LedgerItem();
         const createdDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
 
+        const cashFlow = new LedgerItem();
         cashFlow.created = createdDate;
         cashFlow.amount = 1;
         cashFlow.type = LedgerItemType.CashFlow;
@@ -214,9 +224,28 @@ describe('LedgerCollection unit tests', () => {
 
         expect(instance.getCashFlowMonth(createdDate)).toEqual(cashFlow.amount + cashFlowTwo.amount);
       });
+
+      test('and no matching dates', () => {
+        const createdDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
+
+        const cashFlowOut = new LedgerItem();
+        cashFlowOut.created = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
+        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 2);
+        cashFlowOut.amount = 111111;
+        cashFlowOut.type = LedgerItemType.CashFlow;
+
+        instance.add([cashFlowOut]);
+
+        expect(instance.getCashFlowMonth(createdDate)).toEqual(0);
+      });
     });
   });
   describe('and getSummariesAnnual', () => {
+    describe('and no date', () => {
+      test('should throw error', () => {
+        expect(() => instance.getSummariesAnnual(null)).toThrow('year is missing');
+      });
+    });
     describe('and no ledgerItem', () => {
       test('should return empty data', () => {
         expect(instance.getSummariesAnnual(date.getUTCFullYear())).toEqual([]);
@@ -274,14 +303,6 @@ describe('LedgerCollection unit tests', () => {
             balance: 0,
             cashFlow: 0,
             date: new Date(Date.UTC(createdDate.getUTCFullYear(), createdDate.getUTCMonth() + 1, 1)),
-            equity: 0,
-            purchases: 0,
-          },
-          {
-            averageCashFlow: cashFlowOut.amount,
-            balance: cashFlowOut.amount,
-            cashFlow: cashFlowOut.amount,
-            date: new Date(Date.UTC(createdDate.getUTCFullYear(), createdDate.getUTCMonth() + 2, 1)),
             equity: 0,
             purchases: 0,
           },
@@ -350,6 +371,11 @@ describe('LedgerCollection unit tests', () => {
     });
   });
   describe('and getMinimumSavings', () => {
+    describe('and no date', () => {
+      test('should throw error', () => {
+        expect(() => instance.getMinimumSavings(null, [])).toThrow('no date supplied');
+      });
+    });
     describe('and has no ledger items', () => {
       describe('and has no properties', () => {
         test('should be truthy', () => {
@@ -393,6 +419,68 @@ describe('LedgerCollection unit tests', () => {
               expect(instance.getMinimumSavings(dateUtc, [singleFamily])).toEqual(piti * 6);
             });
           });
+        });
+      });
+    });
+  });
+  describe('and getSummaryAnnual', () => {
+    describe('and no ledgerItem', () => {
+      test('should return empty data', () => {
+        expect(instance.getSummaryAnnual(date.getUTCFullYear())).toEqual({
+          date: null,
+          balance: 0,
+          cashFlow: 0,
+          averageCashFlow: 0,
+          equity: 0,
+          purchases: 0,
+        });
+      });
+    });
+    describe('and ledgerItem', () => {
+      test('should return empty data', () => {
+        const cashFlow = new LedgerItem();
+        const createdDate = new Date();
+        createdDate.setDate(1);
+
+        cashFlow.created = createdDate;
+        cashFlow.amount = 1;
+        cashFlow.type = LedgerItemType.CashFlow;
+
+        const cashFlowTwo = new LedgerItem();
+        cashFlowTwo.created = createdDate;
+        cashFlowTwo.amount = 3;
+        cashFlowTwo.type = LedgerItemType.CashFlow;
+
+        const cashFlowOut = new LedgerItem();
+        cashFlowOut.created = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
+        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 2);
+        cashFlowOut.amount = 111111;
+        cashFlowOut.type = LedgerItemType.CashFlow;
+
+        const equity = new LedgerItem();
+        equity.created = createdDate;
+        equity.amount = 2;
+        equity.type = LedgerItemType.Equity;
+
+        const purchase = new LedgerItem();
+        purchase.created = createdDate;
+        purchase.amount = 3;
+        purchase.type = LedgerItemType.Purchase;
+
+        const salary = new LedgerItem();
+        salary.created = createdDate;
+        salary.amount = 4;
+        salary.type = LedgerItemType.Salary;
+
+        instance.add([cashFlow, cashFlowTwo, cashFlowOut, equity, purchase, salary]);
+
+        expect(instance.getSummaryAnnual(createdDate.getUTCFullYear())).toEqual({
+          date: new Date(Date.UTC(createdDate.getUTCFullYear(), createdDate.getUTCMonth(), 1)),
+          balance: 7,
+          cashFlow: 4,
+          averageCashFlow: 2,
+          equity: equity.amount,
+          purchases: 1.5,
         });
       });
     });

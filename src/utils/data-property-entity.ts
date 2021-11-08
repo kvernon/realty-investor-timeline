@@ -3,13 +3,16 @@ import { IPropertyEntityOptions } from '../generators/i-property-entity-options'
 import { randomNumberBetween } from './data-number';
 import { Chance } from 'chance';
 
+export type RandomPropertyEntity = (options: IPropertyEntityOptions) => Partial<IPropertyEntity>;
 const chance: Chance.Chance = new Chance();
 
 /**
  * used to generate the basic entity options, which will create id, minSellYears, sellPriceAppreciationPercent, address, and carry over purchasePrice
  * @param options
  */
-export function randomPropertyEntity(options: IPropertyEntityOptions): Partial<IPropertyEntity> {
+export const randomPropertyEntity: RandomPropertyEntity = (
+  options: IPropertyEntityOptions
+): Partial<IPropertyEntity> => {
   const purchasePrice = randomNumberBetween(options.lowestPriceDown, options.highestPriceDown);
   return {
     id: chance.guid({ version: 4 }),
@@ -20,4 +23,4 @@ export function randomPropertyEntity(options: IPropertyEntityOptions): Partial<I
       purchasePrice,
     address: chance.address(),
   };
-}
+};

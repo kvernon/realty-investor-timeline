@@ -1,7 +1,7 @@
-import { IPropertyEntity } from '../properties';
+import { IRentalPropertyEntity } from '../properties';
 import { IHistoricalReason } from './i-historical-reason';
 
 export interface IHistoricalProperty {
-  property: IPropertyEntity;
+  property: IRentalPropertyEntity;
   reasons: IHistoricalReason[];
 }

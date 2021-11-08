@@ -2,7 +2,7 @@ import { LedgerItem } from './ledger-item';
 import itiriri, { IterableQuery } from 'itiriri';
 import { ILedgerSummary } from './i-ledger-summary';
 import { LedgerItemType } from './ledger-item-type';
-import { IPropertyEntity, RentalSingleFamily } from '../properties';
+import { IRentalSavings, RentalSingleFamily } from '../properties';
 
 export interface ILedgerCollection {
   getBalance(): number;
@@ -10,6 +10,10 @@ export interface ILedgerCollection {
   add(item: LedgerItem | Iterable<LedgerItem>): void;
 
   getCashFlowMonth(date: Date): number;
+
+  getMinimumSavings(date: Date, properties: IRentalSavings[], minMonthsRequired?: number): number;
+
+  hasMinimumSavings(date: Date, properties: IRentalSavings[], minMonthsRequired?: number): boolean;
 
   getSummaryMonth(date: Date): ILedgerSummary;
 
@@ -60,7 +64,7 @@ export class LedgerCollection implements ILedgerCollection {
     return this.collection.length() === 0;
   }
 
-  getMinimumSavings(date: Date, properties: IPropertyEntity[], minMonthsRequired = 6): number {
+  getMinimumSavings(date: Date, properties: IRentalSavings[], minMonthsRequired = 6): number {
     if (!date) {
       throw new Error('no date supplied');
     }
@@ -76,7 +80,7 @@ export class LedgerCollection implements ILedgerCollection {
     );
   }
 
-  hasMinimumSavings(date: Date, properties: IPropertyEntity[], minMonthsRequired = 6): boolean {
+  hasMinimumSavings(date: Date, properties: IRentalSavings[], minMonthsRequired = 6): boolean {
     return this.getBalance() >= this.getMinimumSavings(date, properties, minMonthsRequired);
   }
 
@@ -91,7 +95,7 @@ export class LedgerCollection implements ILedgerCollection {
 
     const boundary = this.collection.filter((li) => li.dateMatchesYearAndMonth(date));
 
-    if (!boundary) {
+    if (boundary.length() === 0) {
       return 0;
     }
 
@@ -134,6 +138,17 @@ export class LedgerCollection implements ILedgerCollection {
 
   getSummaryAnnual(year: number): ILedgerSummary {
     const summaries = itiriri(this.getSummariesAnnual(year));
+
+    if (summaries.length() === 0) {
+      return {
+        date: null,
+        balance: 0,
+        cashFlow: 0,
+        averageCashFlow: 0,
+        equity: 0,
+        purchases: 0,
+      };
+    }
 
     return {
       date: summaries.first().date,
