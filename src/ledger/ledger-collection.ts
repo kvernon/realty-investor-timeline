@@ -5,7 +5,7 @@ import { LedgerItemType } from './ledger-item-type';
 import { IRentalSavings, RentalSingleFamily } from '../properties';
 
 export interface ILedgerCollection {
-  getBalance(): number;
+  getBalance(date: Date): number;
 
   add(item: LedgerItem | Iterable<LedgerItem>): void;
 
@@ -20,6 +20,8 @@ export interface ILedgerCollection {
   getSummaryAnnual(year: number): ILedgerSummary;
 
   getSummariesAnnual(year: number): ILedgerSummary[];
+
+  clone(): ILedgerCollection;
 }
 
 export class LedgerCollection implements ILedgerCollection {
@@ -36,8 +38,10 @@ export class LedgerCollection implements ILedgerCollection {
     this.collection = itiriri([]);
   }
 
-  getBalance(): number {
-    return this.isEmpty() ? 0 : this.collection.sum((x) => x.amount);
+  getBalance(date: Date): number {
+    return this.isEmpty()
+      ? 0
+      : this.collection.filter((i) => i.created.getTime() <= date.getTime()).sum((x) => x.amount);
   }
 
   add(item: LedgerItem | Iterable<LedgerItem>): void {
@@ -81,7 +85,7 @@ export class LedgerCollection implements ILedgerCollection {
   }
 
   hasMinimumSavings(date: Date, properties: IRentalSavings[], minMonthsRequired = 6): boolean {
-    return this.getBalance() >= this.getMinimumSavings(date, properties, minMonthsRequired);
+    return this.getBalance(date) >= this.getMinimumSavings(date, properties, minMonthsRequired);
   }
 
   getCashFlowMonth(date: Date): number {
@@ -181,5 +185,11 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     return collection;
+  }
+
+  clone(): ILedgerCollection {
+    const ledgerCollection = new LedgerCollection();
+    ledgerCollection.add(this.collection.map((x) => x.clone()));
+    return ledgerCollection;
   }
 }

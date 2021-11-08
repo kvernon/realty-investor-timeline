@@ -12,7 +12,7 @@ export type GenerateProperty<T extends IPropertyEntity> = (
   options: IPropertyEntityOptions,
   lifeTime: IEntityExistence,
   userSettings: ILoanSetting[],
-  closingCostPercent?: number
+  closingCostPercent: number
 ) => T;
 
 /**
@@ -26,10 +26,13 @@ export const generateSingleFamily: GenerateProperty<RentalSingleFamily> = (
   options: IPropertyEntityOptions,
   lifeTime: IEntityExistence,
   settings: ILoanSetting[],
-  closingCostPercent?: number
+  closingCostPercent: number
 ): RentalSingleFamily => {
   const rental = genericGenerateProperty<RentalSingleFamily>(RentalSingleFamily, options, lifeTime);
 
+  const cashDownPercentForSingleFamilyHome = 25;
+
+  rental.cashDownPercent = cashDownPercentForSingleFamilyHome;
   const singleFamilySettings = settings.filter((x) => x.propertyType === PropertyType.SingleFamily);
 
   if (!settings || !singleFamilySettings) {

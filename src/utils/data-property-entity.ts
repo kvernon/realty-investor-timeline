@@ -13,14 +13,20 @@ const chance: Chance.Chance = new Chance();
 export const randomPropertyEntity: RandomPropertyEntity = (
   options: IPropertyEntityOptions
 ): Partial<IPropertyEntity> => {
+  //this seems like cost down.
   const purchasePrice = randomNumberBetween(options.lowestPriceDown, options.highestPriceDown);
+  const monthlyCashFlow = randomNumberBetween(options.lowestCashFlowMonthly, options.highestCashFlowMonthly);
+
   return {
     id: chance.guid({ version: 4 }),
     minSellYears: randomNumberBetween(options.lowestMinSellInYears, options.highestMinSellInYears),
     purchasePrice,
-    sellPriceAppreciationPercent:
-      (randomNumberBetween(options.lowestSellAppreciationPercent, options.highestSellAppreciationPercent) / 100) *
-      purchasePrice,
+    sellPriceAppreciationPercent: randomNumberBetween(
+      options.lowestSellAppreciationPercent,
+      options.highestSellAppreciationPercent
+    ),
+    equityCapturePercent: randomNumberBetween(options.lowestEquityCapturePercent, options.highestEquityCapturePercent),
     address: chance.address(),
+    monthlyCashFlow,
   };
 };

@@ -6,9 +6,7 @@ import { ITimeline } from '../../src/time/i-timeline';
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { IRentalGenerator } from '../../src/generators/rental-generator';
 import { IHistoricalProperty } from '../../src/time/i-historical-property';
-import { IUser } from '../../src/account/i-user';
-import { IUserGoal } from '../../src/account/i-user-goal';
-import { ILedgerCollection } from '../../src/ledger/ledger-collection';
+import { IUser } from '../../src/account/user';
 import { LedgerItem } from '../../src/ledger/ledger-item';
 import { LedgerItemType } from '../../src/ledger/ledger-item-type';
 
@@ -20,24 +18,21 @@ describe('movement unit tests', () => {
   beforeEach(() => {
     chance = new Chance();
 
-    const goals: jest.Mocked<IUserGoal> = {
+    user = {
       metMonthlyGoal: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
-    } as jest.Mocked<IUserGoal>;
-
-    const ledger: jest.Mocked<Partial<ILedgerCollection>> = {
-      add: jest.fn(),
-    } as jest.Mocked<Partial<ILedgerCollection>>;
-
-    user = {
-      ledger,
-      goals,
       purchaseRules: [],
       loanSettings: [],
-      getLedgerBalance: jest.fn(),
+      getBalance: jest.fn(),
       hasMoneyToInvest: jest.fn().mockReturnValue(true),
+      hasMinimumSavings: jest.fn().mockReturnValue(true),
+      getMinimumSavings: jest.fn().mockReturnValue(0),
+      addLedgerItem: jest.fn(),
       monthlySavedAmount: chance.integer({ min: 1, max: 10 }),
+      clone: jest.fn(),
     } as jest.Mocked<IUser>;
+
+    user.clone.mockReturnValueOnce(user);
   });
 
   afterEach(() => {
@@ -52,7 +47,10 @@ describe('movement unit tests', () => {
     let expected: ITimeline;
     let rental: jest.Mocked<RentalSingleFamily>;
     let expectedCashFlow: number;
+    let hasMetGoalOrMaxTime: jest.Mock;
+
     beforeEach(() => {
+      hasMetGoalOrMaxTime = jest.fn();
       maxYears = chance.integer({ min: 1, max: 2 });
       startDate = new Date(Date.now());
 
@@ -76,17 +74,22 @@ describe('movement unit tests', () => {
       let options: ILoopOptions;
 
       beforeEach(() => {
+        hasMetGoalOrMaxTime.mockReturnValueOnce(false);
+        hasMetGoalOrMaxTime.mockReturnValueOnce(false);
+        hasMetGoalOrMaxTime.mockReturnValueOnce(false);
+        hasMetGoalOrMaxTime.mockReturnValueOnce(true);
         options = {
           startDate,
           maxYears,
           propertyGeneratorSingleFamily: rentalGenerator,
+          hasMetGoalOrMaxTime,
         };
       });
 
-      test('should loop maxYears times 12 months', () => {
+      test('should loop 4 months', () => {
         expected = {
           startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
-          endDate: new Date(Date.UTC(startDate.getUTCFullYear() + maxYears, startDate.getUTCMonth(), 1)),
+          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 4, 1)),
           rentals: [{ property: rental, reasons: [] }],
           user,
         };
@@ -104,14 +107,14 @@ describe('movement unit tests', () => {
         ledgerItemCashFlow.type = LedgerItemType.CashFlow;
         ledgerItemCashFlow.note = `for: ${rental.address}, id: ${rental.id}`;
 
-        expect(user.ledger.add).toHaveBeenNthCalledWith(maxYears * 12, expect.objectContaining(ledgerItemCashFlow));
-        expect(user.ledger.add).toHaveBeenNthCalledWith(23, expect.objectContaining(ledgerItemSalary));
+        expect(user.addLedgerItem).toHaveBeenNthCalledWith(4, expect.objectContaining(ledgerItemCashFlow));
+        expect(user.addLedgerItem).toHaveBeenNthCalledWith(7, expect.objectContaining(ledgerItemSalary));
       });
 
-      test('and no monthlySavedAmount, should loop maxYears times 12 months', () => {
+      test('and no monthlySavedAmount, should loop 4 months', () => {
         expected = {
           startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
-          endDate: new Date(Date.UTC(startDate.getUTCFullYear() + maxYears, startDate.getUTCMonth(), 1)),
+          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 4, 1)),
           rentals: [],
           user,
         };
@@ -122,16 +125,14 @@ describe('movement unit tests', () => {
 
         expect(loop(options, user)).toEqual(expected);
 
-        expect(user.ledger.add).not.toBeCalled();
+        expect(user.addLedgerItem).not.toBeCalled();
       });
     });
 
     describe('and custom while check', () => {
       let options: ILoopOptions;
-      let hasMetGoalOrMaxTime: jest.Mock;
 
       beforeEach(() => {
-        hasMetGoalOrMaxTime = jest.fn();
         options = {
           startDate,
           maxYears,
@@ -152,7 +153,7 @@ describe('movement unit tests', () => {
         };
 
         expect(loop(options, user)).toEqual(expected);
-        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, user.loanSettings);
+        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, expect.any(Date), user.loanSettings);
       });
 
       test('should add rentals', () => {
@@ -167,7 +168,7 @@ describe('movement unit tests', () => {
         rentalGenerator.getRentals.mockReturnValue(<RentalSingleFamily[]>rentalSingleFamilies.map((x) => x.property));
 
         expect(loop(options, user).rentals).toEqual(rentalSingleFamilies);
-        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, user.loanSettings);
+        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, expect.any(Date), user.loanSettings);
       });
 
       test('should contain no duplicate rentals', () => {
@@ -207,15 +208,56 @@ describe('movement unit tests', () => {
 
         const expected = rentalSingleFamiliesOne.concat(rentalSingleFamiliesTwo);
         expect(loop(options, user).rentals).toEqual(expected);
-        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, user.loanSettings);
+        expect(rentalGenerator.getRentals).toBeCalledWith(RentalSingleFamily, expect.any(Date), user.loanSettings);
       });
 
-      test('and properties to sell, should do it', () => {
+      test('and properties to cash flow', () => {
         hasMetGoalOrMaxTime.mockReturnValueOnce(true);
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         rental.isOwned = true;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        rental.minSellDate = new Date(rental.purchaseDate);
+        rental.canSell.mockReturnValueOnce(false);
+        rental.getEquityFromSell.mockReturnValueOnce(22222);
+
+        rentalGenerator.getRentals.mockReturnValueOnce([rental]);
+
+        expected = {
+          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
+          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1)),
+          rentals: [
+            {
+              property: rental,
+              reasons: [],
+            },
+          ],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+
+        user.monthlySavedAmount = 0;
+
+        expect(loop(options, user)).toEqual(expected);
+
+        const ledgerCashFlow = new LedgerItem();
+        ledgerCashFlow.amount = expectedCashFlow;
+        ledgerCashFlow.created = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1));
+        ledgerCashFlow.note = 'for: rental.address, id: rental.id';
+        ledgerCashFlow.type = LedgerItemType.CashFlow;
+
+        expect(user.addLedgerItem).toBeCalledWith(ledgerCashFlow);
+      });
+
+      test('and properties sell, should do it', () => {
+        hasMetGoalOrMaxTime.mockReturnValueOnce(true);
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        rental.isOwned = false;
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         rental.minSellDate = new Date(rental.purchaseDate);
@@ -242,20 +284,57 @@ describe('movement unit tests', () => {
 
         expect(loop(options, user)).toEqual(expected);
 
-        const ledgerCashflow = new LedgerItem();
-        ledgerCashflow.amount = expectedCashFlow;
-        ledgerCashflow.created = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1));
-        ledgerCashflow.note = 'for: rental.address, id: rental.id';
-        ledgerCashflow.type = LedgerItemType.CashFlow;
-
         const ledgerEquity = new LedgerItem();
         ledgerEquity.amount = 22222;
         ledgerEquity.created = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1));
         ledgerEquity.note = 'for: rental.address, id: rental.id';
         ledgerEquity.type = LedgerItemType.Equity;
 
-        expect(user.ledger.add).toBeCalledWith(ledgerCashflow);
-        expect(user.ledger.add).toBeCalledWith(ledgerEquity);
+        expect(user.addLedgerItem).toBeCalledWith(ledgerEquity);
+      });
+
+      test('and properties to purchase, should do it', () => {
+        hasMetGoalOrMaxTime.mockReturnValueOnce(true);
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        rental.isOwned = false;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        rental.minSellDate = new Date(rental.purchaseDate);
+        rental.canSell.mockReturnValueOnce(false);
+        rental.isAvailableByDate.mockReturnValueOnce(true);
+        rental.canInvestByUser.mockReturnValueOnce({ canInvest: true, results: [] });
+        rental.getEquityFromSell.mockReturnValueOnce(22222);
+
+        rentalGenerator.getRentals.mockReturnValueOnce([rental]);
+
+        expected = {
+          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
+          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1)),
+          rentals: [
+            {
+              property: rental,
+              reasons: [],
+            },
+          ],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+
+        user.hasMoneyToInvest.mockReturnValueOnce(true);
+        user.monthlySavedAmount = 0;
+
+        expect(loop(options, user)).toEqual(expected);
+
+        const purchase = new LedgerItem();
+        purchase.amount = rental.costDownPrice;
+        purchase.type = LedgerItemType.Purchase;
+        purchase.created = new Date(Date.UTC(expected.endDate.getUTCFullYear(), expected.endDate.getUTCMonth(), 1));
+        purchase.note = `for: ${rental.address}, id: ${rental.id}`;
+
+        expect(user.addLedgerItem).toBeCalledWith(purchase);
       });
     });
   });

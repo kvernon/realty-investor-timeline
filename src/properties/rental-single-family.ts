@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import { compareAsc, isEqual } from 'date-fns';
 import cloneDeep from 'lodash.clonedeep';
 import { IEntityExistence } from './i-entity-existence';
 import { IRentalPropertyEntity } from './i-rental-property-entity';
@@ -9,8 +8,11 @@ import { InvestmentReasons } from '../investments/investment-reasons';
 import { IRentalInvestorValidator } from '../investments/rental-investor-validator';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { canInvestByUser } from '../calculations/can-invest-by-user';
-import { UserInvestResult } from '../investments';
 import { IUserInvestorCheck } from '../account/i-user-investor-check';
+import { getCashDown, getSellPriceEstimate } from '../calculations/get-monthly-mortgage';
+import cloneDate from '../utils/data-clone-date';
+import areSameDate from '../utils/data-are-same-date';
+import compareDates from '../utils/data-compare-date';
 
 export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRentalPropertyEntity {
   /**
@@ -32,11 +34,18 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
    */
   availableEndDate: Date;
 
+  /**
+   * used to compare {@link availableStartDate}, {@param today}, and {@link availableEndDate},
+   * @param today
+   */
   isAvailableByDate(today: Date): boolean {
-    return compareAsc(this.availableStartDate, today) === -1 && compareAsc(today, this.availableEndDate) === -1;
+    if (!this.availableStartDate) {
+      return false;
+    }
+
+    return compareDates(this.availableStartDate, today) === -1 && compareDates(today, this.availableEndDate) === -1;
   }
 
-  @InvestmentReason(InvestmentReasons.PropertyIsAlreadyOwned)
   get isOwned(): boolean {
     return this.purchaseDate && !this.soldDate;
   }
@@ -61,34 +70,12 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
    */
   sellPriceAppreciationPercent = 4;
 
-  @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, PurchaseRuleTypes.minEstimatedCapitalGains)
-  get projectedEquityCapture(): number {
-    return this.purchasePrice - this.sellPriceInOneYear;
-  }
-
-  private get sellPriceInOneYear(): number {
-    const date = new Date(this.purchaseDate);
-    date.setUTCFullYear(this.purchaseDate.getUTCFullYear() + 1);
-    return this.getSellPriceEstimate(this.purchaseDate, date);
-  }
-
-  private getSellPriceEstimate(purchase: Date, sell: Date): number {
-    const differenceInYears = sell.getUTCFullYear() - purchase.getUTCFullYear();
-
-    let result = this.purchasePrice;
-    for (let i = 0; i < differenceInYears; i++) {
-      result = result + (result * this.sellPriceAppreciationPercent) / 100;
-    }
-
-    return result;
-  }
-
   /**
    * lame way to apply {@link sellPriceAppreciationPercent} to rolling over the years the property was owned
    * @param today
    */
   sellPriceByDate(today: Date): number {
-    return this.getSellPriceEstimate(this.purchaseDate, today);
+    return getSellPriceEstimate(this.purchaseDate, today, this.purchasePrice, this.sellPriceAppreciationPercent);
   }
 
   /**
@@ -97,12 +84,12 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
   monthlyPrincipalInterestTaxInterest: number;
 
   /**
-   * the percent down on the property
+   * the percent down on the property xx out of 100, or 23% as an example
    */
   cashDownPercent: number;
 
   get costDownPrice(): number {
-    return this.purchasePrice * this.costDownPrice;
+    return getCashDown(this.purchasePrice, this.cashDownPercent || 0);
   }
 
   /**
@@ -119,15 +106,17 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
       return 0;
     }
 
-    if (isEqual(this.soldDate, today)) {
-      return this.sellPriceByDate(today);
+    if (areSameDate(this.soldDate, today)) {
+      return (this.sellPriceByDate(today) - this.costDownPrice) * (this.equityCapturePercent / 100);
     }
 
     return 0;
   }
 
+  equityCapturePercent: number;
+
   /**
-   * returns a UTC date from date supplied where it is {@code new Date(value.getUTCFullYear(), value.getUTCMonth(), 1)}
+   * returns a UTC date from date supplied where it is {@code new Date(Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), 1))}
    * @param value
    * @private
    */
@@ -184,26 +173,17 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
    * @param today
    */
   canSell(today: Date): boolean {
-    if (!this.isOwned) {
+    if (!this.isOwned || !today) {
       return false;
     }
 
-    return compareAsc(this.minSellDate, today) !== -1 || isEqual(this.minSellDate, today);
+    return compareDates(this.minSellDate, today) !== -1 || areSameDate(this.minSellDate, today);
   }
 
   get minSellDate(): Date {
-    return new Date(this.purchaseDate.getUTCFullYear() + this.minSellYears, this.purchaseDate.getUTCMonth(), 1);
-  }
-
-  /**
-   * the rent minus monthly payment, default is zero
-   */
-  @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, PurchaseRuleTypes.minEstimatedCashFlowPerMonth)
-  get monthlyCashFlow(): number {
-    if (!this.monthlyRentAmount || !this.monthlyPrincipalInterestTaxInterest) {
-      return 0;
-    }
-    return this.monthlyRentAmount - this.monthlyPrincipalInterestTaxInterest;
+    const minDate = cloneDate(this.purchaseDate);
+    minDate.setUTCFullYear(minDate.getUTCFullYear() + this.minSellYears);
+    return minDate;
   }
 
   /**
@@ -216,7 +196,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
       return 0;
     }
 
-    if (!this.soldDate && compareAsc(this.purchaseDate, today) === -1) {
+    if (!this.soldDate && compareDates(this.purchaseDate, today) === -1) {
       return this.monthlyCashFlow;
     }
 
@@ -232,7 +212,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
       return 0;
     }
 
-    if (!this.soldDate && compareAsc(this.purchaseDate, today) === -1) {
+    if (!this.soldDate && compareDates(this.purchaseDate, today) === -1) {
       return this.monthlyPrincipalInterestTaxInterest;
     }
 
@@ -245,4 +225,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
   clone(): RentalSingleFamily {
     return Object.assign(new RentalSingleFamily(), cloneDeep(this));
   }
+
+  @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, PurchaseRuleTypes.minEstimatedCashFlowPerMonth)
+  monthlyCashFlow: number;
 }

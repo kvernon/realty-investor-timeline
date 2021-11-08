@@ -29,7 +29,7 @@ describe('factory-single-family unit tests', () => {
         purchasePrice: chance.integer(),
         minSellYears: chance.integer(),
         sellPriceAppreciationPercent: chance.integer(),
-        cashDownPercent: chance.integer(),
+        cashDownPercent: chance.integer({ min: 1, max: 4 }),
       };
 
       const genericGenerateProperty = jest.fn().mockReturnValueOnce(entity);
@@ -43,14 +43,17 @@ describe('factory-single-family unit tests', () => {
       }));
 
       const expected = Object.assign(new RentalSingleFamily(), entity);
+      expected.cashDownPercent = 25;
       expected.monthlyPrincipalInterestTaxInterest = expectedPayments;
 
       const generateSingleFamily = require('../../src/generators/factory-single-family').generateSingleFamily;
 
       const options = {
+        highestCashFlowMonthly: 1,
         highestMinSellInYears: 1,
         highestPriceDown: 1,
         highestSellAppreciationPercent: 1,
+        lowestCashFlowMonthly: 1,
         lowestMinSellInYears: 1,
         lowestPriceDown: 1,
         lowestSellAppreciationPercent: 1,
@@ -88,7 +91,7 @@ describe('factory-single-family unit tests', () => {
       expect(genericGenerateProperty).toBeCalledWith(RentalSingleFamily, options, lifeTime);
       expect(getMonthlyPrincipalInterestTaxInterest).toBeCalledWith(
         entity.purchasePrice,
-        entity.cashDownPercent,
+        25,
         closingCostPercent,
         usersMortInfo.loanRatePercent,
         usersMortInfo.loanTermInYears

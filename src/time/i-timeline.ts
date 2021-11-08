@@ -1,5 +1,5 @@
 import { IHistoricalProperty } from './i-historical-property';
-import { IUser } from '../account/i-user';
+import { IUser } from '../account/user';
 
 export interface ITimeline {
   startDate: Date;

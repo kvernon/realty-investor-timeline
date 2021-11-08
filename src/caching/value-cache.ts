@@ -1,19 +1,9 @@
-const getNextExpire = (
-  current: Date,
-  cacheExpireDate: Date,
-  advanceInMonths: number
-) => {
+const getNextExpire = (current: Date, cacheExpireDate: Date, advanceInMonths: number) => {
   if (!current) {
     return cacheExpireDate;
   }
 
-  return new Date(
-    Date.UTC(
-      current.getUTCFullYear(),
-      current.getUTCMonth() + advanceInMonths,
-      current.getUTCDate()
-    )
-  );
+  return new Date(Date.UTC(current.getUTCFullYear(), current.getUTCMonth() + advanceInMonths, 1));
 };
 
 export interface IValueCache<T> {
@@ -21,13 +11,13 @@ export interface IValueCache<T> {
   expireDate: Date;
   readonly newDefault: unknown;
 
-  setValue(value: T[], currentDate?: Date): void;
+  setValue(value: T[], currentDate: Date): void;
 
   /**
    * if the cache is expired, then it will return the default value. otherwise
    * it will return the stored value
    */
-  getValue(currentTime?: Date): T[];
+  getValue(currentTime: Date): T[];
 
   /**
    * determines if the expiredDate is greater than
@@ -50,13 +40,7 @@ export class ValueCache<T> implements IValueCache<T> {
 
   set expireDate(value: Date) {
     if (value) {
-      value = new Date(
-        Date.UTC(
-          value.getUTCFullYear(),
-          value.getUTCMonth(),
-          value.getUTCDate()
-        )
-      );
+      value = new Date(Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), 1));
     }
     this._expireDate = value;
   }
@@ -69,20 +53,16 @@ export class ValueCache<T> implements IValueCache<T> {
     return JSON.parse(JSON.stringify(this._defaultValue));
   }
 
-  constructor(expireDate: Date, defaultValue: T[], renewalInMonths?: number) {
+  constructor(expireDate: Date, defaultValue: T[], renewalInMonths: number) {
     this._expireDate = expireDate;
     this._defaultValue = defaultValue;
     this.renewalInMonths = renewalInMonths;
     this._value = this.newDefault;
   }
 
-  public setValue(value: T[], currentDate?: Date): void {
+  public setValue(value: T[], currentDate: Date): void {
     if (this.isCacheExpired(currentDate)) {
-      this.expireDate = getNextExpire(
-        currentDate,
-        this.expireDate,
-        this._renewalInMonths
-      );
+      this.expireDate = getNextExpire(currentDate, this.expireDate, this.renewalInMonths);
       this._value = this.newDefault;
     }
 
@@ -93,7 +73,7 @@ export class ValueCache<T> implements IValueCache<T> {
    * if the cache is expired, then it will return the default value. otherwise
    * it will return the stored value
    */
-  public getValue(currentTime?: Date): T[] {
+  public getValue(currentTime: Date): T[] {
     if (!this.isCacheExpired(currentTime)) {
       return this._value;
     }
@@ -126,5 +106,4 @@ export class ValueCache<T> implements IValueCache<T> {
   protected _value: T[];
   private _expireDate: Date;
   private readonly _defaultValue: T[];
-  private _renewalInMonths: number;
 }

@@ -1,4 +1,4 @@
-import { IUser } from '../account/i-user';
+import { IUser } from '../account/user';
 
 /**
  * a way to determine if the loop should end based on the user's rules
