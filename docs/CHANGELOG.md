@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.2.0...v1.3.0) (2021-11-08)
+
+
+### Features
+
+* property life-cycle ([ee2a5c7](https://github.com/kvernon/realty-investor-timeline/commit/ee2a5c7c4d5af351cf5096ca55c3af5aef1bddcb))
+
 # [1.2.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.1.0...v1.2.0) (2021-10-14)
 
 
