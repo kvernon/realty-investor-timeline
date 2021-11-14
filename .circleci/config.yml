@@ -75,6 +75,7 @@ jobs:
           path: ./reports/junit/
   publish:
     executor: my-custom-executor
+    working_directory: ~/tmp
     steps:
       - checkout
       - restore_cache:
