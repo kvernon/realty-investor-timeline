@@ -84,7 +84,7 @@ describe('ValueCache tests', () => {
         test('should return set value', () => {
           const rc = new ProtectValueCache(null, [], 1);
           const expected = [''];
-          rc.setValue(expected);
+          rc.setValue(expected, null);
           expect(rc.getRawValue()).toEqual(expected);
         });
       });
@@ -109,7 +109,7 @@ describe('ValueCache tests', () => {
           const renewalInMonths = 1;
 
           const rc = new ProtectValueCache(monthDayYearOnly, expectedDefault, renewalInMonths);
-          rc.setValue(expectedValue);
+          rc.setValue(expectedValue, monthDayYearOnly);
 
           expect(rc.getRawValue()).toEqual(expectedValue);
           expect(rc.expireDate.getUTCMonth()).toBe(monthDayYearOnly.getUTCMonth());

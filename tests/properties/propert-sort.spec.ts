@@ -15,6 +15,9 @@ describe('propertySort unit tests', () => {
 
   beforeEach(() => {
     propertyA = {
+      equityCapturePercent: 0,
+      minSellYears: 0,
+      monthlyCashFlow: 0,
       address: '',
       availableEndDate: undefined,
       availableStartDate: undefined,
@@ -35,6 +38,9 @@ describe('propertySort unit tests', () => {
     };
 
     propertyB = {
+      equityCapturePercent: 0,
+      minSellYears: 0,
+      monthlyCashFlow: 0,
       address: '',
       availableEndDate: undefined,
       availableStartDate: undefined,
@@ -222,7 +228,7 @@ describe('propertySort unit tests', () => {
                   evaluate: jest.fn().mockReturnValueOnce(true),
                 },
               ])
-            ).toEqual(-1);
+            ).toEqual(0);
           });
 
           test('should return 0', () => {

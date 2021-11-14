@@ -25,7 +25,6 @@ describe('generateProperty unit tests', () => {
     test('should throw', () => {
       expect(() =>
         genericGenerateProperty(RentalSingleFamily, null, {
-          isAvailableByDate: jest.fn(),
           availableEndDate: new Date(),
           availableStartDate: new Date(),
         })
@@ -46,6 +45,10 @@ describe('generateProperty unit tests', () => {
       randomPropertyEntity.mockReturnValueOnce(expected);
 
       const options: IPropertyEntityOptions = {
+        highestEquityCapturePercent: 0,
+        lowestEquityCapturePercent: 0,
+        highestCashFlowMonthly: 0,
+        lowestCashFlowMonthly: 0,
         highestMinSellInYears: 0,
         highestPriceDown: 0,
         highestSellAppreciationPercent: 0,
@@ -67,6 +70,10 @@ describe('generateProperty unit tests', () => {
         randomPropertyEntity.mockReturnValueOnce(expected);
 
         const options: IPropertyEntityOptions = {
+          highestEquityCapturePercent: 0,
+          lowestEquityCapturePercent: 0,
+          highestCashFlowMonthly: 0,
+          lowestCashFlowMonthly: 0,
           highestMinSellInYears: 0,
           highestPriceDown: 0,
           highestSellAppreciationPercent: 0,

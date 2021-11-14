@@ -19,7 +19,7 @@ export interface IPropertyEntity extends IEntityExistence {
   /**
    * it's the purchase down
    */
-  get costDownPrice(): number;
+  costDownPrice: number;
 
   /**
    * the percent at which the property's value grows
@@ -30,4 +30,14 @@ export interface IPropertyEntity extends IEntityExistence {
    * number of years to hold the property before being sold
    */
   minSellYears?: number;
+
+  /**
+   * the cashOnCash return
+   */
+  monthlyCashFlow: number;
+
+  /**
+   * this can be between 10 - 20%
+   */
+  equityCapturePercent: number;
 }

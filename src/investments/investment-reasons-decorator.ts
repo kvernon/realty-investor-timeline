@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'reflect-metadata';
 import { IRentalPropertyEntity } from '../properties/i-rental-property-entity';
 import { InvestmentReasons } from './investment-reasons';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 
-export interface IReasonToRule<T extends IRentalPropertyEntity, K extends keyof T, F extends T[K]> {
+export type PropertyDecoratorType<T extends IRentalPropertyEntity> = (target: T, propertyKey: keyof T & string) => any;
+
+export interface IReasonToRule<T extends IRentalPropertyEntity> {
   investmentReason: InvestmentReasons;
   ruleType: PurchaseRuleTypes;
-  propertyKey: K;
-  descriptor: TypedPropertyDescriptor<F>;
+  propertyKey: keyof T & string;
+  value: T[keyof T] & number;
 }
 
 /**
@@ -19,17 +22,13 @@ export interface IReasonToRule<T extends IRentalPropertyEntity, K extends keyof 
 export function InvestmentReason(
   investmentReason: InvestmentReasons,
   ruleType: PurchaseRuleTypes = PurchaseRuleTypes.none
-) {
-  return <T extends IRentalPropertyEntity, K extends keyof T & string, F extends T[K]>(
-    target: T,
-    propertyKey: K,
-    descriptor: TypedPropertyDescriptor<F>
-  ) => {
-    const value: IReasonToRule<T, K, F> = {
+): PropertyDecoratorType<IRentalPropertyEntity> {
+  return (target: IRentalPropertyEntity, propertyKey: keyof IRentalPropertyEntity & string): any => {
+    const saveItem: IReasonToRule<IRentalPropertyEntity> = {
       investmentReason,
       ruleType,
       propertyKey,
-      descriptor,
+      value: <number>target[propertyKey],
     };
 
     // get own fields from the target
@@ -47,7 +46,8 @@ export function InvestmentReason(
     // record complex field
     complexFields.push(propertyKey);
 
-    Reflect.defineMetadata('design:type', value, target, propertyKey);
+    Reflect.defineMetadata('design:type', saveItem, target, propertyKey);
+    return target[propertyKey];
   };
 }
 
@@ -56,11 +56,7 @@ export function InvestmentReason(
  * @param target
  * @constructor
  */
-export function getInvestmentReasons<
-  T extends IRentalPropertyEntity & object,
-  K extends keyof T,
-  F extends T[K] & number
->(target: T): IReasonToRule<T, K, F>[] {
+export function getInvestmentReasons<T extends IRentalPropertyEntity & object>(target: T): IReasonToRule<T>[] {
   const keys = Reflect.getMetadata('design:type', target) as string[];
 
   return keys.map((k) => {

@@ -27,11 +27,11 @@ describe('Rental Generator tests', () => {
   describe('and getRentals', () => {
     describe('and no rentals', () => {
       test('empty returned', () => {
-        const valueCache = new ValueCache(null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
+        const valueCache = new ValueCache(null, null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
         const expectedValue: RentalSingleFamily[] = [];
         valueCache.getValue.mockReturnValue(expectedValue);
         const gen = new RentalGenerator(valueCache, generic);
-        expect(gen.getRentals(RentalSingleFamily, [])).toEqual(expectedValue);
+        expect(gen.getRentals(RentalSingleFamily, new Date(), [])).toEqual(expectedValue);
       });
     });
 
@@ -55,13 +55,13 @@ describe('Rental Generator tests', () => {
           new RentalSingleFamily(),
         ];
 
-        const valueCache = new ValueCache(null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
+        const valueCache = new ValueCache(null, null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
         const emptyExpected: RentalSingleFamily[] = [];
         valueCache.getValue.mockReturnValue(emptyExpected);
         const gen = new RentalGenerator(valueCache, generic);
         gen.maxRentalOpportunities = maxRentalOpportunities;
 
-        const actual = gen.getRentals(RentalSingleFamily, []);
+        const actual = gen.getRentals(RentalSingleFamily, new Date(), []);
         expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
       });
 
@@ -70,13 +70,13 @@ describe('Rental Generator tests', () => {
 
         const expected = [new RentalSingleFamily(), new RentalSingleFamily()];
 
-        const valueCache = new ValueCache(null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
+        const valueCache = new ValueCache(null, null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
         valueCache.getValue.mockReturnValue(expected);
 
         const gen = new RentalGenerator(valueCache, generic);
         gen.maxRentalOpportunities = maxRentalOpportunities;
 
-        const actual = gen.getRentals(RentalSingleFamily, []);
+        const actual = gen.getRentals(RentalSingleFamily, new Date(), []);
         expect(actual).toEqual(expected);
       });
 
@@ -105,7 +105,7 @@ describe('Rental Generator tests', () => {
           // minRefinanceMonths
           randomNumberBetween.mockReturnValueOnce(24);
 
-          const valueCache = new ValueCache(null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
+          const valueCache = new ValueCache(null, null, null) as jest.Mocked<ValueCache<RentalSingleFamily>>;
 
           const expected = [new RentalSingleFamily()];
           valueCache.getValue.mockReturnValue(expected);
@@ -119,7 +119,7 @@ describe('Rental Generator tests', () => {
           gen.lowestMinSellInYears = 5;
           gen.highestMinSellInYears = 8;
 
-          const actual = gen.getRentals(RentalSingleFamily, []);
+          const actual = gen.getRentals(RentalSingleFamily, new Date(), []);
           expect(actual).toEqual(expected);
         });
       });

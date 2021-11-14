@@ -7,11 +7,7 @@ export interface IRentalInvestorValidator {
 
 export class RentalInvestorValidator implements IRentalInvestorValidator {
   get canInvest(): boolean {
-    if (!this.results || this.results.length === 0) {
-      return true;
-    }
-
-    return !this.results.some((x) => !x.canInvest);
+    return !this.results || this.results.length === 0;
   }
 
   results: UserInvestResult[] = [];

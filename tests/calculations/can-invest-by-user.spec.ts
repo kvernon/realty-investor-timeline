@@ -18,7 +18,7 @@ describe('and canInvestByUser', () => {
 
     const expected: jest.Mocked<IRentalInvestorValidator> = {
       canInvest: false,
-      results: [new UserInvestResult(false, InvestmentReasons.PropertyIsAlreadyOwned)],
+      results: [new UserInvestResult(InvestmentReasons.PropertyIsAlreadyOwned)],
     } as jest.Mocked<IRentalInvestorValidator>;
 
     const actual = canInvestByUser(instance, null, null, null);
@@ -28,14 +28,19 @@ describe('and canInvestByUser', () => {
   describe('and isOwned false', () => {
     test('and hasMoneyToInvest false', () => {
       const user: IUserInvestorCheck = {
-        ledger: undefined,
+        metMonthlyGoal: jest.fn(),
+        monthlyIncomeAmountGoal: 0,
+        getBalance: jest.fn().mockReturnValueOnce(0),
+        loanSettings: [],
         purchaseRules: [],
         hasMoneyToInvest: jest.fn().mockReturnValue(false),
+        hasMinimumSavings: jest.fn().mockReturnValue(false),
+        getMinimumSavings: jest.fn().mockReturnValue(1),
       };
 
       const expected: IRentalInvestorValidator = {
         canInvest: false,
-        results: [new UserInvestResult(false, InvestmentReasons.UserHasNoMoneyToInvest)],
+        results: [new UserInvestResult(InvestmentReasons.UserHasNoMoneyToInvest, 'user balance: 0')],
       };
 
       expect(canInvestByUser(instance, user, null, null)).toMatchObject(expected);
@@ -45,23 +50,19 @@ describe('and canInvestByUser', () => {
   describe('and hasMoneyToInvest true', () => {
     test('and ledger.hasMinimumSavings is false', () => {
       const user: IUserInvestorCheck = {
-        ledger: {
-          getBalance: jest.fn(),
-          add: jest.fn(),
-          getCashFlowMonth: jest.fn(),
-          getMinimumSavings: jest.fn(),
-          getSummariesAnnual: jest.fn(),
-          getSummaryAnnual: jest.fn(),
-          getSummaryMonth: jest.fn(),
-          hasMinimumSavings: jest.fn().mockReturnValue(false),
-        },
+        metMonthlyGoal: jest.fn(),
+        monthlyIncomeAmountGoal: 0,
+        getBalance: jest.fn().mockReturnValue(0),
+        loanSettings: [],
         purchaseRules: [],
         hasMoneyToInvest: jest.fn().mockReturnValue(true),
+        hasMinimumSavings: jest.fn().mockReturnValue(false),
+        getMinimumSavings: jest.fn().mockReturnValue(1),
       };
 
       const expected: IRentalInvestorValidator = {
         canInvest: false,
-        results: [new UserInvestResult(false, InvestmentReasons.UserHasNotSavedEnoughMoney)],
+        results: [new UserInvestResult(InvestmentReasons.UserHasNotSavedEnoughMoney, 'user balance: 0')],
       };
 
       expect(canInvestByUser(instance, user, null, null)).toMatchObject(expected);
@@ -70,18 +71,14 @@ describe('and canInvestByUser', () => {
   describe('and ledger.hasMinimumSavings is true', () => {
     test('and no rules', () => {
       const user: IUserInvestorCheck = {
-        ledger: {
-          getBalance: jest.fn(),
-          add: jest.fn(),
-          getCashFlowMonth: jest.fn(),
-          getMinimumSavings: jest.fn(),
-          getSummariesAnnual: jest.fn(),
-          getSummaryAnnual: jest.fn(),
-          getSummaryMonth: jest.fn(),
-          hasMinimumSavings: jest.fn().mockReturnValue(true),
-        },
+        metMonthlyGoal: jest.fn(),
+        monthlyIncomeAmountGoal: 0,
+        getBalance: jest.fn(),
+        loanSettings: [],
         purchaseRules: [],
         hasMoneyToInvest: jest.fn().mockReturnValue(true),
+        hasMinimumSavings: jest.fn().mockReturnValue(true),
+        getMinimumSavings: jest.fn().mockReturnValue(1),
       };
 
       const expected: IRentalInvestorValidator = {
@@ -94,16 +91,10 @@ describe('and canInvestByUser', () => {
 
     test('and no rules match', () => {
       const user: IUserInvestorCheck = {
-        ledger: {
-          getBalance: jest.fn(),
-          add: jest.fn(),
-          getCashFlowMonth: jest.fn(),
-          getMinimumSavings: jest.fn(),
-          getSummariesAnnual: jest.fn(),
-          getSummaryAnnual: jest.fn(),
-          getSummaryMonth: jest.fn(),
-          hasMinimumSavings: jest.fn().mockReturnValue(true),
-        },
+        metMonthlyGoal: jest.fn(),
+        monthlyIncomeAmountGoal: 0,
+        getBalance: jest.fn(),
+        loanSettings: [],
         purchaseRules: [
           {
             type: PurchaseRuleTypes.minAskingPrice,
@@ -117,6 +108,8 @@ describe('and canInvestByUser', () => {
           },
         ],
         hasMoneyToInvest: jest.fn().mockReturnValue(true),
+        hasMinimumSavings: jest.fn().mockReturnValue(true),
+        getMinimumSavings: jest.fn().mockReturnValue(1),
       };
 
       const expected: IRentalInvestorValidator = {
@@ -130,16 +123,10 @@ describe('and canInvestByUser', () => {
 
     test('and rules match', () => {
       const user: IUserInvestorCheck = {
-        ledger: {
-          getBalance: jest.fn(),
-          add: jest.fn(),
-          getCashFlowMonth: jest.fn(),
-          getMinimumSavings: jest.fn(),
-          getSummariesAnnual: jest.fn(),
-          getSummaryAnnual: jest.fn(),
-          getSummaryMonth: jest.fn(),
-          hasMinimumSavings: jest.fn().mockReturnValue(true),
-        },
+        metMonthlyGoal: jest.fn(),
+        monthlyIncomeAmountGoal: 0,
+        getBalance: jest.fn(),
+        loanSettings: [],
         purchaseRules: [
           {
             type: PurchaseRuleTypes.minAfterRepairPrice,
@@ -153,6 +140,8 @@ describe('and canInvestByUser', () => {
           },
         ],
         hasMoneyToInvest: jest.fn().mockReturnValue(true),
+        hasMinimumSavings: jest.fn().mockReturnValue(true),
+        getMinimumSavings: jest.fn().mockReturnValue(1),
       };
 
       const expected: IRentalInvestorValidator = {

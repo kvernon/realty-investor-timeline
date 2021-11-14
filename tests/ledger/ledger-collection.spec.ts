@@ -60,7 +60,7 @@ describe('LedgerCollection unit tests', () => {
   });
   describe('and getBalance', () => {
     test('should be zero', () => {
-      expect(instance.getBalance()).toEqual(0);
+      expect(instance.getBalance(new Date())).toEqual(0);
     });
 
     describe('and collection populated', () => {
@@ -68,10 +68,11 @@ describe('LedgerCollection unit tests', () => {
         const expected = 8;
 
         const item = new LedgerItem();
+        item.created = new Date();
         item.amount = expected;
         instance.add(item);
 
-        expect(instance.getBalance()).toEqual(expected);
+        expect(instance.getBalance(item.created)).toEqual(expected);
       });
     });
 
@@ -80,13 +81,15 @@ describe('LedgerCollection unit tests', () => {
         const expected = 8;
 
         const item = new LedgerItem();
+        item.created = new Date();
         item.amount = expected;
 
         const item2 = new LedgerItem();
+        item2.created = new Date();
         item2.amount = expected;
         instance.add([item, item2]);
 
-        expect(instance.getBalance()).toEqual(expected * 2);
+        expect(instance.getBalance(item.created)).toEqual(expected * 2);
       });
     });
 
@@ -95,14 +98,16 @@ describe('LedgerCollection unit tests', () => {
         const expected = 8;
 
         const item = new LedgerItem();
+        item.created = new Date();
         item.amount = expected;
 
         const purchase = new LedgerItem();
+        purchase.created = new Date();
         purchase.type = LedgerItemType.Purchase;
         purchase.amount = expected * -1;
         instance.add([item, purchase]);
 
-        expect(instance.getBalance()).toEqual(0);
+        expect(instance.getBalance(item.created)).toEqual(0);
       });
     });
   });

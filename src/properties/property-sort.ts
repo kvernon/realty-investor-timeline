@@ -18,8 +18,8 @@ export default function propertySort(
     return -1;
   }
 
-  const reasonsA = getInvestmentReasons<IRentalPropertyEntity, keyof IRentalPropertyEntity, number>(propertyA);
-  const reasonsB = getInvestmentReasons<IRentalPropertyEntity, keyof IRentalPropertyEntity, number>(propertyB);
+  const reasonsA = getInvestmentReasons<IRentalPropertyEntity>(propertyA);
+  const reasonsB = getInvestmentReasons<IRentalPropertyEntity>(propertyB);
 
   if (reasonsA.length > 0 && reasonsB.length === 0) {
     return -1;
@@ -35,6 +35,7 @@ export default function propertySort(
       ruleType: PurchaseRuleTypes.none,
       descriptor: { value: 0 },
       propertyKey: '',
+      value: -1,
       investmentReason: InvestmentReasons.Unknown,
     };
     const reasonsItemB = reasonsB.find((s) => s.ruleType === r.type) || {
@@ -44,17 +45,11 @@ export default function propertySort(
       investmentReason: InvestmentReasons.Unknown,
     };
 
-    if (
-      reasonsItemB.ruleType === PurchaseRuleTypes.none ||
-      reasonsItemA.descriptor.value > reasonsItemB.descriptor.value
-    ) {
+    if (reasonsItemB.ruleType === PurchaseRuleTypes.none || reasonsItemA.value > reasonsItemB.value) {
       return -1;
     }
 
-    if (
-      reasonsItemA.ruleType === PurchaseRuleTypes.none ||
-      reasonsItemA.descriptor.value > reasonsItemB.descriptor.value
-    ) {
+    if (reasonsItemA.ruleType === PurchaseRuleTypes.none || reasonsItemA.value > reasonsItemB.value) {
       return 1;
     }
   }

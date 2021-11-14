@@ -1,5 +1,5 @@
 import { IPropertyEntity } from './i-property-entity';
-import { IUser } from '../account/i-user';
+import { IUser } from '../account/user';
 import { IRentalInvestorValidator } from '../investments/rental-investor-validator';
 
 export interface IRentalPropertyEntity extends IPropertyEntity {
@@ -24,4 +24,10 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
   isOwned: boolean;
 
   canInvestByUser(user: IUser, date: Date, properties: IPropertyEntity[]): IRentalInvestorValidator;
+
+  /**
+   * used to compare {@link availableStartDate}, {@param today}, and {@link availableEndDate},
+   * @param today
+   */
+  isAvailableByDate(today: Date): boolean;
 }

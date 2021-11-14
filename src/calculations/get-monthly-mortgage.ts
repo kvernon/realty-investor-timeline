@@ -1,3 +1,5 @@
+import { differenceInMonths } from 'date-fns';
+
 /**
  * formula for M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1].
  * @param purchasePrice
@@ -13,10 +15,35 @@ export function getMonthlyMortgage(
   loanRatePercent: number,
   loanTermInYears = 30
 ): number {
-  const cashDown = (purchasePrice * cashDownPercent) / 100;
+  const cashDown = getCashDown(purchasePrice, cashDownPercent);
   const p = purchasePrice - cashDown;
   const i = loanRatePercent / 100 / 12;
   const n = loanTermInYears * 12;
 
   return (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+}
+
+/**
+ * returns the the total cash down for a single family home
+ * @param purchasePrice
+ * @param cashDownPercent
+ */
+export function getCashDown(purchasePrice: number, cashDownPercent: number) {
+  return (purchasePrice * cashDownPercent) / 100;
+}
+
+export function getSellPriceEstimate(
+  purchase: Date,
+  sell: Date,
+  purchasePrice: number,
+  sellPriceAppreciationPercent: number
+): number {
+  const differenceInYears = Math.ceil(differenceInMonths(sell, purchase) / 12);
+
+  let result = purchasePrice;
+  for (let i = 0; i < differenceInYears; i++) {
+    result = result + (result * sellPriceAppreciationPercent) / 100;
+  }
+
+  return result;
 }

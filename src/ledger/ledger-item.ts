@@ -45,4 +45,8 @@ export class LedgerItem {
 
     return this.created.getUTCFullYear();
   }
+
+  clone(): LedgerItem {
+    return Object.assign(new LedgerItem(), this);
+  }
 }

@@ -7,11 +7,9 @@ export class UserInvestResult {
   }
 
   public investmentReason: InvestmentReasons;
-  public canInvest: boolean;
 
-  constructor(canInvest: boolean, reason: InvestmentReasons = InvestmentReasons.Unknown, message = '') {
+  constructor(reason: InvestmentReasons = InvestmentReasons.Unknown, message = '') {
     this.investmentReason = reason;
-    this.canInvest = canInvest;
     this._message = message;
   }
 

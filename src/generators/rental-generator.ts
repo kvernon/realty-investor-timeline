@@ -6,7 +6,7 @@ import { IRentalPropertyEntity } from '../properties/i-rental-property-entity';
 import { randomNumberBetween } from '../utils/data-number';
 
 export interface IRentalGenerator<T extends IRentalPropertyEntity> {
-  getRentals(rentalClassType: new () => T, settings?: ILoanSetting[], today?: Date): T[];
+  getRentals(rentalClassType: new () => T, today: Date, settings?: ILoanSetting[]): T[];
 
   removeRentalById(id: string, rentalClassType: new () => T, today?: Date): void;
 }
@@ -30,6 +30,12 @@ export class RentalGenerator<T extends IRentalPropertyEntity> implements IProper
   public lowestMinSellInYears: number;
   public highestMinSellInYears: number;
 
+  public lowestCashFlowMonthly: number;
+  public highestCashFlowMonthly: number;
+
+  public lowestEquityCapturePercent: number;
+  public highestEquityCapturePercent: number;
+
   private readonly generateProperty: GenerateProperty<T>;
 
   private userSettings: ILoanSetting[];
@@ -39,7 +45,7 @@ export class RentalGenerator<T extends IRentalPropertyEntity> implements IProper
     this.generateProperty = generateProperty;
   }
 
-  getRentals(rentalClassType: new () => T, settings?: ILoanSetting[], today?: Date): T[] {
+  getRentals(rentalClassType: new () => T, today: Date, settings?: ILoanSetting[]): T[] {
     if (!settings && !this.userSettings) {
       throw new Error('no settings found for user');
     }
@@ -70,11 +76,11 @@ export class RentalGenerator<T extends IRentalPropertyEntity> implements IProper
         this.generateProperty(
           this,
           {
-            isAvailableByDate: jest.fn(),
             availableEndDate: this.rentalCache.expireDate,
             availableStartDate: today,
           },
-          settings
+          settings,
+          4
         )
       );
     }
@@ -83,7 +89,7 @@ export class RentalGenerator<T extends IRentalPropertyEntity> implements IProper
   }
 
   removeRentalById(id: string, rentalClassType: new () => T, today?: Date): void {
-    const rentals = this.getRentals(rentalClassType, this.userSettings, today);
+    const rentals = this.getRentals(rentalClassType, today, this.userSettings);
     if (rentals.length === 0) {
       return;
     }
