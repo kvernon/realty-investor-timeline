@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.3.0...v1.4.0) (2021-11-14)
+
+
+### Bug Fixes
+
+* updating publish ([c64ae48](https://github.com/kvernon/realty-investor-timeline/commit/c64ae48f7919a4759542c455f2f82b78df95e71c))
+
+
+### Features
+
+* user ([85d60ba](https://github.com/kvernon/realty-investor-timeline/commit/85d60bac9c4a04bff9b21536c404ab2ec3dd90f9))
+
 # [1.3.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.2.0...v1.3.0) (2021-11-08)
 
 
