@@ -104,8 +104,7 @@ As this is still in progress, the current flow is as follows:
 ```typescript
 import {
   HasMetGoalOrMaxTime,
-  ILoopOptions,
-  loop,
+  ISimulateOptions,
   LedgerCollection,
   LoanSettings,
   PropertyType,
@@ -115,89 +114,50 @@ import {
   PurchaseRuleTypes,
   ValueCache,
   User,
+  simulate,
 } from "@cubedelement.com/realty-investor-timeline";
 
-// setup up how much money you have to get started
-const totalSavings = new LedgerItem();
-totalSavings.amount = 100000;
-totalSavings.note = "already saved";
-totalSavings.type = LedgerItemType.Saved;
-totalSavings.created = new Date();
-totalSavings.created.setDate(1);
-
-const ledgerCollection = new LedgerCollection();
-ledgerCollection.add(totalSavings);
-
-//you
-const user = new User(ledgerCollection);
-user.monthlySavedAmount = 10000; //everything you put into savings each month after your expenses
-
-//TODO: clean this idea up
-user.goals = {
-  metMonthlyGoal(today: Date): boolean {
-    return (
-      ledgerCollection.getCashFlowMonth(today) >=
-      user.goals.monthlyIncomeAmountGoal
-    );
-  },
+const options: ISimulateOptions = {
+  amountInSavings: 100000,
   monthlyIncomeAmountGoal: 10000,
-};
-
-//These are loan rules. In this example for SingleFamily (SF) we have good credit loan amount with a conventional 30 year mortgage.
-//Also, for this state, it's required to keep 6 months of savings for each rental
-user.loanSettings = [
-  {
-    propertyType: PropertyType.SingleFamily,
-    name: LoanSettings.minimumReservesSingleFamily,
-    value: 6,
-  },
-  {
-    name: LoanSettings.loanRatePercent,
-    value: 4,
-    propertyType: PropertyType.SingleFamily,
-  },
-  {
-    name: LoanSettings.loanTermInYears,
-    value: 30,
-    propertyType: PropertyType.SingleFamily,
-  },
-];
-
-//These are your requirements for what you're looking for in a property!
-user.purchaseRules = [
-  new RuleEvaluation(30000, PurchaseRuleTypes.maxEstimatedOutOfPocket),
-  new RuleEvaluation(7000, PurchaseRuleTypes.minEstimatedCapitalGains),
-  new RuleEvaluation(200, PurchaseRuleTypes.minEstimatedCashFlowPerMonth),
-];
-
-const date = new Date();
-const valueCache = new ValueCache(
-  new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)),
-  [],
-  2
-);
-const propertyGeneratorSingleFamily = new RentalGenerator<RentalSingleFamily>(
-  valueCache,
-  generateSingleFamily
-);
-propertyGeneratorSingleFamily.maxRentalOpportunities = 4;
-propertyGeneratorSingleFamily.highestMinSellInYears = 1;
-propertyGeneratorSingleFamily.lowestMinSellInYears = 1;
-propertyGeneratorSingleFamily.highestPriceDown = 200000;
-propertyGeneratorSingleFamily.lowestPriceDown = 150000;
-propertyGeneratorSingleFamily.highestSellAppreciationPercent = 7;
-propertyGeneratorSingleFamily.lowestSellAppreciationPercent = 5;
-propertyGeneratorSingleFamily.lowestCashFlowMonthly = 200;
-propertyGeneratorSingleFamily.highestCashFlowMonthly = 500;
-propertyGeneratorSingleFamily.lowestEquityCapturePercent = 7;
-propertyGeneratorSingleFamily.highestEquityCapturePercent = 15;
-
-const options: ILoopOptions = {
-  propertyGeneratorSingleFamily,
+  monthlySavedAmount: 10000,
+  purchaseRules: [
+    { value: 30000, type: PurchaseRuleTypes.maxEstimatedOutOfPocket },
+    { value: 7000, type: PurchaseRuleTypes.minEstimatedCapitalGains },
+    { value: 200, type: PurchaseRuleTypes.minEstimatedCashFlowPerMonth },
+  ],
+  loanSettings: [
+    {
+      propertyType: PropertyType.SingleFamily,
+      name: LoanSettings.minimumReservesSingleFamily,
+      value: 6,
+    },
+    {
+      name: LoanSettings.loanRatePercent,
+      value: 4,
+      propertyType: PropertyType.SingleFamily,
+    },
+    {
+      name: LoanSettings.loanTermInYears,
+      value: 30,
+      propertyType: PropertyType.SingleFamily,
+    },
+  ],
   maxYears: 1,
+  maxRentalOpportunitiesSingleFamily: 4,
+  highestMinSellInYears: 1,
+  lowestMinSellInYears: 1,
+  highestPriceDown: 200000,
+  lowestPriceDown: 150000,
+  highestSellAppreciationPercent: 7,
+  lowestSellAppreciationPercent: 5,
+  lowestCashFlowMonthly: 200,
+  highestCashFlowMonthly: 500,
+  lowestEquityCapturePercent: 7,
+  highestEquityCapturePercent: 15,
 };
 
-const actual = loop(options, user);
+const actual = simulate(options);
 
 //Finally, to review your results, you can use the ledgerCollection from above.
 const lastYear = ledgerCollection.getSummariesAnnual(

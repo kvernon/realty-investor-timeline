@@ -4,3 +4,4 @@ export * from './i-historical-property';
 export * from './i-historical-reason';
 export * from './i-timeline';
 export * from './movement';
+export * from './simulate';

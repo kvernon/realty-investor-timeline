@@ -1,8 +1,22 @@
 export interface IPropertyEntityOptions {
+  /**
+   * used to generate a random price amount, this is the low value
+   */
   lowestPriceDown: number;
+
+  /**
+   * used to generate a random price amount, this is the high value
+   */
   highestPriceDown: number;
 
+  /**
+   * used to generate a random equity amount, this is the low value
+   */
   lowestEquityCapturePercent: number;
+
+  /**
+   * used to generate a random equity amount, this is the high value
+   */
   highestEquityCapturePercent: number;
 
   /**

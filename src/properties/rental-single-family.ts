@@ -10,7 +10,7 @@ import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { canInvestByUser } from '../calculations/can-invest-by-user';
 import { IUserInvestorCheck } from '../account/i-user-investor-check';
 import { getCashDown, getSellPriceEstimate } from '../calculations/get-monthly-mortgage';
-import cloneDate from '../utils/data-clone-date';
+import cloneDateUtc from '../utils/data-clone-date';
 import areSameDate from '../utils/data-are-same-date';
 import compareDates from '../utils/data-compare-date';
 
@@ -181,7 +181,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
   }
 
   get minSellDate(): Date {
-    const minDate = cloneDate(this.purchaseDate);
+    const minDate = cloneDateUtc(this.purchaseDate);
     minDate.setUTCFullYear(minDate.getUTCFullYear() + this.minSellYears);
     return minDate;
   }
