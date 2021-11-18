@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.4.0...v1.5.0) (2021-11-18)
+
+
+### Features
+
+* easier start ([073a73a](https://github.com/kvernon/realty-investor-timeline/commit/073a73aa4f4039550f11798a2736c52e018e64e2))
+
 # [1.4.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.3.0...v1.4.0) (2021-11-14)
 
 
