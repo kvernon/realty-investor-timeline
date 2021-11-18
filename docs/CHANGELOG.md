@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.5.0...v1.6.0) (2021-11-18)
+
+
+### Features
+
+* expose ledger collection summaries ([083c4d3](https://github.com/kvernon/realty-investor-timeline/commit/083c4d3f0b41a842d599fadc8cf8d1c5777bc8d1))
+
 # [1.5.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.4.0...v1.5.0) (2021-11-18)
 
 
