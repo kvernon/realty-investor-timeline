@@ -159,14 +159,14 @@ const options: ISimulateOptions = {
 
 const actual = simulate(options);
 
-//Finally, to review your results, you can use the ledgerCollection from above.
-const lastYear = ledgerCollection.getSummariesAnnual(
+//Finally, to review your results, you can use the user's getSummariesAnnual.
+const lastYear = actual.user.getSummariesAnnual(
   actual.endDate.getUTCFullYear()
 );
 ```
 
 The example result object models:
-ITimeline:
+`ITimeline`:
 
 ```JSON
 {

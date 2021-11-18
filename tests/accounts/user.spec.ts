@@ -5,7 +5,6 @@ import { ILedgerCollection } from '../../src/ledger/ledger-collection';
 import { LedgerItem } from '../../src/ledger/ledger-item';
 import { IRentalSavings } from '../../src/properties/i-rental-savings';
 import { LoanSettings } from '../../src/account/loan-settings';
-import { IPropertyEntity } from '../../src/properties/i-property-entity';
 
 describe('User unit tests', () => {
   let chance: Chance.Chance;
@@ -94,62 +93,6 @@ describe('User unit tests', () => {
     });
   });
 
-  describe('and canInvestInProperty', () => {
-    let minNum: number;
-    let expectedCostDown: number;
-    let newProp: IPropertyEntity;
-
-    beforeEach(() => {
-      minNum = chance.integer();
-
-      instance.loanSettings = [
-        {
-          propertyType: PropertyType.SingleFamily,
-          name: LoanSettings.minimumReservesSingleFamily,
-          value: minNum,
-        },
-      ];
-      expectedCostDown = chance.integer({ min: 1, max: 9 });
-
-      newProp = {
-        equityCapturePercent: 0,
-        monthlyCashFlow: 0,
-        address: chance.address(),
-        availableEndDate: chance.date(),
-        availableStartDate: chance.date(),
-        id: chance.guid(),
-        purchasePrice: 0,
-        sellPriceAppreciationPercent: 0,
-        get costDownPrice(): number {
-          return expectedCostDown;
-        },
-      };
-    });
-
-    test('should be true', () => {
-      const minSavings = chance.integer({ min: 10, max: 40 });
-      const date = new Date();
-      const properties: IRentalSavings[] = [];
-
-      ledgerCollection.getMinimumSavings.mockReturnValueOnce(minSavings);
-      ledgerCollection.getBalance.mockReturnValueOnce(minSavings + expectedCostDown);
-
-      expect(instance.canInvestInProperty(date, properties, newProp)).toEqual(true);
-      expect(ledgerCollection.getMinimumSavings).toBeCalledWith(date, properties, minNum);
-    });
-
-    test('should be false', () => {
-      const minSavings = chance.integer({ min: 10, max: 40 });
-      const date = new Date();
-      const properties: IRentalSavings[] = [];
-
-      ledgerCollection.getMinimumSavings.mockReturnValueOnce(minSavings);
-      ledgerCollection.getBalance.mockReturnValueOnce(expectedCostDown);
-
-      expect(instance.canInvestInProperty(date, properties, newProp)).toEqual(false);
-    });
-  });
-
   describe('and getMinimumSavings', () => {
     let minNum: number;
 
@@ -174,6 +117,66 @@ describe('User unit tests', () => {
 
       expect(instance.getMinimumSavings(date, properties)).toEqual(minSavings);
       expect(ledgerCollection.getMinimumSavings).toBeCalledWith(date, properties, minNum);
+    });
+  });
+
+  describe('and getSummaryMonth', () => {
+    test('should match', () => {
+      const date = new Date();
+
+      const expected = {
+        averageCashFlow: 0,
+        balance: 0,
+        cashFlow: 0,
+        date,
+        equity: 0,
+        purchases: 0,
+      };
+
+      ledgerCollection.getSummaryMonth.mockReturnValueOnce(expected);
+
+      expect(instance.getSummaryMonth(date)).toEqual(expected);
+      expect(ledgerCollection.getSummaryMonth).toBeCalledWith(date);
+    });
+  });
+
+  describe('and getSummaryAnnual', () => {
+    test('should match', () => {
+      const year = chance.integer();
+
+      const expected = {
+        averageCashFlow: 0,
+        balance: 0,
+        cashFlow: 0,
+        date: new Date(),
+        equity: 0,
+        purchases: 0,
+      };
+
+      ledgerCollection.getSummaryAnnual.mockReturnValueOnce(expected);
+
+      expect(instance.getSummaryAnnual(year)).toEqual(expected);
+      expect(ledgerCollection.getSummaryAnnual).toBeCalledWith(year);
+    });
+  });
+
+  describe('and getSummariesAnnual', () => {
+    test('should match', () => {
+      const year = chance.integer();
+
+      const expected = {
+        averageCashFlow: 0,
+        balance: 0,
+        cashFlow: 0,
+        date: new Date(),
+        equity: 0,
+        purchases: 0,
+      };
+
+      ledgerCollection.getSummariesAnnual.mockReturnValueOnce([expected]);
+
+      expect(instance.getSummariesAnnual(year)).toEqual([expected]);
+      expect(ledgerCollection.getSummariesAnnual).toBeCalledWith(year);
     });
   });
 });
