@@ -45,6 +45,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
           monthlySavedAmount: 0,
           purchaseRules: [],
           clone: jest.fn(),
+          getSummaryAnnual: jest.fn(),
+          getSummaryMonth: jest.fn(),
+          getSummariesAnnual: jest.fn(),
         } as jest.Mocked<IUser>;
       });
       describe('today is maxDate', () => {

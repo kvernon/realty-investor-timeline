@@ -30,6 +30,9 @@ describe('movement unit tests', () => {
       addLedgerItem: jest.fn(),
       monthlySavedAmount: chance.integer({ min: 1, max: 10 }),
       clone: jest.fn(),
+      getSummaryAnnual: jest.fn(),
+      getSummaryMonth: jest.fn(),
+      getSummariesAnnual: jest.fn(),
     } as jest.Mocked<IUser>;
 
     user.clone.mockReturnValueOnce(user);

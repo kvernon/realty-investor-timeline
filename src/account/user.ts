@@ -4,10 +4,10 @@ import { ILedgerCollection } from '../ledger/ledger-collection';
 import { LedgerItem } from '../ledger/ledger-item';
 import { IRentalSavings } from '../properties/i-rental-savings';
 import { LoanSettings } from './loan-settings';
-import { IPropertyEntity } from '../properties/i-property-entity';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { IRuleEvaluation } from '../rules/rule-evaluation';
 import cloneDeep from 'lodash.clonedeep';
+import { ILedgerSummary } from '../ledger/i-ledger-summary';
 
 /**
  * It's the user... as an interface!
@@ -19,6 +19,12 @@ export interface IUser extends IUserInvestorCheck {
   monthlySavedAmount: number;
 
   addLedgerItem(item: LedgerItem | Iterable<LedgerItem>): void;
+
+  getSummaryMonth(date: Date): ILedgerSummary;
+
+  getSummaryAnnual(year: number): ILedgerSummary;
+
+  getSummariesAnnual(year: number): ILedgerSummary[];
 
   /**
    * a system to weed out the properties you don't want. This scenario says as long as it meets 1 rule
@@ -95,22 +101,16 @@ export class User implements IUser {
     return this.ledgerCollection.getMinimumSavings(date, properties, minMonthsRequired);
   }
 
-  /**
-   * TODO: remove this method... distribute to property instead
-   * this reviews the property to determine if the user can purchase it.
-   * @param date
-   * @param properties collection of already purchased properties
-   * @param newProperty property you want to acquire
-   */
-  canInvestInProperty(date: Date, properties: IRentalSavings[], newProperty: IPropertyEntity): boolean {
-    if (!newProperty) {
-      return false;
-    }
+  getSummaryMonth(date: Date): ILedgerSummary {
+    return this.ledgerCollection.getSummaryMonth(date);
+  }
 
-    const savingsAndCostDown = this.getMinimumSavings(date, properties) + newProperty.costDownPrice;
+  getSummaryAnnual(year: number): ILedgerSummary {
+    return this.ledgerCollection.getSummaryAnnual(year);
+  }
 
-    const balance = this.ledgerCollection.getBalance(date);
-    return balance >= savingsAndCostDown;
+  getSummariesAnnual(year: number): ILedgerSummary[] {
+    return this.ledgerCollection.getSummariesAnnual(year);
   }
 
   clone(): IUser {
