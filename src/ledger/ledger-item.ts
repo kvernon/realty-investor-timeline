@@ -1,5 +1,8 @@
 import { LedgerItemType } from './ledger-item-type';
 
+/**
+ * this is an entry into the account. Think of it as a checking account, and it's simply a transaction line.
+ */
 export class LedgerItem {
   public type: LedgerItemType;
   public created?: Date;

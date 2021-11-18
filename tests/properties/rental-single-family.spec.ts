@@ -1,7 +1,7 @@
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { Chance } from 'chance';
 import cloneDateUTC from '../../src/utils/data-clone-date';
-import cloneDate from '../../src/utils/data-clone-date';
+import cloneDateUtc from '../../src/utils/data-clone-date';
 
 describe('RentalSingleFamily unit tests', () => {
   let instance: RentalSingleFamily;
@@ -237,7 +237,7 @@ describe('RentalSingleFamily unit tests', () => {
 
       describe('and today is after minDateSell', () => {
         test('should return false', () => {
-          const date = cloneDate(new Date());
+          const date = cloneDateUtc(new Date());
           expect(instance.canSell(date)).toBeTruthy();
         });
       });

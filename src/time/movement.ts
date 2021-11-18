@@ -7,7 +7,7 @@ import { IUser } from '../account/user';
 import { LedgerItemType } from '../ledger/ledger-item-type';
 import { LedgerItem } from '../ledger/ledger-item';
 import propertySort from '../properties/property-sort';
-import cloneDate from '../utils/data-clone-date';
+import cloneDateUtc from '../utils/data-clone-date';
 
 export interface ILoopOptions {
   /**
@@ -49,27 +49,27 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
     options.startDate = new Date(Date.UTC(setupDate.getUTCFullYear(), setupDate.getUTCMonth(), 1));
   }
 
-  let today = cloneDate(options.startDate);
+  let today = cloneDateUtc(options.startDate);
 
   const result: ITimeline = {
-    startDate: cloneDate(today),
-    endDate: cloneDate(today),
+    startDate: cloneDateUtc(today),
+    endDate: cloneDateUtc(today),
     rentals: [],
     user: user.clone(),
   };
 
   do {
-    today = cloneDate(today);
+    today = cloneDateUtc(today);
     today.setUTCMonth(today.getUTCMonth() + 1);
 
-    result.endDate = cloneDate(today);
+    result.endDate = cloneDateUtc(today);
 
     //step 1: get savings
     if (result.user.monthlySavedAmount > 0) {
       const salary = new LedgerItem();
       salary.amount = result.user.monthlySavedAmount;
       salary.type = LedgerItemType.Salary;
-      salary.created = cloneDate(today);
+      salary.created = cloneDateUtc(today);
       salary.note = 'saved for month';
       result.user.addLedgerItem(salary);
     }
@@ -98,7 +98,7 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
         const cashFlow = new LedgerItem();
         cashFlow.amount = pr.property.getMonthlyCashFlowByDate(today);
         cashFlow.type = LedgerItemType.CashFlow;
-        cashFlow.created = cloneDate(today);
+        cashFlow.created = cloneDateUtc(today);
         cashFlow.note = `for: ${pr.property.address}, id: ${pr.property.id}`;
         result.user.addLedgerItem(cashFlow);
       });
@@ -107,12 +107,12 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
     result.rentals
       .filter((r) => r.property.canSell(today))
       .forEach((pr) => {
-        pr.property.soldDate = cloneDate(today);
+        pr.property.soldDate = cloneDateUtc(today);
 
         const equityFromSell = new LedgerItem();
         equityFromSell.amount = pr.property.getEquityFromSell(today);
         equityFromSell.type = LedgerItemType.Equity;
-        equityFromSell.created = cloneDate(today);
+        equityFromSell.created = cloneDateUtc(today);
         equityFromSell.note = `for: ${pr.property.address}, id: ${pr.property.id}`;
         result.user.addLedgerItem(equityFromSell);
       });
@@ -135,7 +135,7 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
           r.reasons = r.reasons.concat(
             validator.results.map((reasons) => ({
               reason: reasons.message,
-              date: cloneDate(today),
+              date: cloneDateUtc(today),
             }))
           );
         }
@@ -155,12 +155,12 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
           const purchase = new LedgerItem();
           purchase.amount = pr.property.costDownPrice;
           purchase.type = LedgerItemType.Purchase;
-          purchase.created = cloneDate(today);
+          purchase.created = cloneDateUtc(today);
           purchase.note = `for: ${pr.property.address}, id: ${pr.property.id}`;
           result.user.addLedgerItem(purchase);
 
           // set to purchase
-          pr.property.purchaseDate = cloneDate(today);
+          pr.property.purchaseDate = cloneDateUtc(today);
         }
       });
   } while (!options.hasMetGoalOrMaxTime(result.startDate, today, result.user, options.maxYears));
