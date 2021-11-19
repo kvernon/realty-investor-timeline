@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/kvernon/realty-investor-timeline/compare/v1.7.0...v1.7.1) (2021-11-19)
+
+
+### Bug Fixes
+
+* publish / bundle ([f0bffb9](https://github.com/kvernon/realty-investor-timeline/commit/f0bffb95db34fae5adbff30a60ec3cb0da24aa4c))
+
 # [1.7.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.6.0...v1.7.0) (2021-11-19)
 
 
