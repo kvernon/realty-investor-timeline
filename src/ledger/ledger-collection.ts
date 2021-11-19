@@ -3,6 +3,7 @@ import itiriri, { IterableQuery } from 'itiriri';
 import { ILedgerSummary } from './i-ledger-summary';
 import { LedgerItemType } from './ledger-item-type';
 import { IRentalSavings, RentalSingleFamily } from '../properties';
+import currency from '../formatters/currency';
 
 export interface ILedgerCollection {
   getBalance(date: Date): number;
@@ -132,7 +133,9 @@ export class LedgerCollection implements ILedgerCollection {
 
     const salary = this.getSummaryByType(boundary, LedgerItemType.Salary);
     result.cashFlow = this.getSummaryByType(boundary, LedgerItemType.CashFlow);
-    result.averageCashFlow = boundary.filter((x) => x.type === LedgerItemType.CashFlow).average((x) => x.amount) || 0;
+    result.averageCashFlow = currency(
+      boundary.filter((x) => x.type === LedgerItemType.CashFlow).average((x) => x.amount) || 0
+    );
     result.equity = this.getSummaryByType(boundary, LedgerItemType.Equity);
     result.purchases = this.getSummaryByType(boundary, LedgerItemType.Purchase);
     result.balance = result.cashFlow + salary + result.equity - result.purchases || 0;
@@ -159,8 +162,8 @@ export class LedgerCollection implements ILedgerCollection {
       balance: summaries.sum((x) => x.balance || 0),
       equity: summaries.sum((x) => x.equity || 0),
       cashFlow: summaries.sum((x) => x.cashFlow || 0),
-      averageCashFlow: summaries.average((x) => x.cashFlow || 0),
-      purchases: summaries.average((x) => x.purchases || 0),
+      averageCashFlow: currency(summaries.average((x) => x.cashFlow || 0)),
+      purchases: summaries.sum((x) => x.purchases || 0),
     };
   }
 

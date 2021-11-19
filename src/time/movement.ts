@@ -7,7 +7,7 @@ import { IUser } from '../account/user';
 import { LedgerItemType } from '../ledger/ledger-item-type';
 import { LedgerItem } from '../ledger/ledger-item';
 import propertySort from '../properties/property-sort';
-import cloneDateUtc from '../utils/data-clone-date';
+import { cloneDateUtc } from '../utils/data-clone-date';
 
 export interface ILoopOptions {
   /**

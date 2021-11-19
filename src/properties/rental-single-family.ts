@@ -10,7 +10,7 @@ import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { canInvestByUser } from '../calculations/can-invest-by-user';
 import { IUserInvestorCheck } from '../account/i-user-investor-check';
 import { getCashDown, getSellPriceEstimate } from '../calculations/get-monthly-mortgage';
-import cloneDateUtc from '../utils/data-clone-date';
+import { cloneDateUtc } from '../utils/data-clone-date';
 import areSameDate from '../utils/data-are-same-date';
 import compareDates from '../utils/data-compare-date';
 
@@ -125,7 +125,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
       return undefined;
     }
 
-    return new Date(value.getUTCFullYear(), value.getUTCMonth(), 1);
+    return cloneDateUtc(value);
   }
 
   private _purchaseDate: Date | undefined;

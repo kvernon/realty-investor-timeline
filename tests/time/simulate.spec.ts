@@ -18,7 +18,9 @@ describe('simulate unit tests', () => {
 
       const date = new Date();
       const cloneDateUtc: jest.Mock = jest.fn().mockReturnValue(date);
-      jest.doMock('../../src/utils/data-clone-date', () => cloneDateUtc);
+      jest.doMock('../../src/utils/data-clone-date', () => ({
+        cloneDateUtc,
+      }));
 
       const loop: jest.Mock = jest.fn();
       jest.doMock('../../src/time/movement', () => ({
@@ -87,7 +89,7 @@ describe('simulate unit tests', () => {
       );
 
       expect(assign).toBeCalledWith(rentalGen, options);
-      expect(ValueCacheCtor).toBeCalledWith(options.startDate, [], options.maxRentalOpportunitiesSingleFamily);
+      expect(ValueCacheCtor).toBeCalledWith(options.startDate, [], 2);
       expect(RentalGeneratorCtor).toBeCalledWith(valueCache, generateSingleFamily);
     });
   });

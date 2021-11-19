@@ -1,6 +1,7 @@
 export * from './account';
 export * from './caching';
 export * from './calculations';
+export * from './formatters';
 export * from './generators';
 export * from './investments';
 export * from './ledger';

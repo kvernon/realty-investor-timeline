@@ -89,9 +89,7 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
 
 ## Missing features
 
-1. currency formatting
-2. easier setup
-3. apartments (passive investor)
+1. apartments (passive investor)
 
 ## Future
 

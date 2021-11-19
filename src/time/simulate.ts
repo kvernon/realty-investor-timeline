@@ -12,7 +12,7 @@ import { RentalSingleFamily } from '../properties';
 import { LedgerCollection, LedgerItem, LedgerItemType } from '../ledger';
 import { ValueCache } from '../caching/value-cache';
 import { loop } from './movement';
-import cloneDateUtc from '../utils/data-clone-date';
+import { cloneDateUtc } from '../utils/data-clone-date';
 
 export interface ISimulateOptions extends IPropertyEntityOptions {
   /**
@@ -67,12 +67,13 @@ export interface ISimulateOptions extends IPropertyEntityOptions {
  */
 export function simulate(options: ISimulateOptions): ITimeline {
   const formattedUtcDate = cloneDateUtc(options.startDate ?? new Date());
-  const valueCache = new ValueCache(cloneDateUtc(formattedUtcDate), [], options.maxRentalOpportunitiesSingleFamily);
+  const valueCache = new ValueCache(cloneDateUtc(formattedUtcDate), [], 2);
 
   const propertyGeneratorSingleFamily = Object.assign(
     new RentalGenerator<RentalSingleFamily>(valueCache, generateSingleFamily),
     options
   );
+  propertyGeneratorSingleFamily.maxRentalOpportunities = options.maxRentalOpportunitiesSingleFamily;
 
   const totalSavings = new LedgerItem();
   totalSavings.amount = options.amountInSavings;
