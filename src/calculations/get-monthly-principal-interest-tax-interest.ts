@@ -1,4 +1,5 @@
 import { getMonthlyMortgage } from './get-monthly-mortgage';
+import currency from '../formatters/currency';
 
 /**
  * This gets you PITI!
@@ -28,5 +29,5 @@ export function getMonthlyPrincipalInterestTaxInterest(
     loanRatePercent,
     loanTermInYears
   );
-  return monthlyMortgage + annualTaxes / 12 + annualInsurance / 12;
+  return currency(monthlyMortgage + annualTaxes / 12 + annualInsurance / 12);
 }

@@ -1,7 +1,6 @@
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { Chance } from 'chance';
-import cloneDateUTC from '../../src/utils/data-clone-date';
-import cloneDateUtc from '../../src/utils/data-clone-date';
+import { cloneDateUtc } from '../../src/utils/data-clone-date';
 
 describe('RentalSingleFamily unit tests', () => {
   let instance: RentalSingleFamily;
@@ -26,7 +25,7 @@ describe('RentalSingleFamily unit tests', () => {
 
       instance.purchaseDate = date;
 
-      expect(instance.purchaseDate).toEqual(new Date(date.getUTCFullYear(), date.getUTCMonth(), 1));
+      expect(instance.purchaseDate).toEqual(new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)));
     });
     test('undefined, should be undefined', () => {
       instance.purchaseDate = undefined;
@@ -44,7 +43,7 @@ describe('RentalSingleFamily unit tests', () => {
 
       instance.soldDate = date;
 
-      expect(instance.soldDate).toEqual(new Date(date.getUTCFullYear(), date.getUTCMonth(), 1));
+      expect(instance.soldDate).toEqual(new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)));
     });
     test('undefined, should be undefined', () => {
       instance.soldDate = undefined;
@@ -220,7 +219,7 @@ describe('RentalSingleFamily unit tests', () => {
     });
     describe('and isOwned', () => {
       beforeEach(() => {
-        instance.purchaseDate = cloneDateUTC(new Date());
+        instance.purchaseDate = cloneDateUtc(new Date());
       });
 
       describe('and today is null', () => {

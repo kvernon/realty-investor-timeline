@@ -485,7 +485,7 @@ describe('LedgerCollection unit tests', () => {
           cashFlow: 4,
           averageCashFlow: 2,
           equity: equity.amount,
-          purchases: 1.5,
+          purchases: 3,
         });
       });
     });

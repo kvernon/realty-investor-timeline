@@ -1,4 +1,5 @@
 import { differenceInMonths } from 'date-fns';
+import currency from '../formatters/currency';
 
 /**
  * formula for M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1].
@@ -20,7 +21,8 @@ export function getMonthlyMortgage(
   const i = loanRatePercent / 100 / 12;
   const n = loanTermInYears * 12;
 
-  return (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+  const mort = (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+  return currency(mort);
 }
 
 /**
@@ -29,7 +31,7 @@ export function getMonthlyMortgage(
  * @param cashDownPercent
  */
 export function getCashDown(purchasePrice: number, cashDownPercent: number) {
-  return (purchasePrice * cashDownPercent) / 100;
+  return currency((purchasePrice * cashDownPercent) / 100);
 }
 
 export function getSellPriceEstimate(
@@ -45,5 +47,5 @@ export function getSellPriceEstimate(
     result = result + (result * sellPriceAppreciationPercent) / 100;
   }
 
-  return result;
+  return currency(result);
 }

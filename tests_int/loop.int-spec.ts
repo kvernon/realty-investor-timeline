@@ -1,11 +1,6 @@
 import {
   generateSingleFamily,
-  HasMetGoalOrMaxTime,
-  ILoanSetting,
   ILoopOptions,
-  IPropertyEntityOptions,
-  IRule,
-  ITimeline,
   LedgerCollection,
   LedgerItem,
   LedgerItemType,
@@ -18,6 +13,7 @@ import {
   RuleEvaluation,
   User,
   ValueCache,
+  cloneDateUtc,
 } from '../src';
 
 describe('loop unit tests', () => {
@@ -61,7 +57,7 @@ describe('loop unit tests', () => {
       ];
 
       const date = new Date();
-      const valueCache = new ValueCache(new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)), [], 2);
+      const valueCache = new ValueCache(cloneDateUtc(new Date()), [], 4);
       const propertyGeneratorSingleFamily = new RentalGenerator<RentalSingleFamily>(valueCache, generateSingleFamily);
       propertyGeneratorSingleFamily.maxRentalOpportunities = 4;
       propertyGeneratorSingleFamily.highestMinSellInYears = 1;
@@ -76,6 +72,7 @@ describe('loop unit tests', () => {
       propertyGeneratorSingleFamily.highestEquityCapturePercent = 15;
 
       const options: ILoopOptions = {
+        startDate: date,
         propertyGeneratorSingleFamily,
         maxYears: 1,
       };
