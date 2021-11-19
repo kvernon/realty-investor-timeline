@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.6.0...v1.7.0) (2021-11-19)
+
+
+### Features
+
+* currency formatter ([592bd6a](https://github.com/kvernon/realty-investor-timeline/commit/592bd6a49281f106b8fccd99bf768c5bc5548977))
+
 # [1.6.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.5.0...v1.6.0) (2021-11-18)
 
 
