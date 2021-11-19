@@ -10,6 +10,7 @@
     "prebuild": "npm run clean",
     "pack": "npm pack",
     "test": "jest",
+    "pretest": "rimraf ./.jestcache",
     "test:cov": "jest --coverage",
     "test:ci": "jest --config ./jest.ci.config.ts --ci --runInBand",
     "test:int": "jest --config ./jest.integation.config.ts",

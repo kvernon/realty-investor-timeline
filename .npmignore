@@ -1,8 +1,10 @@
 /src
 /badges
 /tests
+/tests_int
 /.circleci
 /dist/tests
+/dist/tests_int
 .gitignore
 tsconfig*.json
 .nvmrc
@@ -11,9 +13,12 @@ tsconfig*.json
 jest*
 .editorconfig*
 .eslint*
+/.jestcache
 wallaby*
 .idea
 .husky
 .prettierc
 commitlint.config.js
 lint-staged.config.js
+*.tgz
+release.config.js
