@@ -1,4 +1,5 @@
 import { LedgerItem } from '../../src/ledger/ledger-item';
+import { cloneDateUtc } from '../../src/utils/data-clone-date';
 
 describe('LedgerItem unit tests', () => {
   let instance: LedgerItem;
@@ -68,6 +69,78 @@ describe('LedgerItem unit tests', () => {
       test('month and year same, should be true', () => {
         const t = new Date();
         expect(instance.dateMatchesYearAndMonth(t)).toBeTruthy();
+      });
+    });
+  });
+  describe('and dateLessThanOrEqualTo', () => {
+    describe('and no created', () => {
+      test('should be false', () => {
+        expect(instance.dateLessThanOrEqualTo(cloneDateUtc(new Date()))).toBeFalsy();
+      });
+      describe('and no today', () => {
+        test('should be false', () => {
+          expect(instance.dateLessThanOrEqualTo(null)).toBeFalsy();
+        });
+      });
+    });
+    describe('and created', () => {
+      beforeEach(() => {
+        instance.created = cloneDateUtc(new Date());
+      });
+      test('and year less, should be true', () => {
+        const t = cloneDateUtc(instance.created);
+        t.setUTCFullYear(2000);
+        expect(instance.dateLessThanOrEqualTo(t)).toBeTruthy();
+      });
+      test('and month less, should be true', () => {
+        const t = cloneDateUtc(instance.created);
+        t.setUTCMonth(t.getUTCMonth() - 2);
+        expect(instance.dateLessThanOrEqualTo(t)).toBeTruthy();
+      });
+      test('and month grater, should be false', () => {
+        const t = cloneDateUtc(instance.created);
+        t.setUTCMonth(t.getUTCMonth() + 2);
+        expect(instance.dateLessThanOrEqualTo(t)).toBeFalsy();
+      });
+      test('month and year same, should be true', () => {
+        const t = cloneDateUtc(instance.created);
+        expect(instance.dateLessThanOrEqualTo(t)).toBeTruthy();
+      });
+    });
+  });
+  describe('and dateNotGreaterThan', () => {
+    describe('and no created', () => {
+      test('should be false', () => {
+        expect(instance.dateNotGreaterThan(cloneDateUtc(new Date()))).toBeFalsy();
+      });
+      describe('and no today', () => {
+        test('should be false', () => {
+          expect(instance.dateNotGreaterThan(null)).toBeFalsy();
+        });
+      });
+    });
+    describe('and created', () => {
+      beforeEach(() => {
+        instance.created = cloneDateUtc(new Date());
+      });
+      test('and year less, should be false', () => {
+        const t = cloneDateUtc(instance.created);
+        t.setUTCFullYear(2000);
+        expect(instance.dateNotGreaterThan(t)).toBeFalsy();
+      });
+      test('and month less, should be false', () => {
+        const t = cloneDateUtc(instance.created);
+        t.setUTCMonth(t.getUTCMonth() - 2);
+        expect(instance.dateNotGreaterThan(t)).toBeFalsy();
+      });
+      test('and month grater, should be true', () => {
+        const t = cloneDateUtc(instance.created);
+        t.setUTCMonth(t.getUTCMonth() + 2);
+        expect(instance.dateNotGreaterThan(t)).toBeTruthy();
+      });
+      test('month and year same, should be true', () => {
+        const t = cloneDateUtc(instance.created);
+        expect(instance.dateNotGreaterThan(t)).toBeTruthy();
       });
     });
   });

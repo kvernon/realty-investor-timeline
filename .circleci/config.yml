@@ -73,6 +73,38 @@ jobs:
           path: ./reports/junit/
       - store_artifacts:
           path: ./reports/junit/
+  unit-test-badge:
+    executor: my-custom-executor
+    working_directory: ~/tmp
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}-<< pipeline.id >>
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-build-<< pipeline.id >>
+      - run:
+          name: Run tests with JUnit as reporter
+          command: npm run test:cov-and-badge
+  int-test:
+    executor: my-custom-executor
+    working_directory: ~/tmp
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}-<< pipeline.id >>
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-build-<< pipeline.id >>
+      - run:
+          name: Run tests with JUnit as reporter
+          command: npm run test:ci:int
   publish:
     executor: my-custom-executor
     working_directory: ~/tmp
@@ -106,9 +138,20 @@ workflows:
       - unit-test:
           requires:
             - lint
-      - publish:
+            - build
+      - int-test:
           requires:
             - unit-test
+      - unit-test-badge:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only: main
+      - publish:
+          requires:
+            - int-test
+            - unit-test-badge
           filters:
             branches:
               only: main

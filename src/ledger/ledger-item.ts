@@ -1,4 +1,5 @@
 import { LedgerItemType } from './ledger-item-type';
+import compareDates from '../utils/data-compare-date';
 
 /**
  * this is an entry into the account. Think of it as a checking account, and it's simply a transaction line.
@@ -27,6 +28,22 @@ export class LedgerItem {
     }
 
     return today.getUTCMonth() === this.created.getUTCMonth();
+  }
+
+  dateLessThanOrEqualTo(today: Date): boolean {
+    if (!today || !this.created) {
+      return false;
+    }
+
+    return compareDates(this.created, today) >= 0;
+  }
+
+  dateNotGreaterThan(today: Date): boolean {
+    if (!today || !this.created) {
+      return false;
+    }
+
+    return compareDates(this.created, today) !== 1;
   }
 
   dateMatchesYear(year: number): boolean {

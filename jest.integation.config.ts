@@ -13,5 +13,6 @@ delete uConfig.testMatch;
 
 export default {
   ...uConfig,
-  testMatch: ['<rootDir>/tests_int/*.+(int-spec|int-test).[jt]s?(x)'],
+  verbose: false,
+  testMatch: ['<rootDir>/tests_int/*.+(spec|test).[jt]s?(x)'],
 };

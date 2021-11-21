@@ -78,6 +78,10 @@ describe('loop unit tests', () => {
       };
 
       const actual = loop(options, user);
+
+      //console.log(JSON.stringify(actual, null, '  '));
+      expect(actual.user.metMonthlyGoal(actual.endDate)).toBeFalsy();
+      expect(actual.user.getCashFlowMonth(actual.endDate)).toBeGreaterThan(0);
       expect(actual).not.toBeNull();
       expect(actual.user).not.toBeNull();
       expect(actual.startDate).not.toBeNull();
