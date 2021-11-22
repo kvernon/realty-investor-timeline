@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.7.2...v1.8.0) (2021-11-22)
+
+
+### Features
+
+* exposed ledgercollection; fixed dates ([5a02949](https://github.com/kvernon/realty-investor-timeline/commit/5a02949ec01a740729b000b4e0bf672941ba6a6c))
+
 ## [1.7.2](https://github.com/kvernon/realty-investor-timeline/compare/v1.7.1...v1.7.2) (2021-11-19)
 
 
