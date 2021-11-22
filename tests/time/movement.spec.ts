@@ -1,5 +1,6 @@
 jest.mock('../../src/properties/rental-single-family');
 
+import { cloneDateUtc } from '../../src/utils/data-clone-date';
 import { ILoopOptions, loop } from '../../src/time/movement';
 import { Chance } from 'chance';
 import { ITimeline } from '../../src/time/i-timeline';
@@ -19,6 +20,7 @@ describe('movement unit tests', () => {
     chance = new Chance();
 
     user = {
+      getCashFlowMonth: jest.fn(),
       metMonthlyGoal: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
       purchaseRules: [],
@@ -91,8 +93,8 @@ describe('movement unit tests', () => {
 
       test('should loop 4 months', () => {
         expected = {
-          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
-          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 4, 1)),
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 4)),
           rentals: [{ property: rental, reasons: [] }],
           user,
         };
@@ -116,8 +118,8 @@ describe('movement unit tests', () => {
 
       test('and no monthlySavedAmount, should loop 4 months', () => {
         expected = {
-          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
-          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 4, 1)),
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 4)),
           rentals: [],
           user,
         };
@@ -149,8 +151,8 @@ describe('movement unit tests', () => {
         hasMetGoalOrMaxTime.mockReturnValueOnce(true);
 
         const expected: ITimeline = {
-          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
-          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1)),
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1)),
           rentals: [],
           user,
         };
@@ -229,8 +231,8 @@ describe('movement unit tests', () => {
         rentalGenerator.getRentals.mockReturnValueOnce([rental]);
 
         expected = {
-          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
-          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1)),
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1)),
           rentals: [
             {
               property: rental,
@@ -248,7 +250,7 @@ describe('movement unit tests', () => {
 
         const ledgerCashFlow = new LedgerItem();
         ledgerCashFlow.amount = expectedCashFlow;
-        ledgerCashFlow.created = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1));
+        ledgerCashFlow.created = cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1));
         ledgerCashFlow.note = 'for: rental.address, id: rental.id';
         ledgerCashFlow.type = LedgerItemType.CashFlow;
 
@@ -270,8 +272,8 @@ describe('movement unit tests', () => {
         rentalGenerator.getRentals.mockReturnValueOnce([rental]);
 
         expected = {
-          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
-          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1)),
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1)),
           rentals: [
             {
               property: rental,
@@ -289,7 +291,7 @@ describe('movement unit tests', () => {
 
         const ledgerEquity = new LedgerItem();
         ledgerEquity.amount = 22222;
-        ledgerEquity.created = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1));
+        ledgerEquity.created = cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1));
         ledgerEquity.note = 'for: rental.address, id: rental.id';
         ledgerEquity.type = LedgerItemType.Equity;
 
@@ -313,8 +315,8 @@ describe('movement unit tests', () => {
         rentalGenerator.getRentals.mockReturnValueOnce([rental]);
 
         expected = {
-          startDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), 1)),
-          endDate: new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, 1)),
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1)),
           rentals: [
             {
               property: rental,
@@ -334,7 +336,7 @@ describe('movement unit tests', () => {
         const purchase = new LedgerItem();
         purchase.amount = rental.costDownPrice;
         purchase.type = LedgerItemType.Purchase;
-        purchase.created = new Date(Date.UTC(expected.endDate.getUTCFullYear(), expected.endDate.getUTCMonth(), 1));
+        purchase.created = cloneDateUtc(expected.endDate);
         purchase.note = `for: ${rental.address}, id: ${rental.id}`;
 
         expect(user.addLedgerItem).toBeCalledWith(purchase);

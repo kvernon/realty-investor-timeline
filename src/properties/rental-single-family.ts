@@ -177,7 +177,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
       return false;
     }
 
-    return compareDates(this.minSellDate, today) !== -1 || areSameDate(this.minSellDate, today);
+    return compareDates(this.minSellDate, today) <= 0 || areSameDate(this.minSellDate, today);
   }
 
   get minSellDate(): Date {
@@ -212,7 +212,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
       return 0;
     }
 
-    if (!this.soldDate && compareDates(this.purchaseDate, today) === -1) {
+    if (!this.soldDate || compareDates(this.purchaseDate, today) === -1) {
       return this.monthlyPrincipalInterestTaxInterest;
     }
 

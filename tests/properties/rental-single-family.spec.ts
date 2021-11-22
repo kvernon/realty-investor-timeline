@@ -25,7 +25,7 @@ describe('RentalSingleFamily unit tests', () => {
 
       instance.purchaseDate = date;
 
-      expect(instance.purchaseDate).toEqual(new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)));
+      expect(instance.purchaseDate).toEqual(cloneDateUtc(date));
     });
     test('undefined, should be undefined', () => {
       instance.purchaseDate = undefined;
@@ -43,7 +43,7 @@ describe('RentalSingleFamily unit tests', () => {
 
       instance.soldDate = date;
 
-      expect(instance.soldDate).toEqual(new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)));
+      expect(instance.soldDate).toEqual(cloneDateUtc(date));
     });
     test('undefined, should be undefined', () => {
       instance.soldDate = undefined;
@@ -62,7 +62,8 @@ describe('RentalSingleFamily unit tests', () => {
       instance.purchaseDate = date;
       instance.minSellYears = 1;
 
-      const expectedSellDate = new Date(Date.UTC(date.getUTCFullYear() + 1, date.getUTCMonth(), 1));
+      const expectedSellDate = cloneDateUtc(date);
+      expectedSellDate.setUTCFullYear(expectedSellDate.getUTCFullYear() + 1);
 
       expect(instance.minSellDate).toEqual(expectedSellDate);
     });
@@ -230,7 +231,10 @@ describe('RentalSingleFamily unit tests', () => {
 
       describe('and today is earlier than minDateSell', () => {
         test('should return false', () => {
-          expect(instance.canSell(new Date())).toBeFalsy();
+          const today = cloneDateUtc(instance.minSellDate);
+          today.setUTCMonth(today.getUTCMonth() - 2);
+
+          expect(instance.canSell(today)).toBeFalsy();
         });
       });
 
@@ -273,9 +277,9 @@ describe('RentalSingleFamily unit tests', () => {
 
       describe('and no soldDate', () => {
         test('should be 0', () => {
-          instance.purchaseDate = new Date();
+          instance.purchaseDate = cloneDateUtc(new Date());
           instance.monthlyPrincipalInterestTaxInterest = chance.integer({ min: 9, max: 900 });
-          expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(new Date())).toEqual(
+          expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(cloneDateUtc(new Date()))).toEqual(
             instance.monthlyPrincipalInterestTaxInterest
           );
         });

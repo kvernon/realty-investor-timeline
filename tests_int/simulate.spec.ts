@@ -44,7 +44,6 @@ describe('simulate unit tests', () => {
       };
 
       const actual = simulate(options);
-      console.log(JSON.stringify(actual, null, '  '));
       expect(actual).not.toBeNull();
       expect(actual.user).not.toBeNull();
       expect(actual.startDate).not.toBeNull();

@@ -46,7 +46,7 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
 
   if (!options.startDate) {
     const setupDate = new Date();
-    options.startDate = new Date(Date.UTC(setupDate.getUTCFullYear(), setupDate.getUTCMonth(), 1));
+    options.startDate = cloneDateUtc(setupDate);
   }
 
   let today = cloneDateUtc(options.startDate);

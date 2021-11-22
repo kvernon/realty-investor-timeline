@@ -20,6 +20,8 @@ export interface IUser extends IUserInvestorCheck {
 
   addLedgerItem(item: LedgerItem | Iterable<LedgerItem>): void;
 
+  getCashFlowMonth(date: Date): number;
+
   getSummaryMonth(date: Date): ILedgerSummary;
 
   getSummaryAnnual(year: number): ILedgerSummary;
@@ -71,6 +73,10 @@ export class User implements IUser {
 
   getBalance(date: Date): number {
     return this.ledgerCollection.getBalance(date);
+  }
+
+  getCashFlowMonth(date: Date): number {
+    return this.ledgerCollection.getCashFlowMonth(date);
   }
 
   addLedgerItem(item: LedgerItem | Iterable<LedgerItem>): void {
