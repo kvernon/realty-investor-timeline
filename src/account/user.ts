@@ -14,18 +14,43 @@ import { ILedgerSummary } from '../ledger/i-ledger-summary';
  */
 export interface IUser extends IUserInvestorCheck {
   /**
+   * the collection which is used to keep a balance sheet.
+   */
+  readonly ledgerCollection: ILedgerCollection;
+
+  /**
    * an amount which the user can save per month after expenses, like, after my pay check I could put this amount into savings
    */
   monthlySavedAmount: number;
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param item
+   */
   addLedgerItem(item: LedgerItem | Iterable<LedgerItem>): void;
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param date
+   */
   getCashFlowMonth(date: Date): number;
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param date
+   */
   getSummaryMonth(date: Date): ILedgerSummary;
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param year
+   */
   getSummaryAnnual(year: number): ILedgerSummary;
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param year
+   */
   getSummariesAnnual(year: number): ILedgerSummary[];
 
   /**
@@ -37,7 +62,10 @@ export interface IUser extends IUserInvestorCheck {
 }
 
 export class User implements IUser {
-  private readonly ledgerCollection: ILedgerCollection;
+  /**
+   * the collection which is used to keep a balance sheet.
+   */
+  public readonly ledgerCollection: ILedgerCollection;
 
   /**
    * a collection of loan settings for how to get a loan for single family or some other kind of property
@@ -71,14 +99,26 @@ export class User implements IUser {
    */
   purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[];
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param date
+   */
   getBalance(date: Date): number {
     return this.ledgerCollection.getBalance(date);
   }
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param date
+   */
   getCashFlowMonth(date: Date): number {
     return this.ledgerCollection.getCashFlowMonth(date);
   }
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param item
+   */
   addLedgerItem(item: LedgerItem | Iterable<LedgerItem>): void {
     this.ledgerCollection.add(item);
   }
@@ -107,14 +147,26 @@ export class User implements IUser {
     return this.ledgerCollection.getMinimumSavings(date, properties, minMonthsRequired);
   }
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param date
+   */
   getSummaryMonth(date: Date): ILedgerSummary {
     return this.ledgerCollection.getSummaryMonth(date);
   }
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param year
+   */
   getSummaryAnnual(year: number): ILedgerSummary {
     return this.ledgerCollection.getSummaryAnnual(year);
   }
 
+  /**
+   * @deprecated use {@link ledgerCollection}
+   * @param year
+   */
   getSummariesAnnual(year: number): ILedgerSummary[] {
     return this.ledgerCollection.getSummariesAnnual(year);
   }

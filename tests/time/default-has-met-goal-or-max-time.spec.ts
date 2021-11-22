@@ -34,6 +34,7 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
 
       beforeEach(() => {
         user = {
+          ledgerCollection: null,
           getCashFlowMonth: jest.fn(),
           getBalance: jest.fn(),
           metMonthlyGoal: jest.fn(),
