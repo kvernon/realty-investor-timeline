@@ -20,6 +20,7 @@ describe('movement unit tests', () => {
     chance = new Chance();
 
     user = {
+      ledgerCollection: null,
       getCashFlowMonth: jest.fn(),
       metMonthlyGoal: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
