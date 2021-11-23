@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.8.1...v2.0.0) (2021-11-23)
+
+
+### Features
+
+* updated rules checks ([49913a5](https://github.com/kvernon/realty-investor-timeline/commit/49913a539d8dc2804ccf8d2b5a9a10ac52828399))
+
+
+### BREAKING CHANGES
+
+* for propertyType add
+
 ## [1.8.1](https://github.com/kvernon/realty-investor-timeline/compare/v1.8.0...v1.8.1) (2021-11-22)
 
 
