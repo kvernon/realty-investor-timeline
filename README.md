@@ -86,12 +86,12 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
   - What would the transition look like in code?
 - TODO: Cash flow ramp (0 - 3 months depending on rehab, conventional, or existing tenant)
   - Transition would be around Hard Money vs Conventional
-- TODO: delay 1st mortgage payment
-- TODO: figure out 1031 exchange
 
 ## Missing features
 
-1. apartments (passive investor)
+1. delay 1st mortgage payment
+2. implement hold rules
+3. apartments (passive investor)
 
 ## Future
 
@@ -159,8 +159,8 @@ const options: ISimulateOptions = {
 
 const actual = simulate(options);
 
-//Finally, to review your results, you can use the user's getSummariesAnnual.
-const lastYear = actual.user.getSummariesAnnual(
+//Finally, to review your results, you can use the ledgerCollection's getSummariesAnnual.
+const lastYear = actual.user.ledgerCollection.getSummariesAnnual(
   actual.endDate.getUTCFullYear()
 );
 ```

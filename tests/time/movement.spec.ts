@@ -1,5 +1,3 @@
-jest.mock('../../src/properties/rental-single-family');
-
 import { cloneDateUtc } from '../../src/utils/data-clone-date';
 import { ILoopOptions, loop } from '../../src/time/movement';
 import { Chance } from 'chance';
@@ -10,6 +8,12 @@ import { IHistoricalProperty } from '../../src/time/i-historical-property';
 import { IUser } from '../../src/account/user';
 import { LedgerItem } from '../../src/ledger/ledger-item';
 import { LedgerItemType } from '../../src/ledger/ledger-item-type';
+import { RuleEvaluation } from '../../src/rules/rule-evaluation';
+import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
+import { PropertyType } from '../../src/account/property-type';
+import { LoanSettings } from '../../src/account/loan-settings';
+
+jest.mock('../../src/properties/rental-single-family');
 
 describe('movement unit tests', () => {
   let chance: Chance.Chance;
@@ -24,8 +28,8 @@ describe('movement unit tests', () => {
       getCashFlowMonth: jest.fn(),
       metMonthlyGoal: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
-      purchaseRules: [],
-      loanSettings: [],
+      purchaseRules: [new RuleEvaluation(4, PurchaseRuleTypes.minEstimatedCashFlowPerMonth, PropertyType.SingleFamily)],
+      loanSettings: [{ value: 3, propertyType: PropertyType.SingleFamily, name: LoanSettings.loanTermInYears }],
       getBalance: jest.fn(),
       hasMoneyToInvest: jest.fn().mockReturnValue(true),
       hasMinimumSavings: jest.fn().mockReturnValue(true),
@@ -95,7 +99,7 @@ describe('movement unit tests', () => {
       test('should loop 4 months', () => {
         expected = {
           startDate: cloneDateUtc(startDate),
-          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 4)),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 4)),
           rentals: [{ property: rental, reasons: [] }],
           user,
         };
@@ -120,7 +124,7 @@ describe('movement unit tests', () => {
       test('and no monthlySavedAmount, should loop 4 months', () => {
         expected = {
           startDate: cloneDateUtc(startDate),
-          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 4)),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 4)),
           rentals: [],
           user,
         };
@@ -132,6 +136,88 @@ describe('movement unit tests', () => {
         expect(loop(options, user)).toEqual(expected);
 
         expect(user.addLedgerItem).not.toBeCalled();
+      });
+    });
+
+    describe('and invalid loanSettings', () => {
+      let options: ILoopOptions;
+      beforeEach(() => {
+        hasMetGoalOrMaxTime.mockReturnValueOnce(true);
+        options = {
+          startDate,
+          maxYears,
+          propertyGeneratorSingleFamily: rentalGenerator,
+          hasMetGoalOrMaxTime,
+        };
+      });
+
+      test('should throw loanSettings error on empty', () => {
+        user.loanSettings = [];
+
+        expected = {
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 4)),
+          rentals: [{ property: rental, reasons: [] }],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+        expect(() => loop(options, user)).toThrow('no single family loan settings for user: loanSettings');
+      });
+
+      test('should throw loanSettings error on no single family', () => {
+        user.loanSettings = [{ name: LoanSettings.loanTermInYears, propertyType: PropertyType.None, value: 6 }];
+
+        expected = {
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 4)),
+          rentals: [{ property: rental, reasons: [] }],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+        expect(() => loop(options, user)).toThrow('no single family loan settings for user: loanSettings');
+      });
+    });
+
+    describe('and invalid purchaseRules', () => {
+      let options: ILoopOptions;
+      beforeEach(() => {
+        hasMetGoalOrMaxTime.mockReturnValueOnce(true);
+        options = {
+          startDate,
+          maxYears,
+          propertyGeneratorSingleFamily: rentalGenerator,
+          hasMetGoalOrMaxTime,
+        };
+      });
+
+      test('should throw purchaseRules error on empty', () => {
+        user.purchaseRules = [];
+
+        expected = {
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 4)),
+          rentals: [{ property: rental, reasons: [] }],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+        expect(() => loop(options, user)).toThrow('no single family purchase rules for user: purchaseRules');
+      });
+
+      test('should throw loanSettings error on no single family', () => {
+        user.purchaseRules = [new RuleEvaluation(5, PurchaseRuleTypes.minEstimatedCapitalGains, PropertyType.None)];
+
+        expected = {
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 4)),
+          rentals: [{ property: rental, reasons: [] }],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+        expect(() => loop(options, user)).toThrow('no single family purchase rules for user: purchaseRules');
       });
     });
 
@@ -153,7 +239,7 @@ describe('movement unit tests', () => {
 
         const expected: ITimeline = {
           startDate: cloneDateUtc(startDate),
-          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1)),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 1)),
           rentals: [],
           user,
         };
@@ -233,7 +319,7 @@ describe('movement unit tests', () => {
 
         expected = {
           startDate: cloneDateUtc(startDate),
-          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1)),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 1)),
           rentals: [
             {
               property: rental,
@@ -251,7 +337,7 @@ describe('movement unit tests', () => {
 
         const ledgerCashFlow = new LedgerItem();
         ledgerCashFlow.amount = expectedCashFlow;
-        ledgerCashFlow.created = cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1));
+        ledgerCashFlow.created = cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 1));
         ledgerCashFlow.note = 'for: rental.address, id: rental.id';
         ledgerCashFlow.type = LedgerItemType.CashFlow;
 
@@ -274,7 +360,7 @@ describe('movement unit tests', () => {
 
         expected = {
           startDate: cloneDateUtc(startDate),
-          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1)),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 1)),
           rentals: [
             {
               property: rental,
@@ -292,7 +378,7 @@ describe('movement unit tests', () => {
 
         const ledgerEquity = new LedgerItem();
         ledgerEquity.amount = 22222;
-        ledgerEquity.created = cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1));
+        ledgerEquity.created = cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 1));
         ledgerEquity.note = 'for: rental.address, id: rental.id';
         ledgerEquity.type = LedgerItemType.Equity;
 
@@ -317,7 +403,7 @@ describe('movement unit tests', () => {
 
         expected = {
           startDate: cloneDateUtc(startDate),
-          endDate: cloneDateUtc(startDate, (date) => date.setUTCMonth(date.getUTCMonth() + 1)),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 1)),
           rentals: [
             {
               property: rental,

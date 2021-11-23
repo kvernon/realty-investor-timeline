@@ -140,6 +140,45 @@ describe('User unit tests', () => {
     });
   });
 
+  describe('and getCashFlowMonth', () => {
+    test('should match', () => {
+      const date = new Date();
+
+      const expected = 500;
+
+      ledgerCollection.getCashFlowMonth.mockReturnValueOnce(expected);
+
+      expect(instance.getCashFlowMonth(date)).toEqual(expected);
+      expect(ledgerCollection.getCashFlowMonth).toBeCalledWith(date);
+    });
+  });
+
+  describe('and metMonthlyGoal', () => {
+    test('should be true', () => {
+      const date = new Date();
+
+      const expected = 500;
+
+      ledgerCollection.getCashFlowMonth.mockReturnValueOnce(expected);
+      instance.monthlyIncomeAmountGoal = 500;
+
+      expect(instance.metMonthlyGoal(date)).toBeTruthy();
+      expect(ledgerCollection.getCashFlowMonth).toBeCalledWith(date);
+    });
+
+    test('should be false', () => {
+      const date = new Date();
+
+      const expected = 499;
+
+      ledgerCollection.getCashFlowMonth.mockReturnValueOnce(expected);
+      instance.monthlyIncomeAmountGoal = 500;
+
+      expect(instance.metMonthlyGoal(date)).toBeFalsy();
+      expect(ledgerCollection.getCashFlowMonth).toBeCalledWith(date);
+    });
+  });
+
   describe('and getSummaryAnnual', () => {
     test('should match', () => {
       const year = chance.integer();

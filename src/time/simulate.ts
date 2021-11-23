@@ -88,7 +88,7 @@ export function simulate(options: ISimulateOptions): ITimeline {
   user.monthlySavedAmount = options.monthlySavedAmount;
   user.monthlyIncomeAmountGoal = options.monthlyIncomeAmountGoal;
   user.loanSettings = options.loanSettings;
-  user.purchaseRules = (options.purchaseRules || []).map((r) => new RuleEvaluation(r.value, r.type));
+  user.purchaseRules = (options.purchaseRules || []).map((r) => new RuleEvaluation(r.value, r.type, r.propertyType));
 
   return loop(
     {

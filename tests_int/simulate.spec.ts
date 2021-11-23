@@ -8,9 +8,9 @@ describe('simulate unit tests', () => {
         monthlyIncomeAmountGoal: 10000,
         monthlySavedAmount: 10000,
         purchaseRules: [
-          { value: 30000, type: PurchaseRuleTypes.maxEstimatedOutOfPocket },
-          { value: 7000, type: PurchaseRuleTypes.minEstimatedCapitalGains },
-          { value: 200, type: PurchaseRuleTypes.minEstimatedCashFlowPerMonth },
+          { value: 30000, type: PurchaseRuleTypes.maxEstimatedOutOfPocket, propertyType: PropertyType.SingleFamily },
+          { value: 7000, type: PurchaseRuleTypes.minEstimatedCapitalGains, propertyType: PropertyType.SingleFamily },
+          { value: 200, type: PurchaseRuleTypes.minEstimatedCashFlowPerMonth, propertyType: PropertyType.SingleFamily },
         ],
         loanSettings: [
           {
@@ -44,6 +44,8 @@ describe('simulate unit tests', () => {
       };
 
       const actual = simulate(options);
+      expect(actual.user.metMonthlyGoal(actual.endDate)).toBeFalsy();
+      expect(actual.user.ledgerCollection.getCashFlowMonth(actual.endDate)).toBeGreaterThan(0);
       expect(actual).not.toBeNull();
       expect(actual.user).not.toBeNull();
       expect(actual.startDate).not.toBeNull();

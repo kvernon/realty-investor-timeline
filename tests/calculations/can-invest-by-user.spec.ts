@@ -5,6 +5,7 @@ import { UserInvestResult } from '../../src/investments/user-invest-result';
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
 import { IUserInvestorCheck } from '../../src/account/i-user-investor-check';
+import { PropertyType } from '../../src/account/property-type';
 
 describe('and canInvestByUser', () => {
   let instance: RentalSingleFamily;
@@ -98,11 +99,13 @@ describe('and canInvestByUser', () => {
         purchaseRules: [
           {
             type: PurchaseRuleTypes.minAskingPrice,
+            propertyType: PropertyType.SingleFamily,
             value: 50000,
             evaluate: jest.fn().mockReturnValue(false),
           },
           {
             type: PurchaseRuleTypes.maxEstimatedOutOfPocket,
+            propertyType: PropertyType.SingleFamily,
             value: 50000,
             evaluate: jest.fn().mockReturnValue(false),
           },
@@ -130,11 +133,13 @@ describe('and canInvestByUser', () => {
         purchaseRules: [
           {
             type: PurchaseRuleTypes.minAfterRepairPrice,
+            propertyType: PropertyType.SingleFamily,
             value: 50000,
             evaluate: jest.fn().mockReturnValue(false),
           },
           {
             type: PurchaseRuleTypes.maxEstimatedOutOfPocket,
+            propertyType: PropertyType.SingleFamily,
             value: 50000,
             evaluate: jest.fn().mockReturnValue(false),
           },
