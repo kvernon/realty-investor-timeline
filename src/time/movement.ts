@@ -8,6 +8,11 @@ import { LedgerItemType } from '../ledger/ledger-item-type';
 import { LedgerItem } from '../ledger/ledger-item';
 import propertySort from '../properties/property-sort';
 import { cloneDateUtc } from '../utils/data-clone-date';
+import { ensureArray } from '../utils/ensure';
+import { ILoanSetting } from '../account/i-loan-settings';
+import { PropertyType } from '../account/property-type';
+import { IRuleEvaluation } from '../rules/rule-evaluation';
+import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 
 export interface ILoopOptions {
   /**
@@ -48,6 +53,15 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
     const setupDate = new Date();
     options.startDate = cloneDateUtc(setupDate);
   }
+
+  ensureArray<ILoanSetting>(user.loanSettings, {
+    predicate: (item) => item.propertyType === PropertyType.SingleFamily,
+    message: 'no single family loan settings for user: loanSettings',
+  });
+  ensureArray<IRuleEvaluation<PurchaseRuleTypes>>(user.purchaseRules, {
+    predicate: (item) => item.propertyType === PropertyType.SingleFamily,
+    message: 'no single family purchase rules for user: purchaseRules',
+  });
 
   let today = cloneDateUtc(options.startDate);
 

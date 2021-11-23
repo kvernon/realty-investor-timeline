@@ -2,6 +2,7 @@ import { RuleEvaluation } from '../../src/rules/rule-evaluation';
 import { Chance } from 'chance';
 import { HoldRuleTypes } from '../../src/rules/hold-rule-types';
 import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
+import { PropertyType } from '../../src/account/property-type';
 
 describe('RuleEvaluation unit tests', () => {
   let chance: Chance.Chance;
@@ -16,7 +17,8 @@ describe('RuleEvaluation unit tests', () => {
       test('should be falsy', () => {
         instance = new RuleEvaluation(
           chance.integer({ min: 1, max: 500 }),
-          chance.bool() ? HoldRuleTypes.none : PurchaseRuleTypes.none
+          chance.bool() ? HoldRuleTypes.none : PurchaseRuleTypes.none,
+          PropertyType.SingleFamily
         );
 
         expect(instance.evaluate(instance.value + 20)).toBeFalsy();
@@ -28,7 +30,8 @@ describe('RuleEvaluation unit tests', () => {
         test('should be truthy', () => {
           instance = new RuleEvaluation(
             chance.integer({ min: 1, max: 500 }),
-            chance.bool() ? HoldRuleTypes.minSellInYears : PurchaseRuleTypes.minAfterRepairPrice
+            chance.bool() ? HoldRuleTypes.minSellInYears : PurchaseRuleTypes.minAfterRepairPrice,
+            PropertyType.SingleFamily
           );
 
           expect(instance.evaluate(instance.value + 1)).toBeTruthy();
@@ -38,7 +41,8 @@ describe('RuleEvaluation unit tests', () => {
         test('should be falsy', () => {
           instance = new RuleEvaluation(
             chance.integer({ min: 1, max: 500 }),
-            chance.bool() ? HoldRuleTypes.minSellInYears : PurchaseRuleTypes.minAfterRepairPrice
+            chance.bool() ? HoldRuleTypes.minSellInYears : PurchaseRuleTypes.minAfterRepairPrice,
+            PropertyType.SingleFamily
           );
 
           expect(instance.evaluate(instance.value - 1)).toBeFalsy();
@@ -50,7 +54,8 @@ describe('RuleEvaluation unit tests', () => {
         test('should be falsy', () => {
           instance = new RuleEvaluation(
             chance.integer({ min: 1, max: 500 }),
-            PurchaseRuleTypes.maxEstimatedOutOfPocket
+            PurchaseRuleTypes.maxEstimatedOutOfPocket,
+            PropertyType.SingleFamily
           );
 
           expect(instance.evaluate(instance.value + 1)).toBeFalsy();
@@ -60,7 +65,8 @@ describe('RuleEvaluation unit tests', () => {
         test('should be truthy', () => {
           instance = new RuleEvaluation(
             chance.integer({ min: 1, max: 500 }),
-            PurchaseRuleTypes.maxEstimatedOutOfPocket
+            PurchaseRuleTypes.maxEstimatedOutOfPocket,
+            PropertyType.SingleFamily
           );
 
           expect(instance.evaluate(instance.value - 1)).toBeTruthy();

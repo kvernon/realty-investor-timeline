@@ -51,9 +51,9 @@ describe('loop unit tests', () => {
       ];
 
       user.purchaseRules = [
-        new RuleEvaluation(30000, PurchaseRuleTypes.maxEstimatedOutOfPocket),
-        new RuleEvaluation(7000, PurchaseRuleTypes.minEstimatedCapitalGains),
-        new RuleEvaluation(200, PurchaseRuleTypes.minEstimatedCashFlowPerMonth),
+        new RuleEvaluation(30000, PurchaseRuleTypes.maxEstimatedOutOfPocket, PropertyType.SingleFamily),
+        new RuleEvaluation(7000, PurchaseRuleTypes.minEstimatedCapitalGains, PropertyType.SingleFamily),
+        new RuleEvaluation(200, PurchaseRuleTypes.minEstimatedCashFlowPerMonth, PropertyType.SingleFamily),
       ];
 
       const date = new Date();

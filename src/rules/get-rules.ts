@@ -7,5 +7,5 @@ export function getRules<E extends PurchaseRuleTypes | HoldRuleTypes>(goals: IRu
   if (!goals || goals.length === 0) {
     return [];
   }
-  return goals.map((g: IRule<E>) => new RuleEvaluation<E>(g.value, g.type));
+  return goals.map((g: IRule<E>) => new RuleEvaluation<E>(g.value, g.type, g.propertyType));
 }

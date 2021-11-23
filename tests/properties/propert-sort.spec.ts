@@ -2,6 +2,7 @@ import { IRentalPropertyEntity } from '../../src/properties/i-rental-property-en
 import * as invReasons from '../../src/investments/investment-reasons-decorator';
 import { IRuleEvaluation } from '../../src/rules/rule-evaluation';
 import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
+import { PropertyType } from '../../src/account/property-type';
 
 describe('propertySort unit tests', () => {
   let propertyA: IRentalPropertyEntity;
@@ -95,6 +96,7 @@ describe('propertySort unit tests', () => {
           propertySort(propertyA, propertyB, [
             {
               type: PurchaseRuleTypes.minAfterRepairPrice,
+              propertyType: PropertyType.SingleFamily,
               value: 1,
               evaluate: jest.fn().mockReturnValueOnce(true),
             },
@@ -112,6 +114,7 @@ describe('propertySort unit tests', () => {
           propertySort(propertyA, propertyB, [
             {
               type: PurchaseRuleTypes.minAfterRepairPrice,
+              propertyType: PropertyType.SingleFamily,
               value: 1,
               evaluate: jest.fn().mockReturnValueOnce(true),
             },
@@ -140,6 +143,7 @@ describe('propertySort unit tests', () => {
               propertySort(propertyA, propertyB, [
                 {
                   type: PurchaseRuleTypes.minAfterRepairPrice,
+                  propertyType: PropertyType.SingleFamily,
                   value: 1,
                   evaluate: jest.fn().mockReturnValueOnce(true),
                 },
@@ -168,6 +172,7 @@ describe('propertySort unit tests', () => {
               propertySort(propertyA, propertyB, [
                 {
                   type: PurchaseRuleTypes.minAfterRepairPrice,
+                  propertyType: PropertyType.SingleFamily,
                   value: 1,
                   evaluate: jest.fn().mockReturnValueOnce(true),
                 },
@@ -196,6 +201,7 @@ describe('propertySort unit tests', () => {
               propertySort(propertyA, propertyB, [
                 {
                   type: PurchaseRuleTypes.minAfterRepairPrice,
+                  propertyType: PropertyType.SingleFamily,
                   value: 1,
                   evaluate: jest.fn().mockReturnValueOnce(true),
                 },
@@ -224,6 +230,7 @@ describe('propertySort unit tests', () => {
               propertySort(propertyA, propertyB, [
                 {
                   type: PurchaseRuleTypes.minAfterRepairPrice,
+                  propertyType: PropertyType.SingleFamily,
                   value: 2000,
                   evaluate: jest.fn().mockReturnValueOnce(true),
                 },
@@ -250,6 +257,7 @@ describe('propertySort unit tests', () => {
               propertySort(propertyA, propertyB, [
                 {
                   type: PurchaseRuleTypes.minAfterRepairPrice,
+                  propertyType: PropertyType.SingleFamily,
                   value: 2000,
                   evaluate: jest.fn().mockReturnValueOnce(true),
                 },
