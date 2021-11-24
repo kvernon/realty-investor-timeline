@@ -14,6 +14,7 @@ describe('User unit tests', () => {
   beforeEach(() => {
     chance = new Chance();
     ledgerCollection = {
+      filter: jest.fn(),
       add: jest.fn(),
       getBalance: jest.fn(),
       getCashFlowMonth: jest.fn(),
