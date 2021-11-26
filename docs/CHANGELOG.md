@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/kvernon/realty-investor-timeline/compare/v2.0.0...v2.0.1) (2021-11-26)
+
+
+### Bug Fixes
+
+* generator sum to reduce; summaries calcs ([809b8f9](https://github.com/kvernon/realty-investor-timeline/commit/809b8f9b5cd52162bfd523471f55b710b3859137))
+
 # [2.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v1.8.1...v2.0.0) (2021-11-23)
 
 
