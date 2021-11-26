@@ -27,36 +27,6 @@ describe('LedgerCollection unit tests', () => {
       expect(instance.isEmpty()).toBeFalsy();
     });
   });
-  describe('and first', () => {
-    test('should be null', () => {
-      expect(instance.first()).toBeNull();
-    });
-    test('should be false', () => {
-      const expected = new LedgerItem();
-      expected.amount = 3;
-
-      const last = new LedgerItem();
-      instance.add([expected, last]);
-
-      expect(instance.first()).toEqual(expected);
-    });
-  });
-  describe('and last', () => {
-    test('should be null', () => {
-      expect(instance.last()).toBeNull();
-    });
-    test('should be false', () => {
-      const first = new LedgerItem();
-      first.amount = 3;
-
-      const expected = new LedgerItem();
-      expected.amount = 33333;
-
-      instance.add([first, expected]);
-
-      expect(instance.last()).toEqual(expected);
-    });
-  });
   describe('and getBalance', () => {
     test('should be zero', () => {
       expect(instance.getBalance(new Date())).toEqual(0);

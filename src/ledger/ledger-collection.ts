@@ -6,9 +6,12 @@ import { IRentalSavings, RentalSingleFamily } from '../properties';
 import currency from '../formatters/currency';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import { differenceInMonths } from 'date-fns';
+import compareDates from '../utils/data-compare-date';
 
 export interface ILedgerCollection {
   getBalance(date: Date): number;
+
+  filter(pred: LedgerItemPredicate): LedgerItem[];
 
   add(item: LedgerItem | Iterable<LedgerItem>): void;
 
@@ -32,12 +35,14 @@ export type LedgerItemPredicate = (x: LedgerItem, index: number) => boolean;
 export class LedgerCollection implements ILedgerCollection {
   private collection: IterableQuery<LedgerItem>;
 
-  private getSummaryByType(collection: IterableQuery<LedgerItem>, type: LedgerItemType): number {
+  private getSummaryByType(collection: LedgerItem[], type: LedgerItemType): number {
     if (!collection) {
       return 0;
     }
 
-    return collection.filter((x) => x.typeMatches(type)).sum((x) => x.amount) || 0;
+    return collection
+      .filter((x) => x.typeMatches(type))
+      .reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0);
   }
 
   constructor() {
@@ -45,33 +50,23 @@ export class LedgerCollection implements ILedgerCollection {
   }
 
   filter(pred: LedgerItemPredicate): LedgerItem[] {
-    return this.collection.filter(pred).toArray();
+    return itiriri(this.collection)
+      .filter(pred)
+      .sort((element1, element2) => element1.created.getTime() - element2.created.getTime())
+      .toArray();
   }
 
   getBalance(date: Date): number {
     return this.isEmpty()
       ? 0
-      : this.collection.filter((i) => i.created.getTime() <= date.getTime()).sum((x) => x.amount);
+      : this.filter((i) => i.created.getTime() <= date.getTime()).reduce(
+          (previousValue, currentValue) => previousValue + currentValue.amount,
+          0
+        );
   }
 
   add(item: LedgerItem | Iterable<LedgerItem>): void {
     this.collection = itiriri(this.collection.prepend(item).toArray());
-  }
-
-  first?(): LedgerItem {
-    if (this.isEmpty()) {
-      return null;
-    }
-
-    return this.collection.first();
-  }
-
-  last?(): LedgerItem {
-    if (this.isEmpty()) {
-      return null;
-    }
-
-    return this.collection.last();
   }
 
   isEmpty(): boolean {
@@ -107,9 +102,9 @@ export class LedgerCollection implements ILedgerCollection {
       return 0;
     }
 
-    const boundary = this.collection.filter((li) => li.dateMatchesYearAndMonth(date));
+    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date));
 
-    if (boundary.length() === 0) {
+    if (boundary.length === 0) {
       return 0;
     }
 
@@ -134,28 +129,32 @@ export class LedgerCollection implements ILedgerCollection {
       return result;
     }
 
-    const boundary = this.collection.filter((li) => li.dateMatchesYearAndMonth(date));
+    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date));
 
     if (!boundary) {
       return result;
     }
 
+    const ledgerItemsCashFlow = boundary.filter((x) => x.type === LedgerItemType.CashFlow);
+
     result.cashFlow = this.getSummaryByType(boundary, LedgerItemType.CashFlow);
     result.averageCashFlow = currency(
-      boundary.filter((x) => x.type === LedgerItemType.CashFlow).average((x) => x.amount) || 0
+      ledgerItemsCashFlow.length > 0 ? result.cashFlow / ledgerItemsCashFlow.length : 0
     );
     result.equity = this.getSummaryByType(boundary, LedgerItemType.Equity);
     result.purchases = this.getSummaryByType(boundary, LedgerItemType.Purchase);
-    result.purchases = this.getSummaryByType(boundary, LedgerItemType.Purchase);
-    result.balance = this.collection.filter((li) => li.dateNotGreaterThan(date)).sum((x) => x.amount) || 0;
+    result.balance = this.filter((li) => li.dateNotGreaterThan(date)).reduce(
+      (previousValue, currentValue) => previousValue + currentValue.amount,
+      0
+    );
 
     return result;
   }
 
   getSummaryAnnual(year: number): ILedgerSummary {
-    const summaries = itiriri(this.getSummariesAnnual(year));
+    const summaries = this.getSummariesAnnual(year);
 
-    if (summaries.length() === 0) {
+    if (summaries.length === 0) {
       return {
         date: null,
         balance: 0,
@@ -166,15 +165,15 @@ export class LedgerCollection implements ILedgerCollection {
       };
     }
 
-    const cashFlowSum = summaries.sum((x) => x.cashFlow || 0);
+    const cashFlowSum = summaries.map((x) => x.cashFlow).reduce((accumulator, current) => accumulator + current, 0);
 
     return {
-      date: summaries.first().date,
-      balance: summaries.last().balance,
-      equity: summaries.sum((x) => x.equity || 0),
+      date: summaries[0].date,
+      balance: summaries[summaries.length - 1].balance,
+      equity: summaries.reduce((accumulator, current) => accumulator + current.equity, 0),
       cashFlow: cashFlowSum,
-      averageCashFlow: currency(cashFlowSum / summaries.length()),
-      purchases: summaries.sum((x) => x.purchases || 0),
+      averageCashFlow: currency(cashFlowSum / summaries.length),
+      purchases: summaries.reduce((accumulator, current) => accumulator + current.purchases, 0),
     };
   }
 
@@ -187,26 +186,36 @@ export class LedgerCollection implements ILedgerCollection {
       return [];
     }
 
-    const boundary = this.collection.filter((li) => li.dateMatchesYear(year));
+    const boundary = this.filter((li) => li.dateMatchesYear(year));
 
     if (!boundary) {
       return [];
     }
 
     const collection = [];
-
+    const lastLedgerItem = boundary[boundary.length - 1];
     //need to determine monthDiff between boundary
-    const totalMonths = differenceInMonths(boundary.first().created, boundary.last().created);
+    const totalMonths = differenceInMonths(boundary[0].created, lastLedgerItem.created);
 
     if (totalMonths === 0) {
-      collection.push(this.getSummaryMonth(boundary.first().created));
+      collection.push(this.getSummaryMonth(boundary[0].created));
     } else {
-      for (let month = boundary.first().created.getUTCMonth(); month < 12; month++) {
-        collection.push(this.getSummaryMonth(new Date(Date.UTC(year, month, 1))));
+      for (let month = boundary[0].created.getUTCMonth(); month < 12; month++) {
+        const expectedDate = new Date(Date.UTC(year, month, 1));
+        if (
+          !boundary.some((x) => x.dateMatchesYearAndMonth(expectedDate)) &&
+          expectedDate.getTime() >= lastLedgerItem.created.getTime()
+        ) {
+          const summaryMonth = this.getSummaryMonth(lastLedgerItem.created);
+          summaryMonth.date = cloneDateUtc(expectedDate);
+          collection.push(summaryMonth);
+        } else {
+          collection.push(this.getSummaryMonth(expectedDate));
+        }
       }
     }
 
-    return collection; //?
+    return collection;
   }
 
   clone(): ILedgerCollection {
