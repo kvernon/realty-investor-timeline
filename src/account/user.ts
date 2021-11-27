@@ -8,6 +8,7 @@ import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { IRuleEvaluation } from '../rules/rule-evaluation';
 import cloneDeep from 'lodash.clonedeep';
 import { ILedgerSummary } from '../ledger/i-ledger-summary';
+import { HoldRuleTypes } from '../rules/hold-rule-types';
 
 /**
  * It's the user... as an interface!
@@ -54,6 +55,11 @@ export interface IUser extends IUserInvestorCheck {
   getSummariesAnnual(year: number): ILedgerSummary[];
 
   /**
+   * a system to determine how to hold onto the properties the longest. This scenario says as long as it meets 1 rule
+   */
+  holdRules: IRuleEvaluation<HoldRuleTypes>[];
+
+  /**
    * a system to weed out the properties you don't want. This scenario says as long as it meets 1 rule
    */
   purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[];
@@ -93,6 +99,11 @@ export class User implements IUser {
   constructor(ledgerCollection: ILedgerCollection) {
     this.ledgerCollection = ledgerCollection;
   }
+
+  /**
+   * a system to determine how to hold onto the properties the longest. This scenario says as long as it meets 1 rule
+   */
+  holdRules: IRuleEvaluation<HoldRuleTypes>[];
 
   /**
    * a system to weed out the properties you don't want. This scenario says as long as it meets 1 rule

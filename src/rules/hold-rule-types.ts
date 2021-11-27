@@ -4,7 +4,7 @@ export enum HoldRuleTypes {
    */
   none = 'none',
   /**
-   * this rule is states that if you have a low cash flow %, then you'd like to sell it
+   * this rule states that if you have a low cash flow %, then you'd like to sell it
    */
   minSellIfLowCashFlowPercent = 'minSellIfLowCashFlowPercent',
 

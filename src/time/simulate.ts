@@ -13,6 +13,7 @@ import { LedgerCollection, LedgerItem, LedgerItemType } from '../ledger';
 import { ValueCache } from '../caching/value-cache';
 import { loop } from './movement';
 import { cloneDateUtc } from '../utils/data-clone-date';
+import { HoldRuleTypes } from '../rules/hold-rule-types';
 
 export interface ISimulateOptions extends IPropertyEntityOptions {
   /**
@@ -34,6 +35,11 @@ export interface ISimulateOptions extends IPropertyEntityOptions {
    * loan basics about you. For example, if you have a great credit, you'll probably have a low interest rate. so that's 3%. With rentals, you are 1% higher, so make it 4%.
    */
   loanSettings: ILoanSetting[];
+
+  /**
+   * a system to determine how to hold onto the properties the longest. This scenario says as long as it meets 1 rule
+   */
+  holdRules: IRule<HoldRuleTypes>[];
 
   /**
    * This is how to prioritize the properties that come up. Use one, or use all rules! The order you put them in here, is the order it evaluates them as. {@link PurchaseRuleTypes} for possible rules
@@ -88,6 +94,7 @@ export function simulate(options: ISimulateOptions): ITimeline {
   user.monthlySavedAmount = options.monthlySavedAmount;
   user.monthlyIncomeAmountGoal = options.monthlyIncomeAmountGoal;
   user.loanSettings = options.loanSettings;
+  user.holdRules = (options.holdRules || []).map((r) => new RuleEvaluation(r.value, r.type, r.propertyType));
   user.purchaseRules = (options.purchaseRules || []).map((r) => new RuleEvaluation(r.value, r.type, r.propertyType));
 
   return loop(

@@ -13,6 +13,7 @@ import { ILoanSetting } from '../account/i-loan-settings';
 import { PropertyType } from '../account/property-type';
 import { IRuleEvaluation } from '../rules/rule-evaluation';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
+import { HoldRuleTypes } from '../rules/hold-rule-types';
 
 export interface ILoopOptions {
   /**
@@ -61,6 +62,10 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
   ensureArray<IRuleEvaluation<PurchaseRuleTypes>>(user.purchaseRules, {
     predicate: (item) => item.propertyType === PropertyType.SingleFamily,
     message: 'no single family purchase rules for user: purchaseRules',
+  });
+  ensureArray<IRuleEvaluation<HoldRuleTypes>>(user.holdRules, {
+    predicate: (item) => item.propertyType === PropertyType.SingleFamily,
+    message: 'no single family purchase rules for user: holdRules',
   });
 
   let today = cloneDateUtc(options.startDate);
@@ -120,6 +125,7 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
     //step 3: sell properties
     result.rentals
       .filter((r) => r.property.canSell(today))
+      .sort((a, b) => propertySort<HoldRuleTypes>(a.property, b.property, user.holdRules))
       .forEach((pr) => {
         pr.property.soldDate = cloneDateUtc(today);
 
@@ -161,7 +167,7 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
       })
       .filter((r) => r.validator.canInvest)
       .map((r) => r.historical)
-      .sort((a, b) => propertySort(a.property, b.property, user.purchaseRules))
+      .sort((a, b) => propertySort<PurchaseRuleTypes>(a.property, b.property, user.purchaseRules))
       .forEach((pr) => {
         // check cash
         if (user.hasMoneyToInvest(today)) {

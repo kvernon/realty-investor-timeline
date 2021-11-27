@@ -90,8 +90,7 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
 ## Missing features
 
 1. delay 1st mortgage payment
-2. implement hold rules
-3. apartments (passive investor)
+2. apartments (passive investor)
 
 ## Future
 
@@ -107,6 +106,7 @@ import {
   ISimulateOptions,
   LedgerCollection,
   LoanSettings,
+  HoldRuleTypes,
   PropertyType,
   RentalGenerator,
   RentalSingleFamily,
@@ -121,6 +121,13 @@ const options: ISimulateOptions = {
   amountInSavings: 100000,
   monthlyIncomeAmountGoal: 10000,
   monthlySavedAmount: 10000,
+  holdRules: [
+    {
+      value: 5,
+      type: HoldRuleTypes.minSellIfHighEquityPercent,
+      propertyType: PropertyType.SingleFamily,
+    },
+  ],
   purchaseRules: [
     { value: 30000, type: PurchaseRuleTypes.maxEstimatedOutOfPocket },
     { value: 7000, type: PurchaseRuleTypes.minEstimatedCapitalGains },

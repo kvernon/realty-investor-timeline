@@ -69,6 +69,7 @@ describe('and canInvestByUser', () => {
       expect(canInvestByUser(instance, user, null, null)).toMatchObject(expected);
     });
   });
+
   describe('and ledger.hasMinimumSavings is true', () => {
     test('and no rules', () => {
       const user: IUserInvestorCheck = {

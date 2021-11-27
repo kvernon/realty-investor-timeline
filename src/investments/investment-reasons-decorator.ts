@@ -3,12 +3,13 @@ import 'reflect-metadata';
 import { IRentalPropertyEntity } from '../properties/i-rental-property-entity';
 import { InvestmentReasons } from './investment-reasons';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
+import { HoldRuleTypes } from '../rules/hold-rule-types';
 
 export type PropertyDecoratorType<T extends IRentalPropertyEntity> = (target: T, propertyKey: keyof T & string) => any;
 
-export interface IReasonToRule<T extends IRentalPropertyEntity> {
+export interface IReasonToRule<T extends IRentalPropertyEntity, TR extends PurchaseRuleTypes | HoldRuleTypes> {
   investmentReason: InvestmentReasons;
-  ruleType: PurchaseRuleTypes;
+  ruleType: TR;
   propertyKey: keyof T & string;
   value: T[keyof T] & number;
 }
@@ -17,14 +18,14 @@ export interface IReasonToRule<T extends IRentalPropertyEntity> {
  * used to set up properties to help map results to InvestmentReasons
  * @constructor
  * @param investmentReason
- * @param [ruleType=PurchaseRuleTypes.none]
+ * @param ruleType
  */
 export function InvestmentReason(
   investmentReason: InvestmentReasons,
-  ruleType: PurchaseRuleTypes = PurchaseRuleTypes.none
+  ruleType: PurchaseRuleTypes | HoldRuleTypes
 ): PropertyDecoratorType<IRentalPropertyEntity> {
   return (target: IRentalPropertyEntity, propertyKey: keyof IRentalPropertyEntity & string): any => {
-    const saveItem: IReasonToRule<IRentalPropertyEntity> = {
+    const saveItem: IReasonToRule<IRentalPropertyEntity, PurchaseRuleTypes | HoldRuleTypes> = {
       investmentReason,
       ruleType,
       propertyKey,
@@ -56,7 +57,10 @@ export function InvestmentReason(
  * @param target
  * @constructor
  */
-export function getInvestmentReasons<T extends IRentalPropertyEntity & object>(target: T): IReasonToRule<T>[] {
+export function getInvestmentReasons<
+  T extends IRentalPropertyEntity & object,
+  TR extends PurchaseRuleTypes | HoldRuleTypes
+>(target: T): IReasonToRule<T, TR>[] {
   const keys = Reflect.getMetadata('design:type', target) as string[];
 
   return keys.map((k) => {

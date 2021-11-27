@@ -12,6 +12,7 @@ import { RuleEvaluation } from '../../src/rules/rule-evaluation';
 import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
 import { PropertyType } from '../../src/account/property-type';
 import { LoanSettings } from '../../src/account/loan-settings';
+import { HoldRuleTypes } from '../../src/rules/hold-rule-types';
 
 jest.mock('../../src/properties/rental-single-family');
 
@@ -28,6 +29,7 @@ describe('movement unit tests', () => {
       getCashFlowMonth: jest.fn(),
       metMonthlyGoal: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
+      holdRules: [new RuleEvaluation(4, HoldRuleTypes.minSellIfHighEquityPercent, PropertyType.SingleFamily)],
       purchaseRules: [new RuleEvaluation(4, PurchaseRuleTypes.minEstimatedCashFlowPerMonth, PropertyType.SingleFamily)],
       loanSettings: [{ value: 3, propertyType: PropertyType.SingleFamily, name: LoanSettings.loanTermInYears }],
       getBalance: jest.fn(),
@@ -206,7 +208,7 @@ describe('movement unit tests', () => {
         expect(() => loop(options, user)).toThrow('no single family purchase rules for user: purchaseRules');
       });
 
-      test('should throw loanSettings error on no single family', () => {
+      test('should throw purchaseRules error on no single family', () => {
         user.purchaseRules = [new RuleEvaluation(5, PurchaseRuleTypes.minEstimatedCapitalGains, PropertyType.None)];
 
         expected = {
@@ -218,6 +220,47 @@ describe('movement unit tests', () => {
 
         rentalGenerator.getRentals.mockReturnValue([rental]);
         expect(() => loop(options, user)).toThrow('no single family purchase rules for user: purchaseRules');
+      });
+    });
+
+    describe('and invalid holdRules', () => {
+      let options: ILoopOptions;
+      beforeEach(() => {
+        hasMetGoalOrMaxTime.mockReturnValueOnce(true);
+        options = {
+          startDate,
+          maxYears,
+          propertyGeneratorSingleFamily: rentalGenerator,
+          hasMetGoalOrMaxTime,
+        };
+      });
+
+      test('should throw holdRules error on empty', () => {
+        user.holdRules = [];
+
+        expected = {
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 4)),
+          rentals: [{ property: rental, reasons: [] }],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+        expect(() => loop(options, user)).toThrow('no single family purchase rules for user: holdRules');
+      });
+
+      test('should throw holdRules error on no single family', () => {
+        user.holdRules = [new RuleEvaluation(5, HoldRuleTypes.minSellInYears, PropertyType.None)];
+
+        expected = {
+          startDate: cloneDateUtc(startDate),
+          endDate: cloneDateUtc(startDate, (date: Date) => date.setUTCMonth(date.getUTCMonth() + 4)),
+          rentals: [{ property: rental, reasons: [] }],
+          user,
+        };
+
+        rentalGenerator.getRentals.mockReturnValue([rental]);
+        expect(() => loop(options, user)).toThrow('no single family purchase rules for user: holdRules');
       });
     });
 

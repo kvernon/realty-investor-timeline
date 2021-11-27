@@ -14,6 +14,7 @@ import {
   User,
   ValueCache,
   cloneDateUtc,
+  HoldRuleTypes,
 } from '../src';
 
 describe('loop unit tests', () => {
@@ -49,6 +50,8 @@ describe('loop unit tests', () => {
           propertyType: PropertyType.SingleFamily,
         },
       ];
+
+      user.holdRules = [new RuleEvaluation(4, HoldRuleTypes.minSellIfHighEquityPercent, PropertyType.SingleFamily)];
 
       user.purchaseRules = [
         new RuleEvaluation(30000, PurchaseRuleTypes.maxEstimatedOutOfPocket, PropertyType.SingleFamily),

@@ -1,5 +1,5 @@
 import { Chance } from 'chance';
-import { IRule, PurchaseRuleTypes } from '../../src/rules';
+import { HoldRuleTypes, IRule, PurchaseRuleTypes } from '../../src/rules';
 
 describe('simulate unit tests', () => {
   let chance: Chance.Chance;
@@ -57,6 +57,7 @@ describe('simulate unit tests', () => {
       const options = {
         monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
         purchaseRules: null as IRule<PurchaseRuleTypes>[],
+        holdRules: null as IRule<HoldRuleTypes>[],
         loanSettings: null as [],
         monthlySavedAmount: user.monthlySavedAmount,
         amountInSavings: 0,
