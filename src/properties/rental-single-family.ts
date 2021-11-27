@@ -13,6 +13,7 @@ import { getCashDown, getSellPriceEstimate } from '../calculations/get-monthly-m
 import { cloneDateUtc } from '../utils/data-clone-date';
 import areSameDate from '../utils/data-are-same-date';
 import compareDates from '../utils/data-compare-date';
+import { HoldRuleTypes } from '../rules/hold-rule-types';
 
 export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRentalPropertyEntity {
   /**
@@ -227,5 +228,6 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
   }
 
   @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, PurchaseRuleTypes.minEstimatedCashFlowPerMonth)
+  @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, HoldRuleTypes.minSellIfLowCashFlowPercent)
   monthlyCashFlow: number;
 }

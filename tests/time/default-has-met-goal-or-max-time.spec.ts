@@ -45,6 +45,7 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
           addLedgerItem: jest.fn(),
           loanSettings: [],
           monthlySavedAmount: 0,
+          holdRules: [],
           purchaseRules: [],
           clone: jest.fn(),
           getSummaryAnnual: jest.fn(),

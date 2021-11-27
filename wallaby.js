@@ -1,5 +1,5 @@
 module.exports = () => ({
   autoDetect: true,
-  debug: true,
+/*  debug: true,*/
   trace: true
 });

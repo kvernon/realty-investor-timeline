@@ -1,3 +1,4 @@
+import { HoldRuleTypes } from '../src/rules/hold-rule-types';
 import { ISimulateOptions, LoanSettings, PropertyType, PurchaseRuleTypes, simulate } from '../src';
 
 describe('simulate unit tests', () => {
@@ -7,6 +8,9 @@ describe('simulate unit tests', () => {
         amountInSavings: 100000,
         monthlyIncomeAmountGoal: 10000,
         monthlySavedAmount: 10000,
+        holdRules: [
+          { value: 5, type: HoldRuleTypes.minSellIfHighEquityPercent, propertyType: PropertyType.SingleFamily },
+        ],
         purchaseRules: [
           { value: 30000, type: PurchaseRuleTypes.maxEstimatedOutOfPocket, propertyType: PropertyType.SingleFamily },
           { value: 7000, type: PurchaseRuleTypes.minEstimatedCapitalGains, propertyType: PropertyType.SingleFamily },

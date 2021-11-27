@@ -2,24 +2,25 @@ import { IRentalPropertyEntity } from './i-rental-property-entity';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { getInvestmentReasons, InvestmentReasons } from '../investments';
 import { IRuleEvaluation } from '../rules/rule-evaluation';
+import { HoldRuleTypes } from '../rules/hold-rule-types';
 
 /**
  * property sort based on rules order and property value
  * @param propertyA
  * @param propertyB
- * @param purchaseRules
+ * @param rule
  */
-export default function propertySort(
+export default function propertySort<T extends PurchaseRuleTypes | HoldRuleTypes>(
   propertyA: IRentalPropertyEntity,
   propertyB: IRentalPropertyEntity,
-  purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[]
+  rule: IRuleEvaluation<T>[]
 ): number {
-  if (!purchaseRules || purchaseRules.length === 0) {
+  if (!rule || rule.length === 0) {
     return -1;
   }
 
-  const reasonsA = getInvestmentReasons<IRentalPropertyEntity>(propertyA);
-  const reasonsB = getInvestmentReasons<IRentalPropertyEntity>(propertyB);
+  const reasonsA = getInvestmentReasons<IRentalPropertyEntity, T>(propertyA);
+  const reasonsB = getInvestmentReasons<IRentalPropertyEntity, T>(propertyB);
 
   if (reasonsA.length > 0 && reasonsB.length === 0) {
     return -1;
@@ -29,8 +30,8 @@ export default function propertySort(
     return 1;
   }
 
-  for (let i = 0; i < purchaseRules.length; i++) {
-    const r = purchaseRules[i];
+  for (let i = 0; i < rule.length; i++) {
+    const r = rule[i];
     const reasonsItemA = reasonsA.find((s) => s.ruleType === r.type) || {
       ruleType: PurchaseRuleTypes.none,
       descriptor: { value: 0 },
@@ -42,6 +43,7 @@ export default function propertySort(
       ruleType: PurchaseRuleTypes.none,
       descriptor: { value: 0 },
       propertyKey: '',
+      value: -1,
       investmentReason: InvestmentReasons.Unknown,
     };
 

@@ -69,7 +69,7 @@ export function canInvestByUser(
   }
 
   // 1. need to map to rule to property, eg: PurchaseRuleTypes.minEstimatedCashFlowPerMonth > this.monthlyCashFlow;
-  const reasons = getInvestmentReasons<IRentalPropertyEntity>(rental).filter(
+  const reasons = getInvestmentReasons<IRentalPropertyEntity, PurchaseRuleTypes>(rental).filter(
     (r) => r.ruleType !== PurchaseRuleTypes.none
   );
 
