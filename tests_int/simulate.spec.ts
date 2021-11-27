@@ -1,7 +1,7 @@
 import { HoldRuleTypes } from '../src/rules/hold-rule-types';
 import { ISimulateOptions, LoanSettings, PropertyType, PurchaseRuleTypes, simulate } from '../src';
 
-describe('simulate unit tests', () => {
+describe('simulate integration tests', () => {
   describe('and success', () => {
     test('should run calc', () => {
       const options: ISimulateOptions = {
@@ -9,49 +9,75 @@ describe('simulate unit tests', () => {
         monthlyIncomeAmountGoal: 10000,
         monthlySavedAmount: 10000,
         holdRules: [
-          { value: 5, type: HoldRuleTypes.minSellIfHighEquityPercent, propertyType: PropertyType.SingleFamily },
+          { value: 2, type: HoldRuleTypes.MinSellIfHighEquityPercent, propertyType: PropertyType.SingleFamily },
         ],
         purchaseRules: [
-          { value: 30000, type: PurchaseRuleTypes.maxEstimatedOutOfPocket, propertyType: PropertyType.SingleFamily },
-          { value: 7000, type: PurchaseRuleTypes.minEstimatedCapitalGains, propertyType: PropertyType.SingleFamily },
-          { value: 200, type: PurchaseRuleTypes.minEstimatedCashFlowPerMonth, propertyType: PropertyType.SingleFamily },
+          { value: 50000, type: PurchaseRuleTypes.MaxEstimatedOutOfPocket, propertyType: PropertyType.SingleFamily },
+          { value: 5000, type: PurchaseRuleTypes.MinEstimatedCapitalGains, propertyType: PropertyType.SingleFamily },
+          {
+            value: 200,
+            type: PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow,
+            propertyType: PropertyType.SingleFamily,
+          },
         ],
         loanSettings: [
           {
             propertyType: PropertyType.SingleFamily,
-            name: LoanSettings.minimumReservesSingleFamily,
+            name: LoanSettings.MinimumMonthlyReservesForRental,
             value: 6,
           },
           {
-            name: LoanSettings.loanRatePercent,
+            name: LoanSettings.LoanRatePercent,
             value: 4,
             propertyType: PropertyType.SingleFamily,
           },
           {
-            name: LoanSettings.loanTermInYears,
+            name: LoanSettings.LoanTermInYears,
             value: 30,
             propertyType: PropertyType.SingleFamily,
           },
         ],
         maxYears: 1,
-        maxRentalOpportunitiesSingleFamily: 4,
-        highestMinSellInYears: 1,
-        lowestMinSellInYears: 1,
-        highestPriceDown: 200000,
-        lowestPriceDown: 150000,
-        highestSellAppreciationPercent: 7,
-        lowestSellAppreciationPercent: 5,
-        lowestCashFlowMonthly: 200,
-        highestCashFlowMonthly: 500,
-        lowestEquityCapturePercent: 7,
-        highestEquityCapturePercent: 15,
+        generatorOptionsSingleFamily: {
+          highestMinSellInYears: 1,
+          lowestMinSellInYears: 1,
+          highestPricePrice: 200000,
+          lowestPricePrice: 150000,
+          highestSellAppreciationPercent: 7,
+          lowestSellAppreciationPercent: 5,
+          lowestCashFlow: 300,
+          highestCashFlow: 500,
+          lowestEquityCapturePercent: 7,
+          highestEquityCapturePercent: 15,
+          maxRentalOpportunities: 4,
+        },
+        generatorOptionsPassiveApartment: {
+          highestMinSellInYears: 8,
+          lowestMinSellInYears: 5,
+          highestPricePrice: 12000000,
+          lowestPricePrice: 7000000,
+          highestSellAppreciationPercent: 7,
+          lowestSellAppreciationPercent: 5,
+          lowestCashFlow: 1300,
+          highestCashFlow: 1500,
+          lowestEquityCapturePercent: 7,
+          highestEquityCapturePercent: 15,
+          maxRentalOpportunities: 6,
+        },
       };
 
       const actual = simulate(options);
-      expect(actual.user.metMonthlyGoal(actual.endDate)).toBeFalsy();
-      expect(actual.user.ledgerCollection.getCashFlowMonth(actual.endDate)).toBeGreaterThan(0);
-      expect(actual).not.toBeNull();
-      expect(actual.user).not.toBeNull();
+      /*let balance = 0;
+      console.table(actual.user.ledgerCollection.filter(x => !!x).map(x => {
+        balance += x.amount;
+        return {...x, balance};
+      }));
+      console.table(actual.rentals.filter(x => x.reasons.length > 0).map((x) => ({
+        address: x.property.address,
+        type: PropertyType[x.property.propertyType],
+        reasons: JSON.stringify(x.reasons)
+      })));*/
+      expect(actual.getEstimatedMonthlyCashFlow()).toBeGreaterThan(0);
       expect(actual.startDate).not.toBeNull();
       expect(actual.endDate).not.toBeNull();
       expect(actual.rentals).not.toBeNull();

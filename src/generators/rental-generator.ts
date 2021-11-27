@@ -1,6 +1,6 @@
-import { GenerateProperty } from './factory-single-family';
+import { GenerateProperty } from './generate-property';
 import { IPropertyEntityOptions } from './i-property-entity-options';
-import { ILoanSetting } from '../account/i-loan-settings';
+import { ILoanSetting } from '../loans/i-loan-settings';
 import { IValueCache } from '../caching/value-cache';
 import { IRentalPropertyEntity } from '../properties/i-rental-property-entity';
 import { randomNumberBetween } from '../utils/data-number';
@@ -14,8 +14,8 @@ export interface IRentalGenerator<T extends IRentalPropertyEntity> {
 export class RentalGenerator<T extends IRentalPropertyEntity> implements IPropertyEntityOptions, IRentalGenerator<T> {
   public maxRentalOpportunities: number;
 
-  public lowestPriceDown: number;
-  public highestPriceDown: number;
+  public lowestPricePrice: number;
+  public highestPricePrice: number;
 
   /**
    * for single family it's around 4%
@@ -30,8 +30,8 @@ export class RentalGenerator<T extends IRentalPropertyEntity> implements IProper
   public lowestMinSellInYears: number;
   public highestMinSellInYears: number;
 
-  public lowestCashFlowMonthly: number;
-  public highestCashFlowMonthly: number;
+  public lowestCashFlow: number;
+  public highestCashFlow: number;
 
   public lowestEquityCapturePercent: number;
   public highestEquityCapturePercent: number;

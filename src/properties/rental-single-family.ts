@@ -1,21 +1,28 @@
 import 'reflect-metadata';
+import { InvestmentReasons } from '../investments/investment-reasons';
+import {
+  InvestmentReasonForPurchaseRuleTypes,
+  InvestmentReasonForHoldRuleTypes,
+} from '../investments/investment-reasons-decorator';
 import cloneDeep from 'lodash.clonedeep';
 import { IEntityExistence } from './i-entity-existence';
 import { IRentalPropertyEntity } from './i-rental-property-entity';
-import { IRentalSavings } from './i-rental-savings';
-import { InvestmentReason } from '../investments/investment-reasons-decorator';
-import { InvestmentReasons } from '../investments/investment-reasons';
 import { IRentalInvestorValidator } from '../investments/rental-investor-validator';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { canInvestByUser } from '../calculations/can-invest-by-user';
 import { IUserInvestorCheck } from '../account/i-user-investor-check';
-import { getCashDown, getSellPriceEstimate } from '../calculations/get-monthly-mortgage';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import areSameDate from '../utils/data-are-same-date';
 import compareDates from '../utils/data-compare-date';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
+import { PropertyType } from '../properties/property-type';
+import { getSellPriceEstimate } from '../calculations/get-sell-price-estimate';
+import { getCashDown } from '../calculations/get-cash-down';
+import currency from '../formatters/currency';
 
-export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRentalPropertyEntity {
+export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEntity {
+  readonly propertyType: PropertyType = PropertyType.SingleFamily;
+
   /**
    * unique identifier
    */
@@ -48,7 +55,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
   }
 
   get isOwned(): boolean {
-    return this.purchaseDate && !this.soldDate;
+    return !!this.purchaseDate && !this.soldDate;
   }
 
   /**
@@ -57,13 +64,17 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
    * @param date
    * @param properties
    */
-  canInvestByUser(user: IUserInvestorCheck, date: Date, properties: IRentalSavings[]): IRentalInvestorValidator {
+  canInvestByUser(user: IUserInvestorCheck, date: Date, properties: IRentalPropertyEntity[]): IRentalInvestorValidator {
     return canInvestByUser(this, user, date, properties);
   }
 
   /**
    * At the time of purchase the ARV of the property
    */
+  @InvestmentReasonForPurchaseRuleTypes(
+    InvestmentReasons.DoesNotMeetUserRuleAskingPrice,
+    PurchaseRuleTypes.MinAskingPrice
+  )
   purchasePrice: number;
 
   /**
@@ -89,14 +100,24 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
    */
   cashDownPercent: number;
 
+  @InvestmentReasonForPurchaseRuleTypes(
+    InvestmentReasons.DoesNotMeetUserRuleOutOfPocket,
+    PurchaseRuleTypes.MaxEstimatedOutOfPocket
+  )
   get costDownPrice(): number {
     return getCashDown(this.purchasePrice, this.cashDownPercent || 0);
   }
 
   /**
-   * total rent price of the property
+   * a range of amounts that the user can invest for the property: typically this is the {@link costDownPrice}
    */
-  monthlyRentAmount: number;
+  @InvestmentReasonForPurchaseRuleTypes(
+    InvestmentReasons.DoesNotMeetUserRuleEquityCapture,
+    PurchaseRuleTypes.MinEstimatedCapitalGains
+  )
+  get offeredInvestmentAmounts(): number[] {
+    return [this.costDownPrice];
+  }
 
   /**
    * Determines the equity of a sale by date. Note: {@link soldDate} must be populated and today and it must match
@@ -108,7 +129,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
     }
 
     if (areSameDate(this.soldDate, today)) {
-      return (this.sellPriceByDate(today) - this.costDownPrice) * (this.equityCapturePercent / 100);
+      return currency((this.sellPriceByDate(today) - this.costDownPrice) * (this.equityCapturePercent / 100));
     }
 
     return 0;
@@ -192,24 +213,32 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
    * 2. this home must not have been sold
    * @param today
    */
-  getMonthlyCashFlowByDate(today: Date): number {
+  getCashFlowByDate(today: Date): number {
     if (!this.purchaseDate) {
       return 0;
     }
 
     if (!this.soldDate && compareDates(this.purchaseDate, today) === -1) {
-      return this.monthlyCashFlow;
+      return this.rawCashFlow;
     }
 
     return 0;
   }
 
   /**
+   * universal method to determine cash flow on a monthly basis
+   * @param today
+   */
+  getEstimatedMonthlyCashFlow(today: Date): number {
+    return this.getCashFlowByDate(today);
+  }
+
+  /**
    * used to determine what the cost of property is per month. If no purchase date or it has a sold date, then 0, otherwise there is an amount
    * @param today
    */
-  getMonthlyPrincipalInterestTaxInterestByDate(today: Date): number {
-    if (!this.purchaseDate) {
+  getExpensesByDate(today: Date): number {
+    if (!this.isOwned) {
       return 0;
     }
 
@@ -227,7 +256,17 @@ export class RentalSingleFamily implements IEntityExistence, IRentalSavings, IRe
     return Object.assign(new RentalSingleFamily(), cloneDeep(this));
   }
 
-  @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, PurchaseRuleTypes.minEstimatedCashFlowPerMonth)
-  @InvestmentReason(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, HoldRuleTypes.minSellIfLowCashFlowPercent)
-  monthlyCashFlow: number;
+  rawCashFlow: number;
+
+  @InvestmentReasonForPurchaseRuleTypes(
+    InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
+    PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow
+  )
+  @InvestmentReasonForHoldRuleTypes(
+    InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
+    HoldRuleTypes.MinSellIfLowCashFlowPercent
+  )
+  get rawEstimatedAnnualCashFlow(): number {
+    return this.rawCashFlow === 0 ? 0 : this.rawCashFlow * 12;
+  }
 }

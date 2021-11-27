@@ -22,8 +22,8 @@ describe('currencyFormatter unit tests', () => {
 
   describe('and decimal', () => {
     test('should return decimal to the one hundredth', () => {
-      const int = chance.integer({ min: 1000000, max: 9000000 }); //?
-      const decimal = chance.integer({ min: 10, max: 99 }); //?
+      const int = chance.integer({ min: 1000000, max: 9000000 });
+      const decimal = chance.integer({ min: 10, max: 99 });
       const expected = parseFloat(`${int}.${decimal}`);
 
       const value = parseFloat(`${int}.${decimal}${decimal}${decimal}${decimal}`);

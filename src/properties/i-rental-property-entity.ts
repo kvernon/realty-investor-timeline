@@ -19,7 +19,13 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
    * 2. this home must not have been sold
    * @param today
    */
-  getMonthlyCashFlowByDate(today: Date): number;
+  getCashFlowByDate(today: Date): number;
+
+  /**
+   * universal method to determine cash flow on a monthly basis
+   * @param today
+   */
+  getEstimatedMonthlyCashFlow(today: Date): number;
 
   isOwned: boolean;
 
@@ -30,4 +36,12 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
    * @param today
    */
   isAvailableByDate(today: Date): boolean;
+
+  /**
+   * used to determine what the cost of property is per month. If no purchase date or it has a sold date, then 0, otherwise there is an amount
+   * @param today
+   */
+  getExpensesByDate(today: Date): number;
+
+  clone(): IRentalPropertyEntity;
 }

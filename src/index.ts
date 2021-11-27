@@ -4,6 +4,7 @@ export * from './calculations';
 export * from './formatters';
 export * from './generators';
 export * from './investments';
+export * from './loans';
 export * from './ledger';
 export * from './properties';
 export * from './rules';

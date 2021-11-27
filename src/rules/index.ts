@@ -1,5 +1,6 @@
 export * from './eval-type';
 export * from './eval-types';
+export * from './get-enum-type-by-value';
 export * from './get-rules';
 export * from './hold-rule-types';
 export * from './i-rule';

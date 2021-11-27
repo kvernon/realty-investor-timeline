@@ -1,19 +1,12 @@
 import { genericGenerateProperty } from './generic-generate-property';
 import { IPropertyEntityOptions } from './i-property-entity-options';
-import { ILoanSetting } from '../account/i-loan-settings';
-import { LoanSettings } from '../account/loan-settings';
-import { PropertyType } from '../account/property-type';
+import { ILoanSetting } from '../loans/i-loan-settings';
+import { LoanSettings } from '../loans/loan-settings';
+import { PropertyType } from '../properties/property-type';
 import { IEntityExistence } from '../properties/i-entity-existence';
-import { IPropertyEntity } from '../properties/i-property-entity';
 import { RentalSingleFamily } from '../properties/rental-single-family';
 import { getMonthlyPrincipalInterestTaxInterest } from '../calculations/get-monthly-principal-interest-tax-interest';
-
-export type GenerateProperty<T extends IPropertyEntity> = (
-  options: IPropertyEntityOptions,
-  lifeTime: IEntityExistence,
-  userSettings: ILoanSetting[],
-  closingCostPercent: number
-) => T;
+import { GenerateProperty } from './generate-property';
 
 /**
  * used to provide exclusive info for generating a {@link RentalSingleFamily}
@@ -43,8 +36,8 @@ export const generateSingleFamily: GenerateProperty<RentalSingleFamily> = (
     rental.purchasePrice,
     rental.cashDownPercent,
     closingCostPercent,
-    singleFamilySettings.find((x) => x.name === LoanSettings.loanRatePercent)?.value || 5,
-    singleFamilySettings.find((x) => x.name === LoanSettings.loanTermInYears)?.value || 30
+    singleFamilySettings.find((x) => x.name === LoanSettings.LoanRatePercent)?.value || 5,
+    singleFamilySettings.find((x) => x.name === LoanSettings.LoanTermInYears)?.value || 30
   );
 
   return rental;

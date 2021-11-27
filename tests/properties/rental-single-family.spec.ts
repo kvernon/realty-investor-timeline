@@ -54,10 +54,10 @@ describe('RentalSingleFamily unit tests', () => {
 
   describe('and minSellDate', () => {
     test('should be x years after', () => {
-      const date = new Date(Date.now());
-      const diff = chance.integer({ min: 2, max: 5 });
+      const date = cloneDateUtc(new Date());
+      const yearDiff = chance.integer({ min: 2, max: 5 });
 
-      date.setUTCFullYear(date.getUTCFullYear() - diff);
+      date.setUTCFullYear(date.getUTCFullYear() - yearDiff);
 
       instance.purchaseDate = date;
       instance.minSellYears = 1;
@@ -250,27 +250,27 @@ describe('RentalSingleFamily unit tests', () => {
   describe('and getMonthlyPrincipalInterestTaxInterestByDate', () => {
     describe('and no purchaseDate', () => {
       test('should be 0', () => {
-        expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(new Date())).toEqual(0);
+        expect(instance.getExpensesByDate(cloneDateUtc(new Date()))).toEqual(0);
       });
     });
     describe('and purchaseDate', () => {
       describe('and soldDate', () => {
         describe('and today after purchaseDate', () => {
           test('should be 0', () => {
-            instance.purchaseDate = new Date();
-            instance.soldDate = new Date();
-            expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(new Date())).toEqual(0);
+            instance.purchaseDate = cloneDateUtc(new Date());
+            instance.soldDate = cloneDateUtc(new Date());
+            expect(instance.getExpensesByDate(cloneDateUtc(new Date()))).toEqual(0);
           });
         });
         describe('and today before purchaseDate', () => {
           test('should be 0', () => {
-            instance.purchaseDate = new Date();
-            instance.soldDate = new Date();
+            instance.purchaseDate = cloneDateUtc(new Date());
+            instance.soldDate = cloneDateUtc(new Date());
 
             const today = new Date(instance.purchaseDate.getTime());
             today.setUTCFullYear(instance.purchaseDate.getUTCFullYear() - 2);
 
-            expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(today)).toEqual(0);
+            expect(instance.getExpensesByDate(today)).toEqual(0);
           });
         });
       });
@@ -279,7 +279,7 @@ describe('RentalSingleFamily unit tests', () => {
         test('should be 0', () => {
           instance.purchaseDate = cloneDateUtc(new Date());
           instance.monthlyPrincipalInterestTaxInterest = chance.integer({ min: 9, max: 900 });
-          expect(instance.getMonthlyPrincipalInterestTaxInterestByDate(cloneDateUtc(new Date()))).toEqual(
+          expect(instance.getExpensesByDate(cloneDateUtc(new Date()))).toEqual(
             instance.monthlyPrincipalInterestTaxInterest
           );
         });
@@ -290,7 +290,7 @@ describe('RentalSingleFamily unit tests', () => {
   describe('and getMonthlyCashFlowByDate', () => {
     describe('and no purchaseDate', () => {
       test('should return 0', () => {
-        expect(instance.getMonthlyCashFlowByDate(new Date(Date.now()))).toEqual(0);
+        expect(instance.getCashFlowByDate(new Date(Date.now()))).toEqual(0);
       });
     });
     describe('and purchaseDate', () => {
@@ -328,25 +328,25 @@ describe('RentalSingleFamily unit tests', () => {
                 1
               );
 
-              expect(instance.getMonthlyCashFlowByDate(beforeSoldDate)).toEqual(0);
+              expect(instance.getCashFlowByDate(beforeSoldDate)).toEqual(0);
             });
           });
           describe('and today is soldDate', () => {
             test('should be rawEquity', () => {
-              expect(instance.getMonthlyCashFlowByDate(instance.soldDate)).toEqual(0);
+              expect(instance.getCashFlowByDate(instance.soldDate)).toEqual(0);
             });
           });
           describe('and today is after', () => {
             test('should be 0', () => {
               const monthAfterCanSell = new Date(instance.soldDate.getFullYear(), instance.soldDate.getMonth() - 1, 1);
 
-              expect(instance.getMonthlyCashFlowByDate(monthAfterCanSell)).toEqual(0);
+              expect(instance.getCashFlowByDate(monthAfterCanSell)).toEqual(0);
             });
           });
           describe('and falsy soldDate', () => {
             test('should be 0', () => {
               instance.soldDate = undefined;
-              instance.monthlyCashFlow = 0;
+              instance.rawCashFlow = 0;
 
               const monthAfterCanSell = new Date(
                 Date.UTC(
@@ -356,7 +356,7 @@ describe('RentalSingleFamily unit tests', () => {
                 )
               );
 
-              expect(instance.getMonthlyCashFlowByDate(monthAfterCanSell)).toEqual(0);
+              expect(instance.getCashFlowByDate(monthAfterCanSell)).toEqual(0);
             });
           });
         });

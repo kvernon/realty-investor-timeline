@@ -89,8 +89,8 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
 
 ## Missing features
 
-1. delay 1st mortgage payment
-2. apartments (passive investor)
+1. way to earn money from investments (up to 5 x calcs)
+2. delay 1st mortgage payment
 
 ## Future
 
@@ -129,14 +129,26 @@ const options: ISimulateOptions = {
     },
   ],
   purchaseRules: [
-    { value: 30000, type: PurchaseRuleTypes.maxEstimatedOutOfPocket },
-    { value: 7000, type: PurchaseRuleTypes.minEstimatedCapitalGains },
-    { value: 200, type: PurchaseRuleTypes.minEstimatedCashFlowPerMonth },
+    {
+      value: 30000,
+      type: PurchaseRuleTypes.maxEstimatedOutOfPocket,
+      propertyType: PropertyType.SingleFamily,
+    },
+    {
+      value: 7000,
+      type: PurchaseRuleTypes.minEstimatedCapitalGains,
+      propertyType: PropertyType.SingleFamily,
+    },
+    {
+      value: 200,
+      type: PurchaseRuleTypes.minEstimatedMultiAnnualCashFlow,
+      propertyType: PropertyType.SingleFamily,
+    },
   ],
   loanSettings: [
     {
       propertyType: PropertyType.SingleFamily,
-      name: LoanSettings.minimumReservesSingleFamily,
+      name: LoanSettings.minimumMonthlyReservesForRental,
       value: 6,
     },
     {
@@ -151,17 +163,32 @@ const options: ISimulateOptions = {
     },
   ],
   maxYears: 1,
-  maxRentalOpportunitiesSingleFamily: 4,
-  highestMinSellInYears: 1,
-  lowestMinSellInYears: 1,
-  highestPriceDown: 200000,
-  lowestPriceDown: 150000,
-  highestSellAppreciationPercent: 7,
-  lowestSellAppreciationPercent: 5,
-  lowestCashFlowMonthly: 200,
-  highestCashFlowMonthly: 500,
-  lowestEquityCapturePercent: 7,
-  highestEquityCapturePercent: 15,
+  generatorOptionsSingleFamily: {
+    highestMinSellInYears: 1,
+    lowestMinSellInYears: 1,
+    highestPricePrice: 200000,
+    lowestPricePrice: 150000,
+    highestSellAppreciationPercent: 7,
+    lowestSellAppreciationPercent: 5,
+    lowestCashFlow: 200,
+    highestCashFlow: 500,
+    lowestEquityCapturePercent: 7,
+    highestEquityCapturePercent: 15,
+    maxRentalOpportunities: 4,
+  },
+  generatorOptionsPassiveApartment: {
+    highestMinSellInYears: 1,
+    lowestMinSellInYears: 1,
+    highestPricePrice: 200000,
+    lowestPricePrice: 150000,
+    highestSellAppreciationPercent: 7,
+    lowestSellAppreciationPercent: 5,
+    lowestCashFlow: 200,
+    highestCashFlow: 500,
+    lowestEquityCapturePercent: 7,
+    highestEquityCapturePercent: 15,
+    maxRentalOpportunities: 6,
+  },
 };
 
 const actual = simulate(options);
@@ -173,7 +200,7 @@ const lastYear = actual.user.ledgerCollection.getSummariesAnnual(
 ```
 
 The example result object models:
-`ITimeline`:
+`Timeline`:
 
 ```JSON
 {
@@ -191,7 +218,7 @@ The example result object models:
         "availableStartDate": "2021-12-01T00:00:00.000Z",
         "availableEndDate": "2022-02-01T00:00:00.000Z",
         "cashDownPercent": 25,
-        "monthlyPrincipalInterestTaxInterest": 949.5723384565815,
+        "monthlyPrincipalInterestTaxInterest": 949.57,
         "_purchaseDate": "2022-01-01T06:00:00.000Z",
         "_soldDate": "2022-02-01T06:00:00.000Z"
       },

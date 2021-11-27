@@ -1,4 +1,4 @@
-import { ITimeline } from './i-timeline';
+import { ITimeline, Timeline } from './timeline';
 import { HasMetGoalOrMaxTime } from './has-met-goal-or-max-time';
 import { defaultHasMetGoalOrMaxTime } from './default-has-met-goal-or-max-time';
 import { RentalSingleFamily } from '../properties/rental-single-family';
@@ -9,17 +9,21 @@ import { LedgerItem } from '../ledger/ledger-item';
 import propertySort from '../properties/property-sort';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import { ensureArray } from '../utils/ensure';
-import { ILoanSetting } from '../account/i-loan-settings';
-import { PropertyType } from '../account/property-type';
+import { ILoanSetting } from '../loans/i-loan-settings';
+import { PropertyType } from '../properties/property-type';
 import { IRuleEvaluation } from '../rules/rule-evaluation';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
+import { RentalPassiveApartment } from '../properties/rental-passive-apartment';
+import { UpdateHistoricalRentals } from './update-historical-rentals';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
+import { getMinCostDownByRule } from '../calculations/get-min-cost-down-by-rule';
 
 export interface ILoopOptions {
   /**
    * when does this start?
    */
   startDate?: Date;
+
   /**
    * how long should this run in years? A common number is 25 to 30 years before giving up.
    */
@@ -33,7 +37,12 @@ export interface ILoopOptions {
   /**
    * How the system generates single family properties
    */
-  propertyGeneratorSingleFamily: IRentalGenerator<RentalSingleFamily>;
+  propertyGeneratorSingleFamily?: IRentalGenerator<RentalSingleFamily>;
+
+  /**
+   * How the system generates passive apartment properties
+   */
+  propertyGeneratorPassiveApartment?: IRentalGenerator<RentalPassiveApartment>;
 }
 
 /**
@@ -55,32 +64,33 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
     options.startDate = cloneDateUtc(setupDate);
   }
 
+  if (!options.propertyGeneratorPassiveApartment && !options.propertyGeneratorSingleFamily) {
+    throw new Error(
+      'Invalid Argument: must declare at least 1, either propertyGeneratorSingleFamily or propertyGeneratorPassiveApartment'
+    );
+  }
+
   ensureArray<ILoanSetting>(user.loanSettings, {
     predicate: (item) => item.propertyType === PropertyType.SingleFamily,
     message: 'no single family loan settings for user: loanSettings',
+    ignoreError: !options.propertyGeneratorSingleFamily && !!options.propertyGeneratorPassiveApartment,
   });
   ensureArray<IRuleEvaluation<PurchaseRuleTypes>>(user.purchaseRules, {
-    predicate: (item) => item.propertyType === PropertyType.SingleFamily,
-    message: 'no single family purchase rules for user: purchaseRules',
+    predicate: (item) => item.propertyType !== PropertyType.None,
+    message: 'no single family or passive apartment purchase rules for user: purchaseRules',
   });
   ensureArray<IRuleEvaluation<HoldRuleTypes>>(user.holdRules, {
     predicate: (item) => item.propertyType === PropertyType.SingleFamily,
-    message: 'no single family purchase rules for user: holdRules',
+    message: 'no single family hold rules for user: holdRules',
+    ignoreError: !options.propertyGeneratorSingleFamily && !!options.propertyGeneratorPassiveApartment,
   });
 
   let today = cloneDateUtc(options.startDate);
 
-  const result: ITimeline = {
-    startDate: cloneDateUtc(today),
-    endDate: cloneDateUtc(today),
-    rentals: [],
-    user: user.clone(),
-  };
+  const result: Timeline = new Timeline(cloneDateUtc(today), cloneDateUtc(today), [], user.clone());
 
   do {
-    today = cloneDateUtc(today);
-    today.setUTCMonth(today.getUTCMonth() + 1);
-
+    today = cloneDateUtc(today, (date) => date.setUTCMonth(date.getUTCMonth() + 1));
     result.endDate = cloneDateUtc(today);
 
     //step 1: get savings
@@ -93,39 +103,43 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
       result.user.addLedgerItem(salary);
     }
 
-    if (result.rentals.length === 0) {
-      result.rentals = options.propertyGeneratorSingleFamily
-        .getRentals(RentalSingleFamily, today, user.loanSettings)
-        .map((p) => ({
-          property: p,
-          reasons: [],
-        }));
-    } else {
-      options.propertyGeneratorSingleFamily
-        .getRentals(RentalSingleFamily, today, result.user.loanSettings)
-        .forEach((x) => {
-          if (!result.rentals.some((historicalProps) => historicalProps.property.id === x.id)) {
-            result.rentals.push({ property: x, reasons: [] });
-          }
-        });
-    }
+    result.rentals = UpdateHistoricalRentals(
+      RentalSingleFamily,
+      options.propertyGeneratorSingleFamily,
+      result.rentals,
+      today,
+      result.user
+    );
+
+    result.rentals = UpdateHistoricalRentals(
+      RentalPassiveApartment,
+      options.propertyGeneratorPassiveApartment,
+      result.rentals,
+      today,
+      result.user
+    );
 
     //step 2: get cash flow
     result.rentals
-      .filter((r) => r.property.isOwned)
+      .filter((r) => r.property && r.property.isOwned)
       .forEach((pr) => {
         const cashFlow = new LedgerItem();
-        cashFlow.amount = pr.property.getMonthlyCashFlowByDate(today);
+        cashFlow.amount = pr.property.getCashFlowByDate(today);
         cashFlow.type = LedgerItemType.CashFlow;
         cashFlow.created = cloneDateUtc(today);
-        cashFlow.note = `for: ${pr.property.address}, id: ${pr.property.id}`;
-        result.user.addLedgerItem(cashFlow);
+        cashFlow.note = `for: ${pr.property.address}, id: ${pr.property.id} (${
+          PropertyType[pr.property.propertyType]
+        })`;
+
+        if (cashFlow.isAmountGreaterThanZero()) {
+          result.user.addLedgerItem(cashFlow);
+        }
       });
 
     //step 3: sell properties
     result.rentals
-      .filter((r) => r.property.canSell(today))
-      .sort((a, b) => propertySort<HoldRuleTypes>(a.property, b.property, user.holdRules))
+      .filter((r) => r.property && r.property.canSell(today))
+      .sort((a, b) => propertySort<HoldRuleTypes>(a.property, b.property, result.user.holdRules))
       .forEach((pr) => {
         pr.property.soldDate = cloneDateUtc(today);
 
@@ -133,20 +147,27 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
         equityFromSell.amount = pr.property.getEquityFromSell(today);
         equityFromSell.type = LedgerItemType.Equity;
         equityFromSell.created = cloneDateUtc(today);
-        equityFromSell.note = `for: ${pr.property.address}, id: ${pr.property.id}`;
+        equityFromSell.note = `for: ${pr.property.address}, id: ${pr.property.id} (${
+          PropertyType[pr.property.propertyType]
+        })`;
         result.user.addLedgerItem(equityFromSell);
       });
 
-    if (!result.user.hasMoneyToInvest(today)) {
+    if (
+      !result.user.hasMoneyToInvest(
+        today,
+        result.rentals.map((x) => x.property)
+      )
+    ) {
       continue;
     }
 
     //step 4: buy new properties
     result.rentals
-      .filter((r) => r.property.isAvailableByDate(today))
+      .filter((r) => r.property && r.property.isAvailableByDate(today))
       .map((r) => {
         const validator = r.property.canInvestByUser(
-          user,
+          result.user,
           today,
           result.rentals.map((h) => h.property)
         );
@@ -167,23 +188,48 @@ export function loop(options: ILoopOptions, user: IUser): ITimeline {
       })
       .filter((r) => r.validator.canInvest)
       .map((r) => r.historical)
-      .sort((a, b) => propertySort<PurchaseRuleTypes>(a.property, b.property, user.purchaseRules))
+      .sort((a, b) => propertySort<PurchaseRuleTypes>(a.property, b.property, result.user.purchaseRules))
       .forEach((pr) => {
         // check cash
-        if (user.hasMoneyToInvest(today)) {
+        const minCostDownByRule = getMinCostDownByRule(pr.property, result.user.purchaseRules);
+        if (
+          minCostDownByRule > 0 &&
+          result.user.hasMoneyToInvest(
+            today,
+            result.rentals.map((x) => x.property),
+            minCostDownByRule
+          )
+        ) {
           // buy
           const purchase = new LedgerItem();
-          purchase.amount = pr.property.costDownPrice;
+          purchase.amount = minCostDownByRule * -1;
           purchase.type = LedgerItemType.Purchase;
           purchase.created = cloneDateUtc(today);
-          purchase.note = `for: ${pr.property.address}, id: ${pr.property.id}`;
-          result.user.addLedgerItem(purchase);
+          purchase.note = `for: ${pr.property.address}, id: ${pr.property.id} (${
+            PropertyType[pr.property.propertyType]
+          })`;
 
-          // set to purchase
-          pr.property.purchaseDate = cloneDateUtc(today);
+          if (!purchase.isAmountGreaterThanZero()) {
+            result.user.addLedgerItem(purchase);
+
+            // set to purchase
+            pr.property.purchaseDate = cloneDateUtc(today);
+
+            if (pr.property.propertyType === PropertyType.PassiveApartment) {
+              pr.property.costDownPrice = minCostDownByRule;
+            }
+          }
         }
       });
-  } while (!options.hasMetGoalOrMaxTime(result.startDate, today, result.user, options.maxYears));
+  } while (
+    !options.hasMetGoalOrMaxTime(
+      result.startDate,
+      today,
+      result.user,
+      result.rentals.map((x) => x.property),
+      options.maxYears
+    )
+  );
 
   return result;
 }

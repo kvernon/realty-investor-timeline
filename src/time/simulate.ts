@@ -1,21 +1,29 @@
+import { generateRentalPassiveApartment } from '../generators/factory-passive-apartment';
 import { generateSingleFamily } from '../generators/factory-single-family';
 import { IPropertyEntityOptions } from '../generators/i-property-entity-options';
 import { RentalGenerator } from '../generators/rental-generator';
 import { User } from '../account/user';
-import { ILoanSetting } from '../account/i-loan-settings';
+import { ILoanSetting } from '../loans/i-loan-settings';
 import { RuleEvaluation } from '../rules/rule-evaluation';
 import { IRule } from '../rules/i-rule';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { HasMetGoalOrMaxTime } from './has-met-goal-or-max-time';
-import { ITimeline } from './i-timeline';
-import { RentalSingleFamily } from '../properties';
+import { ITimeline, Timeline } from './timeline';
+import { RentalPassiveApartment, RentalSingleFamily } from '../properties';
 import { LedgerCollection, LedgerItem, LedgerItemType } from '../ledger';
 import { ValueCache } from '../caching/value-cache';
 import { loop } from './movement';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
 
-export interface ISimulateOptions extends IPropertyEntityOptions {
+interface IGenOptions extends IPropertyEntityOptions {
+  /**
+   * Used to provide an amount of Random properties
+   */
+  maxRentalOpportunities: number;
+}
+
+export interface ISimulateOptions {
   /**
    * this is what you have saved up currently to invest in
    */
@@ -61,10 +69,9 @@ export interface ISimulateOptions extends IPropertyEntityOptions {
    */
   hasMetGoalOrMaxTime?: HasMetGoalOrMaxTime;
 
-  /**
-   * Used to provide an amount of Random properties
-   */
-  maxRentalOpportunitiesSingleFamily: number;
+  generatorOptionsSingleFamily?: IGenOptions;
+
+  generatorOptionsPassiveApartment?: IGenOptions;
 }
 
 /**
@@ -73,13 +80,28 @@ export interface ISimulateOptions extends IPropertyEntityOptions {
  */
 export function simulate(options: ISimulateOptions): ITimeline {
   const formattedUtcDate = cloneDateUtc(options.startDate ?? new Date());
-  const valueCache = new ValueCache(cloneDateUtc(formattedUtcDate), [], 2);
+
+  if (!options.generatorOptionsPassiveApartment && !options.generatorOptionsSingleFamily) {
+    throw new Error(
+      'Invalid Argument: must declare at least 1, either generatorOptionsSingleFamily or generatorOptionsPassiveApartment'
+    );
+  }
 
   const propertyGeneratorSingleFamily = Object.assign(
-    new RentalGenerator<RentalSingleFamily>(valueCache, generateSingleFamily),
-    options
+    new RentalGenerator<RentalSingleFamily>(
+      new ValueCache(cloneDateUtc(formattedUtcDate), [], 2),
+      generateSingleFamily
+    ),
+    options.generatorOptionsSingleFamily
   );
-  propertyGeneratorSingleFamily.maxRentalOpportunities = options.maxRentalOpportunitiesSingleFamily;
+
+  const propertyGeneratorPassiveApartment = Object.assign(
+    new RentalGenerator<RentalPassiveApartment>(
+      new ValueCache(cloneDateUtc(formattedUtcDate), [], 2),
+      generateRentalPassiveApartment
+    ),
+    options.generatorOptionsPassiveApartment
+  );
 
   const totalSavings = new LedgerItem();
   totalSavings.amount = options.amountInSavings;
@@ -100,6 +122,7 @@ export function simulate(options: ISimulateOptions): ITimeline {
   return loop(
     {
       propertyGeneratorSingleFamily,
+      propertyGeneratorPassiveApartment,
       maxYears: options.maxYears,
       startDate: formattedUtcDate,
       hasMetGoalOrMaxTime: options.hasMetGoalOrMaxTime,

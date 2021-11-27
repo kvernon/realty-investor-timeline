@@ -1,4 +1,7 @@
-import { IUser } from '../../src/account/user';
+jest.mock('../../src/account/user');
+
+import { PropertyType } from '../../src/properties/property-type';
+import { IUser, User } from '../../src/account/user';
 import { defaultHasMetGoalOrMaxTime } from '../../src/time/default-has-met-goal-or-max-time';
 
 describe('defaultHasMetGoalOrMaxTime unit tests', () => {
@@ -6,7 +9,14 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
     describe('and user null', () => {
       test('should be false', () => {
         const startAndEnd = new Date();
-        expect(defaultHasMetGoalOrMaxTime(startAndEnd, startAndEnd, null, 1)).toBeFalsy();
+        expect(defaultHasMetGoalOrMaxTime(startAndEnd, startAndEnd, null, [null], 1)).toBeFalsy();
+      });
+    });
+
+    describe('and rentals falsy', () => {
+      test('should be false', () => {
+        const startAndEnd = new Date();
+        expect(defaultHasMetGoalOrMaxTime(startAndEnd, startAndEnd, new User(null), [null], 1)).toBeFalsy();
       });
     });
   });
@@ -17,7 +27,7 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
           const start = new Date();
           const maxYears = 1;
           const today = new Date(Date.UTC(start.getUTCFullYear() + maxYears, start.getUTCMonth(), 1));
-          expect(defaultHasMetGoalOrMaxTime(start, today, null, maxYears)).toBeTruthy();
+          expect(defaultHasMetGoalOrMaxTime(start, today, null, [null], maxYears)).toBeTruthy();
         });
       });
       describe('today is half maxDate', () => {
@@ -25,7 +35,7 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
           const start = new Date();
           const maxYears = 1;
           const today = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 6, 1));
-          expect(defaultHasMetGoalOrMaxTime(start, today, null, maxYears)).toBeFalsy();
+          expect(defaultHasMetGoalOrMaxTime(start, today, null, [], maxYears)).toBeFalsy();
         });
       });
     });
@@ -34,7 +44,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
 
       beforeEach(() => {
         user = {
+          getAvailableSavings: jest.fn(),
           ledgerCollection: null,
+          getEstimatedMonthlyCashFlow: jest.fn(),
           getCashFlowMonth: jest.fn(),
           getBalance: jest.fn(),
           metMonthlyGoal: jest.fn(),
@@ -60,7 +72,44 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
             const start = new Date();
             const maxYears = 1;
             const today = new Date(Date.UTC(start.getUTCFullYear() + maxYears, start.getUTCMonth(), 1));
-            expect(defaultHasMetGoalOrMaxTime(start, today, user, maxYears)).toBeTruthy();
+            expect(
+              defaultHasMetGoalOrMaxTime(
+                start,
+                today,
+                user,
+                [
+                  {
+                    rawEstimatedAnnualCashFlow: 0,
+                    getExpensesByDate: jest.fn(),
+                    getEstimatedMonthlyCashFlow: jest.fn(),
+                    offeredInvestmentAmounts: [],
+                    propertyType: PropertyType.SingleFamily,
+                    clone: jest.fn().mockReturnThis(),
+                    equityCapturePercent: 0,
+                    minSellYears: 0,
+                    rawCashFlow: 0,
+                    address: '',
+                    availableEndDate: undefined,
+                    availableStartDate: undefined,
+                    id: '',
+                    isOwned: false,
+                    purchaseDate: undefined,
+                    purchasePrice: 0,
+                    sellPriceAppreciationPercent: 0,
+                    soldDate: undefined,
+                    canInvestByUser: jest.fn(),
+                    canSell: jest.fn(),
+                    get costDownPrice(): number {
+                      return 0;
+                    },
+                    getEquityFromSell: jest.fn(),
+                    getCashFlowByDate: jest.fn(),
+                    isAvailableByDate: jest.fn(),
+                  },
+                ],
+                maxYears
+              )
+            ).toBeTruthy();
           });
         });
         describe('and not met goal', () => {
@@ -69,7 +118,44 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
             const start = new Date();
             const maxYears = 1;
             const today = new Date(Date.UTC(start.getUTCFullYear() + maxYears, start.getUTCMonth(), 1));
-            expect(defaultHasMetGoalOrMaxTime(start, today, user, maxYears)).toBeTruthy();
+            expect(
+              defaultHasMetGoalOrMaxTime(
+                start,
+                today,
+                user,
+                [
+                  {
+                    rawEstimatedAnnualCashFlow: 0,
+                    getExpensesByDate: jest.fn(),
+                    getEstimatedMonthlyCashFlow: jest.fn(),
+                    offeredInvestmentAmounts: [],
+                    propertyType: PropertyType.SingleFamily,
+                    clone: jest.fn().mockReturnThis(),
+                    equityCapturePercent: 0,
+                    minSellYears: 0,
+                    rawCashFlow: 0,
+                    address: '',
+                    availableEndDate: undefined,
+                    availableStartDate: undefined,
+                    id: '',
+                    isOwned: false,
+                    purchaseDate: undefined,
+                    purchasePrice: 0,
+                    sellPriceAppreciationPercent: 0,
+                    soldDate: undefined,
+                    canInvestByUser: jest.fn(),
+                    canSell: jest.fn(),
+                    get costDownPrice(): number {
+                      return 0;
+                    },
+                    getEquityFromSell: jest.fn(),
+                    getCashFlowByDate: jest.fn(),
+                    isAvailableByDate: jest.fn(),
+                  },
+                ],
+                maxYears
+              )
+            ).toBeTruthy();
           });
         });
       });
@@ -80,7 +166,44 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
             const start = new Date();
             const maxYears = 1;
             const today = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 6, 1));
-            expect(defaultHasMetGoalOrMaxTime(start, today, user, maxYears)).toBeTruthy();
+            expect(
+              defaultHasMetGoalOrMaxTime(
+                start,
+                today,
+                user,
+                [
+                  {
+                    rawEstimatedAnnualCashFlow: 0,
+                    getExpensesByDate: jest.fn(),
+                    getEstimatedMonthlyCashFlow: jest.fn(),
+                    offeredInvestmentAmounts: [],
+                    propertyType: PropertyType.SingleFamily,
+                    clone: jest.fn().mockReturnThis(),
+                    equityCapturePercent: 0,
+                    minSellYears: 0,
+                    rawCashFlow: 0,
+                    address: '',
+                    availableEndDate: undefined,
+                    availableStartDate: undefined,
+                    id: '',
+                    isOwned: false,
+                    purchaseDate: undefined,
+                    purchasePrice: 0,
+                    sellPriceAppreciationPercent: 0,
+                    soldDate: undefined,
+                    canInvestByUser: jest.fn(),
+                    canSell: jest.fn(),
+                    get costDownPrice(): number {
+                      return 0;
+                    },
+                    getEquityFromSell: jest.fn(),
+                    getCashFlowByDate: jest.fn(),
+                    isAvailableByDate: jest.fn(),
+                  },
+                ],
+                maxYears
+              )
+            ).toBeTruthy();
           });
         });
         describe('and not met goal', () => {
@@ -89,7 +212,44 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
             const start = new Date();
             const maxYears = 1;
             const today = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 6, 1));
-            expect(defaultHasMetGoalOrMaxTime(start, today, user, maxYears)).toBeFalsy();
+            expect(
+              defaultHasMetGoalOrMaxTime(
+                start,
+                today,
+                user,
+                [
+                  {
+                    rawEstimatedAnnualCashFlow: 0,
+                    getExpensesByDate: jest.fn(),
+                    getEstimatedMonthlyCashFlow: jest.fn(),
+                    offeredInvestmentAmounts: [],
+                    propertyType: PropertyType.SingleFamily,
+                    clone: jest.fn().mockReturnThis(),
+                    equityCapturePercent: 0,
+                    minSellYears: 0,
+                    rawCashFlow: 0,
+                    address: '',
+                    availableEndDate: undefined,
+                    availableStartDate: undefined,
+                    id: '',
+                    isOwned: false,
+                    purchaseDate: undefined,
+                    purchasePrice: 0,
+                    sellPriceAppreciationPercent: 0,
+                    soldDate: undefined,
+                    canInvestByUser: jest.fn(),
+                    canSell: jest.fn(),
+                    get costDownPrice(): number {
+                      return 0;
+                    },
+                    getEquityFromSell: jest.fn(),
+                    getCashFlowByDate: jest.fn(),
+                    isAvailableByDate: jest.fn(),
+                  },
+                ],
+                maxYears
+              )
+            ).toBeFalsy();
           });
         });
       });

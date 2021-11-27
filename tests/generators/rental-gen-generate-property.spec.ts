@@ -47,13 +47,13 @@ describe('generateProperty unit tests', () => {
       const options: IPropertyEntityOptions = {
         highestEquityCapturePercent: 0,
         lowestEquityCapturePercent: 0,
-        highestCashFlowMonthly: 0,
-        lowestCashFlowMonthly: 0,
+        highestCashFlow: 0,
+        lowestCashFlow: 0,
         highestMinSellInYears: 0,
-        highestPriceDown: 0,
+        highestPricePrice: 0,
         highestSellAppreciationPercent: 0,
         lowestMinSellInYears: 0,
-        lowestPriceDown: 0,
+        lowestPricePrice: 0,
         lowestSellAppreciationPercent: 0,
       };
 
@@ -72,13 +72,13 @@ describe('generateProperty unit tests', () => {
         const options: IPropertyEntityOptions = {
           highestEquityCapturePercent: 0,
           lowestEquityCapturePercent: 0,
-          highestCashFlowMonthly: 0,
-          lowestCashFlowMonthly: 0,
+          highestCashFlow: 0,
+          lowestCashFlow: 0,
           highestMinSellInYears: 0,
-          highestPriceDown: 0,
+          highestPricePrice: 0,
           highestSellAppreciationPercent: 0,
           lowestMinSellInYears: 0,
-          lowestPriceDown: 0,
+          lowestPricePrice: 0,
           lowestSellAppreciationPercent: 0,
         };
         expect(genericGenerateProperty(RentalSingleFamily, options, expected)).toEqual(expected);

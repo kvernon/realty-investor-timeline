@@ -1,7 +1,7 @@
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { Chance } from 'chance';
-import { PropertyType } from '../../src/account/property-type';
-import { LoanSettings } from '../../src/account/loan-settings';
+import { PropertyType } from '../../src/properties/property-type';
+import { LoanSettings } from '../../src/loans/loan-settings';
 
 describe('factory-single-family unit tests', () => {
   let chance: Chance.Chance;
@@ -22,6 +22,7 @@ describe('factory-single-family unit tests', () => {
       const getMonthlyPrincipalInterestTaxInterest = jest.fn().mockReturnValueOnce(expectedPayments);
 
       const entity: Partial<RentalSingleFamily> = {
+        propertyType: PropertyType.SingleFamily,
         availableEndDate: chance.date(),
         availableStartDate: chance.date(),
         address: chance.address(),
@@ -77,12 +78,12 @@ describe('factory-single-family unit tests', () => {
           {
             propertyType: PropertyType.SingleFamily,
             value: usersMortInfo.loanRatePercent,
-            name: LoanSettings.loanRatePercent,
+            name: LoanSettings.LoanRatePercent,
           },
           {
             propertyType: PropertyType.SingleFamily,
             value: usersMortInfo.loanTermInYears,
-            name: LoanSettings.loanTermInYears,
+            name: LoanSettings.LoanTermInYears,
           },
         ],
         closingCostPercent

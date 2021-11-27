@@ -2,7 +2,7 @@ import { IRentalPropertyEntity } from '../../src/properties/i-rental-property-en
 import * as invReasons from '../../src/investments/investment-reasons-decorator';
 import { IRuleEvaluation } from '../../src/rules/rule-evaluation';
 import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
-import { PropertyType } from '../../src/account/property-type';
+import { PropertyType } from '../../src/properties/property-type';
 import { HoldRuleTypes } from '../../src/rules/hold-rule-types';
 
 describe('propertySort unit tests', () => {
@@ -17,9 +17,15 @@ describe('propertySort unit tests', () => {
 
   beforeEach(() => {
     propertyA = {
+      rawEstimatedAnnualCashFlow: 0,
+      getExpensesByDate: jest.fn(),
+      getEstimatedMonthlyCashFlow: jest.fn(),
+      offeredInvestmentAmounts: [],
+      propertyType: PropertyType.SingleFamily,
+      clone: jest.fn().mockReturnThis(),
       equityCapturePercent: 0,
       minSellYears: 0,
-      monthlyCashFlow: 0,
+      rawCashFlow: 0,
       address: '',
       availableEndDate: undefined,
       availableStartDate: undefined,
@@ -35,14 +41,20 @@ describe('propertySort unit tests', () => {
         return 0;
       },
       getEquityFromSell: jest.fn(),
-      getMonthlyCashFlowByDate: jest.fn(),
+      getCashFlowByDate: jest.fn(),
       isAvailableByDate: jest.fn(),
     };
 
     propertyB = {
+      rawEstimatedAnnualCashFlow: 0,
+      getExpensesByDate: jest.fn(),
+      getEstimatedMonthlyCashFlow: jest.fn(),
+      offeredInvestmentAmounts: [],
+      propertyType: PropertyType.SingleFamily,
+      clone: jest.fn().mockReturnThis(),
       equityCapturePercent: 0,
       minSellYears: 0,
-      monthlyCashFlow: 0,
+      rawCashFlow: 0,
       address: '',
       availableEndDate: undefined,
       availableStartDate: undefined,
@@ -58,7 +70,7 @@ describe('propertySort unit tests', () => {
         return 0;
       },
       getEquityFromSell: jest.fn(),
-      getMonthlyCashFlowByDate: jest.fn(),
+      getCashFlowByDate: jest.fn(),
       isAvailableByDate: jest.fn(),
     };
 
@@ -97,7 +109,7 @@ describe('propertySort unit tests', () => {
           expect(
             propertySort<PurchaseRuleTypes>(propertyA, propertyB, [
               {
-                type: PurchaseRuleTypes.minAfterRepairPrice,
+                type: PurchaseRuleTypes.MinAfterRepairPrice,
                 propertyType: PropertyType.SingleFamily,
                 value: 1,
                 evaluate: jest.fn().mockReturnValueOnce(true),
@@ -115,7 +127,7 @@ describe('propertySort unit tests', () => {
           expect(
             propertySort<PurchaseRuleTypes>(propertyA, propertyB, [
               {
-                type: PurchaseRuleTypes.minAfterRepairPrice,
+                type: PurchaseRuleTypes.MinAfterRepairPrice,
                 propertyType: PropertyType.SingleFamily,
                 value: 1,
                 evaluate: jest.fn().mockReturnValueOnce(true),
@@ -131,20 +143,26 @@ describe('propertySort unit tests', () => {
             test('should return -1', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.none,
+                  ruleType: PurchaseRuleTypes.None,
+                  isRuleMatch: () => true,
+                  isRuleNone: () => true,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.none,
+                  ruleType: PurchaseRuleTypes.None,
+                  isRuleMatch: () => true,
+                  isRuleNone: () => true,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<PurchaseRuleTypes>(propertyA, propertyB, [
                   {
-                    type: PurchaseRuleTypes.minAfterRepairPrice,
+                    type: PurchaseRuleTypes.MinAfterRepairPrice,
                     propertyType: PropertyType.SingleFamily,
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -158,22 +176,28 @@ describe('propertySort unit tests', () => {
             test('should return -1', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.minAfterRepairPrice,
+                  ruleType: PurchaseRuleTypes.MinAfterRepairPrice,
                   descriptor: { value: 20 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.none,
+                  ruleType: PurchaseRuleTypes.None,
                   descriptor: { value: 0 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => true,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<PurchaseRuleTypes>(propertyA, propertyB, [
                   {
-                    type: PurchaseRuleTypes.minAfterRepairPrice,
+                    type: PurchaseRuleTypes.MinAfterRepairPrice,
                     propertyType: PropertyType.SingleFamily,
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -187,22 +211,28 @@ describe('propertySort unit tests', () => {
             test('should return 1', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.none,
+                  ruleType: PurchaseRuleTypes.None,
                   descriptor: { value: 0 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => true,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.minAfterRepairPrice,
+                  ruleType: PurchaseRuleTypes.MinAfterRepairPrice,
                   descriptor: { value: 20 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<PurchaseRuleTypes>(propertyA, propertyB, [
                   {
-                    type: PurchaseRuleTypes.minAfterRepairPrice,
+                    type: PurchaseRuleTypes.MinAfterRepairPrice,
                     propertyType: PropertyType.SingleFamily,
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -216,22 +246,28 @@ describe('propertySort unit tests', () => {
             test('should return a', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.minAfterRepairPrice,
+                  ruleType: PurchaseRuleTypes.MinAfterRepairPrice,
                   descriptor: { value: 1000 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.minAfterRepairPrice,
+                  ruleType: PurchaseRuleTypes.MinAfterRepairPrice,
                   descriptor: { value: 20 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<PurchaseRuleTypes>(propertyA, propertyB, [
                   {
-                    type: PurchaseRuleTypes.minAfterRepairPrice,
+                    type: PurchaseRuleTypes.MinAfterRepairPrice,
                     propertyType: PropertyType.SingleFamily,
                     value: 2000,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -243,22 +279,28 @@ describe('propertySort unit tests', () => {
             test('should return 0', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.minAfterRepairPrice,
+                  ruleType: PurchaseRuleTypes.MinAfterRepairPrice,
                   descriptor: { value: 1000 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.minAfterRepairPrice,
+                  ruleType: PurchaseRuleTypes.MinAfterRepairPrice,
                   descriptor: { value: 1000 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<PurchaseRuleTypes>(propertyA, propertyB, [
                   {
-                    type: PurchaseRuleTypes.minAfterRepairPrice,
+                    type: PurchaseRuleTypes.MinAfterRepairPrice,
                     propertyType: PropertyType.SingleFamily,
                     value: 2000,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -298,7 +340,7 @@ describe('propertySort unit tests', () => {
           expect(
             propertySort<HoldRuleTypes>(propertyA, propertyB, [
               {
-                type: HoldRuleTypes.minSellIfLowCashFlowPercent,
+                type: HoldRuleTypes.MinSellIfLowCashFlowPercent,
                 propertyType: PropertyType.SingleFamily,
                 value: 1,
                 evaluate: jest.fn().mockReturnValueOnce(true),
@@ -316,7 +358,7 @@ describe('propertySort unit tests', () => {
           expect(
             propertySort<HoldRuleTypes>(propertyA, propertyB, [
               {
-                type: HoldRuleTypes.minSellIfHighEquityPercent,
+                type: HoldRuleTypes.MinSellIfHighEquityPercent,
                 propertyType: PropertyType.SingleFamily,
                 value: 1,
                 evaluate: jest.fn().mockReturnValueOnce(true),
@@ -332,20 +374,26 @@ describe('propertySort unit tests', () => {
             test('should return -1', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.none,
+                  ruleType: PurchaseRuleTypes.None,
+                  isRuleMatch: () => true,
+                  isRuleNone: () => true,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: PurchaseRuleTypes.none,
+                  ruleType: PurchaseRuleTypes.None,
+                  isRuleMatch: () => true,
+                  isRuleNone: () => true,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<HoldRuleTypes>(propertyA, propertyB, [
                   {
-                    type: HoldRuleTypes.minSellIfHighEquityPercent,
+                    type: HoldRuleTypes.MinSellIfHighEquityPercent,
                     propertyType: PropertyType.SingleFamily,
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -359,22 +407,28 @@ describe('propertySort unit tests', () => {
             test('should return -1', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: HoldRuleTypes.minSellIfHighEquityPercent,
+                  ruleType: HoldRuleTypes.MinSellIfHighEquityPercent,
                   descriptor: { value: 20 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => true,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: HoldRuleTypes.none,
+                  ruleType: HoldRuleTypes.None,
                   descriptor: { value: 0 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<HoldRuleTypes>(propertyA, propertyB, [
                   {
-                    type: HoldRuleTypes.minSellIfHighEquityPercent,
+                    type: HoldRuleTypes.MinSellIfHighEquityPercent,
                     propertyType: PropertyType.SingleFamily,
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -388,22 +442,28 @@ describe('propertySort unit tests', () => {
             test('should return 1', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: HoldRuleTypes.none,
+                  ruleType: HoldRuleTypes.None,
                   descriptor: { value: 0 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => true,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: HoldRuleTypes.minSellIfHighEquityPercent,
+                  ruleType: HoldRuleTypes.MinSellIfHighEquityPercent,
                   descriptor: { value: 20 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<HoldRuleTypes>(propertyA, propertyB, [
                   {
-                    type: HoldRuleTypes.minSellIfHighEquityPercent,
+                    type: HoldRuleTypes.MinSellIfHighEquityPercent,
                     propertyType: PropertyType.SingleFamily,
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -417,22 +477,28 @@ describe('propertySort unit tests', () => {
             test('should return a', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: HoldRuleTypes.minSellIfHighEquityPercent,
+                  ruleType: HoldRuleTypes.MinSellIfHighEquityPercent,
                   descriptor: { value: 1000 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: HoldRuleTypes.minSellIfHighEquityPercent,
+                  ruleType: HoldRuleTypes.MinSellIfHighEquityPercent,
                   descriptor: { value: 20 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<HoldRuleTypes>(propertyA, propertyB, [
                   {
-                    type: HoldRuleTypes.minSellIfHighEquityPercent,
+                    type: HoldRuleTypes.MinSellIfHighEquityPercent,
                     propertyType: PropertyType.SingleFamily,
                     value: 2000,
                     evaluate: jest.fn().mockReturnValueOnce(true),
@@ -444,22 +510,28 @@ describe('propertySort unit tests', () => {
             test('should return 0', () => {
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: HoldRuleTypes.minSellIfHighEquityPercent,
+                  ruleType: HoldRuleTypes.MinSellIfHighEquityPercent,
                   descriptor: { value: 1000 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               getInvestmentReasons.mockReturnValueOnce([
                 {
-                  ruleType: HoldRuleTypes.minSellIfHighEquityPercent,
+                  ruleType: HoldRuleTypes.MinSellIfHighEquityPercent,
                   descriptor: { value: 1000 },
+                  isRuleMatch: () => true,
+                  isRuleNone: () => false,
+                  isValueGreater: () => false,
                 },
               ]);
 
               expect(
                 propertySort<HoldRuleTypes>(propertyA, propertyB, [
                   {
-                    type: HoldRuleTypes.minSellIfHighEquityPercent,
+                    type: HoldRuleTypes.MinSellIfHighEquityPercent,
                     propertyType: PropertyType.SingleFamily,
                     value: 2000,
                     evaluate: jest.fn().mockReturnValueOnce(true),

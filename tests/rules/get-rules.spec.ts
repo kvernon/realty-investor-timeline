@@ -1,7 +1,7 @@
 import { getRules } from '../../src/rules/get-rules';
 import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
 import { HoldRuleTypes } from '../../src/rules/hold-rule-types';
-import { PropertyType } from '../../src/account/property-type';
+import { PropertyType } from '../../src/properties/property-type';
 
 describe('getRules unit tests', () => {
   describe('and getting rules', () => {
@@ -20,50 +20,55 @@ describe('getRules unit tests', () => {
         expect(
           getRules([
             {
-              type: PurchaseRuleTypes.minEstimatedCapitalGains,
+              type: PurchaseRuleTypes.MinEstimatedCapitalGains,
               value: 1,
               propertyType: PropertyType.SingleFamily,
             },
             {
-              type: PurchaseRuleTypes.maxEstimatedOutOfPocket,
+              type: PurchaseRuleTypes.MaxEstimatedOutOfPocket,
               value: 2,
               propertyType: PropertyType.SingleFamily,
             },
             {
-              type: PurchaseRuleTypes.minAfterRepairPrice,
+              type: PurchaseRuleTypes.MinAfterRepairPrice,
               value: 3,
               propertyType: PropertyType.SingleFamily,
             },
             {
-              type: PurchaseRuleTypes.minAskingPrice,
+              type: PurchaseRuleTypes.MinAskingPrice,
               value: 4,
               propertyType: PropertyType.SingleFamily,
             },
             {
-              type: PurchaseRuleTypes.minEstimatedCashFlowPerMonth,
+              type: PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow,
               value: 5,
               propertyType: PropertyType.SingleFamily,
             },
           ])
         ).toEqual([
           {
-            type: PurchaseRuleTypes.minEstimatedCapitalGains,
+            type: PurchaseRuleTypes.MinEstimatedCapitalGains,
+            propertyType: PropertyType.SingleFamily,
             value: 1,
           },
           {
-            type: PurchaseRuleTypes.maxEstimatedOutOfPocket,
+            type: PurchaseRuleTypes.MaxEstimatedOutOfPocket,
+            propertyType: PropertyType.SingleFamily,
             value: 2,
           },
           {
-            type: PurchaseRuleTypes.minAfterRepairPrice,
+            type: PurchaseRuleTypes.MinAfterRepairPrice,
+            propertyType: PropertyType.SingleFamily,
             value: 3,
           },
           {
-            type: PurchaseRuleTypes.minAskingPrice,
+            type: PurchaseRuleTypes.MinAskingPrice,
+            propertyType: PropertyType.SingleFamily,
             value: 4,
           },
           {
-            type: PurchaseRuleTypes.minEstimatedCashFlowPerMonth,
+            type: PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow,
+            propertyType: PropertyType.SingleFamily,
             value: 5,
           },
         ]);
@@ -72,23 +77,25 @@ describe('getRules unit tests', () => {
         expect(
           getRules([
             {
-              type: HoldRuleTypes.minSellIfHighEquityPercent,
+              type: HoldRuleTypes.MinSellIfHighEquityPercent,
               value: 1,
               propertyType: PropertyType.SingleFamily,
             },
             {
-              type: HoldRuleTypes.minSellInYears,
+              type: HoldRuleTypes.MinSellInYears,
               value: 2,
               propertyType: PropertyType.SingleFamily,
             },
           ])
         ).toEqual([
           {
-            type: HoldRuleTypes.minSellIfHighEquityPercent,
+            type: HoldRuleTypes.MinSellIfHighEquityPercent,
+            propertyType: PropertyType.SingleFamily,
             value: 1,
           },
           {
-            type: HoldRuleTypes.minSellInYears,
+            type: HoldRuleTypes.MinSellInYears,
+            propertyType: PropertyType.SingleFamily,
             value: 2,
           },
         ]);

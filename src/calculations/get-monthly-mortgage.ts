@@ -1,13 +1,13 @@
-import { differenceInMonths } from 'date-fns';
 import currency from '../formatters/currency';
+import { getCashDown } from './get-cash-down';
 
 /**
  * formula for M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1].
  * @param purchasePrice
  * @param cashDownPercent
  * @param closingCostPercent
- * @param loanRatePercent
- * @param loanTermInYears
+ * @param loanRatePercent annual percentage rate of your loan, like 3.25%
+ * @param loanTermInYears 15 or 30 typically
  */
 export function getMonthlyMortgage(
   purchasePrice: number,
@@ -23,29 +23,4 @@ export function getMonthlyMortgage(
 
   const mort = (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
   return currency(mort);
-}
-
-/**
- * returns the the total cash down for a single family home
- * @param purchasePrice
- * @param cashDownPercent
- */
-export function getCashDown(purchasePrice: number, cashDownPercent: number) {
-  return currency((purchasePrice * cashDownPercent) / 100);
-}
-
-export function getSellPriceEstimate(
-  purchase: Date,
-  sell: Date,
-  purchasePrice: number,
-  sellPriceAppreciationPercent: number
-): number {
-  const differenceInYears = Math.ceil(differenceInMonths(sell, purchase) / 12);
-
-  let result = purchasePrice;
-  for (let i = 0; i < differenceInYears; i++) {
-    result = result + (result * sellPriceAppreciationPercent) / 100;
-  }
-
-  return currency(result);
 }

@@ -6,8 +6,8 @@ import currency from '../formatters/currency';
  * @param purchasePrice
  * @param cashDownPercent
  * @param closingCostPercent
- * @param loanRatePercent
- * @param loanTermInYears
+ * @param loanRatePercent annual percentage rate of your loan, like 3.25%
+ * @param loanTermInYears 15 or 30 typically
  */
 export function getMonthlyPrincipalInterestTaxInterest(
   purchasePrice: number,

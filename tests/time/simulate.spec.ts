@@ -14,7 +14,7 @@ describe('simulate unit tests', () => {
 
   describe('and simulate', () => {
     test('should call things', () => {
-      const assign = jest.spyOn(Object, 'assign');
+      const objectAssignSpy = jest.spyOn(Object, 'assign');
 
       const date = new Date();
       const cloneDateUtc: jest.Mock = jest.fn().mockReturnValue(date);
@@ -42,8 +42,12 @@ describe('simulate unit tests', () => {
       }));
 
       const generateSingleFamily = jest.fn();
+      const generateRentalPassiveApartment = jest.fn();
       jest.doMock('../../src/generators/factory-single-family', () => ({
         generateSingleFamily,
+      }));
+      jest.doMock('../../src/generators/factory-passive-apartment', () => ({
+        generateRentalPassiveApartment,
       }));
 
       const rentalGen = {};
@@ -61,17 +65,32 @@ describe('simulate unit tests', () => {
         loanSettings: null as [],
         monthlySavedAmount: user.monthlySavedAmount,
         amountInSavings: 0,
-        highestCashFlowMonthly: 0,
-        highestEquityCapturePercent: 0,
-        highestMinSellInYears: 0,
-        highestPriceDown: 0,
-        highestSellAppreciationPercent: 0,
-        lowestCashFlowMonthly: 0,
-        lowestEquityCapturePercent: 0,
-        lowestMinSellInYears: 0,
-        lowestPriceDown: 0,
-        lowestSellAppreciationPercent: 0,
-        maxRentalOpportunitiesSingleFamily: 0,
+        generatorOptionsSingleFamily: {
+          highestMinSellInYears: 0,
+          lowestMinSellInYears: 0,
+          highestPricePrice: 0,
+          lowestPricePrice: 0,
+          highestSellAppreciationPercent: 0,
+          lowestSellAppreciationPercent: 5,
+          lowestCashFlow: 0,
+          highestCashFlow: 0,
+          lowestEquityCapturePercent: 0,
+          highestEquityCapturePercent: 0,
+          maxRentalOpportunities: 0,
+        },
+        generatorOptionsPassiveApartment: {
+          highestMinSellInYears: 0,
+          lowestMinSellInYears: 0,
+          highestPricePrice: 0,
+          lowestPricePrice: 0,
+          highestSellAppreciationPercent: 0,
+          lowestSellAppreciationPercent: 5,
+          lowestCashFlow: 0,
+          highestCashFlow: 0,
+          lowestEquityCapturePercent: 0,
+          highestEquityCapturePercent: 0,
+          maxRentalOpportunities: 1,
+        },
         startDate: date,
         maxYears: chance.integer({ min: 1, max: 2 }),
         hasMetGoalOrMaxTime: jest.fn(),
@@ -84,14 +103,17 @@ describe('simulate unit tests', () => {
           maxYears: options.maxYears,
           startDate: options.startDate,
           propertyGeneratorSingleFamily: rentalGen,
+          propertyGeneratorPassiveApartment: rentalGen,
           hasMetGoalOrMaxTime: expect.any(Function),
         },
         user
       );
 
-      expect(assign).toBeCalledWith(rentalGen, options);
+      expect(objectAssignSpy).toBeCalledWith(rentalGen, options.generatorOptionsSingleFamily);
+      expect(objectAssignSpy).toBeCalledWith(rentalGen, options.generatorOptionsPassiveApartment);
       expect(ValueCacheCtor).toBeCalledWith(options.startDate, [], 2);
-      expect(RentalGeneratorCtor).toBeCalledWith(valueCache, generateSingleFamily);
+      expect(RentalGeneratorCtor).toHaveBeenNthCalledWith(1, valueCache, generateSingleFamily);
+      expect(RentalGeneratorCtor).toHaveBeenNthCalledWith(2, valueCache, generateRentalPassiveApartment);
     });
   });
 });
