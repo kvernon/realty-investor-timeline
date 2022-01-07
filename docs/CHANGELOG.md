@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/kvernon/realty-investor-timeline/compare/v2.1.0...v2.2.0) (2022-01-07)
+
+
+### Features
+
+* passive apartments ([a68efbe](https://github.com/kvernon/realty-investor-timeline/commit/a68efbea50441cfa908db2ef95aa224dbdcb1b74))
+
 # [2.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v2.0.1...v2.1.0) (2021-11-27)
 
 
