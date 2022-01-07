@@ -5,6 +5,10 @@ import { IRule } from './i-rule';
 import { PropertyType } from '../properties/property-type';
 
 export interface IRuleEvaluation<E extends PurchaseRuleTypes | HoldRuleTypes> extends IRule<E> {
+  /**
+   * Determines if the {@link dataValue} passes the rule
+   * @param dataValue
+   */
   evaluate(dataValue: number): boolean;
 }
 
@@ -19,6 +23,10 @@ export class RuleEvaluation<E extends PurchaseRuleTypes | HoldRuleTypes> impleme
   value: number;
   propertyType: PropertyType;
 
+  /**
+   * Determines if the {@link dataValue} passes the rule
+   * @param dataValue
+   */
   evaluate(dataValue: number): boolean {
     if (!this.type || this.type.toString().indexOf('none') !== -1) {
       return false;

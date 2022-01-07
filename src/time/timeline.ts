@@ -1,5 +1,6 @@
 import { IHistoricalProperty } from './i-historical-property';
 import { IUser } from '../account/user';
+import { ILedgerSummary } from '../ledger/i-ledger-summary';
 
 export interface ITimeline {
   startDate: Date;
@@ -34,5 +35,23 @@ export class Timeline implements ITimeline {
 
   getBalance(date?: Date): number {
     return this.user.ledgerCollection.getBalance(date ?? this.endDate);
+  }
+
+  getSummariesAnnualByYear(year?: number): ILedgerSummary[] {
+    return this.user.ledgerCollection.getSummariesAnnual(year ?? this.endDate.getUTCFullYear());
+  }
+
+  getAllSummariesAnnual(): ILedgerSummary[] {
+    let result: ILedgerSummary[] = [];
+
+    for (
+      let startYear: number = this.startDate.getUTCFullYear();
+      startYear < this.endDate.getUTCFullYear();
+      startYear++
+    ) {
+      result = result.concat(this.getSummariesAnnualByYear(startYear));
+    }
+
+    return result;
   }
 }

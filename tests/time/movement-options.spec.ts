@@ -121,7 +121,7 @@ describe('movement options unit tests', () => {
             ];
 
             user.purchaseRules = [
-              new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow, PropertyType.SingleFamily),
+              new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.SingleFamily),
             ];
           });
 

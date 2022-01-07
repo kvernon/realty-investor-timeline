@@ -11,12 +11,15 @@ import cloneDeep from 'lodash.clonedeep';
 import {
   InvestmentReasonForHoldRuleTypes,
   InvestmentReasonForPurchaseRuleTypes,
-  InvestmentReasons,
-} from '../investments';
-import { HoldRuleTypes, PurchaseRuleTypes } from '../rules';
+} from '../investments/investment-reasons-decorator';
+import { InvestmentReasons } from '../investments/investment-reasons';
+import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
+import { HoldRuleTypes } from '../rules/hold-rule-types';
 import { getSellPriceEstimate } from '../calculations/get-sell-price-estimate';
 import { getInvestmentPercent } from '../calculations/get-investment-percent';
 import currency from '../formatters/currency';
+import { returnOnCapitalGain } from '../calculations/return-on-capital-gain';
+import { cashOnCashReturn } from '../calculations/cash-on-cash-return';
 
 export class RentalPassiveApartment implements IEntityExistence, IRentalPropertyEntity {
   readonly propertyType: PropertyType = PropertyType.PassiveApartment;
@@ -26,7 +29,7 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
    */
   @InvestmentReasonForPurchaseRuleTypes(
     InvestmentReasons.DoesNotMeetUserRuleEquityCapture,
-    PurchaseRuleTypes.MinEstimatedCapitalGains
+    PurchaseRuleTypes.MinEstimatedCapitalGainsPercent
   )
   @InvestmentReasonForPurchaseRuleTypes(
     InvestmentReasons.DoesNotMeetUserRuleOutOfPocket,
@@ -52,8 +55,15 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
    * date which property was removed from the timeline.. think of it like someone else purchased this property
    */
   availableEndDate: Date;
+
+  /**
+   * number of years to hold the property before being sold, default is 0. and this is used to calculated the {@link minSellDate}
+   */
   minSellYears: number;
 
+  /**
+   * projects when you can sell this property using {@link purchaseDate} and {@link minSellYears}
+   */
   get minSellDate(): Date {
     return cloneDateUtc(this.purchaseDate, (date) => date.setUTCFullYear(date.getUTCFullYear() + this.minSellYears));
   }
@@ -71,7 +81,11 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
   }
 
   get isOwned(): boolean {
-    return !!this.purchaseDate && !this.soldDate;
+    return this.wasPurchased && !this.soldDate;
+  }
+
+  get wasPurchased(): boolean {
+    return !!this.purchaseDate;
   }
 
   /**
@@ -129,18 +143,25 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
   rawCashFlow: number;
 
   @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
-    PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow
+    InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow,
+    PurchaseRuleTypes.MinEstimatedAnnualCashFlow
   )
   @InvestmentReasonForHoldRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
+    InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow,
     HoldRuleTypes.MinSellIfLowCashFlowPercent
   )
   get rawEstimatedAnnualCashFlow(): number {
     return this.rawCashFlow === 0 ? 0 : this.rawCashFlow * 4;
   }
 
+  /**
+   * The date the property was acquired
+   */
   purchaseDate: Date | undefined;
+
+  /**
+   * The date the property was sold
+   */
   soldDate: Date | undefined;
 
   /**
@@ -209,5 +230,21 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
    */
   clone(): RentalPassiveApartment {
     return Object.assign(new RentalPassiveApartment(), cloneDeep(this));
+  }
+
+  @InvestmentReasonForPurchaseRuleTypes(
+    InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
+    PurchaseRuleTypes.MinEstimatedCashOnCashPercent
+  )
+  get estimatedCashOnCashReturn(): number {
+    return cashOnCashReturn(this.rawEstimatedAnnualCashFlow, this.costDownPrice);
+  }
+
+  @InvestmentReasonForPurchaseRuleTypes(
+    InvestmentReasons.DoesNotMeetUserRuleCapitalGain,
+    PurchaseRuleTypes.MinEstimatedCapitalGainsPercent
+  )
+  get estimatedReturnOnCapitalGain(): number {
+    return returnOnCapitalGain(this.equityCapturePercent, this.costDownPrice);
   }
 }

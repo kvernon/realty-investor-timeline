@@ -27,9 +27,7 @@ describe('UpdateHistoricalRentals unit tests', () => {
       metMonthlyGoal: jest.fn(),
       getEstimatedMonthlyCashFlow: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
-      purchaseRules: [
-        new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow, PropertyType.SingleFamily),
-      ],
+      purchaseRules: [new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.SingleFamily)],
       holdRules: [new RuleEvaluation(0, HoldRuleTypes.MinSellIfHighEquityPercent, PropertyType.SingleFamily)],
       loanSettings: [{ value: 3, propertyType: PropertyType.SingleFamily, name: LoanSettings.LoanTermInYears }],
       getBalance: jest.fn(),

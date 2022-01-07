@@ -44,16 +44,33 @@ describe('investment reasons decorators unit tests', () => {
             singleFamily.propertyType,
             'offeredInvestmentAmounts',
             singleFamily.offeredInvestmentAmounts,
-            PurchaseRuleTypes.MinEstimatedCapitalGains,
+            PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
             getEquityCaptureUserInvestmentResults
+          ),
+
+          new ReasonToRule(
+            InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow,
+            singleFamily.propertyType,
+            'rawEstimatedAnnualCashFlow',
+            [singleFamily.rawEstimatedAnnualCashFlow],
+            PurchaseRuleTypes.MinEstimatedAnnualCashFlow
           ),
 
           new ReasonToRule(
             InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
             singleFamily.propertyType,
-            'rawEstimatedAnnualCashFlow',
-            [singleFamily.rawEstimatedAnnualCashFlow],
-            PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow
+            'estimatedCashOnCashReturn',
+            [singleFamily.estimatedCashOnCashReturn],
+            PurchaseRuleTypes.MinEstimatedAnnualCashFlow
+          ),
+
+          new ReasonToRule(
+            InvestmentReasons.DoesNotMeetUserRuleCapitalGain,
+            singleFamily.propertyType,
+            'estimatedReturnOnCapitalGain',
+            [singleFamily.estimatedReturnOnCapitalGain],
+            PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
+            getEquityCaptureUserInvestmentResults
           ),
         ];
         const investmentReasons = getInvestmentReasonsForPurchaseTypes<RentalSingleFamily>(singleFamily);
@@ -91,16 +108,33 @@ describe('investment reasons decorators unit tests', () => {
             apartment.propertyType,
             'offeredInvestmentAmounts',
             apartment.offeredInvestmentAmounts,
-            PurchaseRuleTypes.MinEstimatedCapitalGains,
+            PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
             getEquityCaptureUserInvestmentResults
+          ),
+
+          new ReasonToRule(
+            InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow,
+            apartment.propertyType,
+            'rawEstimatedAnnualCashFlow',
+            [apartment.rawEstimatedAnnualCashFlow],
+            PurchaseRuleTypes.MinEstimatedAnnualCashFlow
           ),
 
           new ReasonToRule(
             InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
             apartment.propertyType,
-            'rawEstimatedAnnualCashFlow',
-            [apartment.rawEstimatedAnnualCashFlow],
-            PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow
+            'estimatedCashOnCashReturn',
+            [apartment.estimatedCashOnCashReturn],
+            PurchaseRuleTypes.MinEstimatedCashOnCashPercent
+          ),
+
+          new ReasonToRule(
+            InvestmentReasons.DoesNotMeetUserRuleCapitalGain,
+            apartment.propertyType,
+            'estimatedReturnOnCapitalGain',
+            [apartment.estimatedReturnOnCapitalGain],
+            PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
+            getEquityCaptureUserInvestmentResults
           ),
         ];
         const investmentReasons = getInvestmentReasonsForPurchaseTypes<RentalPassiveApartment>(apartment);

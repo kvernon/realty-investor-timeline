@@ -20,7 +20,7 @@ describe('getRules unit tests', () => {
         expect(
           getRules([
             {
-              type: PurchaseRuleTypes.MinEstimatedCapitalGains,
+              type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
               value: 1,
               propertyType: PropertyType.SingleFamily,
             },
@@ -40,14 +40,14 @@ describe('getRules unit tests', () => {
               propertyType: PropertyType.SingleFamily,
             },
             {
-              type: PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow,
+              type: PurchaseRuleTypes.MinEstimatedAnnualCashFlow,
               value: 5,
               propertyType: PropertyType.SingleFamily,
             },
           ])
         ).toEqual([
           {
-            type: PurchaseRuleTypes.MinEstimatedCapitalGains,
+            type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
             propertyType: PropertyType.SingleFamily,
             value: 1,
           },
@@ -67,7 +67,7 @@ describe('getRules unit tests', () => {
             value: 4,
           },
           {
-            type: PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow,
+            type: PurchaseRuleTypes.MinEstimatedAnnualCashFlow,
             propertyType: PropertyType.SingleFamily,
             value: 5,
           },

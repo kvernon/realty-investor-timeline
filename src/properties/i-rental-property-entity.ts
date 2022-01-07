@@ -4,6 +4,7 @@ import { IRentalInvestorValidator } from '../investments/rental-investor-validat
 
 export interface IRentalPropertyEntity extends IPropertyEntity {
   purchaseDate: Date | undefined;
+
   soldDate: Date | undefined;
 
   canSell(today: Date): boolean;
@@ -29,6 +30,8 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
 
   isOwned: boolean;
 
+  wasPurchased: boolean;
+
   canInvestByUser(user: IUser, date: Date, properties: IPropertyEntity[]): IRentalInvestorValidator;
 
   /**
@@ -42,6 +45,10 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
    * @param today
    */
   getExpensesByDate(today: Date): number;
+
+  get estimatedCashOnCashReturn(): number;
+
+  get estimatedReturnOnCapitalGain(): number;
 
   clone(): IRentalPropertyEntity;
 }

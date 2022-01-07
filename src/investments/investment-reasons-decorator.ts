@@ -98,7 +98,7 @@ export function getInvestmentReasons<
       return metadataCollection.map((item) => {
         let override: UserResultEstimates;
 
-        if (item.ruleType === PurchaseRuleTypes.MinEstimatedCapitalGains) {
+        if (item.ruleType === PurchaseRuleTypes.MinEstimatedCapitalGainsPercent) {
           override = getEquityCaptureUserInvestmentResults;
         }
 

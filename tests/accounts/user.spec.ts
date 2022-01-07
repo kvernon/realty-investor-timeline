@@ -190,6 +190,9 @@ describe('User unit tests', () => {
     let rental: jest.Mocked<IRentalPropertyEntity>;
     beforeEach(() => {
       rental = {
+        estimatedCashOnCashReturn: 0,
+        estimatedReturnOnCapitalGain: 0,
+        wasPurchased: true,
         rawEstimatedAnnualCashFlow: 0,
         getExpensesByDate: jest.fn(),
         getEstimatedMonthlyCashFlow: jest.fn(),
