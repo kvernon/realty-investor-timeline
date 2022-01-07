@@ -1,26 +1,39 @@
 import { IRentalPropertyEntity } from './i-rental-property-entity';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
-import { getInvestmentReasons, InvestmentReasons } from '../investments';
+import { getInvestmentReasons, InvestmentReasons, IReasonToRule, ReasonToRule } from '../investments';
 import { IRuleEvaluation } from '../rules/rule-evaluation';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
+import { getEnumTypeByValue } from '../rules/get-enum-type-by-value';
+
+const findOrDefault = <TR extends PurchaseRuleTypes | HoldRuleTypes>(
+  property: IRentalPropertyEntity,
+  collection: IReasonToRule<IRentalPropertyEntity, TR>[],
+  rule: IRuleEvaluation<TR>
+): IReasonToRule<IRentalPropertyEntity, TR> => {
+  return (
+    collection.find((s) => s.isRuleMatch(rule.type)) ||
+    new ReasonToRule<IRentalPropertyEntity, TR>(InvestmentReasons.Unknown, property.propertyType, 'id', [-1])
+  );
+};
 
 /**
  * property sort based on rules order and property value
  * @param propertyA
  * @param propertyB
- * @param rule
+ * @param rules
  */
 export default function propertySort<T extends PurchaseRuleTypes | HoldRuleTypes>(
   propertyA: IRentalPropertyEntity,
   propertyB: IRentalPropertyEntity,
-  rule: IRuleEvaluation<T>[]
+  rules: IRuleEvaluation<T>[]
 ): number {
-  if (!rule || rule.length === 0) {
+  if (!rules || rules.length === 0) {
     return -1;
   }
 
-  const reasonsA = getInvestmentReasons<IRentalPropertyEntity, T>(propertyA);
-  const reasonsB = getInvestmentReasons<IRentalPropertyEntity, T>(propertyB);
+  const enumTypeByValue = getEnumTypeByValue(rules[0].type);
+  const reasonsA = getInvestmentReasons<IRentalPropertyEntity, T>(propertyA, enumTypeByValue);
+  const reasonsB = getInvestmentReasons<IRentalPropertyEntity, T>(propertyB, enumTypeByValue);
 
   if (reasonsA.length > 0 && reasonsB.length === 0) {
     return -1;
@@ -30,28 +43,16 @@ export default function propertySort<T extends PurchaseRuleTypes | HoldRuleTypes
     return 1;
   }
 
-  for (let i = 0; i < rule.length; i++) {
-    const r = rule[i];
-    const reasonsItemA = reasonsA.find((s) => s.ruleType === r.type) || {
-      ruleType: PurchaseRuleTypes.none,
-      descriptor: { value: 0 },
-      propertyKey: '',
-      value: -1,
-      investmentReason: InvestmentReasons.Unknown,
-    };
-    const reasonsItemB = reasonsB.find((s) => s.ruleType === r.type) || {
-      ruleType: PurchaseRuleTypes.none,
-      descriptor: { value: 0 },
-      propertyKey: '',
-      value: -1,
-      investmentReason: InvestmentReasons.Unknown,
-    };
+  for (let i = 0; i < rules.length; i++) {
+    const r = rules[i];
+    const reasonsItemA = findOrDefault(propertyA, reasonsA, r);
+    const reasonsItemB = findOrDefault(propertyB, reasonsB, r);
 
-    if (reasonsItemB.ruleType === PurchaseRuleTypes.none || reasonsItemA.value > reasonsItemB.value) {
+    if (reasonsItemB.isRuleNone() || reasonsItemA.isValueGreater(reasonsItemB)) {
       return -1;
     }
 
-    if (reasonsItemA.ruleType === PurchaseRuleTypes.none || reasonsItemA.value > reasonsItemB.value) {
+    if (reasonsItemA.isRuleNone() || reasonsItemB.isValueGreater(reasonsItemA)) {
       return 1;
     }
   }

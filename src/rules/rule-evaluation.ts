@@ -2,7 +2,7 @@ import { PurchaseRuleTypes } from './purchase-rule-types';
 import { HoldRuleTypes } from './hold-rule-types';
 import { AtLeastOrMore, NoMoreThan } from './eval-types';
 import { IRule } from './i-rule';
-import { PropertyType } from '../account/property-type';
+import { PropertyType } from '../properties/property-type';
 
 export interface IRuleEvaluation<E extends PurchaseRuleTypes | HoldRuleTypes> extends IRule<E> {
   evaluate(dataValue: number): boolean;

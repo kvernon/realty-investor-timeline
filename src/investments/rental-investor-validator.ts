@@ -1,8 +1,8 @@
-import { UserInvestResult } from './user-invest-result';
+import { IUserInvestResult } from './user-invest-result';
 
 export interface IRentalInvestorValidator {
   readonly canInvest: boolean;
-  results: UserInvestResult[];
+  results: IUserInvestResult[];
 }
 
 export class RentalInvestorValidator implements IRentalInvestorValidator {
@@ -10,5 +10,5 @@ export class RentalInvestorValidator implements IRentalInvestorValidator {
     return !this.results || this.results.length === 0;
   }
 
-  results: UserInvestResult[] = [];
+  results: IUserInvestResult[] = [];
 }

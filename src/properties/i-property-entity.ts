@@ -1,4 +1,5 @@
 import { IEntityExistence } from './i-entity-existence';
+import { PropertyType } from './property-type';
 
 export interface IPropertyEntity extends IEntityExistence {
   /**
@@ -21,6 +22,8 @@ export interface IPropertyEntity extends IEntityExistence {
    */
   costDownPrice: number;
 
+  offeredInvestmentAmounts: number[];
+
   /**
    * the percent at which the property's value grows
    */
@@ -34,10 +37,20 @@ export interface IPropertyEntity extends IEntityExistence {
   /**
    * the cashOnCash return
    */
-  monthlyCashFlow: number;
+  rawCashFlow: number;
+
+  /**
+   * the estimated annual cashFlow return
+   */
+  get rawEstimatedAnnualCashFlow(): number;
 
   /**
    * this can be between 10 - 20%
    */
   equityCapturePercent: number;
+
+  /**
+   * used when evaluating rules
+   */
+  readonly propertyType: PropertyType;
 }

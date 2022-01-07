@@ -1,4 +1,4 @@
-import { PropertyType } from './property-type';
+import { PropertyType } from '../properties/property-type';
 import { LoanSettings } from './loan-settings';
 
 export interface ILoanSetting {

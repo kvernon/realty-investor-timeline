@@ -1,4 +1,4 @@
-import { PropertyType } from '../account/property-type';
+import { PropertyType } from '../properties/property-type';
 
 export interface IRule<E> {
   type: E;

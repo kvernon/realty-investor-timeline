@@ -14,11 +14,11 @@ export const randomPropertyEntity: RandomPropertyEntity = (
   options: IPropertyEntityOptions
 ): Partial<IPropertyEntity> => {
   //this seems like cost down.
-  const purchasePrice = randomNumberBetween(options.lowestPriceDown, options.highestPriceDown);
-  const monthlyCashFlow = randomNumberBetween(options.lowestCashFlowMonthly, options.highestCashFlowMonthly);
+  const purchasePrice = randomNumberBetween(options.lowestPricePrice, options.highestPricePrice);
+  const randomCashFlow = randomNumberBetween(options.lowestCashFlow, options.highestCashFlow);
 
   return {
-    id: chance.guid({ version: 4 }),
+    id: chance.hash({ length: 10 }),
     minSellYears: randomNumberBetween(options.lowestMinSellInYears, options.highestMinSellInYears),
     purchasePrice,
     sellPriceAppreciationPercent: randomNumberBetween(
@@ -27,6 +27,6 @@ export const randomPropertyEntity: RandomPropertyEntity = (
     ),
     equityCapturePercent: randomNumberBetween(options.lowestEquityCapturePercent, options.highestEquityCapturePercent),
     address: chance.address(),
-    monthlyCashFlow,
+    rawCashFlow: randomCashFlow,
   };
 };

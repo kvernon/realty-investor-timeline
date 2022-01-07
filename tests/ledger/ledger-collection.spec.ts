@@ -1,9 +1,11 @@
-jest.mock('../../src/properties/rental-single-family');
+import { PropertyType } from '../../src/properties/property-type';
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { cloneDateUtc } from '../../src/utils/data-clone-date';
 import { LedgerCollection } from '../../src/ledger/ledger-collection';
 import { LedgerItem } from '../../src/ledger/ledger-item';
 import { LedgerItemType } from '../../src/ledger/ledger-item-type';
+
+jest.mock('../../src/properties/rental-single-family');
 
 describe('LedgerCollection unit tests', () => {
   let instance: LedgerCollection;
@@ -77,6 +79,28 @@ describe('LedgerCollection unit tests', () => {
         instance.add([item, purchase]);
 
         expect(instance.getBalance(item.created)).toEqual(0);
+      });
+    });
+
+    describe('and collection populated 4 mixed dates', () => {
+      test('should be total', () => {
+        const expected = 8;
+
+        const item = new LedgerItem();
+        item.created = cloneDateUtc(new Date());
+        item.amount = expected;
+
+        const itemOld = new LedgerItem();
+        itemOld.created = cloneDateUtc(item.created, (date) => date.setUTCFullYear(date.getUTCFullYear() - 1));
+        itemOld.amount = expected;
+
+        const purchase = new LedgerItem();
+        purchase.created = cloneDateUtc(item.created);
+        purchase.type = LedgerItemType.Purchase;
+        purchase.amount = expected * -1;
+        instance.add([item, purchase, itemOld]);
+
+        expect(instance.getBalance(item.created)).toEqual(expected);
       });
     });
   });
@@ -284,8 +308,10 @@ describe('LedgerCollection unit tests', () => {
           test('should be falsy', () => {
             const singleFamily: jest.Mocked<RentalSingleFamily> =
               new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
-            singleFamily.getMonthlyPrincipalInterestTaxInterestByDate.mockReturnValueOnce(3);
-
+            singleFamily.getExpensesByDate.mockReturnValueOnce(3);
+            Object.defineProperty(singleFamily, 'propertyType', {
+              value: PropertyType.SingleFamily,
+            });
             expect(instance.hasMinimumSavings(dateUtc, [singleFamily])).toBeFalsy();
           });
         });
@@ -312,8 +338,11 @@ describe('LedgerCollection unit tests', () => {
             test('should be falsy', () => {
               const singleFamily: jest.Mocked<RentalSingleFamily> =
                 new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
-              singleFamily.getMonthlyPrincipalInterestTaxInterestByDate.mockReturnValueOnce(ledgerItem.amount * 2);
+              singleFamily.getExpensesByDate.mockReturnValueOnce(ledgerItem.amount * 2);
 
+              Object.defineProperty(singleFamily, 'propertyType', {
+                value: PropertyType.SingleFamily,
+              });
               expect(instance.hasMinimumSavings(dateUtc, [singleFamily])).toBeFalsy();
             });
           });
@@ -323,9 +352,7 @@ describe('LedgerCollection unit tests', () => {
                 new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
 
               const monthsToSave = 6;
-              singleFamily.getMonthlyPrincipalInterestTaxInterestByDate.mockReturnValueOnce(
-                ledgerItem.amount / 2 / monthsToSave
-              );
+              singleFamily.getExpensesByDate.mockReturnValueOnce(ledgerItem.amount / 2 / monthsToSave);
 
               expect(instance.hasMinimumSavings(dateUtc, [singleFamily], monthsToSave)).toBeTruthy();
             });
@@ -349,8 +376,10 @@ describe('LedgerCollection unit tests', () => {
           test('should be falsy', () => {
             const singleFamily: jest.Mocked<RentalSingleFamily> =
               new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
-            singleFamily.getMonthlyPrincipalInterestTaxInterestByDate.mockReturnValueOnce(3);
-
+            singleFamily.getExpensesByDate.mockReturnValueOnce(3);
+            Object.defineProperty(singleFamily, 'propertyType', {
+              value: PropertyType.SingleFamily,
+            });
             expect(instance.getMinimumSavings(dateUtc, [singleFamily])).toEqual(3 * 6);
           });
         });
@@ -378,7 +407,10 @@ describe('LedgerCollection unit tests', () => {
               const singleFamily: jest.Mocked<RentalSingleFamily> =
                 new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
               const piti = ledgerItem.amount * 2;
-              singleFamily.getMonthlyPrincipalInterestTaxInterestByDate.mockReturnValueOnce(piti);
+              singleFamily.getExpensesByDate.mockReturnValueOnce(piti);
+              Object.defineProperty(singleFamily, 'propertyType', {
+                value: PropertyType.SingleFamily,
+              });
 
               expect(instance.getMinimumSavings(dateUtc, [singleFamily])).toEqual(piti * 6);
             });
@@ -401,10 +433,9 @@ describe('LedgerCollection unit tests', () => {
       });
     });
     describe('and ledgerItem', () => {
-      test('should return empty data', () => {
+      test('should only return data for current year', () => {
         const cashFlow = new LedgerItem();
-        const createdDate = new Date();
-        createdDate.setDate(1);
+        const createdDate = cloneDateUtc(new Date());
 
         cashFlow.created = createdDate;
         cashFlow.amount = 1;
@@ -416,8 +447,9 @@ describe('LedgerCollection unit tests', () => {
         cashFlowTwo.type = LedgerItemType.CashFlow;
 
         const cashFlowOut = new LedgerItem();
-        cashFlowOut.created = cloneDateUtc(dateUtc);
-        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 2);
+        cashFlowOut.created = cloneDateUtc(dateUtc, (dateUtc) => {
+          dateUtc.setUTCFullYear(dateUtc.getUTCFullYear() + 2);
+        });
         cashFlowOut.amount = 111111;
         cashFlowOut.type = LedgerItemType.CashFlow;
 

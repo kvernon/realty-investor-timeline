@@ -4,7 +4,7 @@ import { RandomPropertyEntity } from '../../src/utils/data-property-entity';
 describe('data-numbers unit tests', () => {
   let randomPropertyEntity: RandomPropertyEntity;
   let randomNumberBetween: jest.Mock;
-  const guid = '000-000-000-000';
+  const hash = '000-000-000-000';
   const address = '111 fake street';
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('data-numbers unit tests', () => {
     jest.doMock('chance', () => {
       return {
         Chance: jest.fn().mockImplementation(() => ({
-          guid: jest.fn().mockReturnValue(guid),
+          hash: jest.fn().mockReturnValue(hash),
           address: jest.fn().mockReturnValue(address),
         })),
       };
@@ -39,11 +39,11 @@ describe('data-numbers unit tests', () => {
   describe('randomPropertyEntity', () => {
     test('should resolve', () => {
       const options: IPropertyEntityOptions = {
-        highestCashFlowMonthly: 0,
-        lowestCashFlowMonthly: 2,
+        highestCashFlow: 0,
+        lowestCashFlow: 2,
         highestMinSellInYears: 1,
-        highestPriceDown: 2,
-        lowestPriceDown: 3,
+        highestPricePrice: 2,
+        lowestPricePrice: 3,
         lowestMinSellInYears: 4,
         lowestSellAppreciationPercent: 5,
         highestSellAppreciationPercent: 6,
@@ -53,20 +53,16 @@ describe('data-numbers unit tests', () => {
 
       expect(randomPropertyEntity(options)).toEqual({
         address,
-        id: guid,
+        id: hash,
         minSellYears: 30,
         purchasePrice: 10,
-        monthlyCashFlow: 20,
+        rawCashFlow: 20,
         sellPriceAppreciationPercent: 40,
         equityCapturePercent: 50,
       });
 
-      expect(randomNumberBetween).toHaveBeenNthCalledWith(1, options.lowestPriceDown, options.highestPriceDown);
-      expect(randomNumberBetween).toHaveBeenNthCalledWith(
-        2,
-        options.lowestCashFlowMonthly,
-        options.highestCashFlowMonthly
-      );
+      expect(randomNumberBetween).toHaveBeenNthCalledWith(1, options.lowestPricePrice, options.highestPricePrice);
+      expect(randomNumberBetween).toHaveBeenNthCalledWith(2, options.lowestCashFlow, options.highestCashFlow);
       expect(randomNumberBetween).toHaveBeenNthCalledWith(
         3,
         options.lowestMinSellInYears,

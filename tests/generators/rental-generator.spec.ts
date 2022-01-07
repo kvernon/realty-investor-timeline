@@ -6,7 +6,7 @@ import { RentalGenerator } from '../../src/generators/rental-generator';
 import { ValueCache } from '../../src/caching/value-cache';
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import * as DataNumbers from '../../src/utils/data-number';
-import { GenerateProperty } from '../../src/generators/factory-single-family';
+import { GenerateProperty } from '../../src/generators/generate-property';
 
 describe('Rental Generator tests', () => {
   let randomNumberBetween: jest.SpyInstance<number, [start: number, end: number]>;
@@ -113,8 +113,8 @@ describe('Rental Generator tests', () => {
           const gen = new RentalGenerator(valueCache, generic);
           gen.maxRentalOpportunities = maxRentalOpportunities;
 
-          gen.lowestPriceDown = 200;
-          gen.highestPriceDown = 300;
+          gen.lowestPricePrice = 200;
+          gen.highestPricePrice = 300;
 
           gen.lowestMinSellInYears = 5;
           gen.highestMinSellInYears = 8;

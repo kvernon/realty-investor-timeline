@@ -1,6 +1,11 @@
 import { InvestmentReasons } from './investment-reasons';
 
-export class UserInvestResult {
+export interface IUserInvestResult {
+  message: string;
+  investmentReason: InvestmentReasons;
+}
+
+export class UserInvestResult implements IUserInvestResult {
   get message(): string {
     const theMessage = this._message ? ` ${this._message}` : '';
     return `${InvestmentReasons[this.investmentReason]}${theMessage}`;

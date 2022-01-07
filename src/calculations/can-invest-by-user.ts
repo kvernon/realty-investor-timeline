@@ -1,14 +1,10 @@
-import { RentalSingleFamily } from '../properties/rental-single-family';
-import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
-import { IRentalSavings } from '../properties/i-rental-savings';
 import { InvestmentReasons } from '../investments/investment-reasons';
 import { IRentalPropertyEntity } from '../properties/i-rental-property-entity';
-import { getInvestmentReasons } from '../investments/investment-reasons-decorator';
 import { UserInvestResult } from '../investments/user-invest-result';
 import { IRentalInvestorValidator, RentalInvestorValidator } from '../investments/rental-investor-validator';
 import { IUserInvestorCheck } from '../account/i-user-investor-check';
-import { getSellPriceEstimate } from './get-monthly-mortgage';
-import { addYears } from 'date-fns';
+import { getInvestmentReasonsForPurchaseTypes } from '../investments/investment-reasons-decorator';
+import { getMinCostDownByRule } from './get-min-cost-down-by-rule';
 
 /**
  * determines if a user can invest in a property.
@@ -18,10 +14,10 @@ import { addYears } from 'date-fns';
  * @param properties
  */
 export function canInvestByUser(
-  rental: RentalSingleFamily,
+  rental: IRentalPropertyEntity,
   user: IUserInvestorCheck,
   date: Date,
-  properties: IRentalSavings[]
+  properties: IRentalPropertyEntity[]
 ): IRentalInvestorValidator {
   const result = new RentalInvestorValidator();
 
@@ -30,66 +26,54 @@ export function canInvestByUser(
     return result;
   }
 
-  if (!user.hasMoneyToInvest(date)) {
+  const minCostDownByRule = getMinCostDownByRule(rental, user.purchaseRules);
+  if (!user.hasMoneyToInvest(date, properties, minCostDownByRule)) {
     result.results.push(
-      new UserInvestResult(InvestmentReasons.UserHasNoMoneyToInvest, `user balance: ${user.getBalance(date)}`)
+      new UserInvestResult(
+        InvestmentReasons.UserHasNoMoneyToInvest,
+        `user balance: ${user.ledgerCollection.getBalance(date)}`
+      )
     );
-    return result;
   }
 
   if (!user.hasMinimumSavings(date, properties)) {
     result.results.push(
-      new UserInvestResult(InvestmentReasons.UserHasNotSavedEnoughMoney, `user balance: ${user.getBalance(date)}`)
+      new UserInvestResult(
+        InvestmentReasons.UserHasNotSavedEnoughMoney,
+        `user balance: ${user.ledgerCollection.getBalance(date)}, minimumSavings: ${user.getMinimumSavings(
+          date,
+          properties
+        )}`
+      )
     );
-    return result;
   }
 
   if (!user.purchaseRules || user.purchaseRules.length === 0) {
+    result.results.push(new UserInvestResult(InvestmentReasons.NoRules, 'user has no purchase rules'));
+    return result;
+  }
+
+  if (!result.canInvest) {
     return result;
   }
 
   // rules
-  const capGains = user.purchaseRules.find((x) => x.type === PurchaseRuleTypes.minEstimatedCapitalGains);
-  if (capGains) {
-    const inOneYear = addYears(date, 1);
-    const sellPriceEstimate = getSellPriceEstimate(
-      date,
-      inOneYear,
-      rental.purchasePrice,
-      rental.sellPriceAppreciationPercent
-    );
-    if (!capGains.evaluate(sellPriceEstimate)) {
-      result.results.push(
-        new UserInvestResult(
-          InvestmentReasons.DoesNotMeetUserRuleEquityCapture,
-          `rule: ${capGains.value} value: ${sellPriceEstimate}`
-        )
-      );
-    }
-  }
-
   // 1. need to map to rule to property, eg: PurchaseRuleTypes.minEstimatedCashFlowPerMonth > this.monthlyCashFlow;
-  const reasons = getInvestmentReasons<IRentalPropertyEntity, PurchaseRuleTypes>(rental).filter(
-    (r) => r.ruleType !== PurchaseRuleTypes.none
-  );
+  const reasons = getInvestmentReasonsForPurchaseTypes<IRentalPropertyEntity>(rental).filter((r) => !r.isRuleNone());
 
-  const rulesFound = user.purchaseRules
-    .map((userRule) => {
-      const resultReasonToRule = reasons.find((reasonToRule) => userRule.type === reasonToRule.ruleType);
+  result.results.push(
+    ...user.purchaseRules
+      .map((userRule) => {
+        const resultReasonToRule = reasons.find((reasonToRule) => reasonToRule.isRuleMatch(userRule.type));
 
-      if (resultReasonToRule) {
-        const rentalProperty = <number>rental[resultReasonToRule.propertyKey];
-        if (!userRule.evaluate(rentalProperty)) {
-          return new UserInvestResult(
-            resultReasonToRule.investmentReason,
-            `rule: ${userRule.value} value: ${rentalProperty}`
-          );
+        if (resultReasonToRule) {
+          return resultReasonToRule.userResultEstimates(rental, user.holdRules, user.purchaseRules, date);
         }
-      }
-    })
-    .filter((x) => x !== undefined);
-
-  result.results.push(...rulesFound);
+        return [];
+      })
+      .flat()
+      .filter((x) => x !== undefined)
+  );
 
   return result;
 }

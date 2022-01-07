@@ -1,4 +1,4 @@
-export default function (value: number /*?*/): number {
+export default function (value: number): number {
   if (!value || value === 0) {
     return 0;
   }

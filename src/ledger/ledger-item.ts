@@ -10,12 +10,29 @@ export class LedgerItem {
   public amount = 0;
   public note?: string;
 
+  constructor(amount?: number, type?: LedgerItemType, created?: Date, note?: string) {
+    this.amount = amount ?? 0;
+    this.type = type ?? LedgerItemType.Misc;
+
+    if (created) {
+      this.created = created;
+    }
+
+    if (note) {
+      this.note = note;
+    }
+  }
+
   getMonth(): number {
     if (!this.created) {
       return -1;
     }
 
     return this.created.getUTCMonth();
+  }
+
+  isAmountGreaterThanZero(): boolean {
+    return this.amount > 0;
   }
 
   dateMatchesYearAndMonth(today: Date): boolean {
