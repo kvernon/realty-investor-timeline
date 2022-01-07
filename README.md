@@ -193,11 +193,11 @@ const options: ISimulateOptions = {
   },
 };
 
-const actual = simulate(options);
+const timeline = simulate(options);
 
 //Finally, to review your results, you can use the ledgerCollection's getSummariesAnnual.
-const lastYear = actual.user.ledgerCollection.getSummariesAnnual(
-  actual.endDate.getUTCFullYear()
+const lastYear = timeline.user.ledgerCollection.getSummariesAnnual(
+  timeline.endDate.getUTCFullYear()
 );
 ```
 
@@ -243,3 +243,5 @@ The example result object models:
   }
 }
 ```
+
+In it you can get an estimate monthly cash flow by calling `const estimated = timeline.getEstimatedMonthlyCashFlow();`
