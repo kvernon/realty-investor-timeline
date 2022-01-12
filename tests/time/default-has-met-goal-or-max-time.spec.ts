@@ -48,21 +48,16 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
           ledgerCollection: null,
           getEstimatedMonthlyCashFlow: jest.fn(),
           getCashFlowMonth: jest.fn(),
-          getBalance: jest.fn(),
           metMonthlyGoal: jest.fn(),
           monthlyIncomeAmountGoal: 20,
           hasMoneyToInvest: jest.fn(),
           hasMinimumSavings: jest.fn(),
           getMinimumSavings: jest.fn(),
-          addLedgerItem: jest.fn(),
           loanSettings: [],
           monthlySavedAmount: 0,
           holdRules: [],
           purchaseRules: [],
           clone: jest.fn(),
-          getSummaryAnnual: jest.fn(),
-          getSummaryMonth: jest.fn(),
-          getSummariesAnnual: jest.fn(),
         } as jest.Mocked<IUser>;
       });
       describe('today is maxDate', () => {

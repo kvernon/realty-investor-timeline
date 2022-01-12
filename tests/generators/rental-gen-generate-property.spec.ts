@@ -50,10 +50,10 @@ describe('generateProperty unit tests', () => {
         highestCashFlow: 0,
         lowestCashFlow: 0,
         highestMinSellInYears: 0,
-        highestPricePrice: 0,
+        highestPurchasePrice: 0,
         highestSellAppreciationPercent: 0,
         lowestMinSellInYears: 0,
-        lowestPricePrice: 0,
+        lowestPurchasePrice: 0,
         lowestSellAppreciationPercent: 0,
       };
 
@@ -75,10 +75,10 @@ describe('generateProperty unit tests', () => {
           highestCashFlow: 0,
           lowestCashFlow: 0,
           highestMinSellInYears: 0,
-          highestPricePrice: 0,
+          highestPurchasePrice: 0,
           highestSellAppreciationPercent: 0,
           lowestMinSellInYears: 0,
-          lowestPricePrice: 0,
+          lowestPurchasePrice: 0,
           lowestSellAppreciationPercent: 0,
         };
         expect(genericGenerateProperty(RentalSingleFamily, options, expected)).toEqual(expected);

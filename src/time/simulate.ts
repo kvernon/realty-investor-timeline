@@ -12,7 +12,7 @@ import { ITimeline, Timeline } from './timeline';
 import { RentalPassiveApartment, RentalSingleFamily } from '../properties';
 import { LedgerCollection, LedgerItem, LedgerItemType } from '../ledger';
 import { ValueCache } from '../caching/value-cache';
-import { loop } from './movement';
+import { movement } from './movement';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
 
@@ -119,7 +119,7 @@ export function simulate(options: ISimulateOptions): ITimeline {
   user.holdRules = (options.holdRules || []).map((r) => new RuleEvaluation(r.value, r.type, r.propertyType));
   user.purchaseRules = (options.purchaseRules || []).map((r) => new RuleEvaluation(r.value, r.type, r.propertyType));
 
-  return loop(
+  return movement(
     {
       propertyGeneratorSingleFamily,
       propertyGeneratorPassiveApartment,

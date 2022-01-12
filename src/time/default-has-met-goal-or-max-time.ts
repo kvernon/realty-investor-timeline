@@ -30,7 +30,6 @@ export const defaultHasMetGoalOrMaxTime: HasMetGoalOrMaxTime = (
   const maxDate = cloneDateUtc(start, (date) => {
     date.setUTCFullYear(date.getUTCFullYear() + maxYears);
   });
-  const months = differenceInMonths(maxDate, today);
 
-  return months <= 0;
+  return differenceInMonths(maxDate, today) <= 0;
 };

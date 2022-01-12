@@ -2,7 +2,6 @@ import { Chance } from 'chance';
 import { PropertyType } from '../../src/properties/property-type';
 import { User } from '../../src/account/user';
 import { ILedgerCollection } from '../../src/ledger/ledger-collection';
-import { LedgerItem } from '../../src/ledger/ledger-item';
 import { LoanSettings } from '../../src/loans/loan-settings';
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { IRentalPropertyEntity } from '../../src/properties/i-rental-property-entity';
@@ -40,16 +39,6 @@ describe('User unit tests', () => {
     jest.resetAllMocks();
   });
 
-  describe('and addLedgerItem', () => {
-    test('should append', () => {
-      const expected = new LedgerItem();
-      const balance = chance.integer({ min: 0, max: 20000 });
-      ledgerCollection.getBalance.mockReturnValueOnce(balance);
-      instance.addLedgerItem(expected);
-      expect(ledgerCollection.add).toBeCalledWith(expected);
-    });
-  });
-
   describe('and hasMinimumSavings', () => {
     test('should return result', () => {
       const expected = chance.bool();
@@ -68,7 +57,7 @@ describe('User unit tests', () => {
       ledgerCollection.hasMinimumSavings.mockReturnValueOnce(expected);
 
       expect(instance.hasMinimumSavings(date, properties)).toEqual(expected);
-      expect(ledgerCollection.hasMinimumSavings).toBeCalledWith(date, properties, minNum);
+      expect(ledgerCollection.hasMinimumSavings).toBeCalledWith(properties, date, minNum);
     });
   });
 
@@ -162,27 +151,7 @@ describe('User unit tests', () => {
       ledgerCollection.getMinimumSavings.mockReturnValueOnce(minSavings);
 
       expect(instance.getMinimumSavings(date, properties)).toEqual(minSavings);
-      expect(ledgerCollection.getMinimumSavings).toBeCalledWith(date, properties, minNum);
-    });
-  });
-
-  describe('and getSummaryMonth', () => {
-    test('should match', () => {
-      const date = new Date();
-
-      const expected = {
-        averageCashFlow: 0,
-        balance: 0,
-        cashFlow: 0,
-        date,
-        equity: 0,
-        purchases: 0,
-      };
-
-      ledgerCollection.getSummaryMonth.mockReturnValueOnce(expected);
-
-      expect(instance.getSummaryMonth(date)).toEqual(expected);
-      expect(ledgerCollection.getSummaryMonth).toBeCalledWith(date);
+      expect(ledgerCollection.getMinimumSavings).toBeCalledWith(properties, date, minNum);
     });
   });
 
@@ -248,46 +217,6 @@ describe('User unit tests', () => {
       expect(instance.metMonthlyGoal(date, [rental])).toBeFalsy();
       expect(instance.getEstimatedMonthlyCashFlow(date, [rental])).toEqual(expected);
       expect(rental.getEstimatedMonthlyCashFlow).toBeCalledWith(date);
-    });
-  });
-
-  describe('and getSummaryAnnual', () => {
-    test('should match', () => {
-      const year = chance.integer();
-
-      const expected = {
-        averageCashFlow: 0,
-        balance: 0,
-        cashFlow: 0,
-        date: new Date(),
-        equity: 0,
-        purchases: 0,
-      };
-
-      ledgerCollection.getSummaryAnnual.mockReturnValueOnce(expected);
-
-      expect(instance.getSummaryAnnual(year)).toEqual(expected);
-      expect(ledgerCollection.getSummaryAnnual).toBeCalledWith(year);
-    });
-  });
-
-  describe('and getSummariesAnnual', () => {
-    test('should match', () => {
-      const year = chance.integer();
-
-      const expected = {
-        averageCashFlow: 0,
-        balance: 0,
-        cashFlow: 0,
-        date: new Date(),
-        equity: 0,
-        purchases: 0,
-      };
-
-      ledgerCollection.getSummariesAnnual.mockReturnValueOnce([expected]);
-
-      expect(instance.getSummariesAnnual(year)).toEqual([expected]);
-      expect(ledgerCollection.getSummariesAnnual).toBeCalledWith(year);
     });
   });
 });

@@ -10,21 +10,21 @@ import { differenceInMonths } from 'date-fns';
 export interface ILedgerCollection {
   getBalance(date?: Date): number;
 
-  filter(pred: LedgerItemPredicate): LedgerItem[];
+  filter(pred?: LedgerItemPredicate): LedgerItem[];
 
   add(item: LedgerItem | Iterable<LedgerItem>): void;
 
   getCashFlowMonth(date: Date): number;
 
-  getMinimumSavings(date: Date, properties: IRentalPropertyEntity[], minMonthsRequired?: number): number;
+  getMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired?: number): number;
 
-  hasMinimumSavings(date: Date, properties: IRentalPropertyEntity[], minMonthsRequired?: number): boolean;
+  hasMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired?: number): boolean;
 
   getSummaryMonth(date: Date): ILedgerSummary;
 
-  getSummaryAnnual(year: number): ILedgerSummary;
+  getSummaryAnnual(year?: number): ILedgerSummary;
 
-  getSummariesAnnual(year: number): ILedgerSummary[];
+  getSummariesAnnual(year?: number): ILedgerSummary[];
 
   /**
    * should be the total balance - savings for single family
@@ -56,54 +56,16 @@ export class LedgerCollection implements ILedgerCollection {
     this.collection = itiriri([]);
   }
 
-  filter(pred: LedgerItemPredicate): LedgerItem[] {
+  filter(pred?: LedgerItemPredicate): LedgerItem[] {
     const dateTypeSort = (element1: LedgerItem, element2: LedgerItem) => {
-      const evaledDate = element1.created.getTime() - element2.created.getTime();
-
-      if (evaledDate !== 0) {
-        return evaledDate;
-      }
-
-      if (element1.type === LedgerItemType.Salary) {
-        return -1;
-      }
-
-      if (element1.type === LedgerItemType.CashFlow) {
-        return -1;
-      }
-
-      if (element2.type === LedgerItemType.CashFlow) {
-        return 1;
-      }
-
-      if (element1.type === LedgerItemType.Equity) {
-        return -1;
-      }
-
-      if (element2.type === LedgerItemType.Equity) {
-        return 1;
-      }
-
-      if (element1.type === LedgerItemType.Misc) {
-        return -1;
-      }
-
-      if (element2.type === LedgerItemType.Misc) {
-        return 1;
-      }
-
-      if (element1.type === LedgerItemType.Purchase) {
-        return -1;
-      }
-
-      if (element2.type === LedgerItemType.Purchase) {
-        return 1;
-      }
-
-      return 0;
+      return element1.created.getTime() - element2.created.getTime();
     };
 
-    return itiriri(this.collection).filter(pred).sort(dateTypeSort).toArray();
+    if (pred) {
+      return itiriri(this.collection).filter(pred).sort(dateTypeSort).toArray();
+    }
+
+    return itiriri(this.collection).sort(dateTypeSort).toArray();
   }
 
   getBalance(date?: Date): number {
@@ -124,7 +86,7 @@ export class LedgerCollection implements ILedgerCollection {
     return this.collection.length() === 0;
   }
 
-  getMinimumSavings(date: Date, properties: IRentalPropertyEntity[], minMonthsRequired = 6): number {
+  getMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired = 6): number {
     if (!date) {
       throw new Error('no date supplied');
     }
@@ -135,13 +97,13 @@ export class LedgerCollection implements ILedgerCollection {
 
     return (
       itiriri(properties.filter((p) => p.propertyType === PropertyType.SingleFamily)).sum((r) =>
-        r.getExpensesByDate(date)
+        r.getExpensesByDate(date ?? this.collection.last().created)
       ) * minMonthsRequired || 0
     );
   }
 
-  hasMinimumSavings(date: Date, properties: IRentalPropertyEntity[], minMonthsRequired = 6): boolean {
-    return this.getBalance(date) >= this.getMinimumSavings(date, properties, minMonthsRequired);
+  hasMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired = 6): boolean {
+    return this.getBalance(date) >= this.getMinimumSavings(properties, date, minMonthsRequired);
   }
 
   getCashFlowMonth(date: Date): number {
@@ -153,7 +115,7 @@ export class LedgerCollection implements ILedgerCollection {
       return 0;
     }
 
-    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date));
+    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.collection.last().created));
 
     if (boundary.length === 0) {
       return 0;
@@ -180,7 +142,7 @@ export class LedgerCollection implements ILedgerCollection {
       return result;
     }
 
-    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date));
+    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.collection.last().created));
 
     if (!boundary) {
       return result;
@@ -202,8 +164,8 @@ export class LedgerCollection implements ILedgerCollection {
     return result;
   }
 
-  getSummaryAnnual(year: number): ILedgerSummary {
-    const summaries = this.getSummariesAnnual(year); //?
+  getSummaryAnnual(year?: number): ILedgerSummary {
+    const summaries = this.getSummariesAnnual(year);
 
     if (summaries.length === 0) {
       return {
@@ -216,7 +178,7 @@ export class LedgerCollection implements ILedgerCollection {
       };
     }
 
-    const cashFlowSum = summaries.map((x) => x.cashFlow).reduce((accumulator, current) => accumulator + current, 0);
+    const cashFlowSum = summaries.reduce((accumulator, current) => accumulator + current.cashFlow, 0);
 
     return {
       date: summaries[0].date,
@@ -228,8 +190,8 @@ export class LedgerCollection implements ILedgerCollection {
     };
   }
 
-  getSummariesAnnual(year: number): ILedgerSummary[] {
-    if (!year) {
+  getSummariesAnnual(year?: number): ILedgerSummary[] {
+    if (!year && this.collection.length() === 0) {
       throw new Error('year is missing');
     }
 
@@ -237,7 +199,7 @@ export class LedgerCollection implements ILedgerCollection {
       return [];
     }
 
-    const boundary = this.filter((li) => li.dateMatchesYear(year));
+    const boundary = year ? this.filter((li) => li.dateMatchesYear(year)) : this.filter();
 
     if (!boundary) {
       return [];
@@ -276,7 +238,7 @@ export class LedgerCollection implements ILedgerCollection {
    * @param minMonthsRequired
    */
   getAvailableSavings(date: Date, properties: IRentalPropertyEntity[], minMonthsRequired = 6): number {
-    return this.getBalance(date) - this.getMinimumSavings(date, properties, minMonthsRequired);
+    return this.getBalance(date) - this.getMinimumSavings(properties, date, minMonthsRequired);
   }
 
   clone(): ILedgerCollection {

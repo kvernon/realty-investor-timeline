@@ -302,7 +302,7 @@ describe('LedgerCollection unit tests', () => {
     describe('and has no ledger items', () => {
       describe('and has no properties', () => {
         test('should be truthy', () => {
-          expect(instance.hasMinimumSavings(dateUtc, [])).toBeTruthy();
+          expect(instance.hasMinimumSavings([], dateUtc)).toBeTruthy();
         });
         describe('and has properties', () => {
           test('should be falsy', () => {
@@ -312,7 +312,7 @@ describe('LedgerCollection unit tests', () => {
             Object.defineProperty(singleFamily, 'propertyType', {
               value: PropertyType.SingleFamily,
             });
-            expect(instance.hasMinimumSavings(dateUtc, [singleFamily])).toBeFalsy();
+            expect(instance.hasMinimumSavings([singleFamily], dateUtc)).toBeFalsy();
           });
         });
       });
@@ -331,7 +331,7 @@ describe('LedgerCollection unit tests', () => {
 
       describe('and has no properties', () => {
         test('should be truthy', () => {
-          expect(instance.hasMinimumSavings(dateUtc, [])).toBeTruthy();
+          expect(instance.hasMinimumSavings([], dateUtc)).toBeTruthy();
         });
         describe('and has properties', () => {
           describe('balance less', () => {
@@ -343,7 +343,7 @@ describe('LedgerCollection unit tests', () => {
               Object.defineProperty(singleFamily, 'propertyType', {
                 value: PropertyType.SingleFamily,
               });
-              expect(instance.hasMinimumSavings(dateUtc, [singleFamily])).toBeFalsy();
+              expect(instance.hasMinimumSavings([singleFamily], dateUtc)).toBeFalsy();
             });
           });
           describe('balance more', () => {
@@ -354,7 +354,7 @@ describe('LedgerCollection unit tests', () => {
               const monthsToSave = 6;
               singleFamily.getExpensesByDate.mockReturnValueOnce(ledgerItem.amount / 2 / monthsToSave);
 
-              expect(instance.hasMinimumSavings(dateUtc, [singleFamily], monthsToSave)).toBeTruthy();
+              expect(instance.hasMinimumSavings([singleFamily], dateUtc, monthsToSave)).toBeTruthy();
             });
           });
         });
@@ -364,13 +364,13 @@ describe('LedgerCollection unit tests', () => {
   describe('and getMinimumSavings', () => {
     describe('and no date', () => {
       test('should throw error', () => {
-        expect(() => instance.getMinimumSavings(null, [])).toThrow('no date supplied');
+        expect(() => instance.getMinimumSavings([], null)).toThrow('no date supplied');
       });
     });
     describe('and has no ledger items', () => {
       describe('and has no properties', () => {
         test('should be truthy', () => {
-          expect(instance.getMinimumSavings(dateUtc, [])).toEqual(0);
+          expect(instance.getMinimumSavings([], dateUtc)).toEqual(0);
         });
         describe('and has properties', () => {
           test('should be falsy', () => {
@@ -380,7 +380,7 @@ describe('LedgerCollection unit tests', () => {
             Object.defineProperty(singleFamily, 'propertyType', {
               value: PropertyType.SingleFamily,
             });
-            expect(instance.getMinimumSavings(dateUtc, [singleFamily])).toEqual(3 * 6);
+            expect(instance.getMinimumSavings([singleFamily], dateUtc)).toEqual(3 * 6);
           });
         });
       });
@@ -399,7 +399,7 @@ describe('LedgerCollection unit tests', () => {
 
       describe('and has no properties', () => {
         test('should be truthy', () => {
-          expect(instance.getMinimumSavings(dateUtc, [])).toEqual(0);
+          expect(instance.getMinimumSavings([], dateUtc)).toEqual(0);
         });
         describe('and has properties', () => {
           describe('balance less', () => {
@@ -412,7 +412,7 @@ describe('LedgerCollection unit tests', () => {
                 value: PropertyType.SingleFamily,
               });
 
-              expect(instance.getMinimumSavings(dateUtc, [singleFamily])).toEqual(piti * 6);
+              expect(instance.getMinimumSavings([singleFamily], dateUtc)).toEqual(piti * 6);
             });
           });
         });

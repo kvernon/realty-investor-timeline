@@ -1,6 +1,7 @@
 import { IHistoricalProperty } from './i-historical-property';
 import { IUser } from '../account/user';
 import { ILedgerSummary } from '../ledger/i-ledger-summary';
+import { cloneDateUtc } from '../utils';
 
 export interface ITimeline {
   startDate: Date;
@@ -11,6 +12,8 @@ export interface ITimeline {
   getEstimatedMonthlyCashFlow(): number;
 
   getBalance(date?: Date): number;
+
+  clone(): ITimeline;
 }
 
 export class Timeline implements ITimeline {
@@ -53,5 +56,17 @@ export class Timeline implements ITimeline {
     }
 
     return result;
+  }
+
+  clone(): ITimeline {
+    return new Timeline(
+      cloneDateUtc(this.startDate),
+      cloneDateUtc(this.endDate),
+      (this.rentals || []).map((x) => ({
+        property: x.property.clone(),
+        reasons: x.reasons.map((x) => ({ ...x })),
+      })),
+      this.user.clone()
+    );
   }
 }

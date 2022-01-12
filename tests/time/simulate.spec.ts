@@ -22,9 +22,9 @@ describe('simulate unit tests', () => {
         cloneDateUtc,
       }));
 
-      const loop: jest.Mock = jest.fn();
+      const movement: jest.Mock = jest.fn();
       jest.doMock('../../src/time/movement', () => ({
-        loop,
+        movement,
       }));
 
       const valueCache = {};
@@ -98,7 +98,7 @@ describe('simulate unit tests', () => {
 
       simulate(options);
 
-      expect(loop).toBeCalledWith(
+      expect(movement).toBeCalledWith(
         {
           maxYears: options.maxYears,
           startDate: options.startDate,

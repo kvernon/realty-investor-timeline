@@ -14,7 +14,7 @@ export const randomPropertyEntity: RandomPropertyEntity = (
   options: IPropertyEntityOptions
 ): Partial<IPropertyEntity> => {
   //this seems like cost down.
-  const purchasePrice = randomNumberBetween(options.lowestPricePrice, options.highestPricePrice);
+  const purchasePrice = randomNumberBetween(options.lowestPurchasePrice, options.highestPurchasePrice);
   const randomCashFlow = randomNumberBetween(options.lowestCashFlow, options.highestCashFlow);
 
   return {
