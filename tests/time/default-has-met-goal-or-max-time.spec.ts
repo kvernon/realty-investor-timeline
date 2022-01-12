@@ -79,6 +79,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                 user,
                 [
                   {
+                    estimatedCashOnCashReturn: 0,
+                    estimatedReturnOnCapitalGain: 0,
+                    wasPurchased: true,
                     rawEstimatedAnnualCashFlow: 0,
                     getExpensesByDate: jest.fn(),
                     getEstimatedMonthlyCashFlow: jest.fn(),
@@ -125,6 +128,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                 user,
                 [
                   {
+                    estimatedCashOnCashReturn: 0,
+                    estimatedReturnOnCapitalGain: 0,
+                    wasPurchased: true,
                     rawEstimatedAnnualCashFlow: 0,
                     getExpensesByDate: jest.fn(),
                     getEstimatedMonthlyCashFlow: jest.fn(),
@@ -173,6 +179,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                 user,
                 [
                   {
+                    estimatedCashOnCashReturn: 0,
+                    estimatedReturnOnCapitalGain: 0,
+                    wasPurchased: true,
                     rawEstimatedAnnualCashFlow: 0,
                     getExpensesByDate: jest.fn(),
                     getEstimatedMonthlyCashFlow: jest.fn(),
@@ -219,6 +228,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                 user,
                 [
                   {
+                    estimatedCashOnCashReturn: 0,
+                    estimatedReturnOnCapitalGain: 0,
+                    wasPurchased: true,
                     rawEstimatedAnnualCashFlow: 0,
                     getExpensesByDate: jest.fn(),
                     getEstimatedMonthlyCashFlow: jest.fn(),

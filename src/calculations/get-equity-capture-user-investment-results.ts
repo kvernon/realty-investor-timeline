@@ -20,7 +20,7 @@ export const getEquityCaptureUserInvestmentResults: UserResultEstimates = (
   }
 
   const maxCapGains = purchaseRules.find(
-    (x) => x.propertyType === rental.propertyType && x.type === PurchaseRuleTypes.MinEstimatedCapitalGains
+    (x) => x.propertyType === rental.propertyType && x.type === PurchaseRuleTypes.MinEstimatedCapitalGainsPercent
   );
 
   if (!maxCapGains) {

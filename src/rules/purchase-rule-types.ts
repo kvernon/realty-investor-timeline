@@ -12,18 +12,23 @@ export enum PurchaseRuleTypes {
   MinAskingPrice = 'minAskingPrice',
 
   /**
-   * implemented on SingleFamily
+   * implemented on SingleFamily and RentalPassiveApartment.
    */
   MaxEstimatedOutOfPocket = 'maxEstimatedOutOfPocket',
 
   /**
-   * implemented on SingleFamily and RentalPassiveApartment. This evaluates to monthly cash flow for
-   * Single family while quarterly for passive
+   * implemented on SingleFamily and RentalPassiveApartment. Note: monthly cash flow for Single family
+   * while quarterly for passive apartments
    */
-  MinEstimatedMultiAnnualCashFlow = 'minEstimatedMultiAnnualCashFlow',
+  MinEstimatedAnnualCashFlow = 'minEstimatedAnnualCashFlow',
 
   /**
-   * implemented for SingleFamily
+   * implemented on SingleFamily and RentalPassiveApartment. An estimation used to determine cash on cash percent
    */
-  MinEstimatedCapitalGains = 'minEstimatedCapitalGains',
+  MinEstimatedCashOnCashPercent = 'minEstimatedCashOnCashPercent',
+
+  /**
+   * implemented for SingleFamily and RentalPassiveApartment.
+   */
+  MinEstimatedCapitalGainsPercent = 'minEstimatedCapitalGainsPercent',
 }

@@ -17,6 +17,9 @@ describe('propertySort unit tests', () => {
 
   beforeEach(() => {
     propertyA = {
+      estimatedCashOnCashReturn: 0,
+      estimatedReturnOnCapitalGain: 0,
+      wasPurchased: true,
       rawEstimatedAnnualCashFlow: 0,
       getExpensesByDate: jest.fn(),
       getEstimatedMonthlyCashFlow: jest.fn(),
@@ -46,6 +49,9 @@ describe('propertySort unit tests', () => {
     };
 
     propertyB = {
+      estimatedCashOnCashReturn: 0,
+      estimatedReturnOnCapitalGain: 0,
+      wasPurchased: true,
       rawEstimatedAnnualCashFlow: 0,
       getExpensesByDate: jest.fn(),
       getEstimatedMonthlyCashFlow: jest.fn(),

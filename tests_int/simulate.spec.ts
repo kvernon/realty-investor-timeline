@@ -13,10 +13,14 @@ describe('simulate integration tests', () => {
         ],
         purchaseRules: [
           { value: 50000, type: PurchaseRuleTypes.MaxEstimatedOutOfPocket, propertyType: PropertyType.SingleFamily },
-          { value: 5000, type: PurchaseRuleTypes.MinEstimatedCapitalGains, propertyType: PropertyType.SingleFamily },
+          {
+            value: 5000,
+            type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
+            propertyType: PropertyType.SingleFamily,
+          },
           {
             value: 200,
-            type: PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow,
+            type: PurchaseRuleTypes.MinEstimatedAnnualCashFlow,
             propertyType: PropertyType.SingleFamily,
           },
         ],

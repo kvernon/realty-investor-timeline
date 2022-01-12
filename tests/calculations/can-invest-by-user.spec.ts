@@ -198,7 +198,7 @@ describe('and canInvestByUser', () => {
             evaluate: jest.fn().mockReturnValue(true),
           },
           {
-            type: PurchaseRuleTypes.MinEstimatedCapitalGains,
+            type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
             propertyType: instance.propertyType,
             value: 50000,
             evaluate: jest.fn().mockReturnValue(true),
@@ -246,7 +246,7 @@ describe('and canInvestByUser', () => {
         instancePassive.purchasePrice = 2000000;
 
         userPurchaseTypeRuleCapGains = {
-          type: PurchaseRuleTypes.MinEstimatedCapitalGains,
+          type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
           propertyType: instancePassive.propertyType,
           value: 50000,
           evaluate: jest.fn(),

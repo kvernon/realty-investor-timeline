@@ -74,7 +74,7 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
 
 ### Features
 
-- Mortgage calc ✔
+- Mortgage calc (Single Family) ✔
 - Rent amount ✔
 - Cash flow ✔
 - Appreciation calculation ✔
@@ -91,8 +91,8 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
 
 ## Missing features
 
-1. way to earn money from investments (up to 5 x calcs)
-2. delay 1st mortgage payment
+1. delay 1st mortgage payment
+2. refactor loop
 
 ## Future
 
@@ -126,40 +126,40 @@ const options: ISimulateOptions = {
   holdRules: [
     {
       value: 5,
-      type: HoldRuleTypes.minSellIfHighEquityPercent,
+      type: HoldRuleTypes.MinSellIfHighEquityPercent,
       propertyType: PropertyType.SingleFamily,
     },
   ],
   purchaseRules: [
     {
       value: 30000,
-      type: PurchaseRuleTypes.maxEstimatedOutOfPocket,
+      type: PurchaseRuleTypes.MaxEstimatedOutOfPocket,
       propertyType: PropertyType.SingleFamily,
     },
     {
       value: 7000,
-      type: PurchaseRuleTypes.minEstimatedCapitalGains,
+      type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
       propertyType: PropertyType.SingleFamily,
     },
     {
       value: 200,
-      type: PurchaseRuleTypes.minEstimatedMultiAnnualCashFlow,
+      type: PurchaseRuleTypes.MinEstimatedAnnualCashFlow,
       propertyType: PropertyType.SingleFamily,
     },
   ],
   loanSettings: [
     {
       propertyType: PropertyType.SingleFamily,
-      name: LoanSettings.minimumMonthlyReservesForRental,
+      name: LoanSettings.MinimumMonthlyReservesForRental,
       value: 6,
     },
     {
-      name: LoanSettings.loanRatePercent,
+      name: LoanSettings.LoanRatePercent,
       value: 4,
       propertyType: PropertyType.SingleFamily,
     },
     {
-      name: LoanSettings.loanTermInYears,
+      name: LoanSettings.LoanTermInYears,
       value: 30,
       propertyType: PropertyType.SingleFamily,
     },

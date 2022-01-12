@@ -36,7 +36,7 @@ describe('getEquityCaptureUserInvestmentResults unit tests', () => {
             {
               propertyType: rental.propertyType,
               value: 4,
-              type: PurchaseRuleTypes.MinEstimatedCapitalGains,
+              type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
               evaluate: jest.fn().mockReturnValue(false),
             },
           ],
@@ -66,7 +66,7 @@ describe('getEquityCaptureUserInvestmentResults unit tests', () => {
             {
               propertyType: rental.propertyType,
               value: 4,
-              type: PurchaseRuleTypes.MinEstimatedCapitalGains,
+              type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
               evaluate: jest.fn().mockReturnValue(true),
             },
           ],

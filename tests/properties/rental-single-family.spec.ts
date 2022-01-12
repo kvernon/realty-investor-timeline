@@ -212,6 +212,21 @@ describe('RentalSingleFamily unit tests', () => {
     });
   });
 
+  describe('and wasPurchased', () => {
+    describe('and no purchaseDate', () => {
+      test('should be false', () => {
+        expect(instance.wasPurchased).toBeFalsy();
+      });
+    });
+
+    describe('and purchaseDate', () => {
+      test('should be true', () => {
+        instance.purchaseDate = new Date();
+        expect(instance.wasPurchased).toBeTruthy();
+      });
+    });
+  });
+
   describe('and canSell', () => {
     describe('and not owned', () => {
       test('should return false', () => {

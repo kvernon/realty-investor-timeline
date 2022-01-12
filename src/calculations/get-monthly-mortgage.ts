@@ -1,5 +1,5 @@
 import currency from '../formatters/currency';
-import { getCashDown } from './get-cash-down';
+import { getCostDown } from './get-cost-down';
 
 /**
  * formula for M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1].
@@ -16,7 +16,7 @@ export function getMonthlyMortgage(
   loanRatePercent: number,
   loanTermInYears = 30
 ): number {
-  const cashDown = getCashDown(purchasePrice, cashDownPercent);
+  const cashDown = getCostDown(purchasePrice, cashDownPercent);
   const p = purchasePrice - cashDown;
   const i = loanRatePercent / 100 / 12;
   const n = loanTermInYears * 12;

@@ -63,8 +63,8 @@ describe('loop integration tests', () => {
 
       user.purchaseRules = [
         new RuleEvaluation(30000, PurchaseRuleTypes.MaxEstimatedOutOfPocket, PropertyType.SingleFamily),
-        new RuleEvaluation(7000, PurchaseRuleTypes.MinEstimatedCapitalGains, PropertyType.SingleFamily),
-        new RuleEvaluation(200, PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow, PropertyType.SingleFamily),
+        new RuleEvaluation(7000, PurchaseRuleTypes.MinEstimatedCapitalGainsPercent, PropertyType.SingleFamily),
+        new RuleEvaluation(200, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.SingleFamily),
       ];
 
       const date = new Date();
@@ -149,8 +149,8 @@ describe('loop integration tests', () => {
 
       user.purchaseRules = [
         new RuleEvaluation(100000, PurchaseRuleTypes.MaxEstimatedOutOfPocket, PropertyType.PassiveApartment),
-        new RuleEvaluation(7000, PurchaseRuleTypes.MinEstimatedCapitalGains, PropertyType.PassiveApartment),
-        new RuleEvaluation(200, PurchaseRuleTypes.MinEstimatedMultiAnnualCashFlow, PropertyType.PassiveApartment),
+        new RuleEvaluation(7000, PurchaseRuleTypes.MinEstimatedCapitalGainsPercent, PropertyType.PassiveApartment),
+        new RuleEvaluation(200, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.PassiveApartment),
       ];
 
       const date = new Date();
