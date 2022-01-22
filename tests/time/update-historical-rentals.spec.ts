@@ -12,7 +12,7 @@ import { RuleEvaluation } from '../../src/rules/rule-evaluation';
 import { IHistoricalProperty } from '../../src/time/i-historical-property';
 import { IUser } from '../../src/account/user';
 
-describe('UpdateHistoricalRentals unit tests', () => {
+describe('updateHistoricalRentals unit tests', () => {
   let chance: Chance.Chance;
   let user: jest.Mocked<IUser>;
   let rentalGeneratorHome: jest.Mocked<IRentalGenerator<RentalSingleFamily>>;
@@ -37,9 +37,6 @@ describe('UpdateHistoricalRentals unit tests', () => {
       addLedgerItem: jest.fn(),
       monthlySavedAmount: chance.integer({ min: 1, max: 10 }),
       clone: jest.fn().mockReturnThis(),
-      getSummaryAnnual: jest.fn(),
-      getSummaryMonth: jest.fn(),
-      getSummariesAnnual: jest.fn(),
     } as jest.Mocked<IUser>;
 
     rentalGeneratorHome = {
@@ -57,17 +54,17 @@ describe('UpdateHistoricalRentals unit tests', () => {
     jest.resetAllMocks();
   });
 
-  describe('and UpdateHistoricalRentals unit test', () => {
+  describe('and updateHistoricalRentals unit test', () => {
     describe('and no existing rentals', () => {
       describe('and no new rentals', () => {
         test('should return collection', () => {
           rentalGeneratorHome.getRentals.mockReturnValueOnce([]);
 
-          const UpdateHistoricalRentals = require('../../src/time/update-historical-rentals').UpdateHistoricalRentals;
+          const updateHistoricalRentals = require('../../src/time/update-historical-rentals').updateHistoricalRentals;
 
           const expected: IHistoricalProperty[] = [];
 
-          expect(UpdateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, [], new Date(), user)).toEqual(
+          expect(updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, [], new Date(), user)).toEqual(
             expected
           );
         });
@@ -78,11 +75,11 @@ describe('UpdateHistoricalRentals unit tests', () => {
 
             rentalGeneratorHome.getRentals.mockReturnValueOnce([singleFamily]);
 
-            const UpdateHistoricalRentals = require('../../src/time/update-historical-rentals').UpdateHistoricalRentals;
+            const updateHistoricalRentals = require('../../src/time/update-historical-rentals').updateHistoricalRentals;
 
             const expected: IHistoricalProperty[] = [{ property: singleFamily, reasons: [] }];
 
-            expect(UpdateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, [], new Date(), user)).toEqual(
+            expect(updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, [], new Date(), user)).toEqual(
               expected
             );
           });
@@ -110,10 +107,10 @@ describe('UpdateHistoricalRentals unit tests', () => {
         test('should return collection', () => {
           rentalGeneratorHome.getRentals.mockReturnValueOnce([]);
 
-          const UpdateHistoricalRentals = require('../../src/time/update-historical-rentals').UpdateHistoricalRentals;
+          const updateHistoricalRentals = require('../../src/time/update-historical-rentals').updateHistoricalRentals;
 
           expect(
-            UpdateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, historical, new Date(), user)
+            updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, historical, new Date(), user)
           ).toEqual(historical);
         });
 
@@ -129,12 +126,12 @@ describe('UpdateHistoricalRentals unit tests', () => {
 
             rentalGeneratorHome.getRentals.mockReturnValueOnce([newRental]);
 
-            const UpdateHistoricalRentals = require('../../src/time/update-historical-rentals').UpdateHistoricalRentals;
+            const updateHistoricalRentals = require('../../src/time/update-historical-rentals').updateHistoricalRentals;
 
             const expected: IHistoricalProperty[] = historical.concat([{ property: newRental, reasons: [] }]);
 
             expect(
-              UpdateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, historical, new Date(), user)
+              updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, historical, new Date(), user)
             ).toEqual(expected);
           });
         });

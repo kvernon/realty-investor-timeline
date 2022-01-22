@@ -105,6 +105,34 @@ jobs:
       - run:
           name: Run tests with JUnit as reporter
           command: npm run test:ci:int
+          environment:
+            - JEST_JUNIT_OUTPUT_FILE: "reports/junit/junit.xml"
+      - store_test_results:
+          path: ./reports/junit/
+      - store_artifacts:
+          path: ./reports/junit/
+  bench-test:
+    executor: my-custom-executor
+    working_directory: ~/tmp
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}-<< pipeline.id >>
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-build-<< pipeline.id >>
+      - run:
+          name: Run tests with JUnit as reporter
+          command: npm run test:ci:bench
+          environment:
+            - JEST_JUNIT_OUTPUT_FILE: "reports/junit/junit.xml"
+      - store_test_results:
+          path: ./reports/junit/
+      - store_artifacts:
+          path: ./reports/junit/
   publish:
     executor: my-custom-executor
     working_directory: ~/tmp
@@ -142,6 +170,9 @@ workflows:
       - int-test:
           requires:
             - unit-test
+      - bench-test:
+          requires:
+            - int-test
       - unit-test-badge:
           requires:
             - unit-test

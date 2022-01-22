@@ -29,10 +29,19 @@
   "overrides": [
     {
       "files": [
-        "tests/**"
+        "tests/**",
+        "tests_*/**"
       ],
       "rules": {
         "@typescript-eslint/no-var-requires": 0
+      }
+    },
+    {
+      "files": [
+        "tests_bench/**"
+      ],
+      "rules": {
+        "jest/no-done-callback": "warn"
       }
     }
   ]

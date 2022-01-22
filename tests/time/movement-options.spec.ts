@@ -38,9 +38,6 @@ describe('movement options unit tests', () => {
       addLedgerItem: jest.fn(),
       monthlySavedAmount: chance.integer({ min: 1, max: 10 }),
       clone: jest.fn(),
-      getSummaryAnnual: jest.fn(),
-      getSummaryMonth: jest.fn(),
-      getSummariesAnnual: jest.fn(),
     } as jest.Mocked<IUser>;
 
     user.clone.mockReturnValueOnce(user);
@@ -53,13 +50,13 @@ describe('movement options unit tests', () => {
     rentalGeneratorPassive = null;
   });
 
-  describe('and loop', () => {
+  describe('and movement', () => {
     describe('and invalid options', () => {
       describe('and no generators', () => {
         test('should fail', () => {
-          const loop = require('../../src/time/movement').loop;
+          const movement = require('../../src/time/movement').movement;
 
-          expect(() => loop({}, user)).toThrow(
+          expect(() => movement({}, user)).toThrow(
             'Invalid Argument: must declare at least 1, either propertyGeneratorSingleFamily or propertyGeneratorPassiveApartment'
           );
         });
@@ -75,10 +72,10 @@ describe('movement options unit tests', () => {
 
         describe('and no ILoanSetting', () => {
           test('should fail', () => {
-            const loop = require('../../src/time/movement').loop;
+            const movement = require('../../src/time/movement').movement;
 
             expect(() =>
-              loop(
+              movement(
                 {
                   propertyGeneratorSingleFamily: rentalGeneratorHome,
                 },
@@ -97,10 +94,10 @@ describe('movement options unit tests', () => {
                 name: LoanSettings.LoanTermInYears,
               },
             ];
-            const loop = require('../../src/time/movement').loop;
+            const movement = require('../../src/time/movement').movement;
 
             expect(() =>
-              loop(
+              movement(
                 {
                   propertyGeneratorSingleFamily: rentalGeneratorHome,
                 },
@@ -127,10 +124,10 @@ describe('movement options unit tests', () => {
 
           describe('and no rules', () => {
             test('should fail', () => {
-              const loop = require('../../src/time/movement').loop;
+              const movement = require('../../src/time/movement').movement;
 
               expect(() =>
-                loop(
+                movement(
                   {
                     propertyGeneratorSingleFamily: rentalGeneratorHome,
                   },
@@ -146,10 +143,10 @@ describe('movement options unit tests', () => {
                 new RuleEvaluation(4, HoldRuleTypes.MinSellIfHighEquityPercent, PropertyType.PassiveApartment),
               ];
 
-              const loop = require('../../src/time/movement').loop;
+              const movement = require('../../src/time/movement').movement;
 
               expect(() =>
-                loop(
+                movement(
                   {
                     propertyGeneratorSingleFamily: rentalGeneratorHome,
                   },
@@ -179,10 +176,10 @@ describe('movement options unit tests', () => {
               },
             ];
 
-            const loop = require('../../src/time/movement').loop;
+            const movement = require('../../src/time/movement').movement;
 
             expect(() =>
-              loop(
+              movement(
                 {
                   propertyGeneratorPassiveApartment: rentalGeneratorPassive,
                 },

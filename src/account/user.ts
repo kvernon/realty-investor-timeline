@@ -1,12 +1,10 @@
 import { ILoanSetting } from '../loans/i-loan-settings';
 import { IUserInvestorCheck } from './i-user-investor-check';
 import { ILedgerCollection } from '../ledger/ledger-collection';
-import { LedgerItem } from '../ledger/ledger-item';
 import { LoanSettings } from '../loans/loan-settings';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { IRuleEvaluation } from '../rules/rule-evaluation';
 import cloneDeep from 'lodash.clonedeep';
-import { ILedgerSummary } from '../ledger/i-ledger-summary';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
 import { PropertyType } from '../properties/property-type';
 import { IRentalPropertyEntity } from '../properties/i-rental-property-entity';
@@ -27,30 +25,6 @@ export interface IUser extends IUserInvestorCheck {
    * @param properties
    */
   getEstimatedMonthlyCashFlow(today: Date, properties: IRentalPropertyEntity[]): number;
-
-  /**
-   * @deprecated use {@link ledgerCollection}
-   * @param item
-   */
-  addLedgerItem(item: LedgerItem | Iterable<LedgerItem>): void;
-
-  /**
-   * @deprecated use {@link ledgerCollection}
-   * @param date
-   */
-  getSummaryMonth(date: Date): ILedgerSummary;
-
-  /**
-   * @deprecated use {@link ledgerCollection}
-   * @param year
-   */
-  getSummaryAnnual(year: number): ILedgerSummary;
-
-  /**
-   * @deprecated use {@link ledgerCollection}
-   * @param year
-   */
-  getSummariesAnnual(year: number): ILedgerSummary[];
 
   clone(): IUser;
 }
@@ -112,26 +86,18 @@ export class User implements IUser {
    */
   purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[];
 
-  /**
-   * @deprecated use {@link ledgerCollection}
-   * @param item
-   */
-  addLedgerItem(item: LedgerItem | Iterable<LedgerItem>): void {
-    this.ledgerCollection.add(item);
-  }
-
   hasMoneyToInvest(date: Date, properties: IRentalPropertyEntity[], contribution?: number): boolean {
-    const balance = this.getAvailableSavings(date, properties);
+    const availableSavings = this.getAvailableSavings(date, properties);
 
-    if (balance < 0) {
+    if (availableSavings < 0) {
       return false;
     }
 
     if (contribution === undefined || contribution === null) {
-      return balance >= 0;
+      return availableSavings >= 0;
     }
 
-    const total = balance - contribution;
+    const total = availableSavings - contribution;
 
     return total >= 0;
   }
@@ -146,7 +112,7 @@ export class User implements IUser {
       minMonthsRequired = found?.value ?? 0;
     }
 
-    return this.ledgerCollection.hasMinimumSavings(date, properties, minMonthsRequired);
+    return this.ledgerCollection.hasMinimumSavings(properties, date, minMonthsRequired);
   }
 
   getMinimumSavings(date: Date, properties: IRentalPropertyEntity[]): number {
@@ -159,7 +125,7 @@ export class User implements IUser {
       minMonthsRequired = found?.value ?? 0;
     }
 
-    return this.ledgerCollection.getMinimumSavings(date, properties, minMonthsRequired);
+    return this.ledgerCollection.getMinimumSavings(properties, date, minMonthsRequired);
   }
 
   /**
@@ -179,35 +145,17 @@ export class User implements IUser {
 
     return (
       this.ledgerCollection.getBalance(date) -
-      this.ledgerCollection.getMinimumSavings(date, properties, minMonthsRequired)
+      this.ledgerCollection.getMinimumSavings(properties, date, minMonthsRequired)
     );
   }
 
-  /**
-   * @deprecated use {@link ledgerCollection}
-   * @param date
-   */
-  getSummaryMonth(date: Date): ILedgerSummary {
-    return this.ledgerCollection.getSummaryMonth(date);
-  }
-
-  /**
-   * @deprecated use {@link ledgerCollection}
-   * @param year
-   */
-  getSummaryAnnual(year: number): ILedgerSummary {
-    return this.ledgerCollection.getSummaryAnnual(year);
-  }
-
-  /**
-   * @deprecated use {@link ledgerCollection}
-   * @param year
-   */
-  getSummariesAnnual(year: number): ILedgerSummary[] {
-    return this.ledgerCollection.getSummariesAnnual(year);
-  }
-
   clone(): IUser {
-    return Object.assign(new User(this.ledgerCollection.clone()), cloneDeep(this));
+    return Object.assign(new User(this.ledgerCollection.clone()), {
+      loanSettings: this.loanSettings.map((x) => cloneDeep(x)),
+      holdRules: this.holdRules.map((x) => cloneDeep(x)),
+      purchaseRules: this.purchaseRules.map((x) => cloneDeep(x)),
+      monthlySavedAmount: this.monthlySavedAmount,
+      monthlyIncomeAmountGoal: this.monthlyIncomeAmountGoal,
+    });
   }
 }

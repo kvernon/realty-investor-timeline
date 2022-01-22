@@ -45,8 +45,8 @@ describe('simulate integration tests', () => {
         generatorOptionsSingleFamily: {
           highestMinSellInYears: 1,
           lowestMinSellInYears: 1,
-          highestPricePrice: 200000,
-          lowestPricePrice: 150000,
+          highestPurchasePrice: 200000,
+          lowestPurchasePrice: 150000,
           highestSellAppreciationPercent: 7,
           lowestSellAppreciationPercent: 5,
           lowestCashFlow: 300,
@@ -58,8 +58,8 @@ describe('simulate integration tests', () => {
         generatorOptionsPassiveApartment: {
           highestMinSellInYears: 8,
           lowestMinSellInYears: 5,
-          highestPricePrice: 12000000,
-          lowestPricePrice: 7000000,
+          highestPurchasePrice: 12000000,
+          lowestPurchasePrice: 7000000,
           highestSellAppreciationPercent: 7,
           lowestSellAppreciationPercent: 5,
           lowestCashFlow: 1300,
@@ -71,11 +71,13 @@ describe('simulate integration tests', () => {
       };
 
       const actual = simulate(options);
-      /*let balance = 0;
-      console.table(actual.user.ledgerCollection.filter(x => !!x).map(x => {
-        balance += x.amount;
-        return {...x, balance};
-      }));
+      let balance = 0;
+      console.table(
+        actual.user.ledgerCollection.filter().map((x) => {
+          balance += x.amount;
+          return { ...x, balance };
+        })
+      ); /*
       console.table(actual.rentals.filter(x => x.reasons.length > 0).map((x) => ({
         address: x.property.address,
         type: PropertyType[x.property.propertyType],

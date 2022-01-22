@@ -14,8 +14,8 @@ export interface IRentalGenerator<T extends IRentalPropertyEntity> {
 export class RentalGenerator<T extends IRentalPropertyEntity> implements IPropertyEntityOptions, IRentalGenerator<T> {
   public maxRentalOpportunities: number;
 
-  public lowestPricePrice: number;
-  public highestPricePrice: number;
+  public lowestPurchasePrice: number;
+  public highestPurchasePrice: number;
 
   /**
    * for single family it's around 4%

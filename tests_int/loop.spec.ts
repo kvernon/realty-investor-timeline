@@ -5,7 +5,7 @@ import {
   LedgerItem,
   LedgerItemType,
   LoanSettings,
-  loop,
+  movement,
   PropertyType,
   PurchaseRuleTypes,
   RentalGenerator,
@@ -77,8 +77,8 @@ describe('loop integration tests', () => {
       propertyGeneratorSingleFamily.maxRentalOpportunities = 7;
       propertyGeneratorSingleFamily.highestMinSellInYears = 1;
       propertyGeneratorSingleFamily.lowestMinSellInYears = 1;
-      propertyGeneratorSingleFamily.highestPricePrice = 120000;
-      propertyGeneratorSingleFamily.lowestPricePrice = 100000;
+      propertyGeneratorSingleFamily.highestPurchasePrice = 120000;
+      propertyGeneratorSingleFamily.lowestPurchasePrice = 100000;
       propertyGeneratorSingleFamily.highestSellAppreciationPercent = 7;
       propertyGeneratorSingleFamily.lowestSellAppreciationPercent = 5;
       propertyGeneratorSingleFamily.lowestCashFlow = 10000;
@@ -92,7 +92,7 @@ describe('loop integration tests', () => {
         maxYears: 1,
       };
 
-      const actual = loop(options, user);
+      const actual = movement(options, user);
 
       //console.log(JSON.stringify(actual, null, '  '));
       expect(
@@ -163,8 +163,8 @@ describe('loop integration tests', () => {
       propertyGeneratorPassiveApartment.maxRentalOpportunities = 7;
       propertyGeneratorPassiveApartment.highestMinSellInYears = 8;
       propertyGeneratorPassiveApartment.lowestMinSellInYears = 5;
-      propertyGeneratorPassiveApartment.highestPricePrice = 12000000;
-      propertyGeneratorPassiveApartment.lowestPricePrice = 7000000;
+      propertyGeneratorPassiveApartment.highestPurchasePrice = 12000000;
+      propertyGeneratorPassiveApartment.lowestPurchasePrice = 7000000;
       propertyGeneratorPassiveApartment.highestSellAppreciationPercent = 7;
       propertyGeneratorPassiveApartment.lowestSellAppreciationPercent = 5;
       propertyGeneratorPassiveApartment.lowestCashFlow = 10000;
@@ -178,7 +178,7 @@ describe('loop integration tests', () => {
         maxYears: 1,
       };
 
-      const actual = loop(options, user);
+      const actual = movement(options, user);
 
       //console.log(JSON.stringify(actual, null, '  '));
       //console.log('balance', actual.user.ledgerCollection.getBalance(actual.endDate));

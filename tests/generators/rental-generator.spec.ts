@@ -113,8 +113,8 @@ describe('Rental Generator tests', () => {
           const gen = new RentalGenerator(valueCache, generic);
           gen.maxRentalOpportunities = maxRentalOpportunities;
 
-          gen.lowestPricePrice = 200;
-          gen.highestPricePrice = 300;
+          gen.lowestPurchasePrice = 200;
+          gen.highestPurchasePrice = 300;
 
           gen.lowestMinSellInYears = 5;
           gen.highestMinSellInYears = 8;

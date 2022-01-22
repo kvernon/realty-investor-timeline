@@ -6,3 +6,5 @@ export * from './timeline';
 export * from './movement';
 export * from './simulate';
 export * from './update-historical-rentals';
+export * from './i-loop-options';
+export * from './i-loop-recursive-options';

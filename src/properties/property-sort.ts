@@ -23,12 +23,24 @@ const findOrDefault = <TR extends PurchaseRuleTypes | HoldRuleTypes>(
  * @param rules
  */
 export default function propertySort<T extends PurchaseRuleTypes | HoldRuleTypes>(
-  propertyA: IRentalPropertyEntity,
-  propertyB: IRentalPropertyEntity,
+  propertyA: IRentalPropertyEntity | null,
+  propertyB: IRentalPropertyEntity | null,
   rules: IRuleEvaluation<T>[]
 ): number {
   if (!rules || rules.length === 0) {
     return -1;
+  }
+
+  if (!propertyA && !propertyB) {
+    return -1;
+  }
+
+  if (propertyA && !propertyB) {
+    return -1;
+  }
+
+  if (propertyB && !propertyA) {
+    return 1;
   }
 
   const enumTypeByValue = getEnumTypeByValue(rules[0].type);

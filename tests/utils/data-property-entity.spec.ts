@@ -42,8 +42,8 @@ describe('data-numbers unit tests', () => {
         highestCashFlow: 0,
         lowestCashFlow: 2,
         highestMinSellInYears: 1,
-        highestPricePrice: 2,
-        lowestPricePrice: 3,
+        highestPurchasePrice: 2,
+        lowestPurchasePrice: 3,
         lowestMinSellInYears: 4,
         lowestSellAppreciationPercent: 5,
         highestSellAppreciationPercent: 6,
@@ -61,7 +61,7 @@ describe('data-numbers unit tests', () => {
         equityCapturePercent: 50,
       });
 
-      expect(randomNumberBetween).toHaveBeenNthCalledWith(1, options.lowestPricePrice, options.highestPricePrice);
+      expect(randomNumberBetween).toHaveBeenNthCalledWith(1, options.lowestPurchasePrice, options.highestPurchasePrice);
       expect(randomNumberBetween).toHaveBeenNthCalledWith(2, options.lowestCashFlow, options.highestCashFlow);
       expect(randomNumberBetween).toHaveBeenNthCalledWith(
         3,

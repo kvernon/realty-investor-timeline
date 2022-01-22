@@ -15,13 +15,13 @@ import { InvestmentReasons } from '../../src/investments/investment-reasons';
 jest.mock('../../src/properties/rental-single-family');
 jest.mock('../../src/properties/rental-passive-apartment');
 
-describe('movement unit tests', () => {
+describe('looper unit tests', () => {
   let chance: Chance.Chance;
   let rentalGeneratorHome: jest.Mocked<IRentalGenerator<RentalSingleFamily>>;
   let rentalGeneratorPassive: jest.Mocked<IRentalGenerator<RentalPassiveApartment>>;
   let user: jest.Mocked<IUser>;
   let ensureArray: jest.Mock;
-  let UpdateHistoricalRentals: jest.Mock;
+  let updateHistoricalRentals: jest.Mock;
   let getMinCostDownByRule: jest.Mock;
   let expectedToday: Date;
   let cloneDateUtc: jest.Mock;
@@ -31,7 +31,7 @@ describe('movement unit tests', () => {
     expectedToday = new Date(Date.UTC(2021, 1, 1));
 
     ensureArray = jest.fn();
-    UpdateHistoricalRentals = jest.fn();
+    updateHistoricalRentals = jest.fn();
     cloneDateUtc = jest.fn().mockReturnValue(expectedToday);
     getMinCostDownByRule = jest.fn();
 
@@ -40,7 +40,7 @@ describe('movement unit tests', () => {
     }));
 
     jest.doMock('../../src/time/update-historical-rentals', () => ({
-      UpdateHistoricalRentals,
+      updateHistoricalRentals,
     }));
 
     jest.doMock('../../src/utils/data-clone-date', () => ({
@@ -57,7 +57,19 @@ describe('movement unit tests', () => {
     }));
 
     user = {
-      ledgerCollection: null,
+      ledgerCollection: {
+        add: jest.fn(),
+        getBalance: jest.fn(),
+        getMinimumSavings: jest.fn(),
+        clone: jest.fn().mockReturnThis(),
+        filter: jest.fn(),
+        getAvailableSavings: jest.fn(),
+        getCashFlowMonth: jest.fn(),
+        getSummariesAnnual: jest.fn(),
+        getSummaryAnnual: jest.fn(),
+        getSummaryMonth: jest.fn(),
+        hasMinimumSavings: jest.fn(),
+      },
       getCashFlowMonth: jest.fn(),
       getAvailableSavings: jest.fn(),
       getEstimatedMonthlyCashFlow: jest.fn(),
@@ -66,16 +78,11 @@ describe('movement unit tests', () => {
       purchaseRules: [new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.SingleFamily)],
       holdRules: [new RuleEvaluation(0, HoldRuleTypes.MinSellIfHighEquityPercent, PropertyType.SingleFamily)],
       loanSettings: [{ value: 3, propertyType: PropertyType.SingleFamily, name: LoanSettings.LoanTermInYears }],
-      getBalance: jest.fn(),
       hasMoneyToInvest: jest.fn(),
       hasMinimumSavings: jest.fn().mockReturnValue(true),
       getMinimumSavings: jest.fn().mockReturnValue(0),
-      addLedgerItem: jest.fn(),
       monthlySavedAmount: chance.integer({ min: 1, max: 10 }),
       clone: jest.fn().mockReturnThis(),
-      getSummaryAnnual: jest.fn(),
-      getSummaryMonth: jest.fn(),
-      getSummariesAnnual: jest.fn(),
     } as jest.Mocked<IUser>;
 
     rentalGeneratorPassive = {
@@ -95,7 +102,7 @@ describe('movement unit tests', () => {
     user = null;
     rentalGeneratorHome = null;
     rentalGeneratorPassive = null;
-    UpdateHistoricalRentals = null;
+    updateHistoricalRentals = null;
     ensureArray = null;
     cloneDateUtc = null;
     jest.resetModules();
@@ -106,20 +113,28 @@ describe('movement unit tests', () => {
     let actual: ITimeline;
 
     beforeEach(() => {
-      UpdateHistoricalRentals.mockReturnValue([]);
-      const loop = require('../../src/time/movement').loop;
-      actual = loop(
+      updateHistoricalRentals.mockReturnValue([]);
+      const movement = require('../../src/time/looper').looper;
+      actual = movement(
         {
           propertyGeneratorSingleFamily: rentalGeneratorHome,
           propertyGeneratorPassiveApartment: rentalGeneratorPassive,
           hasMetGoalOrMaxTime: jest.fn().mockReturnValue(true),
         },
-        user
+        {
+          user,
+          endDate: new Date(),
+          getBalance: jest.fn(),
+          startDate: new Date(),
+          rentals: [],
+          clone: jest.fn().mockReturnThis(),
+          getEstimatedMonthlyCashFlow: jest.fn(),
+        }
       );
     });
 
-    test('addLedgerItem should have been called', () => {
-      expect(user.addLedgerItem).toHaveBeenNthCalledWith(
+    test('user.ledgerCollection.add should have been called', () => {
+      expect(user.ledgerCollection.add).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
           amount: user.monthlySavedAmount,
@@ -134,20 +149,28 @@ describe('movement unit tests', () => {
   describe('and hasMoneyToInvest is false', () => {
     beforeEach(() => {
       user.hasMoneyToInvest.mockReturnValue(false);
-      UpdateHistoricalRentals.mockReturnValue([]);
-      const loop = require('../../src/time/movement').loop;
-      loop(
+      updateHistoricalRentals.mockReturnValue([]);
+      const looper = require('../../src/time/looper').looper;
+      looper(
         {
           propertyGeneratorSingleFamily: rentalGeneratorHome,
           propertyGeneratorPassiveApartment: rentalGeneratorPassive,
           hasMetGoalOrMaxTime: jest.fn().mockReturnValue(true),
         },
-        user
+        {
+          user,
+          endDate: new Date(),
+          getBalance: jest.fn(),
+          startDate: new Date(),
+          rentals: [],
+          clone: jest.fn().mockReturnThis(),
+          getEstimatedMonthlyCashFlow: jest.fn(),
+        }
       );
     });
 
-    test('addLedgerItem should have been called', () => {
-      expect(user.addLedgerItem).toHaveBeenNthCalledWith(
+    test('user.ledgerCollection.add should have been called', () => {
+      expect(user.ledgerCollection.add).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
           amount: user.monthlySavedAmount,
@@ -164,49 +187,59 @@ describe('movement unit tests', () => {
 
     beforeEach(() => {
       user.hasMoneyToInvest.mockReturnValue(true);
-      UpdateHistoricalRentals.mockReturnValue([]);
-      const loop = require('../../src/time/movement').loop;
-      actual = loop(
+      updateHistoricalRentals.mockReturnValue([]);
+      const looper = require('../../src/time/looper').looper;
+      actual = looper(
         {
           propertyGeneratorSingleFamily: rentalGeneratorHome,
           propertyGeneratorPassiveApartment: rentalGeneratorPassive,
           hasMetGoalOrMaxTime: jest.fn().mockReturnValue(true),
         },
-        user
+        {
+          user,
+          endDate: expectedToday,
+          getBalance: jest.fn(),
+          startDate: expectedToday,
+          rentals: [],
+          clone: jest.fn().mockReturnThis(),
+          getEstimatedMonthlyCashFlow: jest.fn(),
+        }
       );
     });
 
     test('UpdateHistoricalRentals should have been called', () => {
-      expect(UpdateHistoricalRentals).toBeCalled();
-      expect(UpdateHistoricalRentals.mock.calls[0][0].name).toEqual(RentalSingleFamily.name);
-      expect(UpdateHistoricalRentals.mock.calls[1][0].name).toEqual(RentalPassiveApartment.name);
+      expect(updateHistoricalRentals).toBeCalled();
+      expect(updateHistoricalRentals.mock.calls[0][0].name).toEqual(RentalSingleFamily.name);
+      expect(updateHistoricalRentals.mock.calls[1][0].name).toEqual(RentalPassiveApartment.name);
 
-      expect(UpdateHistoricalRentals).toHaveBeenNthCalledWith(
+      expect(updateHistoricalRentals).toHaveBeenNthCalledWith(
         1,
         expect.any(Function),
         rentalGeneratorHome,
         [],
         expectedToday,
-        user
+        user.loanSettings
       );
 
-      expect(UpdateHistoricalRentals).toHaveBeenNthCalledWith(
+      expect(updateHistoricalRentals).toHaveBeenNthCalledWith(
         2,
         expect.any(Function),
         rentalGeneratorPassive,
         [],
         expectedToday,
-        user
+        user.loanSettings
       );
     });
 
     test('should return', () => {
-      expect(actual).toEqual({
-        startDate: expectedToday,
-        endDate: expectedToday,
-        rentals: [],
-        user,
-      });
+      expect(actual).toEqual(
+        expect.objectContaining({
+          startDate: expectedToday,
+          endDate: expectedToday,
+          rentals: [],
+          user,
+        })
+      );
     });
   });
 
@@ -214,6 +247,12 @@ describe('movement unit tests', () => {
     let actual: ITimeline;
     let rentalSF: jest.Mocked<RentalSingleFamily>;
     let rentalPA: jest.Mocked<RentalPassiveApartment>;
+
+    afterEach(() => {
+      actual = null;
+      rentalPA = null;
+      rentalSF = null;
+    });
 
     beforeEach(() => {
       user.hasMoneyToInvest.mockReturnValue(true);
@@ -231,7 +270,7 @@ describe('movement unit tests', () => {
         value: PropertyType.PassiveApartment,
       });
 
-      UpdateHistoricalRentals.mockReturnValue([rentalSF, rentalPA].map((x) => ({ property: x, reasons: [] })));
+      updateHistoricalRentals.mockReturnValue([rentalSF, rentalPA].map((x) => ({ property: x, reasons: [] })));
     });
 
     describe('and cash flow', () => {
@@ -250,21 +289,29 @@ describe('movement unit tests', () => {
 
         user.monthlySavedAmount = 0;
 
-        const loop = require('../../src/time/movement').loop;
-        actual = loop(
+        const looper = require('../../src/time/looper').looper;
+        actual = looper(
           {
             propertyGeneratorSingleFamily: rentalGeneratorHome,
             propertyGeneratorPassiveApartment: rentalGeneratorPassive,
             hasMetGoalOrMaxTime: jest.fn().mockReturnValue(true),
           },
-          user
+          {
+            user,
+            endDate: new Date(),
+            getBalance: jest.fn(),
+            startDate: new Date(),
+            rentals: [],
+            clone: jest.fn().mockReturnThis(),
+            getEstimatedMonthlyCashFlow: jest.fn(),
+          }
         );
       });
 
       test('should add to ledger', () => {
-        expect(actual.user.addLedgerItem).toHaveBeenCalledTimes(2);
+        expect(actual.user.ledgerCollection.add).toHaveBeenCalledTimes(2);
 
-        expect(actual.user.addLedgerItem).toHaveBeenNthCalledWith(
+        expect(actual.user.ledgerCollection.add).toHaveBeenNthCalledWith(
           1,
           expect.objectContaining({
             amount: rentalSF.getCashFlowByDate(null),
@@ -274,7 +321,7 @@ describe('movement unit tests', () => {
           })
         );
 
-        expect(actual.user.addLedgerItem).toHaveBeenNthCalledWith(
+        expect(actual.user.ledgerCollection.add).toHaveBeenNthCalledWith(
           2,
           expect.objectContaining({
             amount: rentalPA.getCashFlowByDate(null),
@@ -305,21 +352,29 @@ describe('movement unit tests', () => {
 
         user.monthlySavedAmount = 0;
 
-        const loop = require('../../src/time/movement').loop;
-        actual = loop(
+        const looper = require('../../src/time/looper').looper;
+        actual = looper(
           {
             propertyGeneratorSingleFamily: rentalGeneratorHome,
             propertyGeneratorPassiveApartment: rentalGeneratorPassive,
             hasMetGoalOrMaxTime: jest.fn().mockReturnValue(true),
           },
-          user
+          {
+            user,
+            endDate: new Date(),
+            getBalance: jest.fn(),
+            startDate: new Date(),
+            rentals: [],
+            clone: jest.fn().mockReturnThis(),
+            getEstimatedMonthlyCashFlow: jest.fn(),
+          }
         );
       });
 
       test('should add to ledger', () => {
-        expect(actual.user.addLedgerItem).toHaveBeenCalledTimes(2);
+        expect(actual.user.ledgerCollection.add).toHaveBeenCalledTimes(2);
 
-        expect(actual.user.addLedgerItem).toHaveBeenNthCalledWith(
+        expect(actual.user.ledgerCollection.add).toHaveBeenNthCalledWith(
           1,
           expect.objectContaining({
             amount: rentalSF.getEquityFromSell(null),
@@ -329,7 +384,7 @@ describe('movement unit tests', () => {
           })
         );
 
-        expect(actual.user.addLedgerItem).toHaveBeenNthCalledWith(
+        expect(actual.user.ledgerCollection.add).toHaveBeenNthCalledWith(
           2,
           expect.objectContaining({
             amount: rentalPA.getEquityFromSell(null),
@@ -369,21 +424,29 @@ describe('movement unit tests', () => {
           rentalSF.canInvestByUser.mockReturnValue({ canInvest: true, results: [] });
           rentalPA.canInvestByUser.mockReturnValue({ canInvest: true, results: [] });
 
-          const loop = require('../../src/time/movement').loop;
-          actual = loop(
+          const looper = require('../../src/time/looper').looper;
+          actual = looper(
             {
               propertyGeneratorSingleFamily: rentalGeneratorHome,
               propertyGeneratorPassiveApartment: rentalGeneratorPassive,
               hasMetGoalOrMaxTime: jest.fn().mockReturnValue(true),
             },
-            user
+            {
+              user,
+              endDate: new Date(),
+              getBalance: jest.fn(),
+              startDate: new Date(),
+              rentals: [],
+              clone: jest.fn().mockReturnThis(),
+              getEstimatedMonthlyCashFlow: jest.fn(),
+            }
           );
         });
 
         test('should add to ledger', () => {
-          expect(actual.user.addLedgerItem).toHaveBeenCalledTimes(2);
+          expect(actual.user.ledgerCollection.add).toHaveBeenCalledTimes(2);
 
-          expect(actual.user.addLedgerItem).toHaveBeenNthCalledWith(
+          expect(actual.user.ledgerCollection.add).toHaveBeenNthCalledWith(
             1,
             expect.objectContaining({
               amount: -8,
@@ -393,7 +456,7 @@ describe('movement unit tests', () => {
             })
           );
 
-          expect(actual.user.addLedgerItem).toHaveBeenNthCalledWith(
+          expect(actual.user.ledgerCollection.add).toHaveBeenNthCalledWith(
             2,
             expect.objectContaining({
               amount: -80,
@@ -424,19 +487,27 @@ describe('movement unit tests', () => {
             ],
           });
 
-          const loop = require('../../src/time/movement').loop;
-          actual = loop(
+          const looper = require('../../src/time/looper').looper;
+          actual = looper(
             {
               propertyGeneratorSingleFamily: rentalGeneratorHome,
               propertyGeneratorPassiveApartment: rentalGeneratorPassive,
               hasMetGoalOrMaxTime: jest.fn().mockReturnValue(true),
             },
-            user
+            {
+              user,
+              endDate: new Date(),
+              getBalance: jest.fn(),
+              startDate: new Date(),
+              rentals: [],
+              clone: jest.fn().mockReturnThis(),
+              getEstimatedMonthlyCashFlow: jest.fn(),
+            }
           );
         });
 
         test('should NOT add to ledger', () => {
-          expect(actual.user.addLedgerItem).not.toHaveBeenCalledTimes(2);
+          expect(actual.user.ledgerCollection.add).not.toBeCalled();
         });
 
         test('should append reasons to passive', () => {
