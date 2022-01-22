@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v3.0.0...v3.1.0) (2022-01-22)
+
+
+### Features
+
+* refactor loop ([a0c7eef](https://github.com/kvernon/realty-investor-timeline/commit/a0c7eef68ebb65d32c8c0102f8650e4eebf42da7))
+
 # [3.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v2.3.0...v3.0.0) (2022-01-12)
 
 
