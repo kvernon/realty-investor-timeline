@@ -89,6 +89,10 @@ jobs:
       - run:
           name: Run tests with JUnit as reporter
           command: npm run test:cov-and-badge
+      - save_cache:
+          paths:
+            - ~/tmp/badges
+          key: node-{{ .Branch }}-branches-<< pipeline.id >>
   int-test:
     executor: my-custom-executor
     working_directory: ~/tmp
@@ -146,6 +150,10 @@ jobs:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
             - node-{{ .Branch }}-build-<< pipeline.id >>
+      - restore_cache:
+          keys:
+            # used to pull in the badge update
+            - node-{{ .Branch }}-branches-<< pipeline.id >>
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
@@ -183,6 +191,7 @@ workflows:
           requires:
             - int-test
             - unit-test-badge
+            - bench-test
           filters:
             branches:
               only: main
