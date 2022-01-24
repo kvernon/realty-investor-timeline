@@ -22,6 +22,12 @@ export interface IUserInvestorCheck extends IUserGoal {
    */
   holdRules: IRuleEvaluation<HoldRuleTypes>[];
 
+  /**
+   * based upon {@link getMinimumSavings}, it checks to see if there is an amount remaining that can be used.
+   * @param date
+   * @param properties
+   * @param contribution
+   */
   hasMoneyToInvest(date: Date, properties: IRentalPropertyEntity[], contribution?: number): boolean;
 
   /**
@@ -32,10 +38,15 @@ export interface IUserInvestorCheck extends IUserGoal {
    */
   hasMinimumSavings(date: Date, properties: IRentalPropertyEntity[]): boolean;
 
+  /**
+   * used to retrieve the amount required to keep in savings
+   * @param date
+   * @param properties
+   */
   getMinimumSavings(date: Date, properties: IRentalPropertyEntity[]): number;
 
   /**
-   * should be the total balance - savings for single family
+   * should be the total balance - savings, using {@link getMinimumSavings}, for determining monthly cash to save for single family properties
    * @param date
    * @param properties
    */
