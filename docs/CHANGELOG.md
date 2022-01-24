@@ -1,3 +1,15 @@
+# [4.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v3.2.0...v4.0.0) (2022-01-24)
+
+
+### Continuous Integration
+
+* updating in hopes of fix for issue: [32] ([647c17e](https://github.com/kvernon/realty-investor-timeline/commit/647c17e8f83ea849aadfcd75308210964579c37b))
+
+
+### BREAKING CHANGES
+
+* this should force change
+
 # [3.2.0](https://github.com/kvernon/realty-investor-timeline/compare/v3.1.0...v3.2.0) (2022-01-23)
 
 
