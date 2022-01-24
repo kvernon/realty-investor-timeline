@@ -1,5 +1,4 @@
 import { getCostDown } from '../../src/calculations/get-cost-down';
-import currency from '../../src/formatters/currency';
 
 describe('getCashDown unit tests', () => {
   describe('and success', () => {

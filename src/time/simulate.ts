@@ -8,7 +8,7 @@ import { RuleEvaluation } from '../rules/rule-evaluation';
 import { IRule } from '../rules/i-rule';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { HasMetGoalOrMaxTime } from './has-met-goal-or-max-time';
-import { ITimeline, Timeline } from './timeline';
+import { ITimeline } from './timeline';
 import { RentalPassiveApartment, RentalSingleFamily } from '../properties';
 import { LedgerCollection, LedgerItem, LedgerItemType } from '../ledger';
 import { ValueCache } from '../caching/value-cache';
