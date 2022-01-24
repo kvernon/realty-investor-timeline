@@ -92,7 +92,10 @@ jobs:
       - save_cache:
           paths:
             - ~/tmp/badges
-          key: node-{{ .Branch }}-branches-<< pipeline.id >>
+          key: node-{{ .Branch }}-badge-<< pipeline.id >>
+      - store_artifacts:
+          path: ~/tmp/badges
+          destination: artifact-badges
   int-test:
     executor: my-custom-executor
     working_directory: ~/tmp
@@ -153,7 +156,13 @@ jobs:
       - restore_cache:
           keys:
             # used to pull in the badge update
-            - node-{{ .Branch }}-branches-<< pipeline.id >>
+            - node-{{ .Branch }}-badge-<< pipeline.id >>
+      - store_artifacts:
+          path: ~/tmp/badges
+          destination: artifact-badges
+      - store_artifacts:
+          path: ~/tmp/dist
+          destination: artifact-dist
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
@@ -163,6 +172,32 @@ jobs:
       - run:
           name: release
           command: CI=false npx semantic-release
+  faux-publish:
+    executor: my-custom-executor
+    working_directory: ~/tmp
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-{{ checksum "package-lock.json" }}-<< pipeline.id >>
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-{{ .Branch }}-build-<< pipeline.id >>
+      - restore_cache:
+          keys:
+            # used to pull in the badge update
+            - node-{{ .Branch }}-badge-<< pipeline.id >>
+      - store_artifacts:
+          path: ~/tmp/badges
+          destination: artifact-badges
+      - store_artifacts:
+          path: ~/tmp/dist
+          destination: artifact-dist
+      - run:
+          name: Publish package (pack run only)
+          command: npm pack
 # Orchestrate our job run sequence
 workflows:
   build_lint_test_publish:
@@ -184,9 +219,6 @@ workflows:
       - unit-test-badge:
           requires:
             - unit-test
-          filters:
-            branches:
-              only: main
       - publish:
           requires:
             - int-test
@@ -195,3 +227,11 @@ workflows:
           filters:
             branches:
               only: main
+      - faux-publish:
+          requires:
+            - int-test
+            - unit-test-badge
+            - bench-test
+          filters:
+            branches:
+              ignore: main

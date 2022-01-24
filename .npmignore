@@ -2,9 +2,11 @@
 /badges
 /tests
 /tests_int
+/tests_bench
 /.circleci
 /dist/tests
 /dist/tests_int
+/dist/tests_bench
 .gitignore
 tsconfig*.json
 .nvmrc

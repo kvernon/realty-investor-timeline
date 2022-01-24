@@ -16,7 +16,7 @@ module.exports = {
     }],
     ['@semantic-release/npm'],
     ['@semantic-release/git', {
-      'assets': ['docs', 'package.json', 'package-lock.json', 'badges'],
+      'assets': ['docs', 'package.json', 'package-lock.json', 'badges', 'badges/*'],
       'message': 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}'
     }]
   ]
