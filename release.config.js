@@ -1,7 +1,15 @@
 module.exports = {
   'branches': ['main'],
   'plugins': [
-    '@semantic-release/commit-analyzer',
+    ['@semantic-release/commit-analyzer', {
+      'preset': 'angular',
+      'releaseRules': [
+        {'type': 'breaking', 'release': 'major'}
+      ],
+      'parserOpts': {
+        'noteKeywords': ['BREAKING CHANGE', 'BREAKING CHANGES']
+      }
+    }],
     ['@semantic-release/release-notes-generator'],
     ['@semantic-release/changelog', {
       'changelogFile': 'docs/CHANGELOG.md'

@@ -86,6 +86,12 @@ export class User implements IUser {
    */
   purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[];
 
+  /**
+   * based upon {@link getMinimumSavings}, it checks to see if there is an amount remaining that can be used.
+   * @param date
+   * @param properties
+   * @param contribution
+   */
   hasMoneyToInvest(date: Date, properties: IRentalPropertyEntity[], contribution?: number): boolean {
     const availableSavings = this.getAvailableSavings(date, properties);
 
@@ -102,6 +108,12 @@ export class User implements IUser {
     return total >= 0;
   }
 
+  /**
+   * a way to determine if the user has enough money. This is different because with
+   * single family homes, you would have to save a certain amount of monthly mortgage
+   * @param date
+   * @param properties
+   */
   hasMinimumSavings(date: Date, properties: IRentalPropertyEntity[]): boolean {
     let minMonthsRequired = 0;
     if (this.loanSettings && this.loanSettings.length > 0) {
@@ -115,6 +127,11 @@ export class User implements IUser {
     return this.ledgerCollection.hasMinimumSavings(properties, date, minMonthsRequired);
   }
 
+  /**
+   * used to retrieve the amount required to keep in savings
+   * @param date
+   * @param properties
+   */
   getMinimumSavings(date: Date, properties: IRentalPropertyEntity[]): number {
     let minMonthsRequired = 0;
     if (this.loanSettings && this.loanSettings.length > 0) {
@@ -129,7 +146,7 @@ export class User implements IUser {
   }
 
   /**
-   * should be the total balance - savings for single family
+   * should be the total balance - savings, using {@link getMinimumSavings}, for determining monthly cash to save for single family properties
    * @param date
    * @param properties
    */
