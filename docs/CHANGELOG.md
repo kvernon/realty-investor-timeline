@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/kvernon/realty-investor-timeline/compare/v4.0.0...v4.0.1) (2022-07-24)
+
+
+### Bug Fixes
+
+* dependency updates ([ad7986e](https://github.com/kvernon/realty-investor-timeline/commit/ad7986e8c7eeabbf22502e416900ff5dcfb635df))
+
 # [4.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v3.2.0...v4.0.0) (2022-01-24)
 
 
