@@ -89,8 +89,8 @@ describe('factory-single-family unit tests', () => {
         closingCostPercent
       );
 
-      expect(genericGenerateProperty).toBeCalledWith(RentalSingleFamily, options, lifeTime);
-      expect(getMonthlyPrincipalInterestTaxInterest).toBeCalledWith(
+      expect(genericGenerateProperty).toHaveBeenCalledWith(RentalSingleFamily, options, lifeTime);
+      expect(getMonthlyPrincipalInterestTaxInterest).toHaveBeenCalledWith(
         entity.purchasePrice,
         25,
         closingCostPercent,

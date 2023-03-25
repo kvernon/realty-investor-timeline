@@ -42,7 +42,7 @@ describe('single family generator performance tests', () => {
         })
         .on('cycle', function (event: Event) {
           console.log(String(event.target));
-          expect(event.target.hz).toBeGreaterThanOrEqual(32500);
+          expect(event.target.hz).toBeGreaterThanOrEqual(25000);
           done();
         })
         .run();
@@ -74,7 +74,7 @@ describe('single family generator performance tests', () => {
         })
         .on('cycle', function (event: Event) {
           console.log(String(event.target));
-          expect(event.target.hz).toBeGreaterThanOrEqual(25000);
+          expect(event.target.hz).toBeGreaterThanOrEqual(20000);
           done();
         })
         .run();

@@ -119,6 +119,11 @@ import {
   simulate,
 } from "@cubedelement.com/realty-investor-timeline";
 
+/**
+ * Callout!
+ * This example shows you all the options available, and most are defaulted if you don't supply the options object.
+ * This only one that isn't supplied is the generatorOptionsPassiveApartment values.
+ */
 const options: ISimulateOptions = {
   amountInSavings: 100000,
   monthlyIncomeAmountGoal: 10000,
@@ -132,7 +137,7 @@ const options: ISimulateOptions = {
   ],
   purchaseRules: [
     {
-      value: 30000,
+      value: 50000,
       type: PurchaseRuleTypes.MaxEstimatedOutOfPocket,
       propertyType: PropertyType.SingleFamily,
     },
@@ -164,27 +169,27 @@ const options: ISimulateOptions = {
       propertyType: PropertyType.SingleFamily,
     },
   ],
-  maxYears: 1,
+  maxYears: 7,
   generatorOptionsSingleFamily: {
-    highestMinSellInYears: 1,
     lowestMinSellInYears: 1,
-    highestPricePrice: 200000,
-    lowestPricePrice: 150000,
-    highestSellAppreciationPercent: 7,
+    highestMinSellInYears: 1,
+    lowestPurchasePrice: 150000,
+    highestPurchasePrice: 250000,
     lowestSellAppreciationPercent: 5,
+    highestSellAppreciationPercent: 7,
     lowestCashFlow: 200,
-    highestCashFlow: 500,
+    highestCashFlow: 550,
     lowestEquityCapturePercent: 7,
     highestEquityCapturePercent: 15,
     maxRentalOpportunities: 4,
   },
   generatorOptionsPassiveApartment: {
-    highestMinSellInYears: 1,
     lowestMinSellInYears: 1,
-    highestPricePrice: 200000,
-    lowestPricePrice: 150000,
-    highestSellAppreciationPercent: 7,
+    highestMinSellInYears: 1,
+    lowestPurchasePrice: 150000,
+    highestPurchasePrice: 200000,
     lowestSellAppreciationPercent: 5,
+    highestSellAppreciationPercent: 7,
     lowestCashFlow: 200,
     highestCashFlow: 500,
     lowestEquityCapturePercent: 7,

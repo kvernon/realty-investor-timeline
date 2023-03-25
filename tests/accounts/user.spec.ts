@@ -57,7 +57,7 @@ describe('User unit tests', () => {
       ledgerCollection.hasMinimumSavings.mockReturnValueOnce(expected);
 
       expect(instance.hasMinimumSavings(date, properties)).toEqual(expected);
-      expect(ledgerCollection.hasMinimumSavings).toBeCalledWith(properties, date, minNum);
+      expect(ledgerCollection.hasMinimumSavings).toHaveBeenCalledWith(properties, date, minNum);
     });
   });
 
@@ -70,7 +70,7 @@ describe('User unit tests', () => {
         ledgerCollection.getBalance.mockReturnValueOnce(expected);
 
         expect(instance.hasMoneyToInvest(date, null)).toEqual(false);
-        expect(ledgerCollection.getBalance).toBeCalledWith(date);
+        expect(ledgerCollection.getBalance).toHaveBeenCalledWith(date);
       });
     });
     describe('and empty rentals', () => {
@@ -81,7 +81,7 @@ describe('User unit tests', () => {
         ledgerCollection.getBalance.mockReturnValueOnce(expected);
 
         expect(instance.hasMoneyToInvest(date, [])).toEqual(false);
-        expect(ledgerCollection.getBalance).toBeCalledWith(date);
+        expect(ledgerCollection.getBalance).toHaveBeenCalledWith(date);
       });
     });
     describe('and populated rentals', () => {
@@ -151,7 +151,7 @@ describe('User unit tests', () => {
       ledgerCollection.getMinimumSavings.mockReturnValueOnce(minSavings);
 
       expect(instance.getMinimumSavings(date, properties)).toEqual(minSavings);
-      expect(ledgerCollection.getMinimumSavings).toBeCalledWith(properties, date, minNum);
+      expect(ledgerCollection.getMinimumSavings).toHaveBeenCalledWith(properties, date, minNum);
     });
   });
 
@@ -202,7 +202,7 @@ describe('User unit tests', () => {
 
       expect(instance.metMonthlyGoal(date, [rental])).toBeTruthy();
       expect(instance.getEstimatedMonthlyCashFlow(date, [rental])).toEqual(expected);
-      expect(rental.getEstimatedMonthlyCashFlow).toBeCalledWith(date);
+      expect(rental.getEstimatedMonthlyCashFlow).toHaveBeenCalledWith(date);
     });
 
     test('should be false', () => {
@@ -216,7 +216,7 @@ describe('User unit tests', () => {
 
       expect(instance.metMonthlyGoal(date, [rental])).toBeFalsy();
       expect(instance.getEstimatedMonthlyCashFlow(date, [rental])).toEqual(expected);
-      expect(rental.getEstimatedMonthlyCashFlow).toBeCalledWith(date);
+      expect(rental.getEstimatedMonthlyCashFlow).toHaveBeenCalledWith(date);
     });
   });
 });

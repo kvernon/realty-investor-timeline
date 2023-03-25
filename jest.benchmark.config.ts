@@ -13,6 +13,7 @@ delete uConfig.testMatch;
 
 export default {
   ...uConfig,
+  maxWorkers: 1,
   verbose: false,
   testMatch: ['<rootDir>/tests_bench/*.+(spec|test).[jt]s?(x)'],
 };

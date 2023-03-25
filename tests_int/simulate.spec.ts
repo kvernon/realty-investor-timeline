@@ -90,4 +90,30 @@ describe('simulate integration tests', () => {
       expect(actual.rentals).not.toEqual([]);
     });
   });
+  describe('and success with defaults', () => {
+    test('should run calc', () => {
+      const actual = simulate();
+      let balance = 0;
+      console.table(
+        actual.user.ledgerCollection.filter().map((x) => {
+          balance += x.amount;
+          return { ...x, balance };
+        })
+      );
+      console.table(
+        actual.rentals
+          .filter((x) => x.reasons.length > 0)
+          .map((x) => ({
+            address: x.property.address,
+            type: PropertyType[x.property.propertyType],
+            reasons: JSON.stringify(x.reasons),
+          }))
+      );
+      expect(actual.getEstimatedMonthlyCashFlow()).toBeGreaterThan(0);
+      expect(actual.startDate).not.toBeNull();
+      expect(actual.endDate).not.toBeNull();
+      expect(actual.rentals).not.toBeNull();
+      expect(actual.rentals).not.toEqual([]);
+    });
+  });
 });

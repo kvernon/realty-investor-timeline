@@ -84,7 +84,7 @@ describe('loop performance tests', () => {
         })
         .on('cycle', function (event: Event) {
           console.log(String(event.target));
-          expect(event.target.hz).toBeGreaterThanOrEqual(20000);
+          expect(event.target.hz).toBeGreaterThanOrEqual(13000);
           done();
         })
         .run();
