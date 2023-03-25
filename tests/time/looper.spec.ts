@@ -208,7 +208,7 @@ describe('looper unit tests', () => {
     });
 
     test('UpdateHistoricalRentals should have been called', () => {
-      expect(updateHistoricalRentals).toBeCalled();
+      expect(updateHistoricalRentals).toHaveBeenCalled();
       expect(updateHistoricalRentals.mock.calls[0][0].name).toEqual(RentalSingleFamily.name);
       expect(updateHistoricalRentals.mock.calls[1][0].name).toEqual(RentalPassiveApartment.name);
 
@@ -507,7 +507,7 @@ describe('looper unit tests', () => {
         });
 
         test('should NOT add to ledger', () => {
-          expect(actual.user.ledgerCollection.add).not.toBeCalled();
+          expect(actual.user.ledgerCollection.add).not.toHaveBeenCalled();
         });
 
         test('should append reasons to passive', () => {

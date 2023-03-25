@@ -81,7 +81,7 @@ describe('factory-passive-apartments unit tests', () => {
       );
       expected.offeredInvestmentAmounts = [50000, 100000, 150000, 200000];
 
-      expect(genericGenerateProperty).toBeCalledWith(RentalPassiveApartment, options, lifeTime);
+      expect(genericGenerateProperty).toHaveBeenCalledWith(RentalPassiveApartment, options, lifeTime);
 
       expect(actual).toEqual(expected);
     });

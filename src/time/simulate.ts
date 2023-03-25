@@ -9,12 +9,13 @@ import { IRule } from '../rules/i-rule';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { HasMetGoalOrMaxTime } from './has-met-goal-or-max-time';
 import { ITimeline } from './timeline';
-import { RentalPassiveApartment, RentalSingleFamily } from '../properties';
+import { PropertyType, RentalPassiveApartment, RentalSingleFamily } from '../properties';
 import { LedgerCollection, LedgerItem, LedgerItemType } from '../ledger';
 import { ValueCache } from '../caching/value-cache';
 import { movement } from './movement';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
+import { LoanSettings } from '../loans/loan-settings';
 
 interface IGenOptions extends IPropertyEntityOptions {
   /**
@@ -78,7 +79,68 @@ export interface ISimulateOptions {
  * Easy entry method to get anyone going on simulating a property, or properties acquisition.
  * @param options
  */
-export function simulate(options: ISimulateOptions): ITimeline {
+export function simulate(
+  options: ISimulateOptions = {
+    amountInSavings: 100000,
+    monthlyIncomeAmountGoal: 10000,
+    monthlySavedAmount: 10000,
+    holdRules: [
+      {
+        value: 5,
+        type: HoldRuleTypes.MinSellIfHighEquityPercent,
+        propertyType: PropertyType.SingleFamily,
+      },
+    ],
+    purchaseRules: [
+      {
+        value: 50000,
+        type: PurchaseRuleTypes.MaxEstimatedOutOfPocket,
+        propertyType: PropertyType.SingleFamily,
+      },
+      {
+        value: 7000,
+        type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
+        propertyType: PropertyType.SingleFamily,
+      },
+      {
+        value: 200,
+        type: PurchaseRuleTypes.MinEstimatedAnnualCashFlow,
+        propertyType: PropertyType.SingleFamily,
+      },
+    ],
+    loanSettings: [
+      {
+        propertyType: PropertyType.SingleFamily,
+        name: LoanSettings.MinimumMonthlyReservesForRental,
+        value: 6,
+      },
+      {
+        name: LoanSettings.LoanRatePercent,
+        value: 4,
+        propertyType: PropertyType.SingleFamily,
+      },
+      {
+        name: LoanSettings.LoanTermInYears,
+        value: 30,
+        propertyType: PropertyType.SingleFamily,
+      },
+    ],
+    maxYears: 7,
+    generatorOptionsSingleFamily: {
+      lowestMinSellInYears: 1,
+      highestMinSellInYears: 1,
+      lowestPurchasePrice: 150000,
+      highestPurchasePrice: 250000,
+      lowestSellAppreciationPercent: 5,
+      highestSellAppreciationPercent: 7,
+      lowestCashFlow: 200,
+      highestCashFlow: 550,
+      lowestEquityCapturePercent: 7,
+      highestEquityCapturePercent: 15,
+      maxRentalOpportunities: 4,
+    },
+  }
+): ITimeline {
   const formattedUtcDate = cloneDateUtc(options.startDate ?? new Date());
 
   if (!options.generatorOptionsPassiveApartment && !options.generatorOptionsSingleFamily) {

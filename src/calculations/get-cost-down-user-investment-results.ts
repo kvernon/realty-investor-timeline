@@ -7,8 +7,7 @@ import { UserResultEstimates } from '../investments/user-result-estimates';
 export const getCostDownUserInvestmentResults: UserResultEstimates = (
   rental: IRentalPropertyEntity,
   _holdRules: IRuleEvaluation<HoldRuleTypes>[],
-  purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[],
-  _date: Date
+  purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[]
 ): UserInvestResult[] => {
   if (!rental) {
     throw new Error('Invalid Argument: rental is falsy');

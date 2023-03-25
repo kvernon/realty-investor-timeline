@@ -55,10 +55,9 @@ export default function propertySort<T extends PurchaseRuleTypes | HoldRuleTypes
     return 1;
   }
 
-  for (let i = 0; i < rules.length; i++) {
-    const r = rules[i];
-    const reasonsItemA = findOrDefault(propertyA, reasonsA, r);
-    const reasonsItemB = findOrDefault(propertyB, reasonsB, r);
+  for (const rule of rules) {
+    const reasonsItemA = findOrDefault(propertyA, reasonsA, rule);
+    const reasonsItemB = findOrDefault(propertyB, reasonsB, rule);
 
     if (reasonsItemB.isRuleNone() || reasonsItemA.isValueGreater(reasonsItemB)) {
       return -1;

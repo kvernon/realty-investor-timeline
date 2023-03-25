@@ -64,12 +64,9 @@ export class RentalGenerator<T extends IRentalPropertyEntity> implements IProper
     }
 
     const totalRandom =
-      this.maxRentalOpportunities === 1
+      this.maxRentalOpportunities <= 1
         ? 1
-        : randomNumberBetween(
-            this.maxRentalOpportunities <= 1 ? 1 : this.maxRentalOpportunities,
-            this.maxRentalOpportunities + 1
-          );
+        : randomNumberBetween(this.maxRentalOpportunities, this.maxRentalOpportunities + 1);
 
     for (let i = 0; i < totalRandom; i++) {
       this.rentalCache.getValue(today).push(

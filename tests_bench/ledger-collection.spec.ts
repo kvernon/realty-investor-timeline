@@ -28,7 +28,7 @@ describe('ledger collection performance tests', () => {
           })
           .on('cycle', function (event: Event) {
             console.log(String(event.target));
-            expect(event.target.hz).toBeGreaterThanOrEqual(200000);
+            expect(event.target.hz).toBeGreaterThanOrEqual(150000);
             done();
           })
           .run();

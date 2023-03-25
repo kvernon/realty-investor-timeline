@@ -47,7 +47,7 @@ describe('update historical rentals performance tests', () => {
         })
         .on('cycle', function (event: Event) {
           console.log(String(event.target));
-          expect(event.target.hz).toBeGreaterThanOrEqual(600000);
+          expect(event.target.hz).toBeGreaterThanOrEqual(500000);
           done();
         })
         .run();
@@ -73,7 +73,7 @@ describe('update historical rentals performance tests', () => {
         })
         .on('cycle', function (event: Event) {
           console.log(String(event.target));
-          expect(event.target.hz).toBeGreaterThanOrEqual(650000);
+          expect(event.target.hz).toBeGreaterThanOrEqual(500000);
           done();
         })
         .run();

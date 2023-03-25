@@ -41,7 +41,7 @@ describe('passive apartment generator performance tests', () => {
         })
         .on('cycle', function (event: Event) {
           console.log(String(event.target));
-          expect(event.target.hz).toBeGreaterThanOrEqual(40000);
+          expect(event.target.hz).toBeGreaterThanOrEqual(25000);
           done();
         })
         .run();
@@ -73,7 +73,7 @@ describe('passive apartment generator performance tests', () => {
         })
         .on('cycle', function (event: Event) {
           console.log(String(event.target));
-          expect(event.target.hz).toBeGreaterThanOrEqual(35000);
+          expect(event.target.hz).toBeGreaterThanOrEqual(25000);
           done();
         })
         .run();

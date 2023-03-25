@@ -98,7 +98,7 @@ describe('simulate unit tests', () => {
 
       simulate(options);
 
-      expect(movement).toBeCalledWith(
+      expect(movement).toHaveBeenCalledWith(
         {
           maxYears: options.maxYears,
           startDate: options.startDate,
@@ -109,9 +109,9 @@ describe('simulate unit tests', () => {
         user
       );
 
-      expect(objectAssignSpy).toBeCalledWith(rentalGen, options.generatorOptionsSingleFamily);
-      expect(objectAssignSpy).toBeCalledWith(rentalGen, options.generatorOptionsPassiveApartment);
-      expect(ValueCacheCtor).toBeCalledWith(options.startDate, [], 2);
+      expect(objectAssignSpy).toHaveBeenCalledWith(rentalGen, options.generatorOptionsSingleFamily);
+      expect(objectAssignSpy).toHaveBeenCalledWith(rentalGen, options.generatorOptionsPassiveApartment);
+      expect(ValueCacheCtor).toHaveBeenCalledWith(options.startDate, [], 2);
       expect(RentalGeneratorCtor).toHaveBeenNthCalledWith(1, valueCache, generateSingleFamily);
       expect(RentalGeneratorCtor).toHaveBeenNthCalledWith(2, valueCache, generateRentalPassiveApartment);
     });

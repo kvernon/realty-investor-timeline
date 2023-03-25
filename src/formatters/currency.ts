@@ -6,6 +6,6 @@ export default function (value: number): number {
   const c = value
     .toString()
     .split('.')
-    .map((v, i) => (i % 2 !== 0 ? v.substr(0, 2) : v));
+    .map((v, i) => (i % 2 !== 0 ? v.substring(0, 2) : v));
   return parseFloat(c.join('.'));
 }
