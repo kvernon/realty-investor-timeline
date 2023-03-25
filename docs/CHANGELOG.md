@@ -1,3 +1,11 @@
+# [4.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.0.1...v4.1.0) (2023-03-25)
+
+
+### Features
+
+* dependency updates ([2194be7](https://github.com/kvernon/realty-investor-timeline/commit/2194be74de263a44536243d018a1fb20bfec4a68))
+* node update 18 ([d63ad07](https://github.com/kvernon/realty-investor-timeline/commit/d63ad0764deedeeef7efa0377d72ae776f05fd3d))
+
 ## [4.0.1](https://github.com/kvernon/realty-investor-timeline/compare/v4.0.0...v4.0.1) (2022-07-24)
 
 
