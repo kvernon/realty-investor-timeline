@@ -1,3 +1,15 @@
+# [4.2.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.1.0...v4.2.0) (2025-02-12)
+
+
+### Bug Fixes
+
+* address husky ([#52](https://github.com/kvernon/realty-investor-timeline/issues/52)) ([68e38c5](https://github.com/kvernon/realty-investor-timeline/commit/68e38c5621a2f9659fea2ff453f80a5ab5e778e0))
+
+
+### Features
+
+* updated node + deps ([#51](https://github.com/kvernon/realty-investor-timeline/issues/51)) ([0af133a](https://github.com/kvernon/realty-investor-timeline/commit/0af133a9d83a7ca9f4618d827ad5e53e2f73d63a))
+
 # [4.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.0.1...v4.1.0) (2023-03-25)
 
 
