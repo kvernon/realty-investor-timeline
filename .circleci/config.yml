@@ -171,7 +171,7 @@ jobs:
           command: npm pack
       - run:
           name: release
-          command: CI=false npx semantic-release
+          command: HUSKY=0 npx semantic-release
   faux-publish:
     executor: my-custom-executor
     working_directory: ~/tmp
