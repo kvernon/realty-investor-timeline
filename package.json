@@ -12,7 +12,7 @@
     "prebuild": "npm run clean",
     "pack": "npm pack",
     "pretest": "rimraf ./.jestcache",
-    "prepare": "husky install",
+    "prepare": "husky || true",
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:cov:badge": "jest --coverage --ci --runInBand",
