@@ -35,7 +35,7 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
   canInvestByUser(user: IUser, date: Date, properties: IPropertyEntity[]): IRentalInvestorValidator;
 
   /**
-   * used to compare {@link availableStartDate}, {@param today}, and {@link availableEndDate},
+   * used to compare {@link availableStartDate}, {@link today}, and {@link availableEndDate},
    * @param today
    */
   isAvailableByDate(today: Date): boolean;

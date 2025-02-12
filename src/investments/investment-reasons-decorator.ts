@@ -78,7 +78,6 @@ export function InvestmentReasonForHoldRuleTypes(
  * used to get the value for all properties
  * @param target
  * @param metaDataNameSuffix
- * @constructor
  */
 export function getInvestmentReasons<
   T extends IRentalPropertyEntity & object,
