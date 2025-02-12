@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="9" failures="0" errors="0" time="53.114">
+  <testsuite name="loop performance tests" errors="0" failures="0" skipped="0" timestamp="2025-02-12T11:46:05" time="8.583" tests="1">
+    <testcase classname="loop performance tests should run performance should be performant for looper run" name="loop performance tests should run performance should be performant for looper run" time="5.634">
+    </testcase>
+  </testsuite>
+  <testsuite name="update historical rentals performance tests" errors="0" failures="0" skipped="0" timestamp="2025-02-12T11:46:13" time="11.105" tests="2">
+    <testcase classname="update historical rentals performance tests should run performance generate with non-randoms" name="update historical rentals performance tests should run performance generate with non-randoms" time="5.42">
+    </testcase>
+    <testcase classname="update historical rentals performance tests should run performance generate with randoms" name="update historical rentals performance tests should run performance generate with randoms" time="5.451">
+    </testcase>
+  </testsuite>
+  <testsuite name="single family generator performance tests" errors="0" failures="0" skipped="0" timestamp="2025-02-12T11:46:24" time="11.108" tests="2">
+    <testcase classname="single family generator performance tests should run performance generate with non-randoms" name="single family generator performance tests should run performance generate with non-randoms" time="5.555">
+    </testcase>
+    <testcase classname="single family generator performance tests should run performance generate with randoms" name="single family generator performance tests should run performance generate with randoms" time="5.345">
+    </testcase>
+  </testsuite>
+  <testsuite name="passive apartment generator performance tests" errors="0" failures="0" skipped="0" timestamp="2025-02-12T11:46:35" time="11.101" tests="2">
+    <testcase classname="passive apartment generator performance tests should run performance generate with non-randoms" name="passive apartment generator performance tests should run performance generate with non-randoms" time="5.461">
+    </testcase>
+    <testcase classname="passive apartment generator performance tests should run performance generate with randoms" name="passive apartment generator performance tests should run performance generate with randoms" time="5.414">
+    </testcase>
+  </testsuite>
+  <testsuite name="ledger collection performance tests" errors="0" failures="0" skipped="0" timestamp="2025-02-12T11:46:46" time="11.074" tests="2">
+    <testcase classname="ledger collection performance tests and filter and no ledger items should resolve fast" name="ledger collection performance tests and filter and no ledger items should resolve fast" time="5.475">
+    </testcase>
+    <testcase classname="ledger collection performance tests and filter and 600 ledger items should resolve high" name="ledger collection performance tests and filter and 600 ledger items should resolve high" time="5.387">
+    </testcase>
+  </testsuite>
+</testsuites>
