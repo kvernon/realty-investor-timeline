@@ -1,6 +1,6 @@
 {
   "name": "@cubedelement.com/realty-investor-timeline",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "A way to determine if and when your expenses would be covered",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
