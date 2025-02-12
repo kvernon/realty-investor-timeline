@@ -23,7 +23,8 @@
     "test:ci:int": "jest --config ./jest.ci.integation.config.ts --ci --runInBand",
     "test:gen-badges": "make-coverage-badge --output-path \"./badges/badge.svg\"",
     "test:cov-and-badge": "npm run test:cov:badge && npm run test:gen-badges",
-    "test:related": "jest --findRelatedTests"
+    "test:related": "jest --findRelatedTests",
+    "docs": "npx typedoc --entryPointStrategy Expand src"
   },
   "repository": {
     "type": "git",
@@ -67,6 +68,8 @@
     "semantic-release-cli": "^5.4.4",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
+    "typedoc": "^0.27.7",
+    "typedoc-plugin-markdown": "^4.4.2",
     "typescript": "5.3.3"
   },
   "dependencies": {

@@ -45,7 +45,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
   availableEndDate: Date;
 
   /**
-   * used to compare {@link availableStartDate}, {@param today}, and {@link availableEndDate},
+   * used to compare {@link availableStartDate}, {@link today}, and {@link availableEndDate},
    * @param today
    */
   isAvailableByDate(today: Date): boolean {
@@ -147,7 +147,9 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
   equityCapturePercent: number;
 
   /**
-   * returns a UTC date from date supplied where it is {@code new Date(Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), 1))}
+   * returns a UTC date from date supplied where it is
+   * @example
+   * new Date(Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), 1))
    * @param value
    * @private
    */

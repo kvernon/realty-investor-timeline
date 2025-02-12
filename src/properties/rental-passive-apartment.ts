@@ -69,7 +69,7 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
   }
 
   /**
-   * used to compare {@link availableStartDate}, {@param today}, and {@link availableEndDate},
+   * used to compare {@link availableStartDate}, {@link today}, and {@link availableEndDate},
    * @param today
    */
   isAvailableByDate(today: Date): boolean {
