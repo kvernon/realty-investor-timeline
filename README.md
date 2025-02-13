@@ -12,7 +12,9 @@ Will be based on version 1
 1. https://bitbucket.org/kellyvernon/realty-generator-core (a private repo by me).
 2. version 1 live: http://cubedelement.com/realty/
 
-Note: this above is buggy. I was racing to get the pieces together.
+> Note: this above is buggy. I was racing to get the pieces together.
+
+> Note 2: this is the new version, which isn't live
 
 ## Inspiration
 

@@ -6,7 +6,7 @@
 
 # Enumeration: PropertyType
 
-Defined in: [properties/property-type.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/property-type.ts#L1)
+Defined in: [properties/property-type.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/properties/property-type.ts#L1)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [properties/property-type.ts:1](https://github.com/kvernon/realty-in
 
 > **None**: `0`
 
-Defined in: [properties/property-type.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/property-type.ts#L2)
+Defined in: [properties/property-type.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/properties/property-type.ts#L2)
 
 ---
 
@@ -22,7 +22,7 @@ Defined in: [properties/property-type.ts:2](https://github.com/kvernon/realty-in
 
 > **PassiveApartment**: `2`
 
-Defined in: [properties/property-type.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/property-type.ts#L4)
+Defined in: [properties/property-type.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/properties/property-type.ts#L4)
 
 ---
 
@@ -30,4 +30,4 @@ Defined in: [properties/property-type.ts:4](https://github.com/kvernon/realty-in
 
 > **SingleFamily**: `1`
 
-Defined in: [properties/property-type.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/property-type.ts#L3)
+Defined in: [properties/property-type.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/properties/property-type.ts#L3)

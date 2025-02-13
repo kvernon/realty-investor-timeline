@@ -2,15 +2,15 @@
 
 ---
 
-[@cubedelement.com/realty-investor-timeline](../../../modules.md) / [generators/i-property-entity-options](../index.md) / IPropertyEntityOptions
+[@cubedelement.com/realty-investor-timeline](../../../modules.md) / [time/simulate](../index.md) / IGenOptions
 
-# Interface: IPropertyEntityOptions
+# Interface: IGenOptions
 
-Defined in: [generators/i-property-entity-options.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/generators/i-property-entity-options.ts#L1)
+Defined in: [time/simulate.ts:20](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/time/simulate.ts#L20)
 
-## Extended by
+## Extends
 
-- [`IGenOptions`](../../../time/simulate/interfaces/IGenOptions.md)
+- [`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md)
 
 ## Properties
 
@@ -22,6 +22,10 @@ Defined in: [generators/i-property-entity-options.ts:40](https://github.com/kver
 
 I've seen as high as 630 a month, but on average, depending on the area, I've seen 450 a month
 
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`highestCashFlow`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#highestcashflow)
+
 ---
 
 ### highestEquityCapturePercent
@@ -31,6 +35,10 @@ I've seen as high as 630 a month, but on average, depending on the area, I've se
 Defined in: [generators/i-property-entity-options.ts:20](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/generators/i-property-entity-options.ts#L20)
 
 used to generate a random equity amount, this is the high value
+
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`highestEquityCapturePercent`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#highestequitycapturepercent)
 
 ---
 
@@ -42,6 +50,10 @@ Defined in: [generators/i-property-entity-options.ts:50](https://github.com/kver
 
 For Texas, you should hold for 1 year for the lowest tax rate, but you might want to hold it longer
 
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`highestMinSellInYears`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#highestminsellinyears)
+
 ---
 
 ### highestPurchasePrice
@@ -51,6 +63,10 @@ For Texas, you should hold for 1 year for the lowest tax rate, but you might wan
 Defined in: [generators/i-property-entity-options.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/generators/i-property-entity-options.ts#L10)
 
 used to generate a random price amount, this is the high value
+
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`highestPurchasePrice`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#highestpurchaseprice)
 
 ---
 
@@ -62,6 +78,10 @@ Defined in: [generators/i-property-entity-options.ts:30](https://github.com/kver
 
 for single family it is as high as 14.5 %
 
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`highestSellAppreciationPercent`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#highestsellappreciationpercent)
+
 ---
 
 ### lowestCashFlow
@@ -71,6 +91,10 @@ for single family it is as high as 14.5 %
 Defined in: [generators/i-property-entity-options.ts:35](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/generators/i-property-entity-options.ts#L35)
 
 typically 200 is the lowest
+
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`lowestCashFlow`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#lowestcashflow)
 
 ---
 
@@ -82,6 +106,10 @@ Defined in: [generators/i-property-entity-options.ts:15](https://github.com/kver
 
 used to generate a random equity amount, this is the low value
 
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`lowestEquityCapturePercent`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#lowestequitycapturepercent)
+
 ---
 
 ### lowestMinSellInYears
@@ -91,6 +119,10 @@ used to generate a random equity amount, this is the low value
 Defined in: [generators/i-property-entity-options.ts:45](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/generators/i-property-entity-options.ts#L45)
 
 For Texas, you should hold for 1 year for the lowest tax rate, but you might want to hold it longer
+
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`lowestMinSellInYears`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#lowestminsellinyears)
 
 ---
 
@@ -102,6 +134,10 @@ Defined in: [generators/i-property-entity-options.ts:5](https://github.com/kvern
 
 used to generate a random price amount, this is the low value
 
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`lowestPurchasePrice`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#lowestpurchaseprice)
+
 ---
 
 ### lowestSellAppreciationPercent
@@ -111,3 +147,17 @@ used to generate a random price amount, this is the low value
 Defined in: [generators/i-property-entity-options.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/generators/i-property-entity-options.ts#L25)
 
 for single family it's around 4%
+
+#### Inherited from
+
+[`IPropertyEntityOptions`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md).[`lowestSellAppreciationPercent`](../../../generators/i-property-entity-options/interfaces/IPropertyEntityOptions.md#lowestsellappreciationpercent)
+
+---
+
+### maxRentalOpportunities
+
+> **maxRentalOpportunities**: `number`
+
+Defined in: [time/simulate.ts:24](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/time/simulate.ts#L24)
+
+Used to provide an amount of Random properties

@@ -8,7 +8,7 @@
 
 > **canInvestByUser**(`rental`, `user`, `date`, `properties`): [`IRentalInvestorValidator`](../../../investments/rental-investor-validator/interfaces/IRentalInvestorValidator.md)
 
-Defined in: [calculations/can-invest-by-user.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/calculations/can-invest-by-user.ts#L16)
+Defined in: [calculations/can-invest-by-user.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/calculations/can-invest-by-user.ts#L16)
 
 determines if a user can invest in a property.
 

@@ -8,7 +8,7 @@
 
 > **EvalType**: (`value1`, `value2`) => `boolean`
 
-Defined in: [rules/eval-type.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/rules/eval-type.ts#L1)
+Defined in: [rules/eval-type.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/eval-type.ts#L1)
 
 ## Parameters
 

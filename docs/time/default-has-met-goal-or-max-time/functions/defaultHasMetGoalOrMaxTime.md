@@ -8,7 +8,7 @@
 
 > **defaultHasMetGoalOrMaxTime**(`start`, `today`, `user`, `rentals`, `maxYears`): `boolean`
 
-Defined in: [time/default-has-met-goal-or-max-time.ts:15](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/default-has-met-goal-or-max-time.ts#L15)
+Defined in: [time/default-has-met-goal-or-max-time.ts:15](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/time/default-has-met-goal-or-max-time.ts#L15)
 
 Method will compare basic dates w/ null user and all rentals
 

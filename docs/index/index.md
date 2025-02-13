@@ -170,6 +170,12 @@ Re-exports [IEntityExistence](../properties/i-entity-existence/interfaces/IEntit
 
 ---
 
+### IGenOptions
+
+Re-exports [IGenOptions](../time/simulate/interfaces/IGenOptions.md)
+
+---
+
 ### IHistoricalProperty
 
 Re-exports [IHistoricalProperty](../time/i-historical-property/interfaces/IHistoricalProperty.md)

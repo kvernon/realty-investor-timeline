@@ -17,7 +17,7 @@ import { cloneDateUtc } from '../utils/data-clone-date';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
 import { LoanSettings } from '../loans/loan-settings';
 
-interface IGenOptions extends IPropertyEntityOptions {
+export interface IGenOptions extends IPropertyEntityOptions {
   /**
    * Used to provide an amount of Random properties
    */
@@ -66,7 +66,7 @@ export interface ISimulateOptions {
   maxYears?: number;
 
   /**
-   * This is how the system knows when to quit. If no value is supplied, it will use {@link defaultHasMetGoalOrMaxTime}.
+   * This is how the system knows when to quit. If no value is supplied, it will use `defaultHasMetGoalOrMaxTime`.
    */
   hasMetGoalOrMaxTime?: HasMetGoalOrMaxTime;
 

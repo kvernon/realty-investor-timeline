@@ -6,7 +6,7 @@
 
 # Enumeration: HoldRuleTypes
 
-Defined in: [rules/hold-rule-types.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/rules/hold-rule-types.ts#L1)
+Defined in: [rules/hold-rule-types.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/hold-rule-types.ts#L1)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [rules/hold-rule-types.ts:1](https://github.com/kvernon/realty-inves
 
 > **MinSellIfHighEquityPercent**: `"minSellIfHighEquityPercent"`
 
-Defined in: [rules/hold-rule-types.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/rules/hold-rule-types.ts#L14)
+Defined in: [rules/hold-rule-types.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/hold-rule-types.ts#L14)
 
 this rule states if you have high equity capture, then you'd like to sell it. This is like Unrealized Capital Gain
 
@@ -24,7 +24,7 @@ this rule states if you have high equity capture, then you'd like to sell it. Th
 
 > **MinSellIfLowCashFlowPercent**: `"minSellIfLowCashFlowPercent"`
 
-Defined in: [rules/hold-rule-types.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/rules/hold-rule-types.ts#L9)
+Defined in: [rules/hold-rule-types.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/hold-rule-types.ts#L9)
 
 this rule states that if you have a low cash flow %, then you'd like to sell it
 
@@ -34,7 +34,7 @@ this rule states that if you have a low cash flow %, then you'd like to sell it
 
 > **MinSellInYears**: `"minSellInYears"`
 
-Defined in: [rules/hold-rule-types.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/rules/hold-rule-types.ts#L19)
+Defined in: [rules/hold-rule-types.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/hold-rule-types.ts#L19)
 
 this rule states if you reach an x number of years, then you'd like to sell it
 
@@ -44,6 +44,6 @@ this rule states if you reach an x number of years, then you'd like to sell it
 
 > **None**: `"none"`
 
-Defined in: [rules/hold-rule-types.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/rules/hold-rule-types.ts#L5)
+Defined in: [rules/hold-rule-types.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/hold-rule-types.ts#L5)
 
 no rule
