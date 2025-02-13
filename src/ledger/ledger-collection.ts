@@ -16,8 +16,28 @@ export interface ILedgerCollection {
 
   getCashFlowMonth(date: Date): number;
 
+  /**
+   * This method gets the total of savings needed for all properties by x amount of months.
+   * @example
+   * Example, you typically need 6 months of month per single family home, so if you had 3 homes at 6 months and mortgage was $1000. It would be doing the following: `getMinimumSavings = 3 (SF) * $1000 (mort) * 6 (months) = $18,000`
+   * @example
+   * totals all properties getExpensesByDate * amount needed to save by month, so properties[].getExpensesByDate() * minMonthsRequired.
+   * @param properties
+   * @param date
+   * @param minMonthsRequired
+   */
   getMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired?: number): number;
 
+  /**
+   * determines if there is enough money in the account while forcing a hold on the {@link getMinimumSavings} amount.
+   * @example
+   * ```
+   * hasMinimumSavings = getBalance >= getMinimumSavings
+   * ```
+   * @param properties
+   * @param date
+   * @param minMonthsRequired
+   */
   hasMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired?: number): boolean;
 
   getSummaryMonth(date: Date): ILedgerSummary;
@@ -82,10 +102,23 @@ export class LedgerCollection implements ILedgerCollection {
     this.collection = itiriri(this.collection.prepend(item).toArray());
   }
 
+  /**
+   * is the collection empty?
+   */
   isEmpty(): boolean {
     return this.collection.length() === 0;
   }
 
+  /**
+   * This method gets the total of savings needed for all properties by x amount of months.
+   * @example
+   * Example, you typically need 6 months of month per single family home, so if you had 3 homes at 6 months and mortgage was $1000. It would be doing the following: `getMinimumSavings = 3 (SF) * $1000 (mort) * 6 (months) = $18,000`
+   * @example
+   * totals all properties getExpensesByDate * amount needed to save by month, so properties[].getExpensesByDate() * minMonthsRequired.
+   * @param properties
+   * @param date
+   * @param minMonthsRequired
+   */
   getMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired = 6): number {
     if (!date) {
       throw new Error('no date supplied');
@@ -102,6 +135,16 @@ export class LedgerCollection implements ILedgerCollection {
     );
   }
 
+  /**
+   * determines if there is enough money in the account while forcing a hold on the {@link getMinimumSavings} amount.
+   * @example
+   * ```
+   * hasMinimumSavings = getBalance >= getMinimumSavings
+   * ```
+   * @param properties
+   * @param date
+   * @param minMonthsRequired
+   */
   hasMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired = 6): boolean {
     return this.getBalance(date) >= this.getMinimumSavings(properties, date, minMonthsRequired);
   }

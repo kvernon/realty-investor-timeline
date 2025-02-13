@@ -87,7 +87,9 @@ export class User implements IUser {
   purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[];
 
   /**
-   * based upon {@link getMinimumSavings}, it checks to see if there is an amount remaining that can be used.
+   * based upon {@link getMinimumSavings}, it checks to see if there is an amount remaining that can be used along with the {@link contribution}.
+   * @example
+   * (availableSavings - contribution) >= 0
    * @param date
    * @param properties
    * @param contribution
