@@ -1,3 +1,10 @@
+# [4.4.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.3.0...v4.4.0) (2025-02-14)
+
+
+### Features
+
+* doc flow; isOwner ([#54](https://github.com/kvernon/realty-investor-timeline/issues/54)) ([b077c18](https://github.com/kvernon/realty-investor-timeline/commit/b077c18c251d449d69c1be8ed14736a579e31dab))
+
 # [4.3.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.2.0...v4.3.0) (2025-02-12)
 
 
