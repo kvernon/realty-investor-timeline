@@ -1,3 +1,10 @@
+## [4.5.2](https://github.com/kvernon/realty-investor-timeline/compare/v4.5.1...v4.5.2) (2025-02-14)
+
+
+### Bug Fixes
+
+* has met to check w/ isOwned ([#57](https://github.com/kvernon/realty-investor-timeline/issues/57)) ([135fcd9](https://github.com/kvernon/realty-investor-timeline/commit/135fcd9a023fe2685e1f05bc22a03eaae741877e))
+
 ## [4.5.1](https://github.com/kvernon/realty-investor-timeline/compare/v4.5.0...v4.5.1) (2025-02-14)
 
 
