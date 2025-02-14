@@ -172,8 +172,8 @@ describe('LedgerCollection unit tests', () => {
   });
   describe('and getCashFlowMonth', () => {
     describe('and no date', () => {
-      test('should throw error', () => {
-        expect(() => instance.getCashFlowMonth(null)).toThrow('no date supplied');
+      test('should return 0', () => {
+        expect(instance.getCashFlowMonth(null)).toEqual(0);
       });
     });
     describe('and no ledgerItem', () => {

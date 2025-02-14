@@ -18,7 +18,7 @@ export interface ILedgerCollection {
 
   add(item: LedgerItem | Iterable<LedgerItem>): void;
 
-  getCashFlowMonth(date: Date): number;
+  getCashFlowMonth(date?: Date): number;
 
   /**
    * This method gets the total of savings needed for all properties by x amount of months.
@@ -157,11 +157,7 @@ export class LedgerCollection implements ILedgerCollection {
     return this.getBalance(date) >= this.getMinimumSavings(properties, date, minMonthsRequired);
   }
 
-  getCashFlowMonth(date: Date): number {
-    if (!date) {
-      throw new Error('no date supplied');
-    }
-
+  getCashFlowMonth(date?: Date): number {
     if (this.isEmpty()) {
       return 0;
     }
