@@ -9,6 +9,7 @@ export interface IUserGoal {
   /**
    * method used to help determine if you have met your expenses
    * @param today
+   * @param properties
    */
   metMonthlyGoal(today: Date, properties: IRentalPropertyEntity[]): boolean;
 }

@@ -41,7 +41,7 @@ describe('simulate integration tests', () => {
             propertyType: PropertyType.SingleFamily,
           },
         ],
-        maxYears: 1,
+        maxYears: 2,
         generatorOptionsSingleFamily: {
           highestMinSellInYears: 1,
           lowestMinSellInYears: 1,
@@ -77,6 +77,16 @@ describe('simulate integration tests', () => {
           balance += x.amount;
           return { ...x, balance };
         })
+      );
+
+      console.table(
+        actual.rentals
+          .filter((x) => x.reasons.length > 0)
+          .map((x) => ({
+            address: x.property.address,
+            type: PropertyType[x.property.propertyType],
+            reasons: JSON.stringify(x.reasons),
+          }))
       );
 
       expect(actual.getEstimatedMonthlyCashFlow()).toBeGreaterThan(0);
