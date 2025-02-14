@@ -8,6 +8,10 @@ import { cloneDateUtc } from '../utils/data-clone-date';
 import { differenceInMonths } from 'date-fns';
 
 export interface ILedgerCollection {
+  /**
+   * the total balance in the ledger collection
+   * @param date
+   */
   getBalance(date?: Date): number;
 
   filter(pred?: LedgerItemPredicate): LedgerItem[];
@@ -88,6 +92,10 @@ export class LedgerCollection implements ILedgerCollection {
     return itiriri(this.collection).sort(dateTypeSort).toArray();
   }
 
+  /**
+   * the total balance in the ledger collection
+   * @param date
+   */
   getBalance(date?: Date): number {
     if (this.isEmpty()) {
       return 0;

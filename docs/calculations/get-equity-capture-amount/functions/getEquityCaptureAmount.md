@@ -8,7 +8,7 @@
 
 > **getEquityCaptureAmount**(`investmentPercent`, `purchasePrice`, `salePrice`): `number`
 
-Defined in: [calculations/get-equity-capture-amount.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/calculations/get-equity-capture-amount.ts#L9)
+Defined in: [calculations/get-equity-capture-amount.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/calculations/get-equity-capture-amount.ts#L9)
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 # Interface: IEntityExistence
 
-Defined in: [properties/i-entity-existence.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/properties/i-entity-existence.ts#L1)
+Defined in: [properties/i-entity-existence.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/i-entity-existence.ts#L1)
 
 ## Extended by
 
@@ -18,7 +18,7 @@ Defined in: [properties/i-entity-existence.ts:1](https://github.com/kvernon/real
 
 > **availableEndDate**: `Date`
 
-Defined in: [properties/i-entity-existence.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/properties/i-entity-existence.ts#L9)
+Defined in: [properties/i-entity-existence.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/i-entity-existence.ts#L9)
 
 date which property was removed from the timeline.. think of it like someone else purchased this property
 
@@ -28,6 +28,6 @@ date which property was removed from the timeline.. think of it like someone els
 
 > **availableStartDate**: `Date`
 
-Defined in: [properties/i-entity-existence.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/properties/i-entity-existence.ts#L5)
+Defined in: [properties/i-entity-existence.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/i-entity-existence.ts#L5)
 
 date which property was generated or was available for purchase

@@ -6,7 +6,7 @@
 
 # Interface: IReasonToRuleMeta\<TR\>
 
-Defined in: [investments/reason-to-rule.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/investments/reason-to-rule.ts#L10)
+Defined in: [investments/reason-to-rule.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L10)
 
 ## Extended by
 
@@ -22,7 +22,7 @@ Defined in: [investments/reason-to-rule.ts:10](https://github.com/kvernon/realty
 
 > **investmentReason**: [`InvestmentReasons`](../../investment-reasons/enumerations/InvestmentReasons.md)
 
-Defined in: [investments/reason-to-rule.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/investments/reason-to-rule.ts#L11)
+Defined in: [investments/reason-to-rule.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L11)
 
 ---
 
@@ -30,4 +30,4 @@ Defined in: [investments/reason-to-rule.ts:11](https://github.com/kvernon/realty
 
 > `optional` **ruleType**: `TR`
 
-Defined in: [investments/reason-to-rule.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/investments/reason-to-rule.ts#L12)
+Defined in: [investments/reason-to-rule.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L12)

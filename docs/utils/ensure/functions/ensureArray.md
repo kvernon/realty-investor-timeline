@@ -8,7 +8,7 @@
 
 > **ensureArray**\<`T`\>(`array`?, `options`?): `void`
 
-Defined in: [utils/ensure.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/utils/ensure.ts#L3)
+Defined in: [utils/ensure.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/utils/ensure.ts#L3)
 
 ## Type Parameters
 

@@ -6,7 +6,7 @@
 
 # Enumeration: LedgerItemType
 
-Defined in: [ledger/ledger-item-type.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/ledger/ledger-item-type.ts#L1)
+Defined in: [ledger/ledger-item-type.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item-type.ts#L1)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [ledger/ledger-item-type.ts:1](https://github.com/kvernon/realty-inv
 
 > **CashFlow**: `"Cash Flow"`
 
-Defined in: [ledger/ledger-item-type.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/ledger/ledger-item-type.ts#L3)
+Defined in: [ledger/ledger-item-type.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item-type.ts#L3)
 
 ---
 
@@ -22,7 +22,7 @@ Defined in: [ledger/ledger-item-type.ts:3](https://github.com/kvernon/realty-inv
 
 > **Equity**: `"Equity Capture"`
 
-Defined in: [ledger/ledger-item-type.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/ledger/ledger-item-type.ts#L7)
+Defined in: [ledger/ledger-item-type.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item-type.ts#L7)
 
 ---
 
@@ -30,7 +30,7 @@ Defined in: [ledger/ledger-item-type.ts:7](https://github.com/kvernon/realty-inv
 
 > **Misc**: `"Misc"`
 
-Defined in: [ledger/ledger-item-type.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/ledger/ledger-item-type.ts#L2)
+Defined in: [ledger/ledger-item-type.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item-type.ts#L2)
 
 ---
 
@@ -38,7 +38,7 @@ Defined in: [ledger/ledger-item-type.ts:2](https://github.com/kvernon/realty-inv
 
 > **Purchase**: `"Purchase"`
 
-Defined in: [ledger/ledger-item-type.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/ledger/ledger-item-type.ts#L6)
+Defined in: [ledger/ledger-item-type.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item-type.ts#L6)
 
 ---
 
@@ -46,7 +46,7 @@ Defined in: [ledger/ledger-item-type.ts:6](https://github.com/kvernon/realty-inv
 
 > **Salary**: `"Salary Savings"`
 
-Defined in: [ledger/ledger-item-type.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/ledger/ledger-item-type.ts#L4)
+Defined in: [ledger/ledger-item-type.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item-type.ts#L4)
 
 ---
 
@@ -54,4 +54,4 @@ Defined in: [ledger/ledger-item-type.ts:4](https://github.com/kvernon/realty-inv
 
 > **Saved**: `"Saved Up"`
 
-Defined in: [ledger/ledger-item-type.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/ledger/ledger-item-type.ts#L5)
+Defined in: [ledger/ledger-item-type.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item-type.ts#L5)

@@ -8,7 +8,7 @@
 
 > **default**(`dateA`, `dateB`): `boolean`
 
-Defined in: [utils/data-are-same-date.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/utils/data-are-same-date.ts#L1)
+Defined in: [utils/data-are-same-date.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/utils/data-are-same-date.ts#L1)
 
 ## Parameters
 

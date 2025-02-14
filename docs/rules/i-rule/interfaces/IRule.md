@@ -6,7 +6,7 @@
 
 # Interface: IRule\<E\>
 
-Defined in: [rules/i-rule.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/i-rule.ts#L3)
+Defined in: [rules/i-rule.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/rules/i-rule.ts#L3)
 
 ## Extended by
 
@@ -22,7 +22,7 @@ Defined in: [rules/i-rule.ts:3](https://github.com/kvernon/realty-investor-timel
 
 > **propertyType**: [`PropertyType`](../../../properties/property-type/enumerations/PropertyType.md)
 
-Defined in: [rules/i-rule.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/i-rule.ts#L6)
+Defined in: [rules/i-rule.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/rules/i-rule.ts#L6)
 
 ---
 
@@ -30,7 +30,7 @@ Defined in: [rules/i-rule.ts:6](https://github.com/kvernon/realty-investor-timel
 
 > **type**: `E`
 
-Defined in: [rules/i-rule.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/i-rule.ts#L4)
+Defined in: [rules/i-rule.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/rules/i-rule.ts#L4)
 
 ---
 
@@ -38,4 +38,4 @@ Defined in: [rules/i-rule.ts:4](https://github.com/kvernon/realty-investor-timel
 
 > **value**: `number`
 
-Defined in: [rules/i-rule.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/d14161e46dc540b751017ae4b2cfca53cbab658c/src/rules/i-rule.ts#L5)
+Defined in: [rules/i-rule.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/rules/i-rule.ts#L5)
