@@ -8,7 +8,7 @@
 
 > **cloneDateUtc**(`date`, `datePredicate`?): `Date`
 
-Defined in: [utils/data-clone-date.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/utils/data-clone-date.ts#L6)
+Defined in: [utils/data-clone-date.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/utils/data-clone-date.ts#L6)
 
 takes an existing date, and it creates a new UTC Date with YYYY/MM/01 focus. The time is removed
 

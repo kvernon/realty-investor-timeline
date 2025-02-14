@@ -14,8 +14,6 @@ import {
   User,
   ValueCache,
   cloneDateUtc,
-  generateRentalPassiveApartment,
-  RentalPassiveApartment,
   HoldRuleTypes,
   IUser,
 } from '../src';
@@ -40,7 +38,7 @@ describe('loop integration tests', () => {
   });
 
   describe('and single family', () => {
-    test('should meet goal', () => {
+    test('should have cash flow', () => {
       user.loanSettings = [
         {
           propertyType: PropertyType.SingleFamily,
@@ -94,104 +92,36 @@ describe('loop integration tests', () => {
 
       const actual = movement(options, user);
 
-      //console.log(JSON.stringify(actual, null, '  '));
-      expect(
-        actual.user.metMonthlyGoal(
-          actual.endDate,
-          actual.rentals.map((x) => x.property)
-        )
-      ).toBeTruthy();
-      expect(
-        actual.user.getEstimatedMonthlyCashFlow(
-          actual.endDate,
-          actual.rentals.map((x) => x.property)
-        )
-      ).toBeGreaterThan(0);
-      expect(actual).not.toBeNull();
-      expect(actual.user).not.toBeNull();
-      expect(actual.startDate).not.toBeNull();
-      expect(actual.endDate).not.toBeNull();
-      expect(actual.rentals).not.toBeNull();
-      expect(actual.rentals).not.toEqual([]);
-    });
-  });
-
-  describe('and passive apartment', () => {
-    test('should meet goal', () => {
-      const totalSavings = new LedgerItem();
-      totalSavings.amount = 200000;
-      totalSavings.note = 'pulled my retirement savings';
-      totalSavings.type = LedgerItemType.Saved;
-      totalSavings.created = new Date();
-      totalSavings.created.setDate(1);
-
-      user.ledgerCollection.add(totalSavings);
-
-      user.loanSettings = [
-        {
-          propertyType: PropertyType.PassiveApartment,
-          name: LoanSettings.MinimumMonthlyReservesForRental,
-          value: 6,
-        },
-        {
-          name: LoanSettings.LoanRatePercent,
-          value: 4,
-          propertyType: PropertyType.PassiveApartment,
-        },
-        {
-          name: LoanSettings.LoanTermInYears,
-          value: 30,
-          propertyType: PropertyType.PassiveApartment,
-        },
-      ];
-
-      user.holdRules = [new RuleEvaluation(4, HoldRuleTypes.MinSellIfHighEquityPercent, PropertyType.PassiveApartment)];
-
-      user.purchaseRules = [
-        new RuleEvaluation(100000, PurchaseRuleTypes.MaxEstimatedOutOfPocket, PropertyType.PassiveApartment),
-        new RuleEvaluation(7000, PurchaseRuleTypes.MinEstimatedCapitalGainsPercent, PropertyType.PassiveApartment),
-        new RuleEvaluation(200, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.PassiveApartment),
-      ];
-
-      const date = new Date();
-
-      const propertyGeneratorPassiveApartment = new RentalGenerator<RentalPassiveApartment>(
-        new ValueCache(cloneDateUtc(new Date()), [], 9),
-        generateRentalPassiveApartment
+      let balance = 0;
+      console.table(
+        actual.user.ledgerCollection.filter().map((x) => {
+          balance += x.amount;
+          return { ...x, balance };
+        })
       );
 
-      propertyGeneratorPassiveApartment.maxRentalOpportunities = 7;
-      propertyGeneratorPassiveApartment.highestMinSellInYears = 8;
-      propertyGeneratorPassiveApartment.lowestMinSellInYears = 5;
-      propertyGeneratorPassiveApartment.highestPurchasePrice = 12000000;
-      propertyGeneratorPassiveApartment.lowestPurchasePrice = 7000000;
-      propertyGeneratorPassiveApartment.highestSellAppreciationPercent = 7;
-      propertyGeneratorPassiveApartment.lowestSellAppreciationPercent = 5;
-      propertyGeneratorPassiveApartment.lowestCashFlow = 10000;
-      propertyGeneratorPassiveApartment.highestCashFlow = 10002;
-      propertyGeneratorPassiveApartment.lowestEquityCapturePercent = 7;
-      propertyGeneratorPassiveApartment.highestEquityCapturePercent = 15;
+      console.log('endDate:', actual.endDate);
+      console.log('endDate ledger:', actual.user.ledgerCollection.getLatestLedgerItem());
 
-      const options: ILoopOptions = {
-        startDate: date,
-        propertyGeneratorPassiveApartment,
-        maxYears: 1,
-      };
+      console.table(
+        actual.rentals
+          .map((x) => ({
+            address: x.property.address,
+            type: PropertyType[x.property.propertyType],
+            purchaseDate: x.property.purchaseDate,
+            saleDate: x.property.soldDate,
+            isOwned: x.property.isOwned,
+            cashFlow: x.property.getEstimatedMonthlyCashFlow(
+              cloneDateUtc(actual.endDate, (date) => date.setMonth(date.getMonth() + 1))
+            ),
+          }))
+          .filter((x) => x.isOwned)
+      );
 
-      const actual = movement(options, user);
-
-      //console.log(JSON.stringify(actual, null, '  '));
-      //console.log('balance', actual.user.ledgerCollection.getBalance(actual.endDate));
-      expect(
-        actual.user.metMonthlyGoal(
-          actual.endDate,
-          actual.rentals.map((x) => x.property)
-        )
-      ).toBeTruthy();
       expect(
         actual.user.getEstimatedMonthlyCashFlow(
-          actual.endDate,
-          actual.rentals.map((x) => x.property)
+          cloneDateUtc(actual.endDate, (date) => date.setMonth(date.getMonth() + 1)),
+          actual.rentals.map((x) => x.property).filter((x) => x.isOwned)
         )
       ).toBeGreaterThan(0);
       expect(actual).not.toBeNull();

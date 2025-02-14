@@ -8,7 +8,7 @@
 
 > **HasMetGoalOrMaxTime**: (`start`, `today`, `user`, `rentals`, `maxYears`) => `boolean`
 
-Defined in: [time/has-met-goal-or-max-time.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/has-met-goal-or-max-time.ts#L7)
+Defined in: [time/has-met-goal-or-max-time.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/time/has-met-goal-or-max-time.ts#L7)
 
 a way to determine if the loop should end based on the user's rules
 

@@ -6,7 +6,7 @@
 
 # Interface: IRentalGenerator\<T\>
 
-Defined in: [generators/rental-generator.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/generators/rental-generator.ts#L8)
+Defined in: [generators/rental-generator.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/generators/rental-generator.ts#L8)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [generators/rental-generator.ts:8](https://github.com/kvernon/realty
 
 > **getRentals**(`rentalClassType`, `today`, `settings`?): `T`[]
 
-Defined in: [generators/rental-generator.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/generators/rental-generator.ts#L9)
+Defined in: [generators/rental-generator.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/generators/rental-generator.ts#L9)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [generators/rental-generator.ts:9](https://github.com/kvernon/realty
 
 > **removeRentalById**(`id`, `rentalClassType`, `today`?): `void`
 
-Defined in: [generators/rental-generator.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/generators/rental-generator.ts#L11)
+Defined in: [generators/rental-generator.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/generators/rental-generator.ts#L11)
 
 #### Parameters
 

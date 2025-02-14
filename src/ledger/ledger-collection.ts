@@ -58,6 +58,10 @@ export interface ILedgerCollection {
    */
   getAvailableSavings(date: Date, properties: IRentalPropertyEntity[], minMonthsRequired?: number): number;
 
+  getLatestLedgerItem(): LedgerItem | null;
+
+  getLastLedgerMonth(): LedgerItem[];
+
   clone(): ILedgerCollection;
 }
 
@@ -286,6 +290,24 @@ export class LedgerCollection implements ILedgerCollection {
    */
   getAvailableSavings(date: Date, properties: IRentalPropertyEntity[], minMonthsRequired = 6): number {
     return this.getBalance(date) - this.getMinimumSavings(properties, date, minMonthsRequired);
+  }
+
+  getLatestLedgerItem(): LedgerItem | null {
+    if (this.isEmpty()) {
+      return null;
+    }
+
+    return this.collection.first();
+  }
+
+  getLastLedgerMonth(): LedgerItem[] {
+    const last = this.getLatestLedgerItem();
+
+    if (!last) {
+      return [];
+    }
+
+    return this.filter((li) => li.dateMatchesYearAndMonth(last.created));
   }
 
   clone(): ILedgerCollection {

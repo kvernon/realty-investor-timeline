@@ -32,7 +32,7 @@ export class Timeline implements ITimeline {
   getEstimatedMonthlyCashFlow(): number {
     return this.user.getEstimatedMonthlyCashFlow(
       this.endDate,
-      this.rentals.map((x) => x.property)
+      this.rentals.map((x) => x.property).filter((x) => x.isOwned)
     );
   }
 

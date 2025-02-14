@@ -1,5 +1,5 @@
 import { HoldRuleTypes } from '../src/rules/hold-rule-types';
-import { ISimulateOptions, LoanSettings, PropertyType, PurchaseRuleTypes, simulate } from '../src';
+import { cloneDateUtc, ISimulateOptions, LoanSettings, PropertyType, PurchaseRuleTypes, simulate } from '../src';
 
 describe('simulate integration tests', () => {
   describe('and success', () => {
@@ -73,17 +73,14 @@ describe('simulate integration tests', () => {
       const actual = simulate(options);
       let balance = 0;
       console.table(
-        actual.user.ledgerCollection.filter().map((x) => {
+        actual.user.ledgerCollection.getLastLedgerMonth().map((x) => {
           balance += x.amount;
           return { ...x, balance };
         })
-      ); /*
-      console.table(actual.rentals.filter(x => x.reasons.length > 0).map((x) => ({
-        address: x.property.address,
-        type: PropertyType[x.property.propertyType],
-        reasons: JSON.stringify(x.reasons)
-      })));*/
+      );
+
       expect(actual.getEstimatedMonthlyCashFlow()).toBeGreaterThan(0);
+      expect(actual.endDate).toEqual(cloneDateUtc(actual.user.ledgerCollection.getLatestLedgerItem().created));
       expect(actual.startDate).not.toBeNull();
       expect(actual.endDate).not.toBeNull();
       expect(actual.rentals).not.toBeNull();
@@ -109,7 +106,26 @@ describe('simulate integration tests', () => {
             reasons: JSON.stringify(x.reasons),
           }))
       );
+
+      console.log('endDate:', actual.endDate);
+      console.log('endDate ledger:', actual.user.ledgerCollection.getLatestLedgerItem());
+
+      console.table(
+        actual.rentals
+          .filter((x) => x.reasons.length === 0)
+          .map((x) => ({
+            address: x.property.address,
+            type: PropertyType[x.property.propertyType],
+            purchaseDate: x.property.purchaseDate,
+            saleDate: x.property.soldDate,
+            isOwned: x.property.isOwned,
+            cashFlow: x.property.getEstimatedMonthlyCashFlow(actual.endDate),
+          }))
+          .filter((x) => x.isOwned)
+      );
+
       expect(actual.getEstimatedMonthlyCashFlow()).toBeGreaterThan(0);
+      expect(actual.endDate).toEqual(cloneDateUtc(actual.user.ledgerCollection.getLatestLedgerItem().created));
       expect(actual.startDate).not.toBeNull();
       expect(actual.endDate).not.toBeNull();
       expect(actual.rentals).not.toBeNull();

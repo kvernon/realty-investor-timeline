@@ -8,7 +8,7 @@
 
 > **looper**(`options`, `timeline`): [`ITimeline`](../../timeline/interfaces/ITimeline.md)
 
-Defined in: [time/looper.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/looper.ts#L14)
+Defined in: [time/looper.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/time/looper.ts#L14)
 
 ## Parameters
 
