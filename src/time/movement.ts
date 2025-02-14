@@ -63,7 +63,7 @@ export function movement(options: ILoopOptions, user: IUser): ITimeline {
   } while (
     !options.hasMetGoalOrMaxTime(
       result.startDate,
-      result.endDate,
+      cloneDateUtc(result.user.ledgerCollection.getLatestLedgerItem().created),
       result.user,
       result.rentals.map((x) => x.property).filter((x) => x.isOwned),
       options.maxYears
