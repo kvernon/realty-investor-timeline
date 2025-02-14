@@ -70,5 +70,9 @@ export function movement(options: ILoopOptions, user: IUser): ITimeline {
     )
   );
 
+  if (result.user.ledgerCollection.getLatestLedgerItem()) {
+    result.endDate = cloneDateUtc(result.user.ledgerCollection.getLatestLedgerItem().created);
+  }
+
   return result;
 }

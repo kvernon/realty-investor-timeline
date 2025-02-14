@@ -8,7 +8,7 @@
 
 > **default**(`value`): `number`
 
-Defined in: [formatters/currency.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/formatters/currency.ts#L1)
+Defined in: [formatters/currency.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/formatters/currency.ts#L1)
 
 ## Parameters
 

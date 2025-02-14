@@ -24,6 +24,8 @@ describe('User unit tests', () => {
       getSummaryAnnual: jest.fn(),
       getSummaryMonth: jest.fn(),
       hasMinimumSavings: jest.fn(),
+      getLatestLedgerItem: jest.fn(),
+      getLastLedgerMonth: jest.fn(),
       clone: jest.fn(),
     } as jest.Mocked<ILedgerCollection>;
 

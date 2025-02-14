@@ -6,7 +6,7 @@
 
 # Class: LedgerItem
 
-Defined in: [ledger/ledger-item.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L7)
+Defined in: [ledger/ledger-item.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L7)
 
 this is an entry into the account. Think of it as a checking account, and it's simply a transaction line.
 
@@ -16,7 +16,7 @@ this is an entry into the account. Think of it as a checking account, and it's s
 
 > **new LedgerItem**(`amount`?, `type`?, `created`?, `note`?): [`LedgerItem`](LedgerItem.md)
 
-Defined in: [ledger/ledger-item.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L13)
+Defined in: [ledger/ledger-item.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L13)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: [ledger/ledger-item.ts:13](https://github.com/kvernon/realty-investo
 
 > **amount**: `number` = `0`
 
-Defined in: [ledger/ledger-item.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L10)
+Defined in: [ledger/ledger-item.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L10)
 
 ---
 
@@ -54,7 +54,7 @@ Defined in: [ledger/ledger-item.ts:10](https://github.com/kvernon/realty-investo
 
 > `optional` **created**: `Date`
 
-Defined in: [ledger/ledger-item.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L9)
+Defined in: [ledger/ledger-item.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L9)
 
 ---
 
@@ -62,7 +62,7 @@ Defined in: [ledger/ledger-item.ts:9](https://github.com/kvernon/realty-investor
 
 > `optional` **note**: `string`
 
-Defined in: [ledger/ledger-item.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L11)
+Defined in: [ledger/ledger-item.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L11)
 
 ---
 
@@ -70,7 +70,7 @@ Defined in: [ledger/ledger-item.ts:11](https://github.com/kvernon/realty-investo
 
 > **type**: [`LedgerItemType`](../../ledger-item-type/enumerations/LedgerItemType.md)
 
-Defined in: [ledger/ledger-item.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L8)
+Defined in: [ledger/ledger-item.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L8)
 
 ## Methods
 
@@ -78,7 +78,7 @@ Defined in: [ledger/ledger-item.ts:8](https://github.com/kvernon/realty-investor
 
 > **clone**(): [`LedgerItem`](LedgerItem.md)
 
-Defined in: [ledger/ledger-item.ts:86](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L86)
+Defined in: [ledger/ledger-item.ts:86](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L86)
 
 #### Returns
 
@@ -90,7 +90,7 @@ Defined in: [ledger/ledger-item.ts:86](https://github.com/kvernon/realty-investo
 
 > **dateLessThanOrEqualTo**(`today`): `boolean`
 
-Defined in: [ledger/ledger-item.ts:50](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L50)
+Defined in: [ledger/ledger-item.ts:50](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L50)
 
 #### Parameters
 
@@ -108,7 +108,7 @@ Defined in: [ledger/ledger-item.ts:50](https://github.com/kvernon/realty-investo
 
 > **dateMatchesYear**(`year`): `boolean`
 
-Defined in: [ledger/ledger-item.ts:66](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L66)
+Defined in: [ledger/ledger-item.ts:66](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L66)
 
 #### Parameters
 
@@ -126,7 +126,7 @@ Defined in: [ledger/ledger-item.ts:66](https://github.com/kvernon/realty-investo
 
 > **dateMatchesYearAndMonth**(`today`): `boolean`
 
-Defined in: [ledger/ledger-item.ts:38](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L38)
+Defined in: [ledger/ledger-item.ts:38](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L38)
 
 #### Parameters
 
@@ -144,7 +144,7 @@ Defined in: [ledger/ledger-item.ts:38](https://github.com/kvernon/realty-investo
 
 > **dateNotGreaterThan**(`today`): `boolean`
 
-Defined in: [ledger/ledger-item.ts:58](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L58)
+Defined in: [ledger/ledger-item.ts:58](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L58)
 
 #### Parameters
 
@@ -162,7 +162,7 @@ Defined in: [ledger/ledger-item.ts:58](https://github.com/kvernon/realty-investo
 
 > **getMonth**(): `number`
 
-Defined in: [ledger/ledger-item.ts:26](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L26)
+Defined in: [ledger/ledger-item.ts:26](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L26)
 
 #### Returns
 
@@ -174,7 +174,7 @@ Defined in: [ledger/ledger-item.ts:26](https://github.com/kvernon/realty-investo
 
 > **getYear**(): `number`
 
-Defined in: [ledger/ledger-item.ts:78](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L78)
+Defined in: [ledger/ledger-item.ts:78](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L78)
 
 #### Returns
 
@@ -186,7 +186,7 @@ Defined in: [ledger/ledger-item.ts:78](https://github.com/kvernon/realty-investo
 
 > **isAmountGreaterThanZero**(): `boolean`
 
-Defined in: [ledger/ledger-item.ts:34](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L34)
+Defined in: [ledger/ledger-item.ts:34](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L34)
 
 #### Returns
 
@@ -198,7 +198,7 @@ Defined in: [ledger/ledger-item.ts:34](https://github.com/kvernon/realty-investo
 
 > **typeMatches**(`itemType`): `boolean`
 
-Defined in: [ledger/ledger-item.ts:74](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/ledger/ledger-item.ts#L74)
+Defined in: [ledger/ledger-item.ts:74](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/ledger/ledger-item.ts#L74)
 
 #### Parameters
 
