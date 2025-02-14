@@ -1,3 +1,10 @@
+## [4.5.1](https://github.com/kvernon/realty-investor-timeline/compare/v4.5.0...v4.5.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* rollback date ([#56](https://github.com/kvernon/realty-investor-timeline/issues/56)) ([494354f](https://github.com/kvernon/realty-investor-timeline/commit/494354fe4bcc33a729174d115a2048876c008aac))
+
 # [4.5.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.4.0...v4.5.0) (2025-02-14)
 
 
