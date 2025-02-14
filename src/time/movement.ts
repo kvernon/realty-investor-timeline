@@ -65,7 +65,7 @@ export function movement(options: ILoopOptions, user: IUser): ITimeline {
       result.startDate,
       result.endDate,
       result.user,
-      result.rentals.map((x) => x.property),
+      result.rentals.map((x) => x.property).filter((x) => x.isOwned),
       options.maxYears
     )
   );
