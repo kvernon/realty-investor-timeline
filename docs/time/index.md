@@ -20,6 +20,12 @@ Re-exports [HasMetGoalOrMaxTime](has-met-goal-or-max-time/type-aliases/HasMetGoa
 
 ---
 
+### IGenOptions
+
+Re-exports [IGenOptions](simulate/interfaces/IGenOptions.md)
+
+---
+
 ### IHistoricalProperty
 
 Re-exports [IHistoricalProperty](i-historical-property/interfaces/IHistoricalProperty.md)

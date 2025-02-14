@@ -6,7 +6,7 @@
 
 # Interface: ITimeline
 
-Defined in: [time/timeline.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/timeline.ts#L6)
+Defined in: [time/timeline.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/timeline.ts#L6)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [time/timeline.ts:6](https://github.com/kvernon/realty-investor-time
 
 > **endDate**: `Date`
 
-Defined in: [time/timeline.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/timeline.ts#L8)
+Defined in: [time/timeline.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/timeline.ts#L8)
 
 ---
 
@@ -22,7 +22,7 @@ Defined in: [time/timeline.ts:8](https://github.com/kvernon/realty-investor-time
 
 > **rentals**: [`IHistoricalProperty`](../../i-historical-property/interfaces/IHistoricalProperty.md)[]
 
-Defined in: [time/timeline.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/timeline.ts#L9)
+Defined in: [time/timeline.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/timeline.ts#L9)
 
 ---
 
@@ -30,7 +30,7 @@ Defined in: [time/timeline.ts:9](https://github.com/kvernon/realty-investor-time
 
 > **startDate**: `Date`
 
-Defined in: [time/timeline.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/timeline.ts#L7)
+Defined in: [time/timeline.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/timeline.ts#L7)
 
 ---
 
@@ -38,7 +38,7 @@ Defined in: [time/timeline.ts:7](https://github.com/kvernon/realty-investor-time
 
 > **user**: [`IUser`](../../../account/user/interfaces/IUser.md)
 
-Defined in: [time/timeline.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/timeline.ts#L10)
+Defined in: [time/timeline.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/timeline.ts#L10)
 
 ## Methods
 
@@ -46,7 +46,7 @@ Defined in: [time/timeline.ts:10](https://github.com/kvernon/realty-investor-tim
 
 > **clone**(): [`ITimeline`](ITimeline.md)
 
-Defined in: [time/timeline.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/timeline.ts#L16)
+Defined in: [time/timeline.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/timeline.ts#L16)
 
 #### Returns
 
@@ -58,7 +58,7 @@ Defined in: [time/timeline.ts:16](https://github.com/kvernon/realty-investor-tim
 
 > **getBalance**(`date`?): `number`
 
-Defined in: [time/timeline.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/timeline.ts#L14)
+Defined in: [time/timeline.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/timeline.ts#L14)
 
 #### Parameters
 
@@ -76,7 +76,7 @@ Defined in: [time/timeline.ts:14](https://github.com/kvernon/realty-investor-tim
 
 > **getEstimatedMonthlyCashFlow**(): `number`
 
-Defined in: [time/timeline.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/timeline.ts#L12)
+Defined in: [time/timeline.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/timeline.ts#L12)
 
 #### Returns
 

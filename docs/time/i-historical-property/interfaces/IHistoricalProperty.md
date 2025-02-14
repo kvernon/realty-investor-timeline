@@ -6,7 +6,7 @@
 
 # Interface: IHistoricalProperty
 
-Defined in: [time/i-historical-property.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/i-historical-property.ts#L4)
+Defined in: [time/i-historical-property.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/i-historical-property.ts#L4)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [time/i-historical-property.ts:4](https://github.com/kvernon/realty-
 
 > **property**: [`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)
 
-Defined in: [time/i-historical-property.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/i-historical-property.ts#L5)
+Defined in: [time/i-historical-property.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/i-historical-property.ts#L5)
 
 ---
 
@@ -22,4 +22,4 @@ Defined in: [time/i-historical-property.ts:5](https://github.com/kvernon/realty-
 
 > **reasons**: [`IHistoricalReason`](../../i-historical-reason/interfaces/IHistoricalReason.md)[]
 
-Defined in: [time/i-historical-property.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/i-historical-property.ts#L6)
+Defined in: [time/i-historical-property.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/i-historical-property.ts#L6)

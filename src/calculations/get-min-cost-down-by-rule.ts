@@ -10,7 +10,7 @@ export function getMinCostDownByRule(
     throw new Error('Invalid Argument: rental is falsy');
   }
 
-  const investmentReasonsForPurchaseTypes = getInvestmentReasonsForPurchaseTypes<IRentalPropertyEntity>(rental); //?
+  const investmentReasonsForPurchaseTypes = getInvestmentReasonsForPurchaseTypes<IRentalPropertyEntity>(rental);
 
   const resultReasonToRule = investmentReasonsForPurchaseTypes.find((reasonToRule) =>
     reasonToRule.isRuleMatch(PurchaseRuleTypes.MaxEstimatedOutOfPocket)

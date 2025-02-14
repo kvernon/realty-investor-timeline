@@ -8,6 +8,7 @@
 
 ## Interfaces
 
+- [IGenOptions](interfaces/IGenOptions.md)
 - [ISimulateOptions](interfaces/ISimulateOptions.md)
 
 ## Functions

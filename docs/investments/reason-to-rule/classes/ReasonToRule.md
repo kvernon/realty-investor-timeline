@@ -6,7 +6,7 @@
 
 # Class: ReasonToRule\<T, TR\>
 
-Defined in: [investments/reason-to-rule.ts:39](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L39)
+Defined in: [investments/reason-to-rule.ts:39](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L39)
 
 ## Type Parameters
 
@@ -24,7 +24,7 @@ Defined in: [investments/reason-to-rule.ts:39](https://github.com/kvernon/realty
 
 > **new ReasonToRule**\<`T`, `TR`\>(`investmentReason`, `propertyType`, `propertyKey`, `value`, `ruleType`?, `overrideUserResultEstimates`?): [`ReasonToRule`](ReasonToRule.md)\<`T`, `TR`\>
 
-Defined in: [investments/reason-to-rule.ts:44](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L44)
+Defined in: [investments/reason-to-rule.ts:44](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L44)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ keyof `T` & `string`
 
 > **investmentReason**: [`InvestmentReasons`](../../investment-reasons/enumerations/InvestmentReasons.md)
 
-Defined in: [investments/reason-to-rule.ts:84](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L84)
+Defined in: [investments/reason-to-rule.ts:84](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L84)
 
 #### Implementation of
 
@@ -74,7 +74,7 @@ Defined in: [investments/reason-to-rule.ts:84](https://github.com/kvernon/realty
 
 > **propertyKey**: keyof `T` & `string`
 
-Defined in: [investments/reason-to-rule.ts:129](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L129)
+Defined in: [investments/reason-to-rule.ts:129](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L129)
 
 #### Implementation of
 
@@ -86,7 +86,7 @@ Defined in: [investments/reason-to-rule.ts:129](https://github.com/kvernon/realt
 
 > **propertyType**: [`PropertyType`](../../../properties/property-type/enumerations/PropertyType.md)
 
-Defined in: [investments/reason-to-rule.ts:130](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L130)
+Defined in: [investments/reason-to-rule.ts:130](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L130)
 
 #### Implementation of
 
@@ -98,7 +98,7 @@ Defined in: [investments/reason-to-rule.ts:130](https://github.com/kvernon/realt
 
 > **ruleType**: `TR`
 
-Defined in: [investments/reason-to-rule.ts:131](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L131)
+Defined in: [investments/reason-to-rule.ts:131](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L131)
 
 #### Implementation of
 
@@ -110,7 +110,7 @@ Defined in: [investments/reason-to-rule.ts:131](https://github.com/kvernon/realt
 
 > **values**: `number`[]
 
-Defined in: [investments/reason-to-rule.ts:132](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L132)
+Defined in: [investments/reason-to-rule.ts:132](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L132)
 
 #### Implementation of
 
@@ -122,7 +122,7 @@ Defined in: [investments/reason-to-rule.ts:132](https://github.com/kvernon/realt
 
 > **getValueAtIndex**(`index`): `number`
 
-Defined in: [investments/reason-to-rule.ts:98](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L98)
+Defined in: [investments/reason-to-rule.ts:98](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L98)
 
 #### Parameters
 
@@ -144,7 +144,7 @@ Defined in: [investments/reason-to-rule.ts:98](https://github.com/kvernon/realty
 
 > **isRuleAndPropertyTypeMatch**(`propertyType`, `ruleType`): `boolean`
 
-Defined in: [investments/reason-to-rule.ts:86](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L86)
+Defined in: [investments/reason-to-rule.ts:86](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L86)
 
 #### Parameters
 
@@ -170,7 +170,7 @@ Defined in: [investments/reason-to-rule.ts:86](https://github.com/kvernon/realty
 
 > **isRuleMatch**(`ruleType`): `boolean`
 
-Defined in: [investments/reason-to-rule.ts:90](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L90)
+Defined in: [investments/reason-to-rule.ts:90](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L90)
 
 #### Parameters
 
@@ -192,7 +192,7 @@ Defined in: [investments/reason-to-rule.ts:90](https://github.com/kvernon/realty
 
 > **isRuleNone**(): `boolean`
 
-Defined in: [investments/reason-to-rule.ts:94](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L94)
+Defined in: [investments/reason-to-rule.ts:94](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L94)
 
 #### Returns
 
@@ -208,7 +208,7 @@ Defined in: [investments/reason-to-rule.ts:94](https://github.com/kvernon/realty
 
 > **isValueGreater**\<`T2`\>(`rule`): `boolean`
 
-Defined in: [investments/reason-to-rule.ts:60](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L60)
+Defined in: [investments/reason-to-rule.ts:60](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L60)
 
 #### Type Parameters
 
@@ -234,7 +234,7 @@ Defined in: [investments/reason-to-rule.ts:60](https://github.com/kvernon/realty
 
 > **userResultEstimates**(`rental`, `holdRules`, `purchaseRules`, `date`): [`UserInvestResult`](../../user-invest-result/classes/UserInvestResult.md)[]
 
-Defined in: [investments/reason-to-rule.ts:106](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/investments/reason-to-rule.ts#L106)
+Defined in: [investments/reason-to-rule.ts:106](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/investments/reason-to-rule.ts#L106)
 
 #### Parameters
 

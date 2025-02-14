@@ -56,6 +56,9 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
     return compareDates(this.availableStartDate, today) === -1 && compareDates(today, this.availableEndDate) === -1;
   }
 
+  /**
+   * looks at @{link wasPurchased} and checks if {@soldDate} is `undefined` or `null`
+   */
   get isOwned(): boolean {
     return this.wasPurchased && !this.soldDate;
   }

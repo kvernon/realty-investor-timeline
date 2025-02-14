@@ -85,7 +85,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
   if (
     !result.user.hasMoneyToInvest(
       timeline.endDate,
-      result.rentals.map((x) => x.property)
+      result.rentals.map((x) => x.property).filter((x) => x.isOwned)
     )
   ) {
     return result;

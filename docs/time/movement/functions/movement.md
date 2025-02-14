@@ -8,7 +8,7 @@
 
 > **movement**(`options`, `user`): [`ITimeline`](../../timeline/interfaces/ITimeline.md)
 
-Defined in: [time/movement.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/time/movement.ts#L19)
+Defined in: [time/movement.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/time/movement.ts#L19)
 
 This is where the magic happens. You provide the options, and you let this calculate the rest.
 

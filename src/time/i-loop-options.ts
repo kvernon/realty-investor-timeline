@@ -13,7 +13,7 @@ export interface ILoopOptions extends ILoopRecursiveOptions {
   maxYears?: number;
 
   /**
-   * This is how the system knows when to quit. If no value is supplied, it will use {@link defaultHasMetGoalOrMaxTime}.
+   * This is how the system knows when to quit. If no value is supplied, it will use `defaultHasMetGoalOrMaxTime`.
    */
   hasMetGoalOrMaxTime?: HasMetGoalOrMaxTime;
 }

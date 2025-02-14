@@ -6,7 +6,7 @@
 
 # Class: RentalSingleFamily
 
-Defined in: [properties/rental-single-family.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L25)
+Defined in: [properties/rental-single-family.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L25)
 
 ## Implements
 
@@ -29,7 +29,7 @@ Defined in: [properties/rental-single-family.ts:25](https://github.com/kvernon/r
 
 > **\_soldDate**: `Date`
 
-Defined in: [properties/rental-single-family.ts:183](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L183)
+Defined in: [properties/rental-single-family.ts:186](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L186)
 
 the date this property was sold where you no longer receive investment cash
 
@@ -39,7 +39,7 @@ the date this property was sold where you no longer receive investment cash
 
 > **address**: `string`
 
-Defined in: [properties/rental-single-family.ts:36](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L36)
+Defined in: [properties/rental-single-family.ts:36](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L36)
 
 address of property
 
@@ -53,7 +53,7 @@ address of property
 
 > **availableEndDate**: `Date`
 
-Defined in: [properties/rental-single-family.ts:45](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L45)
+Defined in: [properties/rental-single-family.ts:45](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L45)
 
 date which property was removed from the timeline.. think of it like someone else purchased this property
 
@@ -67,7 +67,7 @@ date which property was removed from the timeline.. think of it like someone els
 
 > **availableStartDate**: `Date`
 
-Defined in: [properties/rental-single-family.ts:40](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L40)
+Defined in: [properties/rental-single-family.ts:40](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L40)
 
 date which property was generated or was available for purchase
 
@@ -81,7 +81,7 @@ date which property was generated or was available for purchase
 
 > **cashDownPercent**: `number`
 
-Defined in: [properties/rental-single-family.ts:110](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L110)
+Defined in: [properties/rental-single-family.ts:113](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L113)
 
 the percent down on the property xx out of 100, or 23% as an example
 
@@ -91,7 +91,7 @@ the percent down on the property xx out of 100, or 23% as an example
 
 > **equityCapturePercent**: `number`
 
-Defined in: [properties/rental-single-family.ts:147](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L147)
+Defined in: [properties/rental-single-family.ts:150](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L150)
 
 this can be between 10 - 20%
 
@@ -105,7 +105,7 @@ this can be between 10 - 20%
 
 > **id**: `string`
 
-Defined in: [properties/rental-single-family.ts:31](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L31)
+Defined in: [properties/rental-single-family.ts:31](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L31)
 
 unique identifier
 
@@ -119,7 +119,7 @@ unique identifier
 
 > **minSellYears**: `number` = `0`
 
-Defined in: [properties/rental-single-family.ts:202](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L202)
+Defined in: [properties/rental-single-family.ts:205](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L205)
 
 number of years to hold the property before being sold, default is 0. and this is used to calculated the [minSellDate](RentalSingleFamily.md#minselldate)
 
@@ -133,7 +133,7 @@ number of years to hold the property before being sold, default is 0. and this i
 
 > **monthlyPrincipalInterestTaxInterest**: `number`
 
-Defined in: [properties/rental-single-family.ts:105](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L105)
+Defined in: [properties/rental-single-family.ts:108](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L108)
 
 the project monthly payment
 
@@ -143,7 +143,7 @@ the project monthly payment
 
 > `readonly` **propertyType**: [`PropertyType`](../../property-type/enumerations/PropertyType.md) = `PropertyType.SingleFamily`
 
-Defined in: [properties/rental-single-family.ts:26](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L26)
+Defined in: [properties/rental-single-family.ts:26](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L26)
 
 used when evaluating rules
 
@@ -157,7 +157,7 @@ used when evaluating rules
 
 > **purchasePrice**: `number`
 
-Defined in: [properties/rental-single-family.ts:87](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L87)
+Defined in: [properties/rental-single-family.ts:90](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L90)
 
 At the time of purchase the ARV of the property
 
@@ -171,7 +171,7 @@ At the time of purchase the ARV of the property
 
 > **rawCashFlow**: `number`
 
-Defined in: [properties/rental-single-family.ts:273](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L273)
+Defined in: [properties/rental-single-family.ts:276](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L276)
 
 the cashOnCash return
 
@@ -185,7 +185,7 @@ the cashOnCash return
 
 > **sellPriceAppreciationPercent**: `number` = `4`
 
-Defined in: [properties/rental-single-family.ts:92](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L92)
+Defined in: [properties/rental-single-family.ts:95](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L95)
 
 the percent at which the property's value grows, for the US it spans from 4% (2019) to 14.5% (2021), this will default to 4
 
@@ -201,7 +201,7 @@ the percent at which the property's value grows, for the US it spans from 4% (20
 
 > **get** **costDownPrice**(): `number`
 
-Defined in: [properties/rental-single-family.ts:116](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L116)
+Defined in: [properties/rental-single-family.ts:119](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L119)
 
 it's the purchase down
 
@@ -223,7 +223,7 @@ it's the purchase down
 
 > **get** **estimatedCashOnCashReturn**(): `number`
 
-Defined in: [properties/rental-single-family.ts:291](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L291)
+Defined in: [properties/rental-single-family.ts:294](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L294)
 
 ##### Returns
 
@@ -241,7 +241,7 @@ Defined in: [properties/rental-single-family.ts:291](https://github.com/kvernon/
 
 > **get** **estimatedReturnOnCapitalGain**(): `number`
 
-Defined in: [properties/rental-single-family.ts:299](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L299)
+Defined in: [properties/rental-single-family.ts:302](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L302)
 
 ##### Returns
 
@@ -259,7 +259,9 @@ Defined in: [properties/rental-single-family.ts:299](https://github.com/kvernon/
 
 > **get** **isOwned**(): `boolean`
 
-Defined in: [properties/rental-single-family.ts:59](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L59)
+Defined in: [properties/rental-single-family.ts:62](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L62)
+
+looks at @{link wasPurchased} and checks if {@soldDate } is `undefined` or `null`
 
 ##### Returns
 
@@ -277,7 +279,7 @@ Defined in: [properties/rental-single-family.ts:59](https://github.com/kvernon/r
 
 > **get** **minSellDate**(): `Date`
 
-Defined in: [properties/rental-single-family.ts:219](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L219)
+Defined in: [properties/rental-single-family.ts:222](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L222)
 
 projects when you can sell this property using [purchaseDate](RentalSingleFamily.md#purchasedate) and [minSellYears](RentalSingleFamily.md#minsellyears)
 
@@ -293,7 +295,7 @@ projects when you can sell this property using [purchaseDate](RentalSingleFamily
 
 > **get** **offeredInvestmentAmounts**(): `number`[]
 
-Defined in: [properties/rental-single-family.ts:127](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L127)
+Defined in: [properties/rental-single-family.ts:130](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L130)
 
 a range of amounts that the user can invest for the property: typically this is the [costDownPrice](RentalSingleFamily.md#costdownprice)
 
@@ -313,7 +315,7 @@ a range of amounts that the user can invest for the property: typically this is 
 
 > **get** **purchaseDate**(): `Date`
 
-Defined in: [properties/rental-single-family.ts:176](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L176)
+Defined in: [properties/rental-single-family.ts:179](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L179)
 
 the date this property was acquired, and you receive investment cash
 
@@ -325,7 +327,7 @@ the date this property was acquired, and you receive investment cash
 
 > **set** **purchaseDate**(`value`): `void`
 
-Defined in: [properties/rental-single-family.ts:169](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L169)
+Defined in: [properties/rental-single-family.ts:172](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L172)
 
 the date this property was acquired, and you receive investment cash
 
@@ -351,7 +353,7 @@ the date this property was acquired, and you receive investment cash
 
 > **get** **rawEstimatedAnnualCashFlow**(): `number`
 
-Defined in: [properties/rental-single-family.ts:283](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L283)
+Defined in: [properties/rental-single-family.ts:286](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L286)
 
 the estimated annual cashFlow return
 
@@ -371,7 +373,7 @@ the estimated annual cashFlow return
 
 > **get** **soldDate**(): `Date`
 
-Defined in: [properties/rental-single-family.ts:195](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L195)
+Defined in: [properties/rental-single-family.ts:198](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L198)
 
 the date this property was sold where you no longer receive investment cash
 
@@ -383,7 +385,7 @@ the date this property was sold where you no longer receive investment cash
 
 > **set** **soldDate**(`value`): `void`
 
-Defined in: [properties/rental-single-family.ts:188](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L188)
+Defined in: [properties/rental-single-family.ts:191](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L191)
 
 the date this property was sold where you no longer receive investment cash
 
@@ -409,7 +411,7 @@ the date this property was sold where you no longer receive investment cash
 
 > **get** **wasPurchased**(): `boolean`
 
-Defined in: [properties/rental-single-family.ts:66](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L66)
+Defined in: [properties/rental-single-family.ts:69](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L69)
 
 a check to see if the property was purchased
 
@@ -427,7 +429,7 @@ a check to see if the property was purchased
 
 > **canInvestByUser**(`user`, `date`, `properties`): [`IRentalInvestorValidator`](../../../investments/rental-investor-validator/interfaces/IRentalInvestorValidator.md)
 
-Defined in: [properties/rental-single-family.ts:76](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L76)
+Defined in: [properties/rental-single-family.ts:79](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L79)
 
 get a user, and other owned properties, to determine if a user can invest
 
@@ -459,7 +461,7 @@ get a user, and other owned properties, to determine if a user can invest
 
 > **canSell**(`today`): `boolean`
 
-Defined in: [properties/rental-single-family.ts:208](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L208)
+Defined in: [properties/rental-single-family.ts:211](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L211)
 
 looks at [isOwned](RentalSingleFamily.md#isowned) and also compares dates to see if the property can sell;
 
@@ -483,7 +485,7 @@ looks at [isOwned](RentalSingleFamily.md#isowned) and also compares dates to see
 
 > **clone**(): [`RentalSingleFamily`](RentalSingleFamily.md)
 
-Defined in: [properties/rental-single-family.ts:269](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L269)
+Defined in: [properties/rental-single-family.ts:272](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L272)
 
 make a copy
 
@@ -501,7 +503,7 @@ make a copy
 
 > **getCashFlowByDate**(`today`): `number`
 
-Defined in: [properties/rental-single-family.ts:230](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L230)
+Defined in: [properties/rental-single-family.ts:233](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L233)
 
 1. you must have purchased this home
 2. this home must not have been sold
@@ -526,7 +528,7 @@ Defined in: [properties/rental-single-family.ts:230](https://github.com/kvernon/
 
 > **getEquityFromSell**(`today`): `number`
 
-Defined in: [properties/rental-single-family.ts:135](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L135)
+Defined in: [properties/rental-single-family.ts:138](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L138)
 
 Determines the equity of a sale by date. Note: [soldDate](RentalSingleFamily.md#solddate) must be populated and today and it must match
 
@@ -550,7 +552,7 @@ Determines the equity of a sale by date. Note: [soldDate](RentalSingleFamily.md#
 
 > **getEstimatedMonthlyCashFlow**(`today`): `number`
 
-Defined in: [properties/rental-single-family.ts:246](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L246)
+Defined in: [properties/rental-single-family.ts:249](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L249)
 
 universal method to determine cash flow on a monthly basis
 
@@ -574,7 +576,7 @@ universal method to determine cash flow on a monthly basis
 
 > **getExpensesByDate**(`today`): `number`
 
-Defined in: [properties/rental-single-family.ts:254](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L254)
+Defined in: [properties/rental-single-family.ts:257](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L257)
 
 used to determine what the cost of property is per month. If no purchase date or it has a sold date, then 0, otherwise there is an amount
 
@@ -598,7 +600,7 @@ used to determine what the cost of property is per month. If no purchase date or
 
 > **isAvailableByDate**(`today`): `boolean`
 
-Defined in: [properties/rental-single-family.ts:51](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L51)
+Defined in: [properties/rental-single-family.ts:51](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L51)
 
 used to compare [availableStartDate](RentalSingleFamily.md#availablestartdate), [today](RentalSingleFamily.md#today-5), and [availableEndDate](RentalSingleFamily.md#availableenddate),
 
@@ -622,7 +624,7 @@ used to compare [availableStartDate](RentalSingleFamily.md#availablestartdate), 
 
 > **sellPriceByDate**(`today`): `number`
 
-Defined in: [properties/rental-single-family.ts:98](https://github.com/kvernon/realty-investor-timeline/blob/604db9c08bd36b2a48c8b342796ed6cd0d1401e0/src/properties/rental-single-family.ts#L98)
+Defined in: [properties/rental-single-family.ts:101](https://github.com/kvernon/realty-investor-timeline/blob/806c805529d356deb12c125749ddea89a26850dd/src/properties/rental-single-family.ts#L101)
 
 lame way to apply [sellPriceAppreciationPercent](RentalSingleFamily.md#sellpriceappreciationpercent) to rolling over the years the property was owned
 
