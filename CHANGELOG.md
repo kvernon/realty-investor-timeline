@@ -1,3 +1,10 @@
+# [4.5.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.4.0...v4.5.0) (2025-02-14)
+
+
+### Features
+
+* make getCashflow more open ([#55](https://github.com/kvernon/realty-investor-timeline/issues/55)) ([f9dd40c](https://github.com/kvernon/realty-investor-timeline/commit/f9dd40cecbceaccc7307019941e0560fce6eb74b))
+
 # [4.4.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.3.0...v4.4.0) (2025-02-14)
 
 
