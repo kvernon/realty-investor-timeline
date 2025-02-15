@@ -1,3 +1,10 @@
+# [4.6.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.5.3...v4.6.0) (2025-02-15)
+
+
+### Features
+
+* get year avg cash flow ([#59](https://github.com/kvernon/realty-investor-timeline/issues/59)) ([9eb6796](https://github.com/kvernon/realty-investor-timeline/commit/9eb6796f49947a7ba68fe83d3097d458e5dbbd39))
+
 ## [4.5.3](https://github.com/kvernon/realty-investor-timeline/compare/v4.5.2...v4.5.3) (2025-02-14)
 
 
