@@ -44,6 +44,12 @@ export interface ILedgerCollection {
    */
   hasMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired?: number): boolean;
 
+  /**
+   * used to get the average cash flow for the year.
+   * @param date
+   */
+  getCashFlowYearAverage(date?: Date): number;
+
   getSummaryMonth(date: Date): ILedgerSummary;
 
   getSummaryAnnual(year?: number): ILedgerSummary;
@@ -161,12 +167,42 @@ export class LedgerCollection implements ILedgerCollection {
     return this.getBalance(date) >= this.getMinimumSavings(properties, date, minMonthsRequired);
   }
 
+  getAverageByType(collection: LedgerItem[], type: LedgerItemType): number {
+    return this.getSummaryByType(collection, type) / collection.filter((x) => x.typeMatches(type)).length;
+  }
+
+  /**
+   * used to get the average cash flow for the year.
+   * @param date
+   */
+  getCashFlowYearAverage(date?: Date): number {
+    if (this.isEmpty()) {
+      return 0;
+    }
+
+    if (!date) {
+      date = this.collection.last().created;
+    }
+
+    const boundary = this.filter((li) => li.dateMatchesYear(date.getUTCFullYear()));
+
+    if (boundary.length === 0) {
+      return 0;
+    }
+
+    return this.getAverageByType(boundary, LedgerItemType.CashFlow);
+  }
+
   getCashFlowMonth(date?: Date): number {
     if (this.isEmpty()) {
       return 0;
     }
 
-    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.collection.last().created));
+    if (!date) {
+      date = this.collection.last().created;
+    }
+
+    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date));
 
     if (boundary.length === 0) {
       return 0;
