@@ -17,6 +17,7 @@ describe('User unit tests', () => {
       getAvailableSavings: jest.fn(),
       filter: jest.fn(),
       add: jest.fn(),
+      getCashFlowYearAverage: jest.fn(),
       getBalance: jest.fn(),
       getCashFlowMonth: jest.fn(),
       getMinimumSavings: jest.fn(),

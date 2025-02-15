@@ -59,6 +59,7 @@ describe('looper unit tests', () => {
     user = {
       ledgerCollection: {
         add: jest.fn(),
+        getCashFlowYearAverage: jest.fn(),
         getBalance: jest.fn(),
         getMinimumSavings: jest.fn(),
         clone: jest.fn().mockReturnThis(),
