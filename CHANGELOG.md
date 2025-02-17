@@ -1,3 +1,10 @@
+# [4.7.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.6.0...v4.7.0) (2025-02-17)
+
+
+### Features
+
+* get monthly cashflow collection by year ([#60](https://github.com/kvernon/realty-investor-timeline/issues/60)) ([4feabdc](https://github.com/kvernon/realty-investor-timeline/commit/4feabdc6dcde6ebb5d2e0de43cc812ae7b03aaab))
+
 # [4.6.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.5.3...v4.6.0) (2025-02-15)
 
 
