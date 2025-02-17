@@ -8,7 +8,7 @@
 
 > **UserResultEstimates**: (`rental`, `holdRules`, `purchaseRules`, `date`) => [`UserInvestResult`](../../user-invest-result/classes/UserInvestResult.md)[]
 
-Defined in: [investments/user-result-estimates.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/user-result-estimates.ts#L7)
+Defined in: [investments/user-result-estimates.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-result-estimates.ts#L7)
 
 ## Parameters
 

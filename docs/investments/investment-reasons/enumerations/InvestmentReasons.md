@@ -6,7 +6,7 @@
 
 # Enumeration: InvestmentReasons
 
-Defined in: [investments/investment-reasons.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L1)
+Defined in: [investments/investment-reasons.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L1)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [investments/investment-reasons.ts:1](https://github.com/kvernon/rea
 
 > **DoesNotMeetUserRuleAnnualCashFlow**: `6`
 
-Defined in: [investments/investment-reasons.ts:34](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L34)
+Defined in: [investments/investment-reasons.ts:34](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L34)
 
 The user wants a certain amount of annual cash flow
 
@@ -24,7 +24,7 @@ The user wants a certain amount of annual cash flow
 
 > **DoesNotMeetUserRuleAskingPrice**: `8`
 
-Defined in: [investments/investment-reasons.ts:44](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L44)
+Defined in: [investments/investment-reasons.ts:44](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L44)
 
 Property's asking price, or market value, is not met
 
@@ -34,7 +34,7 @@ Property's asking price, or market value, is not met
 
 > **DoesNotMeetUserRuleCapitalGain**: `10`
 
-Defined in: [investments/investment-reasons.ts:54](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L54)
+Defined in: [investments/investment-reasons.ts:54](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L54)
 
 Properties capital gain percent from purchase is lower than expected
 
@@ -44,7 +44,7 @@ Properties capital gain percent from purchase is lower than expected
 
 > **DoesNotMeetUserRuleCashOnCash**: `5`
 
-Defined in: [investments/investment-reasons.ts:29](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L29)
+Defined in: [investments/investment-reasons.ts:29](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L29)
 
 The user wants a certain percent of annual cash flow
 
@@ -54,7 +54,7 @@ The user wants a certain percent of annual cash flow
 
 > **DoesNotMeetUserRuleEquityCapture**: `4`
 
-Defined in: [investments/investment-reasons.ts:24](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L24)
+Defined in: [investments/investment-reasons.ts:24](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L24)
 
 The user wants a certain amount of Unrealized Capital Gain (Equity)
 
@@ -64,7 +64,7 @@ The user wants a certain amount of Unrealized Capital Gain (Equity)
 
 > **DoesNotMeetUserRuleOutOfPocket**: `9`
 
-Defined in: [investments/investment-reasons.ts:49](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L49)
+Defined in: [investments/investment-reasons.ts:49](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L49)
 
 Property's cost down, or out of pocket expense, is larger than desired
 
@@ -74,7 +74,7 @@ Property's cost down, or out of pocket expense, is larger than desired
 
 > **NoRules**: `1`
 
-Defined in: [investments/investment-reasons.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L10)
+Defined in: [investments/investment-reasons.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L10)
 
 no rule applied
 
@@ -84,7 +84,7 @@ no rule applied
 
 > **PropertyIsAlreadyOwned**: `7`
 
-Defined in: [investments/investment-reasons.ts:39](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L39)
+Defined in: [investments/investment-reasons.ts:39](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L39)
 
 Property is already owned
 
@@ -94,7 +94,7 @@ Property is already owned
 
 > **Unknown**: `0`
 
-Defined in: [investments/investment-reasons.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L5)
+Defined in: [investments/investment-reasons.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L5)
 
 unknown rule match
 
@@ -104,7 +104,7 @@ unknown rule match
 
 > **UserHasNoMoneyToInvest**: `2`
 
-Defined in: [investments/investment-reasons.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L14)
+Defined in: [investments/investment-reasons.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L14)
 
 No money for the user to invest with at this time
 
@@ -114,6 +114,6 @@ No money for the user to invest with at this time
 
 > **UserHasNotSavedEnoughMoney**: `3`
 
-Defined in: [investments/investment-reasons.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons.ts#L19)
+Defined in: [investments/investment-reasons.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons.ts#L19)
 
 The user has money, however, the user does not have enough to invest with at this time

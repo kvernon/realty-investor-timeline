@@ -26,10 +26,15 @@ export const generateSingleFamily: GenerateProperty<RentalSingleFamily> = (
   const cashDownPercentForSingleFamilyHome = 25;
 
   rental.cashDownPercent = cashDownPercentForSingleFamilyHome;
+
+  if (!settings) {
+    throw new Error('no settings found');
+  }
+
   const singleFamilySettings = settings.filter((x) => x.propertyType === PropertyType.SingleFamily);
 
-  if (!settings || !singleFamilySettings) {
-    throw new Error('no settings found');
+  if (!singleFamilySettings) {
+    throw new Error('no singleFamilySettings found');
   }
 
   rental.monthlyPrincipalInterestTaxInterest = getMonthlyPrincipalInterestTaxInterest(

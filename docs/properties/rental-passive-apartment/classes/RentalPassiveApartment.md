@@ -6,7 +6,7 @@
 
 # Class: RentalPassiveApartment
 
-Defined in: [properties/rental-passive-apartment.ts:24](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L24)
+Defined in: [properties/rental-passive-apartment.ts:24](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L24)
 
 ## Implements
 
@@ -29,7 +29,7 @@ Defined in: [properties/rental-passive-apartment.ts:24](https://github.com/kvern
 
 > **address**: `string`
 
-Defined in: [properties/rental-passive-apartment.ts:48](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L48)
+Defined in: [properties/rental-passive-apartment.ts:48](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L48)
 
 address of property
 
@@ -43,7 +43,7 @@ address of property
 
 > **availableEndDate**: `Date`
 
-Defined in: [properties/rental-passive-apartment.ts:57](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L57)
+Defined in: [properties/rental-passive-apartment.ts:57](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L57)
 
 date which property was removed from the timeline.. think of it like someone else purchased this property
 
@@ -57,7 +57,7 @@ date which property was removed from the timeline.. think of it like someone els
 
 > **availableStartDate**: `Date`
 
-Defined in: [properties/rental-passive-apartment.ts:52](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L52)
+Defined in: [properties/rental-passive-apartment.ts:52](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L52)
 
 date which property was generated or was available for purchase
 
@@ -71,7 +71,7 @@ date which property was generated or was available for purchase
 
 > **costDownPrice**: `number`
 
-Defined in: [properties/rental-passive-apartment.ts:136](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L136)
+Defined in: [properties/rental-passive-apartment.ts:136](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L136)
 
 this will be the passive's contribution, which is the full chunk from one of the values for [offeredInvestmentAmounts](RentalPassiveApartment.md#offeredinvestmentamounts)
 
@@ -85,7 +85,7 @@ this will be the passive's contribution, which is the full chunk from one of the
 
 > **equityCapturePercent**: `number`
 
-Defined in: [properties/rental-passive-apartment.ts:141](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L141)
+Defined in: [properties/rental-passive-apartment.ts:141](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L141)
 
 while we have equity capture in this example, know that cap rate is what determines true value.
 
@@ -99,7 +99,7 @@ while we have equity capture in this example, know that cap rate is what determi
 
 > **id**: `string`
 
-Defined in: [properties/rental-passive-apartment.ts:43](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L43)
+Defined in: [properties/rental-passive-apartment.ts:43](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L43)
 
 unique identifier
 
@@ -113,7 +113,7 @@ unique identifier
 
 > **minSellYears**: `number`
 
-Defined in: [properties/rental-passive-apartment.ts:62](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L62)
+Defined in: [properties/rental-passive-apartment.ts:62](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L62)
 
 number of years to hold the property before being sold, default is 0. and this is used to calculated the [minSellDate](RentalPassiveApartment.md#minselldate)
 
@@ -127,7 +127,7 @@ number of years to hold the property before being sold, default is 0. and this i
 
 > **offeredInvestmentAmounts**: `number`[]
 
-Defined in: [properties/rental-passive-apartment.ts:38](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L38)
+Defined in: [properties/rental-passive-apartment.ts:38](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L38)
 
 a range of amounts that the user can invest for the property: typically these are $25,000, $50,000, $100,000, or $200,000
 
@@ -141,7 +141,7 @@ a range of amounts that the user can invest for the property: typically these ar
 
 > `readonly` **propertyType**: [`PropertyType`](../../property-type/enumerations/PropertyType.md) = `PropertyType.PassiveApartment`
 
-Defined in: [properties/rental-passive-apartment.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L25)
+Defined in: [properties/rental-passive-apartment.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L25)
 
 used when evaluating rules
 
@@ -155,7 +155,7 @@ used when evaluating rules
 
 > **purchaseDate**: `Date`
 
-Defined in: [properties/rental-passive-apartment.ts:160](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L160)
+Defined in: [properties/rental-passive-apartment.ts:160](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L160)
 
 The date the property was acquired
 
@@ -169,7 +169,7 @@ The date the property was acquired
 
 > **purchasePrice**: `number`
 
-Defined in: [properties/rental-passive-apartment.ts:104](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L104)
+Defined in: [properties/rental-passive-apartment.ts:104](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L104)
 
 At the time of purchase the ARV of the property
 
@@ -183,7 +183,7 @@ At the time of purchase the ARV of the property
 
 > **rawCashFlow**: `number`
 
-Defined in: [properties/rental-passive-apartment.ts:143](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L143)
+Defined in: [properties/rental-passive-apartment.ts:143](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L143)
 
 the cashOnCash return
 
@@ -197,7 +197,7 @@ the cashOnCash return
 
 > **sellPriceAppreciationPercent**: `number` = `4`
 
-Defined in: [properties/rental-passive-apartment.ts:109](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L109)
+Defined in: [properties/rental-passive-apartment.ts:109](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L109)
 
 we know appreciation is incorrect for apartments, they use a cap rate
 
@@ -211,7 +211,7 @@ we know appreciation is incorrect for apartments, they use a cap rate
 
 > **soldDate**: `Date`
 
-Defined in: [properties/rental-passive-apartment.ts:165](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L165)
+Defined in: [properties/rental-passive-apartment.ts:165](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L165)
 
 The date the property was sold
 
@@ -227,7 +227,7 @@ The date the property was sold
 
 > **get** **estimatedCashOnCashReturn**(): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:239](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L239)
+Defined in: [properties/rental-passive-apartment.ts:239](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L239)
 
 ##### Returns
 
@@ -245,7 +245,7 @@ Defined in: [properties/rental-passive-apartment.ts:239](https://github.com/kver
 
 > **get** **estimatedReturnOnCapitalGain**(): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:247](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L247)
+Defined in: [properties/rental-passive-apartment.ts:247](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L247)
 
 ##### Returns
 
@@ -263,7 +263,7 @@ Defined in: [properties/rental-passive-apartment.ts:247](https://github.com/kver
 
 > **get** **investmentPercent**(): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:114](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L114)
+Defined in: [properties/rental-passive-apartment.ts:114](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L114)
 
 is a percentage number of xx.xx format
 
@@ -279,7 +279,7 @@ is a percentage number of xx.xx format
 
 > **get** **isOwned**(): `boolean`
 
-Defined in: [properties/rental-passive-apartment.ts:83](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L83)
+Defined in: [properties/rental-passive-apartment.ts:83](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L83)
 
 ##### Returns
 
@@ -297,7 +297,7 @@ Defined in: [properties/rental-passive-apartment.ts:83](https://github.com/kvern
 
 > **get** **minSellDate**(): `Date`
 
-Defined in: [properties/rental-passive-apartment.ts:67](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L67)
+Defined in: [properties/rental-passive-apartment.ts:67](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L67)
 
 projects when you can sell this property using [purchaseDate](RentalPassiveApartment.md#purchasedate) and [minSellYears](RentalPassiveApartment.md#minsellyears)
 
@@ -313,7 +313,7 @@ projects when you can sell this property using [purchaseDate](RentalPassiveApart
 
 > **get** **rawEstimatedAnnualCashFlow**(): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:153](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L153)
+Defined in: [properties/rental-passive-apartment.ts:153](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L153)
 
 the estimated annual cashFlow return
 
@@ -333,7 +333,7 @@ the estimated annual cashFlow return
 
 > **get** **wasPurchased**(): `boolean`
 
-Defined in: [properties/rental-passive-apartment.ts:87](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L87)
+Defined in: [properties/rental-passive-apartment.ts:87](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L87)
 
 ##### Returns
 
@@ -349,7 +349,7 @@ Defined in: [properties/rental-passive-apartment.ts:87](https://github.com/kvern
 
 > **canInvestByUser**(`user`, `date`, `properties`): [`IRentalInvestorValidator`](../../../investments/rental-investor-validator/interfaces/IRentalInvestorValidator.md)
 
-Defined in: [properties/rental-passive-apartment.ts:97](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L97)
+Defined in: [properties/rental-passive-apartment.ts:97](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L97)
 
 get a user, and other owned properties, to determine if a user can invest
 
@@ -381,7 +381,7 @@ get a user, and other owned properties, to determine if a user can invest
 
 > **canSell**(`today`): `boolean`
 
-Defined in: [properties/rental-passive-apartment.ts:171](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L171)
+Defined in: [properties/rental-passive-apartment.ts:171](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L171)
 
 looks at [isOwned](RentalPassiveApartment.md#isowned) and also compares dates to see if the property can sell;
 
@@ -405,7 +405,7 @@ looks at [isOwned](RentalPassiveApartment.md#isowned) and also compares dates to
 
 > **clone**(): [`RentalPassiveApartment`](RentalPassiveApartment.md)
 
-Defined in: [properties/rental-passive-apartment.ts:231](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L231)
+Defined in: [properties/rental-passive-apartment.ts:231](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L231)
 
 make a copy
 
@@ -423,7 +423,7 @@ make a copy
 
 > **getCashFlowByDate**(`today`): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:195](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L195)
+Defined in: [properties/rental-passive-apartment.ts:195](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L195)
 
 should be for quarterly distributions, so last month of the quarter
 
@@ -447,7 +447,7 @@ should be for quarterly distributions, so last month of the quarter
 
 > **getEquityFromSell**(`today`): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:179](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L179)
+Defined in: [properties/rental-passive-apartment.ts:179](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L179)
 
 Determines the equity of a sale by date. Note: [soldDate](../../i-rental-property-entity/interfaces/IRentalPropertyEntity.md#solddate) must be populated and today and it must match
 
@@ -471,7 +471,7 @@ Determines the equity of a sale by date. Note: [soldDate](../../i-rental-propert
 
 > **getEstimatedMonthlyCashFlow**(`today`): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:211](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L211)
+Defined in: [properties/rental-passive-apartment.ts:211](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L211)
 
 universal method to determine cash flow on a monthly basis
 
@@ -495,7 +495,7 @@ universal method to determine cash flow on a monthly basis
 
 > **getExpensesByDate**(`today`): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:224](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L224)
+Defined in: [properties/rental-passive-apartment.ts:224](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L224)
 
 used to determine what the cost of property is per month. If no purchase date or it has a sold date, then 0, otherwise there is an amount
 
@@ -519,7 +519,7 @@ used to determine what the cost of property is per month. If no purchase date or
 
 > **isAvailableByDate**(`today`): `boolean`
 
-Defined in: [properties/rental-passive-apartment.ts:75](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L75)
+Defined in: [properties/rental-passive-apartment.ts:75](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L75)
 
 used to compare [availableStartDate](RentalPassiveApartment.md#availablestartdate), [today](RentalPassiveApartment.md#today-5), and [availableEndDate](RentalPassiveApartment.md#availableenddate),
 
@@ -543,7 +543,7 @@ used to compare [availableStartDate](RentalPassiveApartment.md#availablestartdat
 
 > **sellPriceByDate**(`today`): `number`
 
-Defined in: [properties/rental-passive-apartment.ts:122](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/properties/rental-passive-apartment.ts#L122)
+Defined in: [properties/rental-passive-apartment.ts:122](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/rental-passive-apartment.ts#L122)
 
 lame way to apply [sellPriceAppreciationPercent](RentalPassiveApartment.md#sellpriceappreciationpercent) to rolling over the years the property was owned and uses {investmentPercent}
 
