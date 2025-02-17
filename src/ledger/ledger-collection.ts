@@ -45,6 +45,12 @@ export interface ILedgerCollection {
   hasMinimumSavings(properties: IRentalPropertyEntity[], date: Date, minMonthsRequired?: number): boolean;
 
   /**
+   * used to get the cashFlow of all 12 months
+   * @param year
+   */
+  getMonthlyCashFlowByYear(year?: number): number[];
+
+  /**
    * used to get the average cash flow for the year.
    * @param date
    */
@@ -169,6 +175,19 @@ export class LedgerCollection implements ILedgerCollection {
 
   getAverageByType(collection: LedgerItem[], type: LedgerItemType): number {
     return this.getSummaryByType(collection, type) / collection.filter((x) => x.typeMatches(type)).length;
+  }
+
+  getMonthlyCashFlowByYear(year?: number): number[] {
+    const cashFlowByMonthForYear = new Array<number>(12).fill(0);
+
+    if (this.isEmpty()) {
+      return cashFlowByMonthForYear;
+    }
+
+    return cashFlowByMonthForYear.map((x, i) => {
+      const date = new Date(Date.UTC(year, i, 1));
+      return this.getCashFlowMonth(date);
+    });
   }
 
   /**

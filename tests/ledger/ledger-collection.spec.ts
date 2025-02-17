@@ -312,6 +312,39 @@ describe('LedgerCollection unit tests', () => {
       });
     });
   });
+  describe('and getMonthlyCashFlowByYear', () => {
+    describe('no data', () => {
+      test('should be all zeros', () => {
+        const ledger = new LedgerCollection();
+        expect(ledger.getMonthlyCashFlowByYear()).toEqual(new Array(12).fill(0));
+      });
+    });
+
+    describe('and partial data', () => {
+      test('should be all zeros', () => {
+        const date = new Date(2025, 0, 1);
+
+        const ledger = new LedgerCollection();
+        ledger.add(new LedgerItem(1, LedgerItemType.CashFlow, date));
+
+        expect(ledger.getMonthlyCashFlowByYear(date.getFullYear())).toEqual([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      });
+    });
+
+    describe('and all data', () => {
+      test('should be all zeros', () => {
+        const date = new Date(2025, 0, 1);
+        const expected = [];
+        const ledger = new LedgerCollection();
+        for (let i = 0; i < 12; i++) {
+          expected.push(i + 1);
+          ledger.add(new LedgerItem(i + 1, LedgerItemType.CashFlow, new Date(date.getFullYear(), i, 1)));
+        }
+
+        expect(ledger.getMonthlyCashFlowByYear(date.getFullYear())).toEqual(expected);
+      });
+    });
+  });
   describe('and getSummariesAnnual', () => {
     describe('and no date', () => {
       test('should throw error', () => {

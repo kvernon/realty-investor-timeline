@@ -16,6 +16,7 @@ describe('User unit tests', () => {
     ledgerCollection = {
       getAvailableSavings: jest.fn(),
       filter: jest.fn(),
+      getMonthlyCashFlowByYear: jest.fn(),
       add: jest.fn(),
       getCashFlowYearAverage: jest.fn(),
       getBalance: jest.fn(),

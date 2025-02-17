@@ -6,7 +6,7 @@
 
 # Interface: IRentalInvestorValidator
 
-Defined in: [investments/rental-investor-validator.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/rental-investor-validator.ts#L3)
+Defined in: [investments/rental-investor-validator.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/rental-investor-validator.ts#L3)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [investments/rental-investor-validator.ts:3](https://github.com/kver
 
 > `readonly` **canInvest**: `boolean`
 
-Defined in: [investments/rental-investor-validator.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/rental-investor-validator.ts#L4)
+Defined in: [investments/rental-investor-validator.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/rental-investor-validator.ts#L4)
 
 ---
 
@@ -22,4 +22,4 @@ Defined in: [investments/rental-investor-validator.ts:4](https://github.com/kver
 
 > **results**: [`IUserInvestResult`](../../user-invest-result/interfaces/IUserInvestResult.md)[]
 
-Defined in: [investments/rental-investor-validator.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/rental-investor-validator.ts#L5)
+Defined in: [investments/rental-investor-validator.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/rental-investor-validator.ts#L5)

@@ -6,7 +6,7 @@
 
 # Class: UserInvestResult
 
-Defined in: [investments/user-invest-result.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/user-invest-result.ts#L8)
+Defined in: [investments/user-invest-result.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-invest-result.ts#L8)
 
 ## Implements
 
@@ -18,7 +18,7 @@ Defined in: [investments/user-invest-result.ts:8](https://github.com/kvernon/rea
 
 > **new UserInvestResult**(`reason`, `message`): [`UserInvestResult`](UserInvestResult.md)
 
-Defined in: [investments/user-invest-result.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/user-invest-result.ts#L16)
+Defined in: [investments/user-invest-result.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-invest-result.ts#L16)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [investments/user-invest-result.ts:16](https://github.com/kvernon/re
 
 > **investmentReason**: [`InvestmentReasons`](../../investment-reasons/enumerations/InvestmentReasons.md)
 
-Defined in: [investments/user-invest-result.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/user-invest-result.ts#L14)
+Defined in: [investments/user-invest-result.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-invest-result.ts#L14)
 
 #### Implementation of
 
@@ -54,7 +54,7 @@ Defined in: [investments/user-invest-result.ts:14](https://github.com/kvernon/re
 
 > **get** **message**(): `string`
 
-Defined in: [investments/user-invest-result.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/user-invest-result.ts#L9)
+Defined in: [investments/user-invest-result.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-invest-result.ts#L9)
 
 ##### Returns
 

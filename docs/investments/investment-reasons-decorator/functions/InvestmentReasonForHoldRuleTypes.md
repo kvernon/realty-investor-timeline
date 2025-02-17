@@ -8,7 +8,7 @@
 
 > **InvestmentReasonForHoldRuleTypes**(`investmentReason`, `ruleType`): [`PropertyDecoratorType`](../type-aliases/PropertyDecoratorType.md)\<[`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)\>
 
-Defined in: [investments/investment-reasons-decorator.ts:70](https://github.com/kvernon/realty-investor-timeline/blob/cec7f590aef4aded8ee94008f5b37aa0db4daadd/src/investments/investment-reasons-decorator.ts#L70)
+Defined in: [investments/investment-reasons-decorator.ts:70](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons-decorator.ts#L70)
 
 ## Parameters
 
