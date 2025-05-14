@@ -16,6 +16,13 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
   getEquityFromSell(today: Date): number;
 
   /**
+   * used to show a predictive amount for the sell of the property
+   * @param today used to represent the sell date of the property
+   * @param purchaseDate optional date
+   */
+  getEstimatedEquityFromSell(today: Date, purchaseDate?: Date): number;
+
+  /**
    * 1. you must have purchased this home
    * 2. this home must not have been sold
    * @param today
@@ -31,6 +38,8 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
   isOwned: boolean;
 
   wasPurchased: boolean;
+
+  isAvailable: boolean;
 
   canInvestByUser(user: IUser, date: Date, properties: IPropertyEntity[]): IRentalInvestorValidator;
 
@@ -51,4 +60,10 @@ export interface IRentalPropertyEntity extends IPropertyEntity {
   get estimatedReturnOnCapitalGain(): number;
 
   clone(): IRentalPropertyEntity;
+
+  /**
+   * This can be used as an estimate of what the price would be for the property
+   * @param today
+   */
+  sellPriceByDate(today: Date): number;
 }

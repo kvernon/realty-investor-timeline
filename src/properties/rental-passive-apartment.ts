@@ -8,10 +8,7 @@ import { PropertyType } from './property-type';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import areSameDate from '../utils/data-are-same-date';
 import cloneDeep from 'lodash.clonedeep';
-import {
-  InvestmentReasonForHoldRuleTypes,
-  InvestmentReasonForPurchaseRuleTypes,
-} from '../investments/investment-reasons-decorator';
+import { InvestmentReasonForHoldRuleTypes, InvestmentReasonForPurchaseRuleTypes } from '../investments/investment-reasons-decorator';
 import { InvestmentReasons } from '../investments/investment-reasons';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { HoldRuleTypes } from '../rules/hold-rule-types';
@@ -20,6 +17,7 @@ import { getInvestmentPercent } from '../calculations/get-investment-percent';
 import currency from '../formatters/currency';
 import { returnOnCapitalGain } from '../calculations/return-on-capital-gain';
 import { cashOnCashReturn } from '../calculations/cash-on-cash-return';
+import { getEquityEstimate } from '../calculations/get-equity-estimate';
 
 export class RentalPassiveApartment implements IEntityExistence, IRentalPropertyEntity {
   readonly propertyType: PropertyType = PropertyType.PassiveApartment;
@@ -27,14 +25,8 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
   /**
    * a range of amounts that the user can invest for the property: typically these are $25,000, $50,000, $100,000, or $200,000
    */
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleEquityCapture,
-    PurchaseRuleTypes.MinEstimatedCapitalGainsPercent
-  )
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleOutOfPocket,
-    PurchaseRuleTypes.MaxEstimatedOutOfPocket
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, PurchaseRuleTypes.MinEstimatedCapitalGainsPercent)
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleOutOfPocket, PurchaseRuleTypes.MaxEstimatedOutOfPocket)
   offeredInvestmentAmounts: number[];
 
   /**
@@ -88,6 +80,10 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
     return !!this.purchaseDate;
   }
 
+  get isAvailable(): boolean {
+    return this.purchaseDate === undefined;
+  }
+
   /**
    * get a user, and other owned properties, to determine if a user can invest
    * @param user
@@ -120,12 +116,7 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
    * @param today
    */
   sellPriceByDate(today: Date): number {
-    const sellPriceEstimate = getSellPriceEstimate(
-      this.purchaseDate,
-      today,
-      this.purchasePrice,
-      this.sellPriceAppreciationPercent
-    );
+    const sellPriceEstimate = getSellPriceEstimate(this.purchaseDate, today, this.purchasePrice, this.sellPriceAppreciationPercent);
     const total = (sellPriceEstimate * this.investmentPercent) / 100;
     return currency(total);
   }
@@ -142,14 +133,8 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
 
   rawCashFlow: number;
 
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow,
-    PurchaseRuleTypes.MinEstimatedAnnualCashFlow
-  )
-  @InvestmentReasonForHoldRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow,
-    HoldRuleTypes.MinSellIfLowCashFlowPercent
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow, PurchaseRuleTypes.MinEstimatedAnnualCashFlow)
+  @InvestmentReasonForHoldRuleTypes(InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow, HoldRuleTypes.MinSellIfLowCashFlowPercent)
   get rawEstimatedAnnualCashFlow(): number {
     return this.rawCashFlow === 0 ? 0 : this.rawCashFlow * 4;
   }
@@ -176,6 +161,10 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
     return compareDates(this.minSellDate, today) <= 0 || areSameDate(this.minSellDate, today);
   }
 
+  /**
+   * Determines the equity of a sale by date. Note: {@link soldDate} must be populated and today and it must match
+   * @param today
+   */
   getEquityFromSell(today: Date): number {
     if (!this.soldDate) {
       return 0;
@@ -186,6 +175,21 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
     }
 
     return 0;
+  }
+
+  /**
+   * used to show a predictive amount for the sell of the property
+   * @param sellDate used to represent the sell date of the property
+   * @param purchaseDate optional date
+   */
+  getEstimatedEquityFromSell(sellDate: Date, purchaseDate?: Date): number {
+    const equityEstimate = getEquityEstimate(
+      getSellPriceEstimate(purchaseDate || this.purchaseDate, sellDate, this.purchasePrice, this.sellPriceAppreciationPercent),
+      this.costDownPrice,
+      this.equityCapturePercent,
+    );
+    const total = (equityEstimate * this.investmentPercent) / 100;
+    return currency(total);
   }
 
   /**
@@ -232,18 +236,12 @@ export class RentalPassiveApartment implements IEntityExistence, IRentalProperty
     return Object.assign(new RentalPassiveApartment(), cloneDeep(this));
   }
 
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
-    PurchaseRuleTypes.MinEstimatedCashOnCashPercent
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, PurchaseRuleTypes.MinEstimatedCashOnCashPercent)
   get estimatedCashOnCashReturn(): number {
     return cashOnCashReturn(this.rawEstimatedAnnualCashFlow, this.costDownPrice);
   }
 
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleCapitalGain,
-    PurchaseRuleTypes.MinEstimatedCapitalGainsPercent
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleCapitalGain, PurchaseRuleTypes.MinEstimatedCapitalGainsPercent)
   get estimatedReturnOnCapitalGain(): number {
     return returnOnCapitalGain(this.equityCapturePercent, this.costDownPrice);
   }

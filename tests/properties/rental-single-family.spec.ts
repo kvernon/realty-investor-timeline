@@ -1,14 +1,20 @@
 import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { Chance } from 'chance';
 import { cloneDateUtc } from '../../src/utils/data-clone-date';
+import { getSellPriceEstimate } from '../../src/calculations/get-sell-price-estimate';
+
+jest.mock('../../src/calculations/get-sell-price-estimate');
 
 describe('RentalSingleFamily unit tests', () => {
   let instance: RentalSingleFamily;
   let chance: Chance.Chance;
 
+  const getSellPriceEstimateMock = jest.mocked(getSellPriceEstimate);
+
   beforeEach(() => {
     chance = new Chance();
     instance = new RentalSingleFamily();
+    getSellPriceEstimateMock.mockReturnValueOnce(10000000);
   });
 
   afterEach(() => {
@@ -85,12 +91,7 @@ describe('RentalSingleFamily unit tests', () => {
       const yearDiff = 2;
       const today = new Date(instance.purchaseDate.getFullYear() + yearDiff, instance.purchaseDate.getMonth(), 1);
 
-      let expected = instance.purchasePrice;
-      for (let i = 0; i < yearDiff; i++) {
-        expected = expected + (expected * instance.sellPriceAppreciationPercent) / 100;
-      }
-
-      expect(instance.sellPriceByDate(today)).toEqual(expected);
+      expect(instance.sellPriceByDate(today)).toEqual(10000000);
     });
   });
 
@@ -138,13 +139,69 @@ describe('RentalSingleFamily unit tests', () => {
         test('should be 0', () => {
           instance.soldDate = undefined;
 
-          const monthAfterCanSell = new Date(
-            instance.purchaseDate.getFullYear() + instance.minSellYears,
-            instance.purchaseDate.getMonth() - 1,
-            1
-          );
+          const monthAfterCanSell = new Date(instance.purchaseDate.getFullYear() + instance.minSellYears, instance.purchaseDate.getMonth() - 1, 1);
 
           expect(instance.getEquityFromSell(monthAfterCanSell)).toEqual(0);
+        });
+      });
+    });
+  });
+
+  describe('and getEstimatedEquityFromSell', () => {
+    describe('and today', () => {
+      let today: Date;
+
+      beforeEach(() => {
+        const date = new Date(Date.now());
+        const diff = chance.integer({ min: 2, max: 5 });
+        date.setUTCFullYear(date.getUTCFullYear() - diff);
+
+        instance.purchaseDate = date;
+        instance.purchasePrice = chance.integer({ min: 1, max: 1000000 });
+        instance.minSellYears = 1;
+        instance.equityCapturePercent = 100;
+        today = new Date(instance.purchaseDate.getFullYear() + 2, instance.purchaseDate.getMonth(), 1);
+      });
+
+      describe('should resolve', () => {
+        test('getSellPriceEstimate should be called', () => {
+          expect(instance.getEstimatedEquityFromSell(today)).toEqual(10000000);
+
+          expect(getSellPriceEstimate).toHaveBeenCalledWith(
+            instance.purchaseDate,
+            today,
+            instance.purchasePrice,
+            instance.sellPriceAppreciationPercent,
+          );
+        });
+      });
+
+      describe('and after today', () => {
+        test('should be 0', () => {
+          const monthAfterCanSell = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+
+          expect(instance.getEstimatedEquityFromSell(monthAfterCanSell)).toEqual(10000000);
+          expect(getSellPriceEstimate).toHaveBeenCalledWith(
+            instance.purchaseDate,
+            monthAfterCanSell,
+            instance.purchasePrice,
+            instance.sellPriceAppreciationPercent,
+          );
+        });
+      });
+      describe('and falsy today', () => {
+        test('should be 0', () => {
+          today = undefined;
+
+          const monthAfterCanSell = new Date(instance.purchaseDate.getFullYear() + instance.minSellYears, instance.purchaseDate.getMonth() - 1, 1);
+
+          expect(instance.getEstimatedEquityFromSell(monthAfterCanSell)).toEqual(10000000);
+          expect(getSellPriceEstimate).toHaveBeenCalledWith(
+            instance.purchaseDate,
+            monthAfterCanSell,
+            instance.purchasePrice,
+            instance.sellPriceAppreciationPercent,
+          );
         });
       });
     });
@@ -294,9 +351,7 @@ describe('RentalSingleFamily unit tests', () => {
         test('should be 0', () => {
           instance.purchaseDate = cloneDateUtc(new Date());
           instance.monthlyPrincipalInterestTaxInterest = chance.integer({ min: 9, max: 900 });
-          expect(instance.getExpensesByDate(cloneDateUtc(new Date()))).toEqual(
-            instance.monthlyPrincipalInterestTaxInterest
-          );
+          expect(instance.getExpensesByDate(cloneDateUtc(new Date()))).toEqual(instance.monthlyPrincipalInterestTaxInterest);
         });
       });
     });
@@ -329,19 +384,11 @@ describe('RentalSingleFamily unit tests', () => {
         });
         describe('and soldDate truthy', () => {
           beforeEach(() => {
-            instance.soldDate = new Date(
-              instance.purchaseDate.getUTCFullYear() + instance.minSellYears,
-              instance.purchaseDate.getUTCMonth(),
-              1
-            );
+            instance.soldDate = new Date(instance.purchaseDate.getUTCFullYear() + instance.minSellYears, instance.purchaseDate.getUTCMonth(), 1);
           });
           describe('and today is before', () => {
             test('should be 0', () => {
-              const beforeSoldDate = new Date(
-                instance.purchaseDate.getFullYear(),
-                instance.purchaseDate.getMonth() - 1,
-                1
-              );
+              const beforeSoldDate = new Date(instance.purchaseDate.getFullYear(), instance.purchaseDate.getMonth() - 1, 1);
 
               expect(instance.getCashFlowByDate(beforeSoldDate)).toEqual(0);
             });
@@ -364,11 +411,7 @@ describe('RentalSingleFamily unit tests', () => {
               instance.rawCashFlow = 0;
 
               const monthAfterCanSell = new Date(
-                Date.UTC(
-                  instance.purchaseDate.getFullYear() + instance.minSellYears,
-                  instance.purchaseDate.getMonth() - 1,
-                  1
-                )
+                Date.UTC(instance.purchaseDate.getFullYear() + instance.minSellYears, instance.purchaseDate.getMonth() - 1, 1),
               );
 
               expect(instance.getCashFlowByDate(monthAfterCanSell)).toEqual(0);
