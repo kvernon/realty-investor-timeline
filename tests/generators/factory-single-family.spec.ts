@@ -2,6 +2,7 @@ import { RentalSingleFamily } from '../../src/properties/rental-single-family';
 import { Chance } from 'chance';
 import { PropertyType } from '../../src/properties/property-type';
 import { LoanSettings } from '../../src/loans/loan-settings';
+import { IPropertyEntityOptions } from '../../src/generators/i-property-entity-options';
 
 describe('factory-single-family unit tests', () => {
   let chance: Chance.Chance;
@@ -17,7 +18,7 @@ describe('factory-single-family unit tests', () => {
   });
 
   describe('and generateSingleFamily', () => {
-    test('should resolve', () => {
+    test('should resolve', async () => {
       const expectedPayments = chance.integer();
       const getMonthlyPrincipalInterestTaxInterest = jest.fn().mockReturnValueOnce(expectedPayments);
 
@@ -47,17 +48,19 @@ describe('factory-single-family unit tests', () => {
       expected.cashDownPercent = 25;
       expected.monthlyPrincipalInterestTaxInterest = expectedPayments;
 
-      const generateSingleFamily = require('../../src/generators/factory-single-family').generateSingleFamily;
+      const generateSingleFamily = (await import('../../src/generators/factory-single-family')).generateSingleFamily;
 
-      const options = {
-        highestCashFlowMonthly: 1,
+      const options: IPropertyEntityOptions = {
         highestMinSellInYears: 1,
-        highestPriceDown: 1,
         highestSellAppreciationPercent: 1,
-        lowestCashFlowMonthly: 1,
         lowestMinSellInYears: 1,
-        lowestPriceDown: 1,
         lowestSellAppreciationPercent: 1,
+        lowestPurchasePrice: 1,
+        highestPurchasePrice: 1,
+        lowestEquityCapturePercent: 1,
+        highestEquityCapturePercent: 1,
+        lowestCashFlow: 1,
+        highestCashFlow: 1,
       };
 
       const lifeTime = {
@@ -86,7 +89,7 @@ describe('factory-single-family unit tests', () => {
             name: LoanSettings.LoanTermInYears,
           },
         ],
-        closingCostPercent
+        closingCostPercent,
       );
 
       expect(genericGenerateProperty).toHaveBeenCalledWith(RentalSingleFamily, options, lifeTime);
@@ -95,7 +98,7 @@ describe('factory-single-family unit tests', () => {
         25,
         closingCostPercent,
         usersMortInfo.loanRatePercent,
-        usersMortInfo.loanTermInYears
+        usersMortInfo.loanTermInYears,
       );
       expect(actual).toEqual(expected);
     });

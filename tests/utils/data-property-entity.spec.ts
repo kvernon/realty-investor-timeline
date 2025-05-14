@@ -7,7 +7,7 @@ describe('data-numbers unit tests', () => {
   const hash = '000-000-000-000';
   const address = '111 fake street';
 
-  beforeEach(() => {
+  beforeEach(async () => {
     randomNumberBetween = jest.fn();
     randomNumberBetween.mockReturnValueOnce(10);
     randomNumberBetween.mockReturnValueOnce(20);
@@ -28,7 +28,7 @@ describe('data-numbers unit tests', () => {
       randomNumberBetween,
     }));
 
-    randomPropertyEntity = require('../../src/utils/data-property-entity').randomPropertyEntity;
+    randomPropertyEntity = (await import('../../src/utils/data-property-entity')).randomPropertyEntity;
   });
 
   afterEach(() => {
@@ -63,21 +63,9 @@ describe('data-numbers unit tests', () => {
 
       expect(randomNumberBetween).toHaveBeenNthCalledWith(1, options.lowestPurchasePrice, options.highestPurchasePrice);
       expect(randomNumberBetween).toHaveBeenNthCalledWith(2, options.lowestCashFlow, options.highestCashFlow);
-      expect(randomNumberBetween).toHaveBeenNthCalledWith(
-        3,
-        options.lowestMinSellInYears,
-        options.highestMinSellInYears
-      );
-      expect(randomNumberBetween).toHaveBeenNthCalledWith(
-        4,
-        options.lowestSellAppreciationPercent,
-        options.highestSellAppreciationPercent
-      );
-      expect(randomNumberBetween).toHaveBeenNthCalledWith(
-        5,
-        options.lowestEquityCapturePercent,
-        options.highestEquityCapturePercent
-      );
+      expect(randomNumberBetween).toHaveBeenNthCalledWith(3, options.lowestMinSellInYears, options.highestMinSellInYears);
+      expect(randomNumberBetween).toHaveBeenNthCalledWith(4, options.lowestSellAppreciationPercent, options.highestSellAppreciationPercent);
+      expect(randomNumberBetween).toHaveBeenNthCalledWith(5, options.lowestEquityCapturePercent, options.highestEquityCapturePercent);
     });
   });
 });

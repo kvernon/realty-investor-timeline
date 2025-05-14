@@ -2,14 +2,23 @@ import { RentalPassiveApartment } from '../../src/properties/rental-passive-apar
 import { Chance } from 'chance';
 import { cloneDateUtc } from '../../src/utils/data-clone-date';
 import currency from '../../src/formatters/currency';
+import { getSellPriceEstimate } from '../../src/calculations/get-sell-price-estimate';
+import { getEquityEstimate } from '../../src/calculations/get-equity-estimate';
+
+jest.mock('../../src/calculations/get-sell-price-estimate');
+jest.mock('../../src/calculations/get-equity-estimate');
 
 describe('RentalPassiveApartment unit tests', () => {
   let instance: RentalPassiveApartment;
   let chance: Chance.Chance;
+  const getSellPriceEstimateMock = jest.mocked(getSellPriceEstimate);
+  const getEquityEstimateMock = jest.mocked(getEquityEstimate);
 
   beforeEach(() => {
     chance = new Chance();
     instance = new RentalPassiveApartment();
+    getSellPriceEstimateMock.mockReturnValueOnce(10000000);
+    getEquityEstimateMock.mockReturnValueOnce(200000);
   });
 
   afterEach(() => {
@@ -89,13 +98,8 @@ describe('RentalPassiveApartment unit tests', () => {
       const yearDiff = 2;
       const today = new Date(instance.purchaseDate.getFullYear() + yearDiff, instance.purchaseDate.getMonth(), 1);
 
-      let expected = instance.purchasePrice;
-      for (let i = 0; i < yearDiff; i++) {
-        expected = expected + (expected * instance.sellPriceAppreciationPercent) / 100;
-      }
-
       const actual = instance.sellPriceByDate(today);
-      expect(actual).toEqual(expected / 10);
+      expect(actual).toEqual(1000000);
     });
   });
 
@@ -110,9 +114,7 @@ describe('RentalPassiveApartment unit tests', () => {
         instance.purchasePrice = chance.integer({ min: 100, max: 100 }) * 1000;
         instance.minSellYears = 1;
         instance.equityCapturePercent = 100;
-        instance.soldDate = cloneDateUtc(instance.purchaseDate, (date) =>
-          date.setUTCFullYear(date.getUTCFullYear() + 2)
-        );
+        instance.soldDate = cloneDateUtc(instance.purchaseDate, (date) => date.setUTCFullYear(date.getUTCFullYear() + 2));
       });
 
       describe('and before soldDate', () => {
@@ -144,13 +146,45 @@ describe('RentalPassiveApartment unit tests', () => {
         test('should be 0', () => {
           instance.soldDate = undefined;
 
-          const monthAfterCanSell = new Date(
-            instance.purchaseDate.getFullYear() + instance.minSellYears,
-            instance.purchaseDate.getMonth() - 1,
-            1
-          );
+          const monthAfterCanSell = new Date(instance.purchaseDate.getFullYear() + instance.minSellYears, instance.purchaseDate.getMonth() - 1, 1);
 
           expect(instance.getEquityFromSell(monthAfterCanSell)).toEqual(0);
+        });
+      });
+    });
+  });
+
+  describe('and getEstimatedEquityFromSell', () => {
+    describe('and today', () => {
+      let today: Date;
+
+      beforeEach(() => {
+        const date = new Date(Date.now());
+        const diff = chance.integer({ min: 2, max: 5 });
+        date.setUTCFullYear(date.getUTCFullYear() - diff);
+
+        instance.purchaseDate = date;
+        instance.purchasePrice = chance.integer({ min: 1, max: 1000000 });
+        instance.costDownPrice = instance.purchasePrice / 2;
+        instance.minSellYears = 1;
+        instance.equityCapturePercent = 100;
+        today = new Date(instance.purchaseDate.getFullYear() + 2, instance.purchaseDate.getMonth(), 1);
+      });
+
+      describe('should resolve', () => {
+        test('getSellPriceEstimate should be called', () => {
+          expect(instance.getEstimatedEquityFromSell(today)).toEqual(100000);
+
+          expect(getEquityEstimateMock).toHaveBeenCalledWith(10000000, instance.costDownPrice, instance.equityCapturePercent);
+        });
+      });
+
+      describe('and after today', () => {
+        test('should be 0', () => {
+          const monthAfterCanSell = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+
+          expect(instance.getEstimatedEquityFromSell(monthAfterCanSell)).toEqual(100000);
+          expect(getEquityEstimateMock).toHaveBeenCalledWith(10000000, instance.costDownPrice, instance.equityCapturePercent);
         });
       });
     });
@@ -280,12 +314,10 @@ describe('RentalPassiveApartment unit tests', () => {
     describe('and purchaseDate', () => {
       beforeEach(() => {
         const diff = chance.integer({ min: 2, max: 5 });
-        const date = cloneDateUtc(new Date(), (d) => {
+        instance.purchaseDate = cloneDateUtc(new Date(), (d) => {
           d.setUTCFullYear(d.getUTCFullYear() - diff);
           d.setUTCMonth(0);
         });
-
-        instance.purchaseDate = date;
         instance.minSellYears = 1;
       });
 
@@ -315,9 +347,7 @@ describe('RentalPassiveApartment unit tests', () => {
               });
 
               expect(instance.getCashFlowByDate(monthAfterCanSell)).toEqual(0);
-              expect(instance.getEstimatedMonthlyCashFlow(monthAfterCanSell)).toEqual(
-                currency(instance.rawCashFlow / 3)
-              );
+              expect(instance.getEstimatedMonthlyCashFlow(monthAfterCanSell)).toEqual(currency(instance.rawCashFlow / 3));
             });
           });
         });
@@ -341,9 +371,7 @@ describe('RentalPassiveApartment unit tests', () => {
               });
 
               expect(instance.getCashFlowByDate(monthAfterCanSell)).toEqual(instance.rawCashFlow);
-              expect(instance.getEstimatedMonthlyCashFlow(monthAfterCanSell)).toEqual(
-                currency(instance.rawCashFlow / 3)
-              );
+              expect(instance.getEstimatedMonthlyCashFlow(monthAfterCanSell)).toEqual(currency(instance.rawCashFlow / 3));
             });
           });
         });
@@ -351,20 +379,12 @@ describe('RentalPassiveApartment unit tests', () => {
 
       describe('and soldDate truthy', () => {
         beforeEach(() => {
-          instance.soldDate = new Date(
-            instance.purchaseDate.getUTCFullYear() + instance.minSellYears,
-            instance.purchaseDate.getUTCMonth(),
-            1
-          );
+          instance.soldDate = new Date(instance.purchaseDate.getUTCFullYear() + instance.minSellYears, instance.purchaseDate.getUTCMonth(), 1);
         });
 
         describe('and today is before', () => {
           test('should be 0', () => {
-            const beforeSoldDate = new Date(
-              instance.purchaseDate.getFullYear(),
-              instance.purchaseDate.getMonth() - 1,
-              1
-            );
+            const beforeSoldDate = new Date(instance.purchaseDate.getFullYear(), instance.purchaseDate.getMonth() - 1, 1);
 
             expect(instance.getCashFlowByDate(beforeSoldDate)).toEqual(0);
             expect(instance.getEstimatedMonthlyCashFlow(beforeSoldDate)).toEqual(0);

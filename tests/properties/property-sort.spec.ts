@@ -12,11 +12,14 @@ describe('propertySort unit tests', () => {
   let propertySort: <T extends PurchaseRuleTypes | HoldRuleTypes>(
     propertyA: IRentalPropertyEntity,
     propertyB: IRentalPropertyEntity,
-    purchaseRules: IRuleEvaluation<T>[]
+    purchaseRules: IRuleEvaluation<T>[],
   ) => number;
 
   beforeEach(() => {
     propertyA = {
+      isAvailable: true,
+      sellPriceByDate: jest.fn(),
+      getEstimatedEquityFromSell: jest.fn(),
       estimatedCashOnCashReturn: 0,
       estimatedReturnOnCapitalGain: 0,
       wasPurchased: true,
@@ -49,6 +52,9 @@ describe('propertySort unit tests', () => {
     };
 
     propertyB = {
+      isAvailable: true,
+      sellPriceByDate: jest.fn(),
+      getEstimatedEquityFromSell: jest.fn(),
       estimatedCashOnCashReturn: 0,
       estimatedReturnOnCapitalGain: 0,
       wasPurchased: true,
@@ -120,7 +126,7 @@ describe('propertySort unit tests', () => {
                 value: 1,
                 evaluate: jest.fn().mockReturnValueOnce(true),
               },
-            ])
+            ]),
           ).toEqual(-1);
         });
       });
@@ -138,7 +144,7 @@ describe('propertySort unit tests', () => {
                 value: 1,
                 evaluate: jest.fn().mockReturnValueOnce(true),
               },
-            ])
+            ]),
           ).toEqual(1);
         });
       });
@@ -173,7 +179,7 @@ describe('propertySort unit tests', () => {
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(-1);
             });
           });
@@ -208,7 +214,7 @@ describe('propertySort unit tests', () => {
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(-1);
             });
           });
@@ -243,7 +249,7 @@ describe('propertySort unit tests', () => {
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(1);
             });
           });
@@ -278,7 +284,7 @@ describe('propertySort unit tests', () => {
                     value: 2000,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(0);
             });
 
@@ -311,7 +317,7 @@ describe('propertySort unit tests', () => {
                     value: 2000,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(0);
             });
           });
@@ -351,7 +357,7 @@ describe('propertySort unit tests', () => {
                 value: 1,
                 evaluate: jest.fn().mockReturnValueOnce(true),
               },
-            ])
+            ]),
           ).toEqual(-1);
         });
       });
@@ -369,7 +375,7 @@ describe('propertySort unit tests', () => {
                 value: 1,
                 evaluate: jest.fn().mockReturnValueOnce(true),
               },
-            ])
+            ]),
           ).toEqual(1);
         });
       });
@@ -404,7 +410,7 @@ describe('propertySort unit tests', () => {
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(-1);
             });
           });
@@ -439,7 +445,7 @@ describe('propertySort unit tests', () => {
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(-1);
             });
           });
@@ -474,7 +480,7 @@ describe('propertySort unit tests', () => {
                     value: 1,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(1);
             });
           });
@@ -509,7 +515,7 @@ describe('propertySort unit tests', () => {
                     value: 2000,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(0);
             });
 
@@ -542,7 +548,7 @@ describe('propertySort unit tests', () => {
                     value: 2000,
                     evaluate: jest.fn().mockReturnValueOnce(true),
                   },
-                ])
+                ]),
               ).toEqual(0);
             });
           });

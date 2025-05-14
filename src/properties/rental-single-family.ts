@@ -1,9 +1,6 @@
 import 'reflect-metadata';
 import { InvestmentReasons } from '../investments/investment-reasons';
-import {
-  InvestmentReasonForPurchaseRuleTypes,
-  InvestmentReasonForHoldRuleTypes,
-} from '../investments/investment-reasons-decorator';
+import { InvestmentReasonForPurchaseRuleTypes, InvestmentReasonForHoldRuleTypes } from '../investments/investment-reasons-decorator';
 import cloneDeep from 'lodash.clonedeep';
 import { IEntityExistence } from './i-entity-existence';
 import { IRentalPropertyEntity } from './i-rental-property-entity';
@@ -70,6 +67,10 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
     return !!this.purchaseDate;
   }
 
+  get isAvailable(): boolean {
+    return this.purchaseDate === undefined;
+  }
+
   /**
    * get a user, and other owned properties, to determine if a user can invest
    * @param user
@@ -83,10 +84,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
   /**
    * At the time of purchase the ARV of the property
    */
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleAskingPrice,
-    PurchaseRuleTypes.MinAskingPrice
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleAskingPrice, PurchaseRuleTypes.MinAskingPrice)
   purchasePrice: number;
 
   /**
@@ -112,10 +110,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
    */
   cashDownPercent: number;
 
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleOutOfPocket,
-    PurchaseRuleTypes.MaxEstimatedOutOfPocket
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleOutOfPocket, PurchaseRuleTypes.MaxEstimatedOutOfPocket)
   get costDownPrice(): number {
     return getCostDown(this.purchasePrice, this.cashDownPercent || 0);
   }
@@ -123,10 +118,7 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
   /**
    * a range of amounts that the user can invest for the property: typically this is the {@link costDownPrice}
    */
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleEquityCapture,
-    PurchaseRuleTypes.MinEstimatedCapitalGainsPercent
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, PurchaseRuleTypes.MinEstimatedCapitalGainsPercent)
   get offeredInvestmentAmounts(): number[] {
     return [this.costDownPrice];
   }
@@ -147,12 +139,24 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
     return 0;
   }
 
+  /**
+   * used to show a predictive amount for the sell of the property
+   * @param today used to represent the sell date of the property
+   * @param purchaseDate optional date
+   */
+  getEstimatedEquityFromSell(today: Date, purchaseDate?: Date): number {
+    return currency(
+      (getSellPriceEstimate(purchaseDate || this.purchaseDate, today, this.purchasePrice, this.sellPriceAppreciationPercent) - this.costDownPrice) *
+        (this.equityCapturePercent / 100),
+    );
+  }
+
   equityCapturePercent: number;
 
   /**
    * returns a UTC date from date supplied where it is
    * @example
-   * new Date(Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), 1))
+   * ```new Date(Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), 1))```
    * @param value
    * @private
    */
@@ -275,30 +279,18 @@ export class RentalSingleFamily implements IEntityExistence, IRentalPropertyEnti
 
   rawCashFlow: number;
 
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow,
-    PurchaseRuleTypes.MinEstimatedAnnualCashFlow
-  )
-  @InvestmentReasonForHoldRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow,
-    HoldRuleTypes.MinSellIfLowCashFlowPercent
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow, PurchaseRuleTypes.MinEstimatedAnnualCashFlow)
+  @InvestmentReasonForHoldRuleTypes(InvestmentReasons.DoesNotMeetUserRuleAnnualCashFlow, HoldRuleTypes.MinSellIfLowCashFlowPercent)
   get rawEstimatedAnnualCashFlow(): number {
     return this.rawCashFlow === 0 ? 0 : this.rawCashFlow * 12;
   }
 
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleCashOnCash,
-    PurchaseRuleTypes.MinEstimatedAnnualCashFlow
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleCashOnCash, PurchaseRuleTypes.MinEstimatedAnnualCashFlow)
   get estimatedCashOnCashReturn(): number {
     return cashOnCashReturn(this.rawEstimatedAnnualCashFlow, this.costDownPrice);
   }
 
-  @InvestmentReasonForPurchaseRuleTypes(
-    InvestmentReasons.DoesNotMeetUserRuleCapitalGain,
-    PurchaseRuleTypes.MinEstimatedCapitalGainsPercent
-  )
+  @InvestmentReasonForPurchaseRuleTypes(InvestmentReasons.DoesNotMeetUserRuleCapitalGain, PurchaseRuleTypes.MinEstimatedCapitalGainsPercent)
   get estimatedReturnOnCapitalGain(): number {
     return returnOnCapitalGain(this.equityCapturePercent, this.costDownPrice);
   }

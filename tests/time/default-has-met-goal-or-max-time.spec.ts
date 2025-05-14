@@ -74,6 +74,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                 user,
                 [
                   {
+                    isAvailable: false,
+                    sellPriceByDate: jest.fn(),
+                    getEstimatedEquityFromSell: jest.fn(),
                     estimatedCashOnCashReturn: 0,
                     estimatedReturnOnCapitalGain: 0,
                     wasPurchased: true,
@@ -105,8 +108,8 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                     isAvailableByDate: jest.fn(),
                   },
                 ],
-                maxYears
-              )
+                maxYears,
+              ),
             ).toBeTruthy();
           });
         });
@@ -123,6 +126,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                 user,
                 [
                   {
+                    isAvailable: false,
+                    sellPriceByDate: jest.fn(),
+                    getEstimatedEquityFromSell: jest.fn(),
                     estimatedCashOnCashReturn: 0,
                     estimatedReturnOnCapitalGain: 0,
                     wasPurchased: true,
@@ -154,8 +160,8 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                     isAvailableByDate: jest.fn(),
                   },
                 ],
-                maxYears
-              )
+                maxYears,
+              ),
             ).toBeTruthy();
           });
         });
@@ -174,6 +180,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                 user,
                 [
                   {
+                    isAvailable: false,
+                    sellPriceByDate: jest.fn(),
+                    getEstimatedEquityFromSell: jest.fn(),
                     estimatedCashOnCashReturn: 0,
                     estimatedReturnOnCapitalGain: 0,
                     wasPurchased: true,
@@ -205,8 +214,8 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                     isAvailableByDate: jest.fn(),
                   },
                 ],
-                maxYears
-              )
+                maxYears,
+              ),
             ).toBeTruthy();
           });
         });
@@ -223,6 +232,9 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                 user,
                 [
                   {
+                    isAvailable: false,
+                    sellPriceByDate: jest.fn(),
+                    getEstimatedEquityFromSell: jest.fn(),
                     estimatedCashOnCashReturn: 0,
                     estimatedReturnOnCapitalGain: 0,
                     wasPurchased: true,
@@ -254,8 +266,8 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
                     isAvailableByDate: jest.fn(),
                   },
                 ],
-                maxYears
-              )
+                maxYears,
+              ),
             ).toBeFalsy();
           });
         });
