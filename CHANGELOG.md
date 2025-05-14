@@ -1,3 +1,10 @@
+# [4.8.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.7.0...v4.8.0) (2025-05-14)
+
+
+### Features
+
+* expose equity estimate ([#61](https://github.com/kvernon/realty-investor-timeline/issues/61)) ([5a9d1dd](https://github.com/kvernon/realty-investor-timeline/commit/5a9d1dd6cbffbbe3d66ecfb8a97cedb28c231183))
+
 # [4.7.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.6.0...v4.7.0) (2025-02-17)
 
 
