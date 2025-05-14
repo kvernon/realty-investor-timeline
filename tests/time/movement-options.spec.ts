@@ -53,11 +53,11 @@ describe('movement options unit tests', () => {
   describe('and movement', () => {
     describe('and invalid options', () => {
       describe('and no generators', () => {
-        test('should fail', () => {
-          const movement = require('../../src/time/movement').movement;
+        test('should fail', async () => {
+          const movement = (await import('../../src/time/movement')).movement;
 
           expect(() => movement({}, user)).toThrow(
-            'Invalid Argument: must declare at least 1, either propertyGeneratorSingleFamily or propertyGeneratorPassiveApartment'
+            'Invalid Argument: must declare at least 1, either propertyGeneratorSingleFamily or propertyGeneratorPassiveApartment',
           );
         });
       });
@@ -71,22 +71,22 @@ describe('movement options unit tests', () => {
         });
 
         describe('and no ILoanSetting', () => {
-          test('should fail', () => {
-            const movement = require('../../src/time/movement').movement;
+          test('should fail', async () => {
+            const movement = (await import('../../src/time/movement')).movement;
 
             expect(() =>
               movement(
                 {
                   propertyGeneratorSingleFamily: rentalGeneratorHome,
                 },
-                user
-              )
+                user,
+              ),
             ).toThrow('no single family loan settings for user: loanSettings');
           });
         });
 
         describe('and no PurchaseRuleTypes', () => {
-          test('should fail', () => {
+          test('should fail', async () => {
             user.loanSettings = [
               {
                 value: 3,
@@ -94,15 +94,15 @@ describe('movement options unit tests', () => {
                 name: LoanSettings.LoanTermInYears,
               },
             ];
-            const movement = require('../../src/time/movement').movement;
+            const movement = (await import('../../src/time/movement')).movement;
 
             expect(() =>
               movement(
                 {
                   propertyGeneratorSingleFamily: rentalGeneratorHome,
                 },
-                user
-              )
+                user,
+              ),
             ).toThrow('no single family or passive apartment purchase rules for user: purchaseRules');
           });
         });
@@ -117,41 +117,37 @@ describe('movement options unit tests', () => {
               },
             ];
 
-            user.purchaseRules = [
-              new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.SingleFamily),
-            ];
+            user.purchaseRules = [new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.SingleFamily)];
           });
 
           describe('and no rules', () => {
-            test('should fail', () => {
-              const movement = require('../../src/time/movement').movement;
+            test('should fail', async () => {
+              const movement = (await import('../../src/time/movement')).movement;
 
               expect(() =>
                 movement(
                   {
                     propertyGeneratorSingleFamily: rentalGeneratorHome,
                   },
-                  user
-                )
+                  user,
+                ),
               ).toThrow('no single family hold rules for user: holdRules');
             });
           });
 
           describe('and no single family rules', () => {
-            test('should fail', () => {
-              user.holdRules = [
-                new RuleEvaluation(4, HoldRuleTypes.MinSellIfHighEquityPercent, PropertyType.PassiveApartment),
-              ];
+            test('should fail', async () => {
+              user.holdRules = [new RuleEvaluation(4, HoldRuleTypes.MinSellIfHighEquityPercent, PropertyType.PassiveApartment)];
 
-              const movement = require('../../src/time/movement').movement;
+              const movement = (await import('../../src/time/movement')).movement;
 
               expect(() =>
                 movement(
                   {
                     propertyGeneratorSingleFamily: rentalGeneratorHome,
                   },
-                  user
-                )
+                  user,
+                ),
               ).toThrow('no single family hold rules for user: holdRules');
             });
           });
@@ -167,7 +163,7 @@ describe('movement options unit tests', () => {
         });
 
         describe('and no PurchaseRuleTypes', () => {
-          test('should fail', () => {
+          test('should fail', async () => {
             user.loanSettings = [
               {
                 value: 3,
@@ -176,15 +172,15 @@ describe('movement options unit tests', () => {
               },
             ];
 
-            const movement = require('../../src/time/movement').movement;
+            const movement = (await import('../../src/time/movement')).movement;
 
             expect(() =>
               movement(
                 {
                   propertyGeneratorPassiveApartment: rentalGeneratorPassive,
                 },
-                user
-              )
+                user,
+              ),
             ).toThrow('no single family or passive apartment purchase rules for user: purchaseRules');
           });
         });

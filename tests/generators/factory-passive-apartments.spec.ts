@@ -2,6 +2,7 @@ import { RentalPassiveApartment } from '../../src/properties/rental-passive-apar
 import { Chance } from 'chance';
 import { PropertyType } from '../../src/properties/property-type';
 import { LoanSettings } from '../../src/loans/loan-settings';
+import { IPropertyEntityOptions } from '../../src/generators/i-property-entity-options';
 
 describe('factory-passive-apartments unit tests', () => {
   let chance: Chance.Chance;
@@ -17,7 +18,7 @@ describe('factory-passive-apartments unit tests', () => {
   });
 
   describe('and generateRentalPassiveApartment', () => {
-    test('should resolve', () => {
+    test('should resolve', async () => {
       const entity: Partial<RentalPassiveApartment> = {
         propertyType: PropertyType.SingleFamily,
         availableEndDate: chance.date(),
@@ -37,18 +38,19 @@ describe('factory-passive-apartments unit tests', () => {
 
       const expected = Object.assign(new RentalPassiveApartment(), entity);
 
-      const generateRentalPassiveApartment =
-        require('../../src/generators/factory-passive-apartment').generateRentalPassiveApartment;
+      const generateRentalPassiveApartment = (await import('../../src/generators/factory-passive-apartment')).generateRentalPassiveApartment;
 
-      const options = {
-        highestCashFlowMonthly: 1,
+      const options: IPropertyEntityOptions = {
+        highestCashFlow: 1,
         highestMinSellInYears: 1,
-        highestPriceDown: 1,
         highestSellAppreciationPercent: 1,
-        lowestCashFlowMonthly: 1,
         lowestMinSellInYears: 1,
-        lowestPriceDown: 1,
         lowestSellAppreciationPercent: 1,
+        lowestPurchasePrice: 1,
+        highestPurchasePrice: 1,
+        lowestEquityCapturePercent: 1,
+        highestEquityCapturePercent: 1,
+        lowestCashFlow: 1,
       };
 
       const lifeTime = {
@@ -77,7 +79,7 @@ describe('factory-passive-apartments unit tests', () => {
             name: LoanSettings.LoanTermInYears,
           },
         ],
-        closingCostPercent
+        closingCostPercent,
       );
       expected.offeredInvestmentAmounts = [50000, 100000, 150000, 200000];
 

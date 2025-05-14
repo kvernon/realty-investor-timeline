@@ -1,5 +1,6 @@
 import { Chance } from 'chance';
 import { HoldRuleTypes, IRule, PurchaseRuleTypes } from '../../src/rules';
+import { ISimulateOptions } from '../../src/time/simulate';
 
 describe('simulate unit tests', () => {
   let chance: Chance.Chance;
@@ -13,7 +14,7 @@ describe('simulate unit tests', () => {
   });
 
   describe('and simulate', () => {
-    test('should call things', () => {
+    test('should call things', async () => {
       const objectAssignSpy = jest.spyOn(Object, 'assign');
 
       const date = new Date();
@@ -56,9 +57,9 @@ describe('simulate unit tests', () => {
         RentalGenerator: jest.fn().mockImplementation(RentalGeneratorCtor),
       }));
 
-      const simulate = require('../../src/time/simulate').simulate;
+      const simulate = (await import('../../src/time/simulate')).simulate;
 
-      const options = {
+      const options: ISimulateOptions = {
         monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
         purchaseRules: null as IRule<PurchaseRuleTypes>[],
         holdRules: null as IRule<HoldRuleTypes>[],
@@ -68,8 +69,6 @@ describe('simulate unit tests', () => {
         generatorOptionsSingleFamily: {
           highestMinSellInYears: 0,
           lowestMinSellInYears: 0,
-          highestPricePrice: 0,
-          lowestPricePrice: 0,
           highestSellAppreciationPercent: 0,
           lowestSellAppreciationPercent: 5,
           lowestCashFlow: 0,
@@ -77,12 +76,12 @@ describe('simulate unit tests', () => {
           lowestEquityCapturePercent: 0,
           highestEquityCapturePercent: 0,
           maxRentalOpportunities: 0,
+          lowestPurchasePrice: 0,
+          highestPurchasePrice: 0,
         },
         generatorOptionsPassiveApartment: {
           highestMinSellInYears: 0,
           lowestMinSellInYears: 0,
-          highestPricePrice: 0,
-          lowestPricePrice: 0,
           highestSellAppreciationPercent: 0,
           lowestSellAppreciationPercent: 5,
           lowestCashFlow: 0,
@@ -90,6 +89,8 @@ describe('simulate unit tests', () => {
           lowestEquityCapturePercent: 0,
           highestEquityCapturePercent: 0,
           maxRentalOpportunities: 1,
+          lowestPurchasePrice: 0,
+          highestPurchasePrice: 0,
         },
         startDate: date,
         maxYears: chance.integer({ min: 1, max: 2 }),
@@ -106,7 +107,7 @@ describe('simulate unit tests', () => {
           propertyGeneratorPassiveApartment: rentalGen,
           hasMetGoalOrMaxTime: expect.any(Function),
         },
-        user
+        user,
       );
 
       expect(objectAssignSpy).toHaveBeenCalledWith(rentalGen, options.generatorOptionsSingleFamily);

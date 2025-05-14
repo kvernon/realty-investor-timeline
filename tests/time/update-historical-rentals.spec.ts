@@ -57,31 +57,27 @@ describe('updateHistoricalRentals unit tests', () => {
   describe('and updateHistoricalRentals unit test', () => {
     describe('and no existing rentals', () => {
       describe('and no new rentals', () => {
-        test('should return collection', () => {
+        test('should return collection', async () => {
           rentalGeneratorHome.getRentals.mockReturnValueOnce([]);
 
-          const updateHistoricalRentals = require('../../src/time/update-historical-rentals').updateHistoricalRentals;
+          const updateHistoricalRentals = (await import('../../src/time/update-historical-rentals')).updateHistoricalRentals;
 
           const expected: IHistoricalProperty[] = [];
 
-          expect(updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, [], new Date(), user)).toEqual(
-            expected
-          );
+          expect(updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, [], new Date(), [])).toEqual(expected);
         });
 
         describe('and new generated rentals', () => {
-          test('should return collection', () => {
+          test('should return collection', async () => {
             const singleFamily = new RentalSingleFamily();
 
             rentalGeneratorHome.getRentals.mockReturnValueOnce([singleFamily]);
 
-            const updateHistoricalRentals = require('../../src/time/update-historical-rentals').updateHistoricalRentals;
+            const updateHistoricalRentals = (await import('../../src/time/update-historical-rentals')).updateHistoricalRentals;
 
             const expected: IHistoricalProperty[] = [{ property: singleFamily, reasons: [] }];
 
-            expect(updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, [], new Date(), user)).toEqual(
-              expected
-            );
+            expect(updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, [], new Date(), [])).toEqual(expected);
           });
         });
       });
@@ -104,18 +100,16 @@ describe('updateHistoricalRentals unit tests', () => {
       });
 
       describe('and no new rentals', () => {
-        test('should return collection', () => {
+        test('should return collection', async () => {
           rentalGeneratorHome.getRentals.mockReturnValueOnce([]);
 
-          const updateHistoricalRentals = require('../../src/time/update-historical-rentals').updateHistoricalRentals;
+          const updateHistoricalRentals = (await import('../../src/time/update-historical-rentals')).updateHistoricalRentals;
 
-          expect(
-            updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, historical, new Date(), user)
-          ).toEqual(historical);
+          expect(updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, historical, new Date(), [])).toEqual(historical);
         });
 
         describe('and new generated rentals', () => {
-          test('should return collection', () => {
+          test('should return collection', async () => {
             const newRental = new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
             newRental.address = 'new sf addy';
             newRental.id = 'new sf-id';
@@ -126,13 +120,11 @@ describe('updateHistoricalRentals unit tests', () => {
 
             rentalGeneratorHome.getRentals.mockReturnValueOnce([newRental]);
 
-            const updateHistoricalRentals = require('../../src/time/update-historical-rentals').updateHistoricalRentals;
+            const updateHistoricalRentals = (await import('../../src/time/update-historical-rentals')).updateHistoricalRentals;
 
             const expected: IHistoricalProperty[] = historical.concat([{ property: newRental, reasons: [] }]);
 
-            expect(
-              updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, historical, new Date(), user)
-            ).toEqual(expected);
+            expect(updateHistoricalRentals(RentalSingleFamily, rentalGeneratorHome, historical, new Date(), [])).toEqual(expected);
           });
         });
       });
