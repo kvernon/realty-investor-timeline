@@ -25,7 +25,6 @@ describe('movement options unit tests', () => {
       ledgerCollection: null,
       getAvailableSavings: jest.fn(),
       getCashFlowMonth: jest.fn(),
-      getEstimatedMonthlyCashFlow: jest.fn(),
       metMonthlyGoal: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
       purchaseRules: [],

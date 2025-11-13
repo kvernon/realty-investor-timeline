@@ -13,6 +13,8 @@ import { looper } from './looper';
 
 /**
  * This is where the magic happens. You provide the options, and you let this calculate the rest.
+ * The flow is that you do work on a day, then after the changes are done for that day you evaluate it to determine if you met the goal or reached the end.
+ * If you did not meet the goal you start a new day and try again.
  * @param options
  * @param user
  */
@@ -31,9 +33,7 @@ export function movement(options: ILoopOptions, user: IUser): ITimeline {
   }
 
   if (!options.propertyGeneratorPassiveApartment && !options.propertyGeneratorSingleFamily) {
-    throw new Error(
-      'Invalid Argument: must declare at least 1, either propertyGeneratorSingleFamily or propertyGeneratorPassiveApartment'
-    );
+    throw new Error('Invalid Argument: must declare at least 1, either propertyGeneratorSingleFamily or propertyGeneratorPassiveApartment');
   }
 
   ensureArray<ILoanSetting>(user.loanSettings, {
@@ -51,12 +51,7 @@ export function movement(options: ILoopOptions, user: IUser): ITimeline {
     ignoreError: !options.propertyGeneratorSingleFamily && !!options.propertyGeneratorPassiveApartment,
   });
 
-  let result: ITimeline = new Timeline(
-    cloneDateUtc(options.startDate),
-    cloneDateUtc(options.startDate),
-    [],
-    user.clone()
-  );
+  let result: ITimeline = new Timeline(cloneDateUtc(options.startDate), cloneDateUtc(options.startDate), [], user.clone());
 
   do {
     result = looper(options, result);
@@ -65,8 +60,7 @@ export function movement(options: ILoopOptions, user: IUser): ITimeline {
       result.startDate,
       cloneDateUtc(result.user.ledgerCollection.getLatestLedgerItem().created),
       result.user,
-      result.rentals.map((x) => x.property).filter((x) => x.isOwned),
-      options.maxYears
+      options.maxYears,
     )
   );
 

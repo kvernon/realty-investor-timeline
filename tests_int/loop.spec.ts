@@ -69,7 +69,7 @@ describe('loop integration tests', () => {
 
       const propertyGeneratorSingleFamily = new RentalGenerator<RentalSingleFamily>(
         new ValueCache(cloneDateUtc(new Date()), [], 4),
-        generateSingleFamily
+        generateSingleFamily,
       );
 
       propertyGeneratorSingleFamily.maxRentalOpportunities = 7;
@@ -97,7 +97,7 @@ describe('loop integration tests', () => {
         actual.user.ledgerCollection.filter().map((x) => {
           balance += x.amount;
           return { ...x, balance };
-        })
+        }),
       );
 
       console.log('endDate:', actual.endDate);
@@ -111,23 +111,22 @@ describe('loop integration tests', () => {
             purchaseDate: x.property.purchaseDate,
             saleDate: x.property.soldDate,
             isOwned: x.property.isOwned,
-            cashFlow: x.property.getEstimatedMonthlyCashFlow(
-              cloneDateUtc(actual.endDate, (date) => date.setMonth(date.getMonth() + 1))
-            ),
+            cashFlow: x.property.getEstimatedMonthlyCashFlow(cloneDateUtc(actual.endDate, (date) => date.setMonth(date.getMonth() + 1))),
           }))
-          .filter((x) => x.isOwned)
+          .filter((x) => x.isOwned),
       );
 
-      expect(
-        actual.user.getEstimatedMonthlyCashFlow(
-          cloneDateUtc(actual.endDate, (date) => date.setMonth(date.getMonth() + 1)),
-          actual.rentals.map((x) => x.property).filter((x) => x.isOwned)
-        )
-      ).toBeGreaterThan(0);
+      expect(actual.getCashFlowMonthByEndDate()).toBeGreaterThan(0);
+
+      console.table(actual.user.ledgerCollection.filter((x) => x.dateMatchesYearAndMonth(actual.endDate)));
+
+      console.table(actual.user.ledgerCollection.getLastLedgerMonth());
+
       expect(actual).not.toBeNull();
       expect(actual.user).not.toBeNull();
       expect(actual.startDate).not.toBeNull();
       expect(actual.endDate).not.toBeNull();
+      expect(actual.endDate.toDateString()).toEqual(actual.user.ledgerCollection.getLatestLedgerItem().created?.toDateString());
       expect(actual.rentals).not.toBeNull();
       expect(actual.rentals).not.toEqual([]);
     });

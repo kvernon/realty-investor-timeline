@@ -1,7 +1,6 @@
 import { HasMetGoalOrMaxTime } from './has-met-goal-or-max-time';
 import { isEqual, differenceInMonths } from 'date-fns';
 import { IUser } from '../account/user';
-import { IRentalPropertyEntity } from '../properties/i-rental-property-entity';
 import { cloneDateUtc } from '../utils/data-clone-date';
 
 /**
@@ -9,21 +8,14 @@ import { cloneDateUtc } from '../utils/data-clone-date';
  * @param start
  * @param today
  * @param user
- * @param rentals
  * @param maxYears
  */
-export const defaultHasMetGoalOrMaxTime: HasMetGoalOrMaxTime = (
-  start: Date,
-  today: Date,
-  user: IUser,
-  rentals: IRentalPropertyEntity[],
-  maxYears: number
-): boolean => {
+export const defaultHasMetGoalOrMaxTime: HasMetGoalOrMaxTime = (start: Date, today: Date, user: IUser, maxYears: number): boolean => {
   if (isEqual(start, today) && !user) {
     return false;
   }
 
-  if (user && user.metMonthlyGoal(today, rentals)) {
+  if (user && user.metMonthlyGoal(today)) {
     return true;
   }
 

@@ -8,11 +8,13 @@ describe('simulate integration tests', () => {
         amountInSavings: 100000,
         monthlyIncomeAmountGoal: 10000,
         monthlySavedAmount: 10000,
-        holdRules: [
-          { value: 2, type: HoldRuleTypes.MinSellIfHighEquityPercent, propertyType: PropertyType.SingleFamily },
-        ],
+        holdRules: [{ value: 2, type: HoldRuleTypes.MinSellIfHighEquityPercent, propertyType: PropertyType.SingleFamily }],
         purchaseRules: [
-          { value: 50000, type: PurchaseRuleTypes.MaxEstimatedOutOfPocket, propertyType: PropertyType.SingleFamily },
+          {
+            value: 50000,
+            type: PurchaseRuleTypes.MaxEstimatedOutOfPocket,
+            propertyType: PropertyType.SingleFamily,
+          },
           {
             value: 5000,
             type: PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
@@ -41,42 +43,28 @@ describe('simulate integration tests', () => {
             propertyType: PropertyType.SingleFamily,
           },
         ],
-        maxYears: 2,
+        maxYears: 7,
         generatorOptionsSingleFamily: {
-          highestMinSellInYears: 1,
           lowestMinSellInYears: 1,
-          highestPurchasePrice: 200000,
+          highestMinSellInYears: 1,
           lowestPurchasePrice: 150000,
-          highestSellAppreciationPercent: 7,
+          highestPurchasePrice: 250000,
           lowestSellAppreciationPercent: 5,
-          lowestCashFlow: 300,
-          highestCashFlow: 500,
+          highestSellAppreciationPercent: 7,
+          lowestCashFlow: 200,
+          highestCashFlow: 550,
           lowestEquityCapturePercent: 7,
           highestEquityCapturePercent: 15,
           maxRentalOpportunities: 4,
         },
-        generatorOptionsPassiveApartment: {
-          highestMinSellInYears: 8,
-          lowestMinSellInYears: 5,
-          highestPurchasePrice: 12000000,
-          lowestPurchasePrice: 7000000,
-          highestSellAppreciationPercent: 7,
-          lowestSellAppreciationPercent: 5,
-          lowestCashFlow: 1300,
-          highestCashFlow: 1500,
-          lowestEquityCapturePercent: 7,
-          highestEquityCapturePercent: 15,
-          maxRentalOpportunities: 6,
-        },
       };
-
       const actual = simulate(options);
       let balance = 0;
       console.table(
         actual.user.ledgerCollection.getLastLedgerMonth().map((x) => {
           balance += x.amount;
           return { ...x, balance };
-        })
+        }),
       );
 
       console.table(
@@ -86,10 +74,18 @@ describe('simulate integration tests', () => {
             address: x.property.address,
             type: PropertyType[x.property.propertyType],
             reasons: JSON.stringify(x.reasons),
-          }))
+          })),
       );
 
-      expect(actual.getEstimatedMonthlyCashFlow()).toBeGreaterThan(0);
+      console.table(actual.user.ledgerCollection.filter((x) => x.dateMatchesYearAndMonth(actual.endDate)));
+
+      console.table(actual.user.ledgerCollection.getLastLedgerMonth());
+
+      const cashFlowMonthByEndDate = actual.getCashFlowMonthByEndDate();
+
+      console.log('typeof cashFlowMonthByEndDate', typeof cashFlowMonthByEndDate, cashFlowMonthByEndDate);
+
+      expect(cashFlowMonthByEndDate).toBeGreaterThan(0);
       expect(actual.endDate).toEqual(cloneDateUtc(actual.user.ledgerCollection.getLatestLedgerItem().created));
       expect(actual.startDate).not.toBeNull();
       expect(actual.endDate).not.toBeNull();
@@ -105,7 +101,7 @@ describe('simulate integration tests', () => {
         actual.user.ledgerCollection.filter().map((x) => {
           balance += x.amount;
           return { ...x, balance };
-        })
+        }),
       );
       console.table(
         actual.rentals
@@ -114,7 +110,7 @@ describe('simulate integration tests', () => {
             address: x.property.address,
             type: PropertyType[x.property.propertyType],
             reasons: JSON.stringify(x.reasons),
-          }))
+          })),
       );
 
       console.log('endDate:', actual.endDate);
@@ -131,10 +127,17 @@ describe('simulate integration tests', () => {
             isOwned: x.property.isOwned,
             cashFlow: x.property.getEstimatedMonthlyCashFlow(actual.endDate),
           }))
-          .filter((x) => x.isOwned)
+          .filter((x) => x.isOwned),
       );
 
-      expect(actual.getEstimatedMonthlyCashFlow()).toBeGreaterThan(0);
+      expect(actual.getCashFlowMonthByEndDate()).toBeGreaterThan(0);
+
+      console.table(actual.user.ledgerCollection.filter((x) => x.dateMatchesYearAndMonth(actual.endDate)));
+
+      console.table(actual.user.ledgerCollection.getLastLedgerMonth());
+      console.log('getCashFlowMonthByEndDate cash flow', actual.getCashFlowMonthByEndDate());
+      console.log('last month cash flow', actual.user.ledgerCollection.getCashFlowMonth(actual.endDate));
+
       expect(actual.endDate).toEqual(cloneDateUtc(actual.user.ledgerCollection.getLatestLedgerItem().created));
       expect(actual.startDate).not.toBeNull();
       expect(actual.endDate).not.toBeNull();

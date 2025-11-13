@@ -1,6 +1,5 @@
 import { IHistoricalProperty } from './i-historical-property';
 import { IUser } from '../account/user';
-import { ILedgerSummary } from '../ledger/i-ledger-summary';
 import { cloneDateUtc } from '../utils';
 
 export interface ITimeline {
@@ -9,7 +8,7 @@ export interface ITimeline {
   rentals: IHistoricalProperty[];
   user: IUser;
 
-  getEstimatedMonthlyCashFlow(): number;
+  getCashFlowMonthByEndDate(): number;
 
   getBalance(date?: Date): number;
 
@@ -29,33 +28,12 @@ export class Timeline implements ITimeline {
   startDate: Date;
   user: IUser;
 
-  getEstimatedMonthlyCashFlow(): number {
-    return this.user.getEstimatedMonthlyCashFlow(
-      this.endDate,
-      this.rentals.map((x) => x.property).filter((x) => x.isOwned)
-    );
+  getCashFlowMonthByEndDate(): number {
+    return this.user.getCashFlowMonth(cloneDateUtc(this.endDate));
   }
 
   getBalance(date?: Date): number {
     return this.user.ledgerCollection.getBalance(date ?? this.endDate);
-  }
-
-  getSummariesAnnualByYear(year?: number): ILedgerSummary[] {
-    return this.user.ledgerCollection.getSummariesAnnual(year ?? this.endDate.getUTCFullYear());
-  }
-
-  getAllSummariesAnnual(): ILedgerSummary[] {
-    let result: ILedgerSummary[] = [];
-
-    for (
-      let startYear: number = this.startDate.getUTCFullYear();
-      startYear < this.endDate.getUTCFullYear();
-      startYear++
-    ) {
-      result = result.concat(this.getSummariesAnnualByYear(startYear));
-    }
-
-    return result;
   }
 
   clone(): ITimeline {
@@ -66,7 +44,7 @@ export class Timeline implements ITimeline {
         property: x.property.clone(),
         reasons: x.reasons.map((x) => ({ ...x })),
       })),
-      this.user.clone()
+      this.user.clone(),
     );
   }
 }
