@@ -267,8 +267,8 @@ describe('LedgerCollection unit tests', () => {
           cashFlowTwo.type = LedgerItemType.CashFlow;
 
           const cashFlowOut = new LedgerItem();
-          cashFlowOut.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
-          cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 2);
+          cashFlowOut.created = new Date(Date.UTC(dateUtc.getUTCFullYear() + 4, dateUtc.getUTCMonth(), 1));
+          cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth());
           cashFlowOut.amount = 111111;
           cashFlowOut.type = LedgerItemType.CashFlow;
 
@@ -302,7 +302,6 @@ describe('LedgerCollection unit tests', () => {
 
         const cashFlowOut = new LedgerItem();
         cashFlowOut.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
-        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 2);
         cashFlowOut.amount = 111111;
         cashFlowOut.type = LedgerItemType.CashFlow;
 
@@ -415,8 +414,7 @@ describe('LedgerCollection unit tests', () => {
         });
         describe('and has properties', () => {
           test('should be falsy', () => {
-            const singleFamily: jest.Mocked<RentalSingleFamily> =
-              new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
+            const singleFamily: jest.Mocked<RentalSingleFamily> = new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
             singleFamily.getExpensesByDate.mockReturnValueOnce(3);
             Object.defineProperty(singleFamily, 'propertyType', {
               value: PropertyType.SingleFamily,
@@ -445,8 +443,7 @@ describe('LedgerCollection unit tests', () => {
         describe('and has properties', () => {
           describe('balance less', () => {
             test('should be falsy', () => {
-              const singleFamily: jest.Mocked<RentalSingleFamily> =
-                new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
+              const singleFamily: jest.Mocked<RentalSingleFamily> = new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
               singleFamily.getExpensesByDate.mockReturnValueOnce(ledgerItem.amount * 2);
 
               Object.defineProperty(singleFamily, 'propertyType', {
@@ -457,8 +454,7 @@ describe('LedgerCollection unit tests', () => {
           });
           describe('balance more', () => {
             test('should be truthy', () => {
-              const singleFamily: jest.Mocked<RentalSingleFamily> =
-                new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
+              const singleFamily: jest.Mocked<RentalSingleFamily> = new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
 
               const monthsToSave = 6;
               singleFamily.getExpensesByDate.mockReturnValueOnce(ledgerItem.amount / 2 / monthsToSave);
@@ -483,8 +479,7 @@ describe('LedgerCollection unit tests', () => {
         });
         describe('and has properties', () => {
           test('should be falsy', () => {
-            const singleFamily: jest.Mocked<RentalSingleFamily> =
-              new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
+            const singleFamily: jest.Mocked<RentalSingleFamily> = new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
             singleFamily.getExpensesByDate.mockReturnValueOnce(3);
             Object.defineProperty(singleFamily, 'propertyType', {
               value: PropertyType.SingleFamily,
@@ -513,8 +508,7 @@ describe('LedgerCollection unit tests', () => {
         describe('and has properties', () => {
           describe('balance less', () => {
             test('should be falsy', () => {
-              const singleFamily: jest.Mocked<RentalSingleFamily> =
-                new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
+              const singleFamily: jest.Mocked<RentalSingleFamily> = new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
               const piti = ledgerItem.amount * 2;
               singleFamily.getExpensesByDate.mockReturnValueOnce(piti);
               Object.defineProperty(singleFamily, 'propertyType', {
