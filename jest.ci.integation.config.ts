@@ -4,10 +4,10 @@
  */
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const intConfig = require('./jest.integation.config').default;
+import config from './jest.integation.config';
 
 export default {
-  ...intConfig,
+  ...config,
   testResultsProcessor: 'jest-junit',
   reporters: ['default', 'jest-junit'],
 };

@@ -4,7 +4,7 @@
  */
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const benchConfig = require('./jest.benchmark.config').default;
+import benchConfig from './jest.benchmark.config';
 
 export default {
   ...benchConfig,
