@@ -160,56 +160,17 @@ describe('User unit tests', () => {
   });
 
   describe('and metMonthlyGoal', () => {
-    let rental: jest.Mocked<IRentalPropertyEntity>;
-    beforeEach(() => {
-      rental = {
-        sellPriceByDate: jest.fn(),
-        getEstimatedEquityFromSell: jest.fn(),
-        estimatedCashOnCashReturn: 0,
-        estimatedReturnOnCapitalGain: 0,
-        isAvailable: false,
-        wasPurchased: true,
-        rawEstimatedAnnualCashFlow: 0,
-        getExpensesByDate: jest.fn(),
-        getEstimatedMonthlyCashFlow: jest.fn(),
-        offeredInvestmentAmounts: [0],
-        propertyType: PropertyType.SingleFamily,
-        clone: jest.fn().mockReturnThis(),
-        equityCapturePercent: 0,
-        minSellYears: 0,
-        rawCashFlow: 0,
-        address: '',
-        availableEndDate: new Date(),
-        availableStartDate: new Date(),
-        id: '',
-        isOwned: false,
-        purchaseDate: undefined,
-        purchasePrice: 0,
-        sellPriceAppreciationPercent: 0,
-        soldDate: undefined,
-        canInvestByUser: jest.fn(),
-        canSell: jest.fn(),
-        get costDownPrice(): number {
-          return 0;
-        },
-        getEquityFromSell: jest.fn(),
-        getCashFlowByDate: jest.fn(),
-        isAvailableByDate: jest.fn(),
-      };
-    });
-
     test('should be true', () => {
       const date = new Date();
 
       const expected = 500;
 
-      rental.getEstimatedMonthlyCashFlow.mockReturnValue(expected);
-
       instance.monthlyIncomeAmountGoal = 500;
 
-      expect(instance.metMonthlyGoal(date, [rental])).toBeTruthy();
-      expect(instance.getEstimatedMonthlyCashFlow(date, [rental])).toEqual(expected);
-      expect(rental.getEstimatedMonthlyCashFlow).toHaveBeenCalledWith(date);
+      ledgerCollection.getCashFlowMonth.mockReturnValue(expected);
+
+      expect(instance.metMonthlyGoal(date)).toBeTruthy();
+      expect(instance.getCashFlowMonth(date)).toEqual(expected);
     });
 
     test('should be false', () => {
@@ -219,11 +180,10 @@ describe('User unit tests', () => {
 
       instance.monthlyIncomeAmountGoal = 500;
 
-      rental.getEstimatedMonthlyCashFlow.mockReturnValue(expected);
+      ledgerCollection.getCashFlowMonth.mockReturnValue(expected);
 
-      expect(instance.metMonthlyGoal(date, [rental])).toBeFalsy();
-      expect(instance.getEstimatedMonthlyCashFlow(date, [rental])).toEqual(expected);
-      expect(rental.getEstimatedMonthlyCashFlow).toHaveBeenCalledWith(date);
+      expect(instance.metMonthlyGoal(date)).toBeFalsy();
+      expect(instance.getCashFlowMonth(date)).toEqual(expected);
     });
   });
 });

@@ -22,9 +22,8 @@ export interface IUser extends IUserInvestorCheck {
   /**
    * method used to help determine if you have met your expenses
    * @param today
-   * @param properties
    */
-  getEstimatedMonthlyCashFlow(today: Date, properties: IRentalPropertyEntity[]): number;
+  getCashFlowMonth(today: Date): number;
 
   clone(): IUser;
 }
@@ -48,23 +47,17 @@ export class User implements IUser {
   /**
    * method used to help determine if you have met your expenses
    * @param today
-   * @param properties
    */
-  metMonthlyGoal(today: Date, properties: IRentalPropertyEntity[]): boolean {
-    return this.getEstimatedMonthlyCashFlow(today, properties) >= this.monthlyIncomeAmountGoal;
+  metMonthlyGoal(today: Date): boolean {
+    return this.getCashFlowMonth(today) >= this.monthlyIncomeAmountGoal;
   }
 
-  getEstimatedMonthlyCashFlow(today: Date, properties: IRentalPropertyEntity[]): number {
-    if (!properties || properties.length === 0) {
+  getCashFlowMonth(today: Date): number {
+    if (!this.ledgerCollection) {
       return 0;
     }
 
-    return currency(
-      properties.reduce(
-        (previousValue, currentValue) => previousValue + currentValue.getEstimatedMonthlyCashFlow(today),
-        0
-      )
-    );
+    return currency(this.ledgerCollection.getCashFlowMonth(today));
   }
 
   /**
@@ -120,8 +113,7 @@ export class User implements IUser {
     let minMonthsRequired = 0;
     if (this.loanSettings && this.loanSettings.length > 0) {
       const found = this.loanSettings.find(
-        (ls) =>
-          ls.name === LoanSettings.MinimumMonthlyReservesForRental && ls.propertyType === PropertyType.SingleFamily
+        (ls) => ls.name === LoanSettings.MinimumMonthlyReservesForRental && ls.propertyType === PropertyType.SingleFamily,
       );
       minMonthsRequired = found?.value ?? 0;
     }
@@ -138,8 +130,7 @@ export class User implements IUser {
     let minMonthsRequired = 0;
     if (this.loanSettings && this.loanSettings.length > 0) {
       const found = this.loanSettings.find(
-        (ls) =>
-          ls.name === LoanSettings.MinimumMonthlyReservesForRental && ls.propertyType === PropertyType.SingleFamily
+        (ls) => ls.name === LoanSettings.MinimumMonthlyReservesForRental && ls.propertyType === PropertyType.SingleFamily,
       );
       minMonthsRequired = found?.value ?? 0;
     }
@@ -156,16 +147,12 @@ export class User implements IUser {
     let minMonthsRequired = 0;
     if (this.loanSettings && this.loanSettings.length > 0) {
       const found = this.loanSettings.find(
-        (ls) =>
-          ls.name === LoanSettings.MinimumMonthlyReservesForRental && ls.propertyType === PropertyType.SingleFamily
+        (ls) => ls.name === LoanSettings.MinimumMonthlyReservesForRental && ls.propertyType === PropertyType.SingleFamily,
       );
       minMonthsRequired = found?.value ?? 0;
     }
 
-    return (
-      this.ledgerCollection.getBalance(date) -
-      this.ledgerCollection.getMinimumSavings(properties, date, minMonthsRequired)
-    );
+    return this.ledgerCollection.getBalance(date) - this.ledgerCollection.getMinimumSavings(properties, date, minMonthsRequired);
   }
 
   clone(): IUser {

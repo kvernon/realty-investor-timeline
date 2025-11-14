@@ -76,7 +76,6 @@ describe('looper unit tests', () => {
       },
       getCashFlowMonth: jest.fn(),
       getAvailableSavings: jest.fn(),
-      getEstimatedMonthlyCashFlow: jest.fn(),
       metMonthlyGoal: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
       purchaseRules: [new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.SingleFamily)],
@@ -129,7 +128,7 @@ describe('looper unit tests', () => {
           startDate: new Date(),
           rentals: [],
           clone: jest.fn().mockReturnThis(),
-          getEstimatedMonthlyCashFlow: jest.fn(),
+          getCashFlowMonthByEndDate: jest.fn(),
         },
       );
     });
@@ -164,7 +163,7 @@ describe('looper unit tests', () => {
           startDate: new Date(),
           rentals: [],
           clone: jest.fn().mockReturnThis(),
-          getEstimatedMonthlyCashFlow: jest.fn(),
+          getCashFlowMonthByEndDate: jest.fn(),
         },
       );
     });
@@ -201,7 +200,7 @@ describe('looper unit tests', () => {
           startDate: expectedToday,
           rentals: [],
           clone: jest.fn().mockReturnThis(),
-          getEstimatedMonthlyCashFlow: jest.fn(),
+          getCashFlowMonthByEndDate: jest.fn(),
         },
       );
     });
@@ -287,7 +286,7 @@ describe('looper unit tests', () => {
             startDate: new Date(),
             rentals: [],
             clone: jest.fn().mockReturnThis(),
-            getEstimatedMonthlyCashFlow: jest.fn(),
+            getCashFlowMonthByEndDate: jest.fn(),
           },
         );
       });
@@ -349,7 +348,7 @@ describe('looper unit tests', () => {
             startDate: new Date(),
             rentals: [],
             clone: jest.fn().mockReturnThis(),
-            getEstimatedMonthlyCashFlow: jest.fn(),
+            getCashFlowMonthByEndDate: jest.fn(),
           },
         );
       });
@@ -420,7 +419,7 @@ describe('looper unit tests', () => {
               startDate: new Date(),
               rentals: [],
               clone: jest.fn().mockReturnThis(),
-              getEstimatedMonthlyCashFlow: jest.fn(),
+              getCashFlowMonthByEndDate: jest.fn(),
             },
           );
         });
@@ -482,7 +481,7 @@ describe('looper unit tests', () => {
               startDate: new Date(),
               rentals: [],
               clone: jest.fn().mockReturnThis(),
-              getEstimatedMonthlyCashFlow: jest.fn(),
+              getCashFlowMonthByEndDate: jest.fn(),
             },
           );
         });
