@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.0.0...v5.1.0) (2025-11-14)
+
+
+### Features
+
+* check met goal in loop ([#67](https://github.com/kvernon/realty-investor-timeline/issues/67)) ([4691bc3](https://github.com/kvernon/realty-investor-timeline/commit/4691bc3592cd806bc6c4795f45017eb4da19cb3b))
+
 # [5.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.9.0...v5.0.0) (2025-11-14)
 
 
