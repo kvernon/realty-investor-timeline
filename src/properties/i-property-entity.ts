@@ -52,5 +52,5 @@ export interface IPropertyEntity extends IEntityExistence {
   /**
    * used when evaluating rules
    */
-  readonly propertyType: PropertyType;
+  propertyType: PropertyType;
 }

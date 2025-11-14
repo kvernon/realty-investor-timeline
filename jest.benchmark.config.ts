@@ -4,7 +4,7 @@
  */
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const uConfig = require('./jest.config').default;
+import uConfig from './jest.config';
 
 delete uConfig.coverageDirectory;
 delete uConfig.coveragePathIgnorePatterns;

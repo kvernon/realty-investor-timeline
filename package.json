@@ -4,6 +4,7 @@
   "description": "A way to determine if and when your expenses would be covered",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
+  "type": "commonjs",
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "tsc",
@@ -70,7 +71,7 @@
     "ts-node": "^10.9.2",
     "typedoc": "^0.27.7",
     "typedoc-plugin-markdown": "^4.4.2",
-    "typescript": "5.3.3"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "chance": "^1.1.8",

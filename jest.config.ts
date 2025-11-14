@@ -2,8 +2,13 @@
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
+import { createJsWithTsPreset } from 'ts-jest';
 
-export default {
+const config = {
+  ...createJsWithTsPreset({
+    tsconfig: 'tsconfig.test.json',
+  }),
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -11,7 +16,7 @@ export default {
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
-  cacheDirectory: ".jestcache",
+  cacheDirectory: '.jestcache',
 
   // Automatically clear mock calls and instances between every test
   // clearMocks: false,
@@ -23,16 +28,16 @@ export default {
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ["/node_modules/", "index.ts"],
+  coveragePathIgnorePatterns: ['/node_modules/', 'index.ts'],
 
   // Indicates which provider should be used to instrument code for coverage
   // coverageProvider: "babel",
 
   // A list of reporter names that Jest uses when writing coverage reports
-  coverageReporters: ["json-summary", "json", "text", "lcov", "clover"],
+  coverageReporters: ['json-summary', 'json', 'text', 'lcov', 'clover'],
 
   // An object that configures minimum threshold enforcement for coverage results
   // coverageThreshold: undefined,
@@ -64,7 +69,7 @@ export default {
   // ],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   // moduleNameMapper: {},
@@ -79,7 +84,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: "ts-jest",
+  // preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -100,7 +105,7 @@ export default {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  rootDir: "./",
+  rootDir: './',
 
   // A list of paths to directories that Jest should use to search for files in
   // roots: [
@@ -123,7 +128,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -132,7 +137,7 @@ export default {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: ["<rootDir>/tests/**/*.+(spec|test).[jt]s?(x)", "<rootDir>/?(*.)+(spec|test).[tj]s?(x)"],
+  testMatch: ['<rootDir>/tests/**/*.+(spec|test).[jt]s?(x)', '<rootDir>/?(*.)+(spec|test).[tj]s?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
@@ -154,9 +159,6 @@ export default {
   // Setting this value to "fake" allows the use of fake timers for functions such as "setTimeout"
   // timers: "real",
 
-  // A map from regular expressions to paths to transformers
-  // transform: undefined,
-
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
   //   "\\\\node_modules\\\\",
@@ -175,3 +177,5 @@ export default {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
+
+export default config;

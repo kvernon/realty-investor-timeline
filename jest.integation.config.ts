@@ -4,15 +4,15 @@
  */
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const uConfig = require('./jest.config').default;
+const jestConfig = require('./jest.config').default;
 
-delete uConfig.coverageDirectory;
-delete uConfig.coveragePathIgnorePatterns;
-delete uConfig.coverageReporters;
-delete uConfig.testMatch;
+delete jestConfig.coverageDirectory;
+delete jestConfig.coveragePathIgnorePatterns;
+delete jestConfig.coverageReporters;
+delete jestConfig.testMatch;
 
 export default {
-  ...uConfig,
+  ...jestConfig,
   verbose: false,
   testMatch: ['<rootDir>/tests_int/*.+(spec|test).[jt]s?(x)'],
 };
