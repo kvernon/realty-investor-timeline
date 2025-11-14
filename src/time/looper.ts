@@ -30,7 +30,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     options.propertyGeneratorSingleFamily,
     result.rentals,
     timeline.endDate,
-    result.user.loanSettings
+    result.user.loanSettings,
   );
 
   result.rentals = updateHistoricalRentals(
@@ -38,7 +38,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     options.propertyGeneratorPassiveApartment,
     result.rentals,
     timeline.endDate,
-    result.user.loanSettings
+    result.user.loanSettings,
   );
 
   //step 2: get cash flow
@@ -60,6 +60,10 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     }
   }
 
+  if (result.user.metMonthlyGoal(result.endDate)) {
+    return result;
+  }
+
   //step 3: sell properties
   const forSaleProperties = result.rentals
     .filter((r) => r.property && r.property.canSell(timeline.endDate))
@@ -76,16 +80,14 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
       date.setUTCHours(3);
       date.setUTCMinutes(index);
     });
-    equityFromSell.note = `for: ${pr.property.address}, id: ${pr.property.id} (${
-      PropertyType[pr.property.propertyType]
-    })`;
+    equityFromSell.note = `for: ${pr.property.address}, id: ${pr.property.id} (${PropertyType[pr.property.propertyType]})`;
     result.user.ledgerCollection.add(equityFromSell);
   }
 
   if (
     !result.user.hasMoneyToInvest(
       timeline.endDate,
-      result.rentals.map((x) => x.property).filter((x) => x.isOwned)
+      result.rentals.map((x) => x.property).filter((x) => x.isOwned),
     )
   ) {
     return result;
@@ -98,7 +100,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
         const validator = r.property.canInvestByUser(
           result.user,
           timeline.endDate,
-          result.rentals.map((h) => h.property)
+          result.rentals.map((h) => h.property),
         );
 
         if (!validator.canInvest) {
@@ -106,7 +108,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
             validator.results.map((reasons) => ({
               reason: reasons.message,
               date: cloneDateUtc(timeline.endDate),
-            }))
+            })),
           );
         }
 
@@ -133,7 +135,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
         result.user.hasMoneyToInvest(
           purchaseCreated,
           result.rentals.map((x) => x.property),
-          minCostDownByRule
+          minCostDownByRule,
         )
       ) {
         // buy
@@ -141,9 +143,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
         purchase.amount = minCostDownByRule * -1;
         purchase.type = LedgerItemType.Purchase;
         purchase.created = purchaseCreated;
-        purchase.note = `for: ${rentalProperty.address}, id: ${rentalProperty.id} (${
-          PropertyType[rentalProperty.propertyType]
-        })`;
+        purchase.note = `for: ${rentalProperty.address}, id: ${rentalProperty.id} (${PropertyType[rentalProperty.propertyType]})`;
 
         if (!purchase.isAmountGreaterThanZero()) {
           result.user.ledgerCollection.add(purchase);
