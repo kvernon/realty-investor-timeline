@@ -1,3 +1,12 @@
+# [4.9.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.8.0...v4.9.0) (2025-11-14)
+
+
+### Features
+
+* dependency updates ([#63](https://github.com/kvernon/realty-investor-timeline/issues/63)) ([2437cab](https://github.com/kvernon/realty-investor-timeline/commit/2437cab6d24e73a35c878447e3cdb8abef67a1ae))
+* node 24 circle-ci img ([#66](https://github.com/kvernon/realty-investor-timeline/issues/66)) ([ccbe708](https://github.com/kvernon/realty-investor-timeline/commit/ccbe7080c6204dc1a56e0491941570bcb912c866))
+* node 24 update ([#65](https://github.com/kvernon/realty-investor-timeline/issues/65)) ([ed4c32d](https://github.com/kvernon/realty-investor-timeline/commit/ed4c32da612b031c79a3310c20b26eb433599e64))
+
 # [4.8.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.7.0...v4.8.0) (2025-05-14)
 
 
