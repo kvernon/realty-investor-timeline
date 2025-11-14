@@ -258,4 +258,4 @@ The example result object models:
 
 ```
 
-In it you can get an estimate monthly cash flow by calling `const estimated = timeline.getEstimatedMonthlyCashFlow();`
+In it you can get an estimate monthly cash flow by calling `const mostRecentMonthlyCashflow = timeline.getCashFlowMonthByEndDate();`
