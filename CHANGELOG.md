@@ -1,3 +1,15 @@
+# [5.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.9.0...v5.0.0) (2025-11-14)
+
+
+### Features
+
+* simplified goal check ([#64](https://github.com/kvernon/realty-investor-timeline/issues/64)) ([7876cae](https://github.com/kvernon/realty-investor-timeline/commit/7876cae2c4753d3c89d6c06891e619272858d82b))
+
+
+### BREAKING CHANGES
+
+* this alters core flows
+
 # [4.9.0](https://github.com/kvernon/realty-investor-timeline/compare/v4.8.0...v4.9.0) (2025-11-14)
 
 
