@@ -1,3 +1,10 @@
+# [5.2.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.1.0...v5.2.0) (2025-12-19)
+
+
+### Features
+
+* added error reason for no money ([#69](https://github.com/kvernon/realty-investor-timeline/issues/69)) ([2d17a48](https://github.com/kvernon/realty-investor-timeline/commit/2d17a486541d3a349c70f8cb962b57bf439b10e3))
+
 # [5.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.0.0...v5.1.0) (2025-11-14)
 
 
