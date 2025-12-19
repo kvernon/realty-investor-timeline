@@ -11,7 +11,7 @@ import { HoldRuleTypes } from '../../src/rules/hold-rule-types';
 import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
 import { RuleEvaluation } from '../../src/rules/rule-evaluation';
 import { InvestmentReasons } from '../../src/investments/investment-reasons';
-import { ILedgerCollection } from '../../src';
+import { ILedgerCollection } from '../../src/ledger/ledger-collection';
 
 jest.mock('../../src/properties/rental-single-family');
 jest.mock('../../src/properties/rental-passive-apartment');
