@@ -21,7 +21,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     const salary = new LedgerItem();
     salary.amount = result.user.monthlySavedAmount;
     salary.type = LedgerItemType.Salary;
-    salary.created = cloneDateUtc(timeline.endDate, (date) => date.setUTCHours(1));
+    salary.created = cloneDateUtc(result.endDate, (date) => date.setUTCHours(1));
     salary.note = 'saved for month';
     result.user.ledgerCollection.add(salary);
   }
@@ -30,7 +30,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     RentalSingleFamily,
     options.propertyGeneratorSingleFamily,
     result.rentals,
-    timeline.endDate,
+    result.endDate,
     result.user.loanSettings,
   );
 
@@ -38,7 +38,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     RentalPassiveApartment,
     options.propertyGeneratorPassiveApartment,
     result.rentals,
-    timeline.endDate,
+    result.endDate,
     result.user.loanSettings,
   );
 
@@ -47,9 +47,9 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     const pr = result.rentals[index];
     if (pr.property && pr.property.isOwned) {
       const cashFlow = new LedgerItem();
-      cashFlow.amount = pr.property.getCashFlowByDate(timeline.endDate);
+      cashFlow.amount = pr.property.getCashFlowByDate(result.endDate);
       cashFlow.type = LedgerItemType.CashFlow;
-      cashFlow.created = cloneDateUtc(timeline.endDate, (date) => {
+      cashFlow.created = cloneDateUtc(result.endDate, (date) => {
         date.setUTCHours(2);
         date.setUTCMinutes(index);
       });
@@ -67,17 +67,17 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
 
   //step 3: sell properties
   const forSaleProperties = result.rentals
-    .filter((r) => r.property && r.property.canSell(timeline.endDate))
+    .filter((r) => r.property && r.property.canSell(result.endDate))
     .sort((a, b) => propertySort<HoldRuleTypes>(a.property, b.property, result.user.holdRules));
 
   for (let index = 0; index < forSaleProperties.length; index++) {
     const pr = forSaleProperties[index];
-    pr.property.soldDate = cloneDateUtc(timeline.endDate);
+    pr.property.soldDate = cloneDateUtc(result.endDate);
 
     const equityFromSell = new LedgerItem();
-    equityFromSell.amount = pr.property.getEquityFromSell(timeline.endDate);
+    equityFromSell.amount = pr.property.getEquityFromSell(result.endDate);
     equityFromSell.type = LedgerItemType.Equity;
-    equityFromSell.created = cloneDateUtc(timeline.endDate, (date) => {
+    equityFromSell.created = cloneDateUtc(result.endDate, (date) => {
       date.setUTCHours(3);
       date.setUTCMinutes(index);
     });
@@ -86,7 +86,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
   }
   if (
     !result.user.hasMoneyToInvest(
-      timeline.endDate,
+      result.endDate,
       result.rentals.map((x) => x.property).filter((x) => x.isOwned),
     )
   ) {
@@ -99,7 +99,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     result.rentals.forEach((r) => {
       r.reasons.push({
         reason: issueUserHasNoMoneyToInvest.message,
-        date: cloneDateUtc(timeline.endDate),
+        date: cloneDateUtc(result.endDate),
         additionalInfo: [{ name: 'balance', value: result.user.ledgerCollection.getBalance(result.endDate) }],
       });
     });
@@ -110,10 +110,10 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
   //step 4: buy new properties
   const purchaseRentals = result.rentals
     .map((r) => {
-      if (r.property && r.property.isAvailableByDate(timeline.endDate)) {
+      if (r.property && r.property.isAvailableByDate(result.endDate)) {
         const validator = r.property.canInvestByUser(
           result.user,
-          timeline.endDate,
+          result.endDate,
           result.rentals.map((h) => h.property),
         );
 
@@ -121,7 +121,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
           r.reasons = r.reasons.concat(
             validator.results.map((reasons) => ({
               reason: reasons.message,
-              date: cloneDateUtc(timeline.endDate),
+              date: cloneDateUtc(result.endDate),
               additionalInfo: reasons.properties,
             })),
           );
@@ -139,7 +139,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
 
     if (rentalProperty) {
       // check cash
-      const purchaseCreated = cloneDateUtc(timeline.endDate, (date) => {
+      const purchaseCreated = cloneDateUtc(result.endDate, (date) => {
         date.setUTCHours(4);
         date.setUTCMinutes(index);
       });
@@ -164,7 +164,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
           result.user.ledgerCollection.add(purchase);
 
           // set to purchase
-          rentalProperty.purchaseDate = cloneDateUtc(timeline.endDate);
+          rentalProperty.purchaseDate = cloneDateUtc(result.endDate);
 
           if (rentalProperty.propertyType === PropertyType.PassiveApartment) {
             rentalProperty.costDownPrice = minCostDownByRule;
@@ -182,7 +182,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
           .forEach((r) => {
             r.reasons.push({
               reason: issueMetMinCostYetUserHasNoMoneyToInvest.message,
-              date: cloneDateUtc(timeline.endDate),
+              date: cloneDateUtc(result.endDate),
               additionalInfo: issueMetMinCostYetUserHasNoMoneyToInvest.properties,
             });
           });
