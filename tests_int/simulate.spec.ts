@@ -55,6 +55,7 @@ describe('simulate integration tests', () => {
           lowestEquityCapturePercent: 7,
           highestEquityCapturePercent: 15,
           maxRentalOpportunities: 4,
+          maxMonthsToCache: 2,
         },
       };
       const actual = simulate(options);

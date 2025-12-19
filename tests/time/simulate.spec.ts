@@ -78,6 +78,7 @@ describe('simulate unit tests', () => {
           maxRentalOpportunities: 0,
           lowestPurchasePrice: 0,
           highestPurchasePrice: 0,
+          maxMonthsToCache: 2,
         },
         generatorOptionsPassiveApartment: {
           highestMinSellInYears: 0,
@@ -91,6 +92,7 @@ describe('simulate unit tests', () => {
           maxRentalOpportunities: 1,
           lowestPurchasePrice: 0,
           highestPurchasePrice: 0,
+          maxMonthsToCache: 2,
         },
         startDate: date,
         maxYears: chance.integer({ min: 1, max: 2 }),

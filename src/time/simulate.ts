@@ -22,6 +22,11 @@ export interface IGenOptions extends IPropertyEntityOptions {
    * Used to provide an amount of Random properties
    */
   maxRentalOpportunities: number;
+
+  /**
+   * Used to say how long a property should be cached
+   */
+  maxMonthsToCache: number;
 }
 
 export interface ISimulateOptions {
@@ -138,31 +143,30 @@ export function simulate(
       lowestEquityCapturePercent: 7,
       highestEquityCapturePercent: 15,
       maxRentalOpportunities: 4,
+      maxMonthsToCache: 2,
     },
-  }
+  },
 ): ITimeline {
   const formattedUtcDate = cloneDateUtc(options.startDate ?? new Date());
 
   if (!options.generatorOptionsPassiveApartment && !options.generatorOptionsSingleFamily) {
-    throw new Error(
-      'Invalid Argument: must declare at least 1, either generatorOptionsSingleFamily or generatorOptionsPassiveApartment'
-    );
+    throw new Error('Invalid Argument: must declare at least 1, either generatorOptionsSingleFamily or generatorOptionsPassiveApartment');
   }
 
   const propertyGeneratorSingleFamily = Object.assign(
     new RentalGenerator<RentalSingleFamily>(
-      new ValueCache(cloneDateUtc(formattedUtcDate), [], 2),
-      generateSingleFamily
+      new ValueCache(cloneDateUtc(formattedUtcDate), [], options.generatorOptionsSingleFamily.maxMonthsToCache),
+      generateSingleFamily,
     ),
-    options.generatorOptionsSingleFamily
+    options.generatorOptionsSingleFamily,
   );
 
   const propertyGeneratorPassiveApartment = Object.assign(
     new RentalGenerator<RentalPassiveApartment>(
-      new ValueCache(cloneDateUtc(formattedUtcDate), [], 2),
-      generateRentalPassiveApartment
+      new ValueCache(cloneDateUtc(formattedUtcDate), [], options.generatorOptionsPassiveApartment.maxMonthsToCache),
+      generateRentalPassiveApartment,
     ),
-    options.generatorOptionsPassiveApartment
+    options.generatorOptionsPassiveApartment,
   );
 
   const totalSavings = new LedgerItem();
@@ -189,6 +193,6 @@ export function simulate(
       startDate: formattedUtcDate,
       hasMetGoalOrMaxTime: options.hasMetGoalOrMaxTime,
     },
-    user
+    user,
   );
 }
