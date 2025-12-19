@@ -1,3 +1,10 @@
+# [5.4.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.3.0...v5.4.0) (2025-12-19)
+
+
+### Features
+
+* update timeline enddate ([#71](https://github.com/kvernon/realty-investor-timeline/issues/71)) ([e74a6dd](https://github.com/kvernon/realty-investor-timeline/commit/e74a6dd4eaabc43ab593be38411310e470ab7158))
+
 # [5.3.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.2.0...v5.3.0) (2025-12-19)
 
 
