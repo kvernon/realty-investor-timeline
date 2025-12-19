@@ -1,3 +1,10 @@
+# [5.3.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.2.0...v5.3.0) (2025-12-19)
+
+
+### Features
+
+* more no money; expose properties ([#70](https://github.com/kvernon/realty-investor-timeline/issues/70)) ([52f0ee7](https://github.com/kvernon/realty-investor-timeline/commit/52f0ee718fccc33c4891add239bd50f4228661c8))
+
 # [5.2.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.1.0...v5.2.0) (2025-12-19)
 
 
