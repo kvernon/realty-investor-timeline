@@ -17,22 +17,21 @@ export function canInvestByUser(
   rental: IRentalPropertyEntity,
   user: IUserInvestorCheck,
   date: Date,
-  properties: IRentalPropertyEntity[]
+  properties: IRentalPropertyEntity[],
 ): IRentalInvestorValidator {
   const result = new RentalInvestorValidator();
 
   if (rental.isOwned) {
-    result.results.push(new UserInvestResult(InvestmentReasons.PropertyIsAlreadyOwned));
+    result.results.push(new UserInvestResult(InvestmentReasons.PropertyIsAlreadyOwned, '', []));
     return result;
   }
 
   const minCostDownByRule = getMinCostDownByRule(rental, user.purchaseRules);
   if (!user.hasMoneyToInvest(date, properties, minCostDownByRule)) {
     result.results.push(
-      new UserInvestResult(
-        InvestmentReasons.UserHasNoMoneyToInvest,
-        `user balance: ${user.ledgerCollection.getBalance(date)}`
-      )
+      new UserInvestResult(InvestmentReasons.UserHasNoMoneyToInvest, `user balance: ${user.ledgerCollection.getBalance(date)}`, [
+        { name: 'balance', value: user.ledgerCollection.getBalance(date) },
+      ]),
     );
   }
 
@@ -40,16 +39,14 @@ export function canInvestByUser(
     result.results.push(
       new UserInvestResult(
         InvestmentReasons.UserHasNotSavedEnoughMoney,
-        `user balance: ${user.ledgerCollection.getBalance(date)}, minimumSavings: ${user.getMinimumSavings(
-          date,
-          properties
-        )}`
-      )
+        `user balance: ${user.ledgerCollection.getBalance(date)}, minimumSavings: ${user.getMinimumSavings(date, properties)}`,
+        [{ name: 'balance', value: user.ledgerCollection.getBalance(date) }],
+      ),
     );
   }
 
   if (!user.purchaseRules || user.purchaseRules.length === 0) {
-    result.results.push(new UserInvestResult(InvestmentReasons.NoRules, 'user has no purchase rules'));
+    result.results.push(new UserInvestResult(InvestmentReasons.NoRules, 'user has no purchase rules', []));
     return result;
   }
 
@@ -72,7 +69,7 @@ export function canInvestByUser(
         return [];
       })
       .flat()
-      .filter((x) => x !== undefined)
+      .filter((x) => x !== undefined),
   );
 
   return result;

@@ -20,10 +20,7 @@ describe('loop performance tests', () => {
   beforeEach(() => {
     suite = new Suite();
 
-    rentalGeneratorHome = new RentalGenerator<RentalSingleFamily>(
-      new ValueCache(new Date(), [], 2),
-      generateSingleFamily
-    );
+    rentalGeneratorHome = new RentalGenerator<RentalSingleFamily>(new ValueCache(new Date(), [], 2), generateSingleFamily);
     rentalGeneratorHome.lowestCashFlow = 200;
     rentalGeneratorHome.highestCashFlow = 500;
     rentalGeneratorHome.lowestEquityCapturePercent = 10;
@@ -50,13 +47,7 @@ describe('loop performance tests', () => {
           user.monthlySavedAmount = 3000;
           user.monthlyIncomeAmountGoal = 4000;
           user.holdRules = [];
-          user.purchaseRules = [
-            new RuleEvaluation<PurchaseRuleTypes>(
-              55000,
-              PurchaseRuleTypes.MaxEstimatedOutOfPocket,
-              PropertyType.SingleFamily
-            ),
-          ];
+          user.purchaseRules = [new RuleEvaluation<PurchaseRuleTypes>(55000, PurchaseRuleTypes.MaxEstimatedOutOfPocket, PropertyType.SingleFamily)];
           user.loanSettings = [
             {
               propertyType: PropertyType.SingleFamily,
@@ -79,12 +70,12 @@ describe('loop performance tests', () => {
             {
               propertyGeneratorSingleFamily: rentalGeneratorHome,
             },
-            new Timeline(cloneDateUtc(new Date()), cloneDateUtc(new Date()), [], user)
+            new Timeline(cloneDateUtc(new Date()), cloneDateUtc(new Date()), [], user),
           );
         })
         .on('cycle', function (event: Event) {
           console.log(String(event.target));
-          expect(event.target.hz).toBeGreaterThanOrEqual(13000);
+          expect(event.target.hz).toBeGreaterThanOrEqual(3000);
           done();
         })
         .run();

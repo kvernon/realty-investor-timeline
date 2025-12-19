@@ -40,11 +40,14 @@ describe('getEquityCaptureUserInvestmentResults unit tests', () => {
               evaluate: jest.fn().mockReturnValue(false),
             },
           ],
-          cloneDateUtc(new Date())
+          cloneDateUtc(new Date()),
         );
 
         expect(actual).toEqual([
-          new UserInvestResult(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, 'rule: 4 property: 0'),
+          new UserInvestResult(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, 'rule: 4 property: 0', [
+            { name: 'rule', value: 4 },
+            { name: 'property', value: 0 },
+          ]),
         ]);
       });
 
@@ -70,7 +73,7 @@ describe('getEquityCaptureUserInvestmentResults unit tests', () => {
               evaluate: jest.fn().mockReturnValue(true),
             },
           ],
-          cloneDateUtc(new Date())
+          cloneDateUtc(new Date()),
         );
 
         expect(actual).toEqual([]);
@@ -94,7 +97,7 @@ describe('getEquityCaptureUserInvestmentResults unit tests', () => {
             },
           ],
           [],
-          cloneDateUtc(new Date())
+          cloneDateUtc(new Date()),
         );
 
         expect(actual).toEqual([]);
@@ -105,7 +108,7 @@ describe('getEquityCaptureUserInvestmentResults unit tests', () => {
   describe('and no rental', () => {
     test('should throw', () => {
       expect(() => getEquityCaptureUserInvestmentResults(null, [], [], cloneDateUtc(new Date()))).toThrow(
-        new Error('Invalid Argument: rental is falsy')
+        new Error('Invalid Argument: rental is falsy'),
       );
     });
   });

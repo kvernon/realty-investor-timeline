@@ -13,14 +13,14 @@ export const getEquityCaptureUserInvestmentResults: UserResultEstimates = (
   rental: IRentalPropertyEntity,
   holdRules: IRuleEvaluation<HoldRuleTypes>[],
   purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[],
-  date: Date
+  date: Date,
 ): UserInvestResult[] => {
   if (!rental) {
     throw new Error('Invalid Argument: rental is falsy');
   }
 
   const maxCapGains = purchaseRules.find(
-    (x) => x.propertyType === rental.propertyType && x.type === PurchaseRuleTypes.MinEstimatedCapitalGainsPercent
+    (x) => x.propertyType === rental.propertyType && x.type === PurchaseRuleTypes.MinEstimatedCapitalGainsPercent,
   );
 
   if (!maxCapGains) {
@@ -28,25 +28,18 @@ export const getEquityCaptureUserInvestmentResults: UserResultEstimates = (
   }
 
   const resultReasonToRule = getInvestmentReasonsForPurchaseTypes<IRentalPropertyEntity>(rental).find((reasonToRule) =>
-    reasonToRule.isRuleMatch(maxCapGains.type)
+    reasonToRule.isRuleMatch(maxCapGains.type),
   );
 
   if (!resultReasonToRule) {
     return [];
   }
 
-  const minYears = (holdRules || []).find(
-    (x) => x.type === HoldRuleTypes.MinSellInYears && x.propertyType === rental.propertyType
-  );
+  const minYears = (holdRules || []).find((x) => x.type === HoldRuleTypes.MinSellInYears && x.propertyType === rental.propertyType);
 
   const inHoldYears = addYears(date, minYears?.value || 1);
 
-  const sellPriceEstimate = getSellPriceEstimate(
-    date,
-    inHoldYears,
-    rental.purchasePrice,
-    rental.sellPriceAppreciationPercent
-  );
+  const sellPriceEstimate = getSellPriceEstimate(date, inHoldYears, rental.purchasePrice, rental.sellPriceAppreciationPercent);
 
   const userInvestResults = resultReasonToRule.values.map((v) => {
     let investmentPercent = 100;
@@ -57,10 +50,10 @@ export const getEquityCaptureUserInvestmentResults: UserResultEstimates = (
 
     const equityCaptureAmount = getEquityCaptureAmount(investmentPercent, v, sellPriceEstimate);
     if (!maxCapGains.evaluate(equityCaptureAmount)) {
-      return new UserInvestResult(
-        resultReasonToRule.investmentReason,
-        `rule: ${maxCapGains.value} property: ${equityCaptureAmount}`
-      );
+      return new UserInvestResult(resultReasonToRule.investmentReason, `rule: ${maxCapGains.value} property: ${equityCaptureAmount}`, [
+        { value: maxCapGains.value, name: 'rule' },
+        { value: equityCaptureAmount, name: 'property' },
+      ]);
     }
     return null;
   });

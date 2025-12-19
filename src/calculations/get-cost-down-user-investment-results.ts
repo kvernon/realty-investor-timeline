@@ -7,22 +7,20 @@ import { UserResultEstimates } from '../investments/user-result-estimates';
 export const getCostDownUserInvestmentResults: UserResultEstimates = (
   rental: IRentalPropertyEntity,
   _holdRules: IRuleEvaluation<HoldRuleTypes>[],
-  purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[]
+  purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[],
 ): UserInvestResult[] => {
   if (!rental) {
     throw new Error('Invalid Argument: rental is falsy');
   }
 
-  const outOfPocket = purchaseRules.find(
-    (x) => x.propertyType === rental.propertyType && x.type === PurchaseRuleTypes.MaxEstimatedOutOfPocket
-  );
+  const outOfPocket = purchaseRules.find((x) => x.propertyType === rental.propertyType && x.type === PurchaseRuleTypes.MaxEstimatedOutOfPocket);
 
   if (!outOfPocket) {
     return [];
   }
 
   const resultReasonToRule = getInvestmentReasonsForPurchaseTypes<IRentalPropertyEntity>(rental).find((reasonToRule) =>
-    reasonToRule.isRuleMatch(outOfPocket.type)
+    reasonToRule.isRuleMatch(outOfPocket.type),
   );
 
   if (!resultReasonToRule) {
@@ -31,7 +29,10 @@ export const getCostDownUserInvestmentResults: UserResultEstimates = (
 
   const userInvestResults = resultReasonToRule.values.map((v) => {
     if (!outOfPocket.evaluate(v)) {
-      return new UserInvestResult(resultReasonToRule.investmentReason, `rule: ${outOfPocket.value} property: ${v}`);
+      return new UserInvestResult(resultReasonToRule.investmentReason, `rule: ${outOfPocket.value} property: ${v}`, [
+        { value: outOfPocket.value, name: 'rule' },
+        { value: v, name: 'property' },
+      ]);
     }
     return null;
   });

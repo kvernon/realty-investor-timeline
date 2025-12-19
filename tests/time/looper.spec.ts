@@ -195,6 +195,7 @@ describe('looper unit tests', () => {
             {
               date: expectedToday,
               reason: `UserHasNoMoneyToInvest user balance: ${ledgerCollection.getBalance()}`,
+              additionalInfo: [{ name: 'balance', value: ledgerCollection.getBalance() }],
             },
           ],
           property: expect.anything(),
@@ -551,7 +552,7 @@ describe('looper unit tests', () => {
         beforeEach(async () => {
           rentalSF.canInvestByUser.mockReturnValueOnce({
             canInvest: false,
-            results: [{ message: chance.string(), investmentReason: InvestmentReasons.NoRules }],
+            results: [{ message: chance.string(), investmentReason: InvestmentReasons.NoRules, properties: [] }],
           });
           rentalPA.canInvestByUser.mockReturnValueOnce({
             canInvest: false,
@@ -559,10 +560,12 @@ describe('looper unit tests', () => {
               {
                 message: chance.string(),
                 investmentReason: InvestmentReasons.UserHasNoMoneyToInvest,
+                properties: [],
               },
               {
                 message: chance.string(),
                 investmentReason: InvestmentReasons.DoesNotMeetUserRuleOutOfPocket,
+                properties: [],
               },
             ],
           });
