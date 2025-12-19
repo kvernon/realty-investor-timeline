@@ -12,8 +12,7 @@ export interface IReasonToRuleMeta<TR extends PurchaseRuleTypes | HoldRuleTypes>
   ruleType?: TR;
 }
 
-export interface IReasonToRule<T extends IRentalPropertyEntity, TR extends PurchaseRuleTypes | HoldRuleTypes>
-  extends IReasonToRuleMeta<TR> {
+export interface IReasonToRule<T extends IRentalPropertyEntity, TR extends PurchaseRuleTypes | HoldRuleTypes> extends IReasonToRuleMeta<TR> {
   propertyType: PropertyType;
   propertyKey: keyof T & string;
   values: number[];
@@ -32,13 +31,11 @@ export interface IReasonToRule<T extends IRentalPropertyEntity, TR extends Purch
     rental: IRentalPropertyEntity,
     holdRules: IRuleEvaluation<HoldRuleTypes>[],
     purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[],
-    date: Date
+    date: Date,
   ): UserInvestResult[];
 }
 
-export class ReasonToRule<T extends IRentalPropertyEntity, TR extends PurchaseRuleTypes | HoldRuleTypes>
-  implements IReasonToRule<T, TR>
-{
+export class ReasonToRule<T extends IRentalPropertyEntity, TR extends PurchaseRuleTypes | HoldRuleTypes> implements IReasonToRule<T, TR> {
   private readonly overrideUserResultEstimates?: UserResultEstimates;
 
   constructor(
@@ -47,7 +44,7 @@ export class ReasonToRule<T extends IRentalPropertyEntity, TR extends PurchaseRu
     propertyKey: keyof T & string,
     value: number[],
     ruleType?: TR,
-    overrideUserResultEstimates?: UserResultEstimates
+    overrideUserResultEstimates?: UserResultEstimates,
   ) {
     this.investmentReason = investmentReason;
     this.propertyType = propertyType;
@@ -107,7 +104,7 @@ export class ReasonToRule<T extends IRentalPropertyEntity, TR extends PurchaseRu
     rental: IRentalPropertyEntity,
     holdRules: IRuleEvaluation<HoldRuleTypes>[],
     purchaseRules: IRuleEvaluation<PurchaseRuleTypes>[],
-    date: Date
+    date: Date,
   ): UserInvestResult[] {
     if (this.overrideUserResultEstimates) {
       return this.overrideUserResultEstimates(rental, holdRules, purchaseRules, date);
@@ -121,7 +118,10 @@ export class ReasonToRule<T extends IRentalPropertyEntity, TR extends PurchaseRu
 
     return this.values.map((v) => {
       if (!rule.evaluate(v)) {
-        return new UserInvestResult(this.investmentReason, `rule: ${rule.value} property: ${v}`);
+        return new UserInvestResult(this.investmentReason, `rule: ${rule.value} property: ${v}`, [
+          { name: 'rule', value: rule.value },
+          { name: 'property', value: v },
+        ]);
       }
     });
   }

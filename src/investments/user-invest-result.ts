@@ -3,6 +3,7 @@ import { InvestmentReasons } from './investment-reasons';
 export interface IUserInvestResult {
   message: string;
   investmentReason: InvestmentReasons;
+  properties: { name: string; value: number }[];
 }
 
 export class UserInvestResult implements IUserInvestResult {
@@ -12,10 +13,12 @@ export class UserInvestResult implements IUserInvestResult {
   }
 
   public investmentReason: InvestmentReasons;
+  public properties: { name: string; value: number }[];
 
-  constructor(reason: InvestmentReasons = InvestmentReasons.Unknown, message = '') {
+  constructor(reason: InvestmentReasons = InvestmentReasons.Unknown, message: string, properties: { name: string; value: number }[]) {
     this.investmentReason = reason;
     this._message = message;
+    this.properties = properties;
   }
 
   private readonly _message: string;

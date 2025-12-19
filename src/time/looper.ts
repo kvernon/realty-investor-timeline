@@ -93,12 +93,14 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     const issueUserHasNoMoneyToInvest = new UserInvestResult(
       InvestmentReasons.UserHasNoMoneyToInvest,
       `user balance: ${result.user.ledgerCollection.getBalance(result.endDate)}`,
+      [{ name: 'balance', value: result.user.ledgerCollection.getBalance(result.endDate) }],
     );
 
     result.rentals.forEach((r) => {
       r.reasons.push({
         reason: issueUserHasNoMoneyToInvest.message,
         date: cloneDateUtc(timeline.endDate),
+        additionalInfo: [{ name: 'balance', value: result.user.ledgerCollection.getBalance(result.endDate) }],
       });
     });
 
@@ -120,6 +122,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
             validator.results.map((reasons) => ({
               reason: reasons.message,
               date: cloneDateUtc(timeline.endDate),
+              additionalInfo: reasons.properties,
             })),
           );
         }
@@ -171,14 +174,18 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
         const issueMetMinCostYetUserHasNoMoneyToInvest = new UserInvestResult(
           InvestmentReasons.UserHasNoMoneyToInvest,
           `user balance: ${result.user.ledgerCollection.getBalance(result.endDate)}`,
+          [{ name: 'balance', value: result.user.ledgerCollection.getBalance(result.endDate) }],
         );
 
-        result.rentals.forEach((r) => {
-          r.reasons.push({
-            reason: issueMetMinCostYetUserHasNoMoneyToInvest.message,
-            date: cloneDateUtc(timeline.endDate),
+        result.rentals
+          .filter((x) => x.property.id === rentalProperty.id)
+          .forEach((r) => {
+            r.reasons.push({
+              reason: issueMetMinCostYetUserHasNoMoneyToInvest.message,
+              date: cloneDateUtc(timeline.endDate),
+              additionalInfo: issueMetMinCostYetUserHasNoMoneyToInvest.properties,
+            });
           });
-        });
       }
     }
   }

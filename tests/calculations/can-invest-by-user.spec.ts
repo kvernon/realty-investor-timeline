@@ -30,7 +30,7 @@ describe('and canInvestByUser', () => {
 
     const expected: jest.Mocked<IRentalInvestorValidator> = {
       canInvest: false,
-      results: [new UserInvestResult(InvestmentReasons.PropertyIsAlreadyOwned)],
+      results: [new UserInvestResult(InvestmentReasons.PropertyIsAlreadyOwned, '', [])],
     } as jest.Mocked<IRentalInvestorValidator>;
 
     const actual = canInvestByUser(instance, null, today, null);
@@ -62,8 +62,8 @@ describe('and canInvestByUser', () => {
       const expected: IRentalInvestorValidator = {
         canInvest: false,
         results: [
-          new UserInvestResult(InvestmentReasons.UserHasNoMoneyToInvest, 'user balance: 0'),
-          new UserInvestResult(InvestmentReasons.UserHasNotSavedEnoughMoney, 'user balance: 0, minimumSavings: 1'),
+          new UserInvestResult(InvestmentReasons.UserHasNoMoneyToInvest, 'user balance: 0', [{ value: 0, name: 'balance' }]),
+          new UserInvestResult(InvestmentReasons.UserHasNotSavedEnoughMoney, 'user balance: 0, minimumSavings: 1', [{ value: 0, name: 'balance' }]),
         ],
       };
 
@@ -98,7 +98,7 @@ describe('and canInvestByUser', () => {
       const expected: IRentalInvestorValidator = {
         canInvest: false,
         results: [
-          new UserInvestResult(InvestmentReasons.UserHasNotSavedEnoughMoney, 'user balance: 0, minimumSavings: 1'),
+          new UserInvestResult(InvestmentReasons.UserHasNotSavedEnoughMoney, 'user balance: 0, minimumSavings: 1', [{ value: 0, name: 'balance' }]),
         ],
       };
 
@@ -123,7 +123,7 @@ describe('and canInvestByUser', () => {
 
       const expected: IRentalInvestorValidator = {
         canInvest: false,
-        results: [new UserInvestResult(InvestmentReasons.NoRules, 'user has no purchase rules')],
+        results: [new UserInvestResult(InvestmentReasons.NoRules, 'user has no purchase rules', [])],
       };
 
       expect(canInvestByUser(instance, user, today, null)).toMatchObject(expected);
@@ -162,14 +162,14 @@ describe('and canInvestByUser', () => {
       const expected: IRentalInvestorValidator = {
         canInvest: false,
         results: [
-          new UserInvestResult(
-            InvestmentReasons.DoesNotMeetUserRuleAskingPrice,
-            `rule: 20000 property: ${instance.purchasePrice}`
-          ),
-          new UserInvestResult(
-            InvestmentReasons.DoesNotMeetUserRuleOutOfPocket,
-            `rule: 50000 property: ${instance.costDownPrice}`
-          ),
+          new UserInvestResult(InvestmentReasons.DoesNotMeetUserRuleAskingPrice, `rule: 20000 property: ${instance.purchasePrice}`, [
+            { value: 20000, name: 'rule' },
+            { value: instance.purchasePrice, name: 'property' },
+          ]),
+          new UserInvestResult(InvestmentReasons.DoesNotMeetUserRuleOutOfPocket, `rule: 50000 property: ${instance.costDownPrice}`, [
+            { value: 50000, name: 'rule' },
+            { value: instance.costDownPrice, name: 'property' },
+          ]),
         ],
       };
 
@@ -291,8 +291,14 @@ describe('and canInvestByUser', () => {
         const expected: IRentalInvestorValidator = {
           canInvest: false,
           results: [
-            new UserInvestResult(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, 'rule: 50000 property: 25687.5'),
-            new UserInvestResult(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, 'rule: 50000 property: 188000'),
+            new UserInvestResult(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, 'rule: 50000 property: 25687.5', [
+              { name: 'rule', value: 50000 },
+              { name: 'property', value: 25687.5 },
+            ]),
+            new UserInvestResult(InvestmentReasons.DoesNotMeetUserRuleEquityCapture, 'rule: 50000 property: 188000', [
+              { name: 'rule', value: 50000 },
+              { name: 'property', value: 188000 },
+            ]),
           ],
         };
 
