@@ -11,6 +11,7 @@ import { HoldRuleTypes } from '../../src/rules/hold-rule-types';
 import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
 import { RuleEvaluation } from '../../src/rules/rule-evaluation';
 import { InvestmentReasons } from '../../src/investments/investment-reasons';
+import { ILedgerCollection } from '../../src/ledger/ledger-collection';
 
 jest.mock('../../src/properties/rental-single-family');
 jest.mock('../../src/properties/rental-passive-apartment');
@@ -19,6 +20,7 @@ describe('looper unit tests', () => {
   let chance: Chance.Chance;
   let rentalGeneratorHome: jest.Mocked<IRentalGenerator<RentalSingleFamily>>;
   let rentalGeneratorPassive: jest.Mocked<IRentalGenerator<RentalPassiveApartment>>;
+  let ledgerCollection: jest.Mocked<ILedgerCollection>;
   let user: jest.Mocked<IUser>;
   let ensureArray: jest.Mock;
   let updateHistoricalRentals: jest.Mock;
@@ -56,24 +58,26 @@ describe('looper unit tests', () => {
       getMinCostDownByRule,
     }));
 
+    ledgerCollection = {
+      add: jest.fn(),
+      getMonthlyCashFlowByYear: jest.fn(),
+      getCashFlowYearAverage: jest.fn(),
+      getBalance: jest.fn(),
+      getMinimumSavings: jest.fn(),
+      clone: jest.fn().mockReturnThis(),
+      filter: jest.fn(),
+      getLatestLedgerItem: jest.fn(),
+      getAvailableSavings: jest.fn(),
+      getCashFlowMonth: jest.fn(),
+      getSummariesAnnual: jest.fn(),
+      getSummaryAnnual: jest.fn(),
+      getSummaryMonth: jest.fn(),
+      hasMinimumSavings: jest.fn(),
+      getLastLedgerMonth: jest.fn(),
+    } as jest.Mocked<ILedgerCollection>;
+
     user = {
-      ledgerCollection: {
-        add: jest.fn(),
-        getMonthlyCashFlowByYear: jest.fn(),
-        getCashFlowYearAverage: jest.fn(),
-        getBalance: jest.fn(),
-        getMinimumSavings: jest.fn(),
-        clone: jest.fn().mockReturnThis(),
-        filter: jest.fn(),
-        getLatestLedgerItem: jest.fn(),
-        getAvailableSavings: jest.fn(),
-        getCashFlowMonth: jest.fn(),
-        getSummariesAnnual: jest.fn(),
-        getSummaryAnnual: jest.fn(),
-        getSummaryMonth: jest.fn(),
-        hasMinimumSavings: jest.fn(),
-        getLastLedgerMonth: jest.fn(),
-      },
+      ledgerCollection,
       getCashFlowMonth: jest.fn(),
       getAvailableSavings: jest.fn(),
       metMonthlyGoal: jest.fn(),
@@ -147,11 +151,27 @@ describe('looper unit tests', () => {
   });
 
   describe('and hasMoneyToInvest is false', () => {
+    let actual: ITimeline;
+
     beforeEach(async () => {
+      ledgerCollection.getBalance.mockReturnValue(100);
+      const rentalSF = new RentalSingleFamily() as jest.Mocked<RentalSingleFamily>;
+      rentalSF.address = 'sf addy';
+      rentalSF.id = 'sf-id';
+      rentalSF.canSell.mockReturnValueOnce(false);
+      rentalSF.canInvestByUser.mockReturnValue({ canInvest: true, results: [] });
+
+      Object.defineProperty(rentalSF, 'propertyType', {
+        value: PropertyType.SingleFamily,
+      });
+      Object.defineProperty(rentalSF, 'isOwned', {
+        get: jest.fn().mockReturnValue(false),
+      });
+
       user.hasMoneyToInvest.mockReturnValueOnce(false);
-      updateHistoricalRentals.mockReturnValue([]);
+      updateHistoricalRentals.mockReturnValue([rentalSF].map((x) => ({ property: x, reasons: [] })));
       const looper = (await import('../../src/time/looper')).looper;
-      looper(
+      actual = looper(
         {
           propertyGeneratorSingleFamily: rentalGeneratorHome,
           propertyGeneratorPassiveApartment: rentalGeneratorPassive,
@@ -165,6 +185,20 @@ describe('looper unit tests', () => {
           clone: jest.fn().mockReturnThis(),
           getCashFlowMonthByEndDate: jest.fn(),
         },
+      );
+    });
+
+    test('rentals should update with error', () => {
+      expect(actual.rentals[0]).toEqual(
+        expect.objectContaining({
+          reasons: [
+            {
+              date: expectedToday,
+              reason: `UserHasNoMoneyToInvest user balance: ${ledgerCollection.getBalance()}`,
+            },
+          ],
+          property: expect.anything(),
+        }),
       );
     });
 

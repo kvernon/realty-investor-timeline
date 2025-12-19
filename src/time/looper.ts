@@ -8,6 +8,7 @@ import { HoldRuleTypes } from '../rules/hold-rule-types';
 import { PurchaseRuleTypes } from '../rules/purchase-rule-types';
 import { getMinCostDownByRule } from '../calculations/get-min-cost-down-by-rule';
 import { ILoopRecursiveOptions } from './i-loop-recursive-options';
+import { InvestmentReasons, UserInvestResult } from '../investments';
 
 export type LooperType = (options: ILoopRecursiveOptions, timeline: ITimeline) => ITimeline;
 
@@ -83,13 +84,24 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     equityFromSell.note = `for: ${pr.property.address}, id: ${pr.property.id} (${PropertyType[pr.property.propertyType]})`;
     result.user.ledgerCollection.add(equityFromSell);
   }
-
   if (
     !result.user.hasMoneyToInvest(
       timeline.endDate,
       result.rentals.map((x) => x.property).filter((x) => x.isOwned),
     )
   ) {
+    const issue = new UserInvestResult(
+      InvestmentReasons.UserHasNoMoneyToInvest,
+      `user balance: ${result.user.ledgerCollection.getBalance(result.endDate)}`,
+    );
+
+    result.rentals.forEach((r) => {
+      r.reasons.push({
+        reason: issue.message,
+        date: cloneDateUtc(timeline.endDate),
+      });
+    });
+
     return result;
   }
 
