@@ -1,5 +1,4 @@
-import { HoldRuleTypes } from '../src/rules/hold-rule-types';
-import { cloneDateUtc, ISimulateOptions, LoanSettings, PropertyType, PurchaseRuleTypes, simulate } from '../src';
+import { cloneDateUtc, ISimulateOptions, LoanSettings, PropertyType, PurchaseRuleTypes, simulate, HoldRuleTypes } from '../src';
 
 describe('simulate integration tests', () => {
   describe('and success', () => {
