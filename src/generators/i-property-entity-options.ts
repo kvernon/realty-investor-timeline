@@ -47,5 +47,5 @@ export interface IPropertyEntityOptions {
   /**
    * For Texas, you should hold for 1 year for the lowest tax rate, but you might want to hold it longer
    */
-  highestMinSellInYears?: number;
+  highestMinSellInYears: number;
 }

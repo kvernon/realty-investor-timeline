@@ -26,7 +26,7 @@ export interface IGenOptions extends IPropertyEntityOptions {
   /**
    * Used to say how long a property should be cached
    */
-  maxMonthsToCache: number;
+  maxMonthsToCache?: number;
 }
 
 export interface ISimulateOptions {
