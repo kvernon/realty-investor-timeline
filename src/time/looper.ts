@@ -90,14 +90,14 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
       result.rentals.map((x) => x.property).filter((x) => x.isOwned),
     )
   ) {
-    const issue = new UserInvestResult(
+    const issueUserHasNoMoneyToInvest = new UserInvestResult(
       InvestmentReasons.UserHasNoMoneyToInvest,
       `user balance: ${result.user.ledgerCollection.getBalance(result.endDate)}`,
     );
 
     result.rentals.forEach((r) => {
       r.reasons.push({
-        reason: issue.message,
+        reason: issueUserHasNoMoneyToInvest.message,
         date: cloneDateUtc(timeline.endDate),
       });
     });
@@ -167,6 +167,18 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
             rentalProperty.costDownPrice = minCostDownByRule;
           }
         }
+      } else {
+        const issueMetMinCostYetUserHasNoMoneyToInvest = new UserInvestResult(
+          InvestmentReasons.UserHasNoMoneyToInvest,
+          `user balance: ${result.user.ledgerCollection.getBalance(result.endDate)}`,
+        );
+
+        result.rentals.forEach((r) => {
+          r.reasons.push({
+            reason: issueMetMinCostYetUserHasNoMoneyToInvest.message,
+            date: cloneDateUtc(timeline.endDate),
+          });
+        });
       }
     }
   }
