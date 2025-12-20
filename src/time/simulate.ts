@@ -153,9 +153,10 @@ export function simulate(
     throw new Error('Invalid Argument: must declare at least 1, either generatorOptionsSingleFamily or generatorOptionsPassiveApartment');
   }
 
+  const defaultMaxMonthsToCache = 2;
   const propertyGeneratorSingleFamily = Object.assign(
     new RentalGenerator<RentalSingleFamily>(
-      new ValueCache(cloneDateUtc(formattedUtcDate), [], options.generatorOptionsSingleFamily.maxMonthsToCache),
+      new ValueCache(cloneDateUtc(formattedUtcDate), [], options.generatorOptionsSingleFamily?.maxMonthsToCache || defaultMaxMonthsToCache),
       generateSingleFamily,
     ),
     options.generatorOptionsSingleFamily,
@@ -163,7 +164,7 @@ export function simulate(
 
   const propertyGeneratorPassiveApartment = Object.assign(
     new RentalGenerator<RentalPassiveApartment>(
-      new ValueCache(cloneDateUtc(formattedUtcDate), [], options.generatorOptionsPassiveApartment.maxMonthsToCache),
+      new ValueCache(cloneDateUtc(formattedUtcDate), [], options.generatorOptionsPassiveApartment?.maxMonthsToCache || defaultMaxMonthsToCache),
       generateRentalPassiveApartment,
     ),
     options.generatorOptionsPassiveApartment,
