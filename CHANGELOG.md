@@ -1,3 +1,10 @@
+# [5.5.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.4.0...v5.5.0) (2025-12-21)
+
+
+### Features
+
+* expose cache time ([#72](https://github.com/kvernon/realty-investor-timeline/issues/72)) ([5e1c35f](https://github.com/kvernon/realty-investor-timeline/commit/5e1c35f0d838c6bf7f11e5cd0b380bf4ff6a7203))
+
 # [5.4.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.3.0...v5.4.0) (2025-12-19)
 
 
