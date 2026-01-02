@@ -300,7 +300,7 @@ export class LedgerCollection implements ILedgerCollection {
 
     const boundary = year ? this.filter((li) => li.dateMatchesYear(year)) : this.filter();
 
-    if (!boundary) {
+    if (!boundary || boundary.length === 0) {
       return [];
     }
 

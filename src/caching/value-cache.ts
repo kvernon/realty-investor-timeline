@@ -3,7 +3,9 @@ const getNextExpire = (current: Date, cacheExpireDate: Date, advanceInMonths: nu
     return cacheExpireDate;
   }
 
-  return new Date(Date.UTC(current.getUTCFullYear(), current.getUTCMonth() + advanceInMonths, 1));
+  const date = new Date(Date.UTC(current.getUTCFullYear(), current.getUTCMonth(), 1));
+  date.setUTCMonth(date.getUTCMonth() + advanceInMonths);
+  return date;
 };
 
 export interface IValueCache<T> {

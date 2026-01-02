@@ -4,7 +4,7 @@
  * @param [datePredicate]
  */
 export function cloneDateUtc(date: Date, datePredicate?: (date: Date) => void): Date {
-  const result = new Date(Date.parse(date.toUTCString()));
+  const result = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
   result.setUTCDate(1);
   result.setUTCHours(0);
   result.setUTCMinutes(0);
