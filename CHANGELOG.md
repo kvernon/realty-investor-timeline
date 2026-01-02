@@ -1,3 +1,10 @@
+## [5.5.1](https://github.com/kvernon/realty-investor-timeline/compare/v5.5.0...v5.5.1) (2026-01-02)
+
+
+### Bug Fixes
+
+* boundary, date ([#73](https://github.com/kvernon/realty-investor-timeline/issues/73)) ([1ce43db](https://github.com/kvernon/realty-investor-timeline/commit/1ce43db993397760d2e41e207481f7999158282a))
+
 # [5.5.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.4.0...v5.5.0) (2025-12-21)
 
 
