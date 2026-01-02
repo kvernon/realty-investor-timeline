@@ -355,7 +355,21 @@ describe('LedgerCollection unit tests', () => {
         expect(instance.getSummariesAnnual(dateUtc.getUTCFullYear())).toEqual([]);
       });
     });
-    describe('and ledgerItem', () => {
+    describe('and ledgerItems', () => {
+      test('should be empty', () => {
+        const createdDate = new Date();
+        createdDate.setDate(1);
+        createdDate.setUTCMonth(createdDate.getUTCMonth() + 1);
+
+        const cashFlow = new LedgerItem();
+        cashFlow.created = cloneDateUtc(dateUtc);
+        cashFlow.amount = 1;
+        cashFlow.type = LedgerItemType.CashFlow;
+        instance.add(cashFlow);
+
+        expect(instance.getSummariesAnnual(createdDate.getUTCFullYear() + 1)).toEqual([]);
+      });
+
       test('should return empty data', () => {
         const cashFlow = new LedgerItem();
         const createdDate = new Date();
