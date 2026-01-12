@@ -20,10 +20,16 @@ export interface IUser extends IUserInvestorCheck {
   monthlySavedAmount: number;
 
   /**
-   * method used to help determine if you have met your expenses
+   * returns your passive income for the year + month date supplied
    * @param today
    */
   getCashFlowMonth(today: Date): number;
+
+  /**
+   * returns the cash flow by a quarter. This is ideal when evaluating your distributions that are not monthly.
+   * @param today
+   */
+  getCashFlowQuarter(today: Date): number;
 
   clone(): IUser;
 }
@@ -52,6 +58,30 @@ export class User implements IUser {
     return this.getCashFlowMonth(today) >= this.monthlyIncomeAmountGoal;
   }
 
+  /**
+   * takes data from a quarterly average cash flow and compares it to the monthly goal. The reason on quarterly is that apartments do distributions quarterly, so you have to spread those out monthly
+   * @param today
+   */
+  metAverageQuarterlyGoal(today: Date): boolean {
+    return this.getCashFlowQuarter(today) >= this.monthlyIncomeAmountGoal;
+  }
+
+  /**
+   * returns the cash flow by a quarter. This is ideal when evaluating your distributions that are not monthly.
+   * @param today
+   */
+  getCashFlowQuarter(today: Date): number {
+    if (!this.ledgerCollection) {
+      return 0;
+    }
+
+    return currency(this.ledgerCollection.getAverageCashFlowMonthByQuarter(today));
+  }
+
+  /**
+   * returns your passive income for the year + month date supplied
+   * @param today
+   */
   getCashFlowMonth(today: Date): number {
     if (!this.ledgerCollection) {
       return 0;

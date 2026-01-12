@@ -43,6 +43,8 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
 
       beforeEach(() => {
         user = {
+          getCashFlowQuarter: jest.fn(),
+          metAverageQuarterlyGoal: jest.fn(),
           getAvailableSavings: jest.fn(),
           ledgerCollection: null,
           getCashFlowMonth: jest.fn(),
@@ -61,7 +63,7 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
       describe('today is maxDate', () => {
         describe('and met goal', () => {
           test('should be true', () => {
-            user.metMonthlyGoal.mockReturnValueOnce(true);
+            user.metAverageQuarterlyGoal.mockReturnValueOnce(true);
             const start = new Date();
             const maxYears = 1;
             const today = new Date(Date.UTC(start.getUTCFullYear() + maxYears, start.getUTCMonth(), 1));
@@ -70,7 +72,7 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
         });
         describe('and not met goal', () => {
           test('should be truthy', () => {
-            user.metMonthlyGoal.mockReturnValueOnce(false);
+            user.metAverageQuarterlyGoal.mockReturnValueOnce(false);
             const start = new Date();
             const maxYears = 1;
             const today = new Date(Date.UTC(start.getUTCFullYear() + maxYears, start.getUTCMonth(), 1));
@@ -81,7 +83,7 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
       describe('today is half maxDate', () => {
         describe('and met goal', () => {
           test('should be true', () => {
-            user.metMonthlyGoal.mockReturnValueOnce(true);
+            user.metAverageQuarterlyGoal.mockReturnValueOnce(true);
             const start = new Date();
             const maxYears = 1;
             const today = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 6, 1));
@@ -90,7 +92,7 @@ describe('defaultHasMetGoalOrMaxTime unit tests', () => {
         });
         describe('and not met goal', () => {
           test('should be false', () => {
-            user.metMonthlyGoal.mockReturnValueOnce(false);
+            user.metAverageQuarterlyGoal.mockReturnValueOnce(false);
             const start = new Date();
             const maxYears = 1;
             const today = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 6, 1));

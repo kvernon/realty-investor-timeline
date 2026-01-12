@@ -236,6 +236,138 @@ describe('LedgerCollection unit tests', () => {
       });
     });
   });
+  describe('and getCashFlowQuarter', () => {
+    describe('and no date', () => {
+      test('should return 0', () => {
+        expect(instance.getCashFlowQuarter(null)).toEqual(0);
+      });
+    });
+    describe('and no ledgerItem', () => {
+      test('should return empty data', () => {
+        expect(instance.getCashFlowQuarter(dateUtc)).toEqual(0);
+      });
+    });
+    describe('and ledgerItems', () => {
+      test('should return empty data', () => {
+        const createdDate = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+
+        const cashFlow = new LedgerItem();
+        cashFlow.created = createdDate;
+        cashFlow.amount = 1;
+        cashFlow.type = LedgerItemType.CashFlow;
+
+        const cashFlowTwo = new LedgerItem();
+        cashFlowTwo.created = createdDate;
+        cashFlowTwo.amount = 3;
+        cashFlowTwo.type = LedgerItemType.CashFlow;
+
+        const cashFlowOut = new LedgerItem();
+        cashFlowOut.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 4);
+        cashFlowOut.amount = 111111;
+        cashFlowOut.type = LedgerItemType.CashFlow;
+
+        const equity = new LedgerItem();
+        equity.created = createdDate;
+        equity.amount = 2;
+        equity.type = LedgerItemType.Equity;
+
+        const purchase = new LedgerItem();
+        purchase.created = createdDate;
+        purchase.amount = -3;
+        purchase.type = LedgerItemType.Purchase;
+
+        const salary = new LedgerItem();
+        salary.created = createdDate;
+        salary.amount = 4;
+        salary.type = LedgerItemType.Salary;
+
+        instance.add([cashFlow, cashFlowTwo, cashFlowOut, equity, purchase, salary]);
+
+        expect(instance.getCashFlowQuarter(createdDate)).toEqual(cashFlow.amount + cashFlowTwo.amount);
+      });
+
+      test('and no matching dates', () => {
+        const createdDate = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+
+        const cashFlowOut = new LedgerItem();
+        cashFlowOut.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 4);
+        cashFlowOut.amount = 111111;
+        cashFlowOut.type = LedgerItemType.CashFlow;
+
+        instance.add([cashFlowOut]);
+
+        expect(instance.getCashFlowQuarter(createdDate)).toEqual(0);
+      });
+    });
+  });
+  describe('and getAverageCashFlowMonthByQuarter', () => {
+    describe('and no date', () => {
+      test('should return 0', () => {
+        expect(instance.getAverageCashFlowMonthByQuarter(null)).toEqual(0);
+      });
+    });
+    describe('and no ledgerItem', () => {
+      test('should return empty data', () => {
+        expect(instance.getAverageCashFlowMonthByQuarter(dateUtc)).toEqual(0);
+      });
+    });
+    describe('and ledgerItems', () => {
+      test('should return empty data', () => {
+        const createdDate = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+
+        const cashFlow = new LedgerItem();
+        cashFlow.created = createdDate;
+        cashFlow.amount = 1;
+        cashFlow.type = LedgerItemType.CashFlow;
+
+        const cashFlowTwo = new LedgerItem();
+        cashFlowTwo.created = createdDate;
+        cashFlowTwo.amount = 3;
+        cashFlowTwo.type = LedgerItemType.CashFlow;
+
+        const cashFlowOut = new LedgerItem();
+        cashFlowOut.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 4);
+        cashFlowOut.amount = 111111;
+        cashFlowOut.type = LedgerItemType.CashFlow;
+
+        const equity = new LedgerItem();
+        equity.created = createdDate;
+        equity.amount = 2;
+        equity.type = LedgerItemType.Equity;
+
+        const purchase = new LedgerItem();
+        purchase.created = createdDate;
+        purchase.amount = -3;
+        purchase.type = LedgerItemType.Purchase;
+
+        const salary = new LedgerItem();
+        salary.created = createdDate;
+        salary.amount = 4;
+        salary.type = LedgerItemType.Salary;
+
+        instance.add([cashFlow, cashFlowTwo, cashFlowOut, equity, purchase, salary]);
+
+        expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual(cashFlow.amount + cashFlowTwo.amount);
+      });
+
+      test('and no matching dates', () => {
+        const createdDate = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+
+        const cashFlowOut = new LedgerItem();
+        cashFlowOut.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 2);
+        cashFlowOut.amount = 111111;
+        cashFlowOut.type = LedgerItemType.CashFlow;
+
+        instance.add([cashFlowOut]);
+
+        expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual(cashFlowOut.amount);
+      });
+    });
+  });
   describe('and getCashFlowYearAverage', () => {
     describe('and no date', () => {
       test('should return 0', () => {
