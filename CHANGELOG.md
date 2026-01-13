@@ -1,3 +1,10 @@
+# [5.6.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.5.1...v5.6.0) (2026-01-13)
+
+
+### Features
+
+* quarterly cash flow ([#74](https://github.com/kvernon/realty-investor-timeline/issues/74)) ([8700a3c](https://github.com/kvernon/realty-investor-timeline/commit/8700a3c889d865cc6f31a61c4a230b046606602c))
+
 ## [5.5.1](https://github.com/kvernon/realty-investor-timeline/compare/v5.5.0...v5.5.1) (2026-01-02)
 
 
