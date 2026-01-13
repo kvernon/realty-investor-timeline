@@ -8,7 +8,7 @@
 
 > **NoMoreThan**(`value1`, `value2`): `boolean`
 
-Defined in: [rules/eval-types.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/eval-types.ts#L3)
+Defined in: [rules/eval-types.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/eval-types.ts#L3)
 
 ## Parameters
 

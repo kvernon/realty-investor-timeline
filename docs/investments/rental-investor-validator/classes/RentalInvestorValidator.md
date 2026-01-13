@@ -6,7 +6,7 @@
 
 # Class: RentalInvestorValidator
 
-Defined in: [investments/rental-investor-validator.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/rental-investor-validator.ts#L8)
+Defined in: [investments/rental-investor-validator.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/investments/rental-investor-validator.ts#L8)
 
 ## Implements
 
@@ -28,7 +28,7 @@ Defined in: [investments/rental-investor-validator.ts:8](https://github.com/kver
 
 > **results**: [`IUserInvestResult`](../../user-invest-result/interfaces/IUserInvestResult.md)[] = `[]`
 
-Defined in: [investments/rental-investor-validator.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/rental-investor-validator.ts#L13)
+Defined in: [investments/rental-investor-validator.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/investments/rental-investor-validator.ts#L13)
 
 #### Implementation of
 
@@ -42,7 +42,7 @@ Defined in: [investments/rental-investor-validator.ts:13](https://github.com/kve
 
 > **get** **canInvest**(): `boolean`
 
-Defined in: [investments/rental-investor-validator.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/rental-investor-validator.ts#L9)
+Defined in: [investments/rental-investor-validator.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/investments/rental-investor-validator.ts#L9)
 
 ##### Returns
 

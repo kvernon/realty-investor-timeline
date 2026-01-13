@@ -6,7 +6,7 @@
 
 # Enumeration: PurchaseRuleTypes
 
-Defined in: [rules/purchase-rule-types.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/purchase-rule-types.ts#L1)
+Defined in: [rules/purchase-rule-types.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/purchase-rule-types.ts#L1)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [rules/purchase-rule-types.ts:1](https://github.com/kvernon/realty-i
 
 > **MaxEstimatedOutOfPocket**: `"maxEstimatedOutOfPocket"`
 
-Defined in: [rules/purchase-rule-types.ts:17](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/purchase-rule-types.ts#L17)
+Defined in: [rules/purchase-rule-types.ts:17](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/purchase-rule-types.ts#L17)
 
 implemented on SingleFamily and RentalPassiveApartment.
 
@@ -24,7 +24,7 @@ implemented on SingleFamily and RentalPassiveApartment.
 
 > **MinAfterRepairPrice**: `"minAfterRepairPrice"`
 
-Defined in: [rules/purchase-rule-types.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/purchase-rule-types.ts#L7)
+Defined in: [rules/purchase-rule-types.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/purchase-rule-types.ts#L7)
 
 not implemented
 
@@ -34,7 +34,7 @@ not implemented
 
 > **MinAskingPrice**: `"minAskingPrice"`
 
-Defined in: [rules/purchase-rule-types.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/purchase-rule-types.ts#L12)
+Defined in: [rules/purchase-rule-types.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/purchase-rule-types.ts#L12)
 
 implemented on SingleFamily
 
@@ -44,7 +44,7 @@ implemented on SingleFamily
 
 > **MinEstimatedAnnualCashFlow**: `"minEstimatedAnnualCashFlow"`
 
-Defined in: [rules/purchase-rule-types.ts:23](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/purchase-rule-types.ts#L23)
+Defined in: [rules/purchase-rule-types.ts:23](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/purchase-rule-types.ts#L23)
 
 implemented on SingleFamily and RentalPassiveApartment. Note: monthly cash flow for Single family
 while quarterly for passive apartments
@@ -55,7 +55,7 @@ while quarterly for passive apartments
 
 > **MinEstimatedCapitalGainsPercent**: `"minEstimatedCapitalGainsPercent"`
 
-Defined in: [rules/purchase-rule-types.ts:33](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/purchase-rule-types.ts#L33)
+Defined in: [rules/purchase-rule-types.ts:33](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/purchase-rule-types.ts#L33)
 
 implemented for SingleFamily and RentalPassiveApartment.
 
@@ -65,7 +65,7 @@ implemented for SingleFamily and RentalPassiveApartment.
 
 > **MinEstimatedCashOnCashPercent**: `"minEstimatedCashOnCashPercent"`
 
-Defined in: [rules/purchase-rule-types.ts:28](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/purchase-rule-types.ts#L28)
+Defined in: [rules/purchase-rule-types.ts:28](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/purchase-rule-types.ts#L28)
 
 implemented on SingleFamily and RentalPassiveApartment. An estimation used to determine cash on cash percent
 
@@ -75,4 +75,4 @@ implemented on SingleFamily and RentalPassiveApartment. An estimation used to de
 
 > **None**: `"none"`
 
-Defined in: [rules/purchase-rule-types.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/rules/purchase-rule-types.ts#L2)
+Defined in: [rules/purchase-rule-types.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/rules/purchase-rule-types.ts#L2)
