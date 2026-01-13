@@ -6,7 +6,7 @@
 
 # Interface: IUserGoal
 
-Defined in: [account/i-user-goal.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/i-user-goal.ts#L3)
+Defined in: [account/i-user-goal.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/i-user-goal.ts#L1)
 
 ## Extended by
 
@@ -18,17 +18,37 @@ Defined in: [account/i-user-goal.ts:3](https://github.com/kvernon/realty-investo
 
 > **monthlyIncomeAmountGoal**: `number`
 
-Defined in: [account/i-user-goal.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/i-user-goal.ts#L7)
+Defined in: [account/i-user-goal.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/i-user-goal.ts#L5)
 
 used to determine how much you need want for monthly expenses
 
 ## Methods
 
+### metAverageQuarterlyGoal()
+
+> **metAverageQuarterlyGoal**(`today`): `boolean`
+
+Defined in: [account/i-user-goal.ts:17](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/i-user-goal.ts#L17)
+
+takes data from a quarterly average cash flow and compares it to the monthly goal. The reason on quarterly is that apartments do distributions quarterly, so you have to spread those out monthly
+
+#### Parameters
+
+##### today
+
+`Date`
+
+#### Returns
+
+`boolean`
+
+---
+
 ### metMonthlyGoal()
 
-> **metMonthlyGoal**(`today`, `properties`): `boolean`
+> **metMonthlyGoal**(`today`): `boolean`
 
-Defined in: [account/i-user-goal.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/i-user-goal.ts#L14)
+Defined in: [account/i-user-goal.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/i-user-goal.ts#L11)
 
 method used to help determine if you have met your expenses
 
@@ -37,10 +57,6 @@ method used to help determine if you have met your expenses
 ##### today
 
 `Date`
-
-##### properties
-
-[`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)[]
 
 #### Returns
 

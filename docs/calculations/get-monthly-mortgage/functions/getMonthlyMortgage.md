@@ -8,7 +8,7 @@
 
 > **getMonthlyMortgage**(`purchasePrice`, `cashDownPercent`, `closingCostPercent`, `loanRatePercent`, `loanTermInYears`): `number`
 
-Defined in: [calculations/get-monthly-mortgage.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/calculations/get-monthly-mortgage.ts#L12)
+Defined in: [calculations/get-monthly-mortgage.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/calculations/get-monthly-mortgage.ts#L12)
 
 formula for M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1].
 

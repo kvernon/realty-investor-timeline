@@ -6,7 +6,7 @@
 
 # Enumeration: LoanSettings
 
-Defined in: [loans/loan-settings.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/loans/loan-settings.ts#L4)
+Defined in: [loans/loan-settings.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/loans/loan-settings.ts#L4)
 
 Loan Settings
 
@@ -16,7 +16,7 @@ Loan Settings
 
 > **LoanRatePercent**: `0`
 
-Defined in: [loans/loan-settings.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/loans/loan-settings.ts#L8)
+Defined in: [loans/loan-settings.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/loans/loan-settings.ts#L8)
 
 Loan Rate Percent
 
@@ -26,7 +26,7 @@ Loan Rate Percent
 
 > **LoanTermInYears**: `1`
 
-Defined in: [loans/loan-settings.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/loans/loan-settings.ts#L13)
+Defined in: [loans/loan-settings.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/loans/loan-settings.ts#L13)
 
 Loan Terms in Years
 
@@ -36,6 +36,6 @@ Loan Terms in Years
 
 > **MinimumMonthlyReservesForRental**: `2`
 
-Defined in: [loans/loan-settings.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/loans/loan-settings.ts#L18)
+Defined in: [loans/loan-settings.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/loans/loan-settings.ts#L18)
 
 Minimum Monthly Reserves for Rental

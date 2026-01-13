@@ -44,6 +44,13 @@ your ideal finds.
 The library loop simulates a per-month savings. In there it will take your money saved and determine if you have enough
 to acquire more properties. Equally, we run through selling of properties too, because it's a common practice.
 
+## Why not break this up?
+
+There are lots of ways to handle system and application design. I tend to fancy the cloud services, so I can understand the
+question. The reason with this, is simplicity of setup. I know the importance of having things distributed, or having
+people reliant on a service for a subscription, however, I want this for anyone to use without the need to setup
+`cloudformation` as an example.
+
 ## Building
 
 ### Node version
@@ -104,7 +111,7 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
 
 - Refine the build process to remove /dist/src from library drill down
 
-## calling
+## Calling
 
 As this is still in progress, the current flow is as follows:
 
@@ -123,7 +130,7 @@ import {
   ValueCache,
   User,
   simulate,
-} from "@cubedelement.com/realty-investor-timeline";
+} from '@cubedelement.com/realty-investor-timeline';
 
 /**
  * Callout!
@@ -207,15 +214,14 @@ const options: ISimulateOptions = {
 const timeline = simulate(options);
 
 //Finally, to review your results, you can use the ledgerCollection's getSummariesAnnual.
-const lastYear = timeline.user.ledgerCollection.getSummariesAnnual(
-  timeline.endDate.getUTCFullYear()
-);
+const lastYear = timeline.user.ledgerCollection.getSummariesAnnual(timeline.endDate.getUTCFullYear());
 ```
 
 The example result object models:
 `Timeline`:
 
 ```JSON
+
 {
   "startDate": "2021-11-01T00:00:00.000Z",
   "endDate": "2022-11-01T00:00:00.000Z",
@@ -253,6 +259,7 @@ The example result object models:
     }
   }
 }
+
 ```
 
-In it you can get an estimate monthly cash flow by calling `const estimated = timeline.getEstimatedMonthlyCashFlow();`
+In it you can get an estimate monthly cash flow by calling `const mostRecentMonthlyCashflow = timeline.getCashFlowMonthByEndDate();`

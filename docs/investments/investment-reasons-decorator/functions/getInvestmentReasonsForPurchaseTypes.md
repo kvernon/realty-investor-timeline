@@ -8,7 +8,7 @@
 
 > **getInvestmentReasonsForPurchaseTypes**\<`T`\>(`target`): [`IReasonToRule`](../../reason-to-rule/interfaces/IReasonToRule.md)\<`T`, [`PurchaseRuleTypes`](../../../rules/purchase-rule-types/enumerations/PurchaseRuleTypes.md)\>[]
 
-Defined in: [investments/investment-reasons-decorator.ts:128](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/investment-reasons-decorator.ts#L128)
+Defined in: [investments/investment-reasons-decorator.ts:128](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/investment-reasons-decorator.ts#L128)
 
 ## Type Parameters
 

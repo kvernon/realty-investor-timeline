@@ -6,7 +6,7 @@
 
 # Class: User
 
-Defined in: [account/user.ts:32](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L32)
+Defined in: [account/user.ts:37](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L37)
 
 It's the user... as an interface!
 
@@ -20,7 +20,7 @@ It's the user... as an interface!
 
 > **new User**(`ledgerCollection`): [`User`](User.md)
 
-Defined in: [account/user.ts:75](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L75)
+Defined in: [account/user.ts:98](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L98)
 
 #### Parameters
 
@@ -38,7 +38,7 @@ Defined in: [account/user.ts:75](https://github.com/kvernon/realty-investor-time
 
 > **holdRules**: [`IRuleEvaluation`](../../../rules/rule-evaluation/interfaces/IRuleEvaluation.md)\<[`HoldRuleTypes`](../../../rules/hold-rule-types/enumerations/HoldRuleTypes.md)\>[]
 
-Defined in: [account/user.ts:82](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L82)
+Defined in: [account/user.ts:105](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L105)
 
 a system to determine how to hold onto the properties the longest. This scenario says as long as it meets 1 rule
 
@@ -52,7 +52,7 @@ a system to determine how to hold onto the properties the longest. This scenario
 
 > `readonly` **ledgerCollection**: [`ILedgerCollection`](../../../ledger/ledger-collection/interfaces/ILedgerCollection.md)
 
-Defined in: [account/user.ts:36](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L36)
+Defined in: [account/user.ts:41](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L41)
 
 the collection which is used to keep a balance sheet.
 
@@ -66,7 +66,7 @@ the collection which is used to keep a balance sheet.
 
 > **loanSettings**: [`ILoanSetting`](../../../loans/i-loan-settings/interfaces/ILoanSetting.md)[]
 
-Defined in: [account/user.ts:41](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L41)
+Defined in: [account/user.ts:46](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L46)
 
 a collection of loan settings for how to get a loan for single family or some other kind of property
 
@@ -80,7 +80,7 @@ a collection of loan settings for how to get a loan for single family or some ot
 
 > **monthlyIncomeAmountGoal**: `number`
 
-Defined in: [account/user.ts:46](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L46)
+Defined in: [account/user.ts:51](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L51)
 
 used to determine how much you need want for monthly expenses
 
@@ -94,7 +94,7 @@ used to determine how much you need want for monthly expenses
 
 > **monthlySavedAmount**: `number`
 
-Defined in: [account/user.ts:73](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L73)
+Defined in: [account/user.ts:96](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L96)
 
 an amount which the user can save per month after expenses, like, after my pay check I could put this amount into savings
 
@@ -108,7 +108,7 @@ an amount which the user can save per month after expenses, like, after my pay c
 
 > **purchaseRules**: [`IRuleEvaluation`](../../../rules/rule-evaluation/interfaces/IRuleEvaluation.md)\<[`PurchaseRuleTypes`](../../../rules/purchase-rule-types/enumerations/PurchaseRuleTypes.md)\>[]
 
-Defined in: [account/user.ts:87](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L87)
+Defined in: [account/user.ts:110](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L110)
 
 a system to weed out the properties you don't want. This scenario says as long as it meets 1 rule
 
@@ -122,7 +122,7 @@ a system to weed out the properties you don't want. This scenario says as long a
 
 > **clone**(): [`IUser`](../interfaces/IUser.md)
 
-Defined in: [account/user.ts:171](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L171)
+Defined in: [account/user.ts:188](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L188)
 
 #### Returns
 
@@ -138,7 +138,7 @@ Defined in: [account/user.ts:171](https://github.com/kvernon/realty-investor-tim
 
 > **getAvailableSavings**(`date`, `properties`): `number`
 
-Defined in: [account/user.ts:155](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L155)
+Defined in: [account/user.ts:176](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L176)
 
 should be the total balance - savings, using [getMinimumSavings](User.md#getminimumsavings), for determining monthly cash to save for single family properties
 
@@ -162,13 +162,13 @@ should be the total balance - savings, using [getMinimumSavings](User.md#getmini
 
 ---
 
-### getEstimatedMonthlyCashFlow()
+### getCashFlowMonth()
 
-> **getEstimatedMonthlyCashFlow**(`today`, `properties`): `number`
+> **getCashFlowMonth**(`today`): `number`
 
-Defined in: [account/user.ts:57](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L57)
+Defined in: [account/user.ts:85](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L85)
 
-method used to help determine if you have met your expenses
+returns your passive income for the year + month date supplied
 
 #### Parameters
 
@@ -176,9 +176,29 @@ method used to help determine if you have met your expenses
 
 `Date`
 
-##### properties
+#### Returns
 
-[`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)[]
+`number`
+
+#### Implementation of
+
+[`IUser`](../interfaces/IUser.md).[`getCashFlowMonth`](../interfaces/IUser.md#getcashflowmonth)
+
+---
+
+### getCashFlowQuarter()
+
+> **getCashFlowQuarter**(`today`): `number`
+
+Defined in: [account/user.ts:73](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L73)
+
+returns the cash flow by a quarter. This is ideal when evaluating your distributions that are not monthly.
+
+#### Parameters
+
+##### today
+
+`Date`
 
 #### Returns
 
@@ -186,7 +206,7 @@ method used to help determine if you have met your expenses
 
 #### Implementation of
 
-[`IUser`](../interfaces/IUser.md).[`getEstimatedMonthlyCashFlow`](../interfaces/IUser.md#getestimatedmonthlycashflow)
+[`IUser`](../interfaces/IUser.md).[`getCashFlowQuarter`](../interfaces/IUser.md#getcashflowquarter)
 
 ---
 
@@ -194,7 +214,7 @@ method used to help determine if you have met your expenses
 
 > **getMinimumSavings**(`date`, `properties`): `number`
 
-Defined in: [account/user.ts:137](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L137)
+Defined in: [account/user.ts:159](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L159)
 
 used to retrieve the amount required to keep in savings
 
@@ -222,7 +242,7 @@ used to retrieve the amount required to keep in savings
 
 > **hasMinimumSavings**(`date`, `properties`): `boolean`
 
-Defined in: [account/user.ts:119](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L119)
+Defined in: [account/user.ts:142](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L142)
 
 a way to determine if the user has enough money. This is different because with
 single family homes, you would have to save a certain amount of monthly mortgage
@@ -251,7 +271,7 @@ single family homes, you would have to save a certain amount of monthly mortgage
 
 > **hasMoneyToInvest**(`date`, `properties`, `contribution`?): `boolean`
 
-Defined in: [account/user.ts:97](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L97)
+Defined in: [account/user.ts:120](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L120)
 
 based upon [getMinimumSavings](User.md#getminimumsavings), it checks to see if there is an amount remaining that can be used along with the [contribution](User.md#contribution).
 
@@ -285,11 +305,35 @@ availableSavings - contribution >= 0;
 
 ---
 
+### metAverageQuarterlyGoal()
+
+> **metAverageQuarterlyGoal**(`today`): `boolean`
+
+Defined in: [account/user.ts:65](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L65)
+
+takes data from a quarterly average cash flow and compares it to the monthly goal. The reason on quarterly is that apartments do distributions quarterly, so you have to spread those out monthly
+
+#### Parameters
+
+##### today
+
+`Date`
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[`IUser`](../interfaces/IUser.md).[`metAverageQuarterlyGoal`](../interfaces/IUser.md#metaveragequarterlygoal)
+
+---
+
 ### metMonthlyGoal()
 
-> **metMonthlyGoal**(`today`, `properties`): `boolean`
+> **metMonthlyGoal**(`today`): `boolean`
 
-Defined in: [account/user.ts:53](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/account/user.ts#L53)
+Defined in: [account/user.ts:57](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/account/user.ts#L57)
 
 method used to help determine if you have met your expenses
 
@@ -298,10 +342,6 @@ method used to help determine if you have met your expenses
 ##### today
 
 `Date`
-
-##### properties
-
-[`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)[]
 
 #### Returns
 

@@ -19,6 +19,7 @@
 - [calculations/get-cost-down-user-investment-results](calculations/get-cost-down-user-investment-results/index.md)
 - [calculations/get-equity-capture-amount](calculations/get-equity-capture-amount/index.md)
 - [calculations/get-equity-capture-user-investment-results](calculations/get-equity-capture-user-investment-results/index.md)
+- [calculations/get-equity-estimate](calculations/get-equity-estimate/index.md)
 - [calculations/get-investment-percent](calculations/get-investment-percent/index.md)
 - [calculations/get-min-cost-down-by-rule](calculations/get-min-cost-down-by-rule/index.md)
 - [calculations/get-monthly-mortgage](calculations/get-monthly-mortgage/index.md)
@@ -86,3 +87,4 @@
 - [utils/data-number](utils/data-number/index.md)
 - [utils/data-property-entity](utils/data-property-entity/index.md)
 - [utils/ensure](utils/ensure/index.md)
+- [utils/get-date-quarter](utils/get-date-quarter/index.md)

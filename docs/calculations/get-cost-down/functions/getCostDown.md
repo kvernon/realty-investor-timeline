@@ -8,7 +8,7 @@
 
 > **getCostDown**(`purchasePrice`, `costDownPercent`): `number`
 
-Defined in: [calculations/get-cost-down.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/calculations/get-cost-down.ts#L8)
+Defined in: [calculations/get-cost-down.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/calculations/get-cost-down.ts#L8)
 
 returns the the total cash down for a single family home
 

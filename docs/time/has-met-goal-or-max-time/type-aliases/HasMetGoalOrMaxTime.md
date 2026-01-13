@@ -6,9 +6,9 @@
 
 # Type Alias: HasMetGoalOrMaxTime()
 
-> **HasMetGoalOrMaxTime**: (`start`, `today`, `user`, `rentals`, `maxYears`) => `boolean`
+> **HasMetGoalOrMaxTime**: (`start`, `today`, `user`, `maxYears`) => `boolean`
 
-Defined in: [time/has-met-goal-or-max-time.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/has-met-goal-or-max-time.ts#L7)
+Defined in: [time/has-met-goal-or-max-time.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/time/has-met-goal-or-max-time.ts#L6)
 
 a way to determine if the loop should end based on the user's rules
 
@@ -25,10 +25,6 @@ a way to determine if the loop should end based on the user's rules
 ### user
 
 [`IUser`](../../../account/user/interfaces/IUser.md)
-
-### rentals
-
-[`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)[]
 
 ### maxYears
 

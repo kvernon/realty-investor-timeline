@@ -8,7 +8,7 @@
 
 > **getCostDownUserInvestmentResults**(`rental`, `holdRules`, `purchaseRules`, `date`): [`UserInvestResult`](../../../investments/user-invest-result/classes/UserInvestResult.md)[]
 
-Defined in: [calculations/get-cost-down-user-investment-results.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/calculations/get-cost-down-user-investment-results.ts#L7)
+Defined in: [calculations/get-cost-down-user-investment-results.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/calculations/get-cost-down-user-investment-results.ts#L7)
 
 ## Parameters
 

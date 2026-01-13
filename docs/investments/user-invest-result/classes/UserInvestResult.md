@@ -6,7 +6,7 @@
 
 # Class: UserInvestResult
 
-Defined in: [investments/user-invest-result.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-invest-result.ts#L8)
+Defined in: [investments/user-invest-result.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/user-invest-result.ts#L9)
 
 ## Implements
 
@@ -16,9 +16,9 @@ Defined in: [investments/user-invest-result.ts:8](https://github.com/kvernon/rea
 
 ### new UserInvestResult()
 
-> **new UserInvestResult**(`reason`, `message`): [`UserInvestResult`](UserInvestResult.md)
+> **new UserInvestResult**(`reason`, `message`, `properties`): [`UserInvestResult`](UserInvestResult.md)
 
-Defined in: [investments/user-invest-result.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-invest-result.ts#L16)
+Defined in: [investments/user-invest-result.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/user-invest-result.ts#L18)
 
 #### Parameters
 
@@ -28,7 +28,11 @@ Defined in: [investments/user-invest-result.ts:16](https://github.com/kvernon/re
 
 ##### message
 
-`string` = `''`
+`string`
+
+##### properties
+
+`object`[]
 
 #### Returns
 
@@ -40,11 +44,31 @@ Defined in: [investments/user-invest-result.ts:16](https://github.com/kvernon/re
 
 > **investmentReason**: [`InvestmentReasons`](../../investment-reasons/enumerations/InvestmentReasons.md)
 
-Defined in: [investments/user-invest-result.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-invest-result.ts#L14)
+Defined in: [investments/user-invest-result.ts:15](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/user-invest-result.ts#L15)
 
 #### Implementation of
 
 [`IUserInvestResult`](../interfaces/IUserInvestResult.md).[`investmentReason`](../interfaces/IUserInvestResult.md#investmentreason)
+
+---
+
+### properties
+
+> **properties**: `object`[]
+
+Defined in: [investments/user-invest-result.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/user-invest-result.ts#L16)
+
+#### name
+
+> **name**: `string`
+
+#### value
+
+> **value**: `number`
+
+#### Implementation of
+
+[`IUserInvestResult`](../interfaces/IUserInvestResult.md).[`properties`](../interfaces/IUserInvestResult.md#properties)
 
 ## Accessors
 
@@ -54,7 +78,7 @@ Defined in: [investments/user-invest-result.ts:14](https://github.com/kvernon/re
 
 > **get** **message**(): `string`
 
-Defined in: [investments/user-invest-result.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/investments/user-invest-result.ts#L9)
+Defined in: [investments/user-invest-result.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/investments/user-invest-result.ts#L10)
 
 ##### Returns
 

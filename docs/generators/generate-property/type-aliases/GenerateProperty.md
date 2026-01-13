@@ -8,7 +8,7 @@
 
 > **GenerateProperty**\<`T`\>: (`options`, `lifeTime`, `userSettings`, `closingCostPercent`) => `T`
 
-Defined in: [generators/generate-property.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/generators/generate-property.ts#L5)
+Defined in: [generators/generate-property.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/generators/generate-property.ts#L5)
 
 ## Type Parameters
 

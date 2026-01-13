@@ -6,7 +6,7 @@
 
 # Class: LedgerCollection
 
-Defined in: [ledger/ledger-collection.ts:82](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L82)
+Defined in: [ledger/ledger-collection.ts:87](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L87)
 
 ## Implements
 
@@ -18,7 +18,7 @@ Defined in: [ledger/ledger-collection.ts:82](https://github.com/kvernon/realty-i
 
 > **new LedgerCollection**(): [`LedgerCollection`](LedgerCollection.md)
 
-Defined in: [ledger/ledger-collection.ts:95](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L95)
+Defined in: [ledger/ledger-collection.ts:98](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L98)
 
 #### Returns
 
@@ -30,7 +30,7 @@ Defined in: [ledger/ledger-collection.ts:95](https://github.com/kvernon/realty-i
 
 > **add**(`item`): `void`
 
-Defined in: [ledger/ledger-collection.ts:125](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L125)
+Defined in: [ledger/ledger-collection.ts:128](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L128)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [ledger/ledger-collection.ts:125](https://github.com/kvernon/realty-
 
 > **clone**(): [`ILedgerCollection`](../interfaces/ILedgerCollection.md)
 
-Defined in: [ledger/ledger-collection.ts:368](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L368)
+Defined in: [ledger/ledger-collection.ts:420](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L420)
 
 #### Returns
 
@@ -68,7 +68,7 @@ Defined in: [ledger/ledger-collection.ts:368](https://github.com/kvernon/realty-
 
 > **filter**(`pred`?): [`LedgerItem`](../../ledger-item/classes/LedgerItem.md)[]
 
-Defined in: [ledger/ledger-collection.ts:99](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L99)
+Defined in: [ledger/ledger-collection.ts:102](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L102)
 
 #### Parameters
 
@@ -90,7 +90,7 @@ Defined in: [ledger/ledger-collection.ts:99](https://github.com/kvernon/realty-i
 
 > **getAvailableSavings**(`date`, `properties`, `minMonthsRequired`): `number`
 
-Defined in: [ledger/ledger-collection.ts:346](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L346)
+Defined in: [ledger/ledger-collection.ts:398](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L398)
 
 should be the total balance - savings for single family
 
@@ -122,7 +122,7 @@ should be the total balance - savings for single family
 
 > **getAverageByType**(`collection`, `type`): `number`
 
-Defined in: [ledger/ledger-collection.ts:176](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L176)
+Defined in: [ledger/ledger-collection.ts:179](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L179)
 
 #### Parameters
 
@@ -140,11 +140,33 @@ Defined in: [ledger/ledger-collection.ts:176](https://github.com/kvernon/realty-
 
 ---
 
+### getAverageCashFlowMonthByQuarter()
+
+> **getAverageCashFlowMonthByQuarter**(`date`?): `number`
+
+Defined in: [ledger/ledger-collection.ts:236](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L236)
+
+#### Parameters
+
+##### date?
+
+`Date`
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[`ILedgerCollection`](../interfaces/ILedgerCollection.md).[`getAverageCashFlowMonthByQuarter`](../interfaces/ILedgerCollection.md#getaveragecashflowmonthbyquarter)
+
+---
+
 ### getBalance()
 
 > **getBalance**(`date`?): `number`
 
-Defined in: [ledger/ledger-collection.ts:115](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L115)
+Defined in: [ledger/ledger-collection.ts:118](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L118)
 
 the total balance in the ledger collection
 
@@ -168,7 +190,7 @@ the total balance in the ledger collection
 
 > **getCashFlowMonth**(`date`?): `number`
 
-Defined in: [ledger/ledger-collection.ts:215](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L215)
+Defined in: [ledger/ledger-collection.ts:218](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L218)
 
 #### Parameters
 
@@ -186,27 +208,25 @@ Defined in: [ledger/ledger-collection.ts:215](https://github.com/kvernon/realty-
 
 ---
 
-### getCashFlowMonthCollection()
+### getCashFlowQuarter()
 
-> **getCashFlowMonthCollection**(`year`?): `number`[]
+> **getCashFlowQuarter**(`date`?): `number`
 
-Defined in: [ledger/ledger-collection.ts:180](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L180)
-
-used to get the cashFlow of all 12 months
+Defined in: [ledger/ledger-collection.ts:274](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L274)
 
 #### Parameters
 
-##### year?
+##### date?
 
-`number`
+`Date`
 
 #### Returns
 
-`number`[]
+`number`
 
 #### Implementation of
 
-[`ILedgerCollection`](../interfaces/ILedgerCollection.md).[`getCashFlowMonthCollection`](../interfaces/ILedgerCollection.md#getcashflowmonthcollection)
+[`ILedgerCollection`](../interfaces/ILedgerCollection.md).[`getCashFlowQuarter`](../interfaces/ILedgerCollection.md#getcashflowquarter)
 
 ---
 
@@ -214,7 +234,7 @@ used to get the cashFlow of all 12 months
 
 > **getCashFlowYearAverage**(`date`?): `number`
 
-Defined in: [ledger/ledger-collection.ts:197](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L197)
+Defined in: [ledger/ledger-collection.ts:200](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L200)
 
 used to get the average cash flow for the year.
 
@@ -238,7 +258,7 @@ used to get the average cash flow for the year.
 
 > **getLastLedgerMonth**(): [`LedgerItem`](../../ledger-item/classes/LedgerItem.md)[]
 
-Defined in: [ledger/ledger-collection.ts:358](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L358)
+Defined in: [ledger/ledger-collection.ts:410](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L410)
 
 #### Returns
 
@@ -254,7 +274,7 @@ Defined in: [ledger/ledger-collection.ts:358](https://github.com/kvernon/realty-
 
 > **getLatestLedgerItem**(): [`LedgerItem`](../../ledger-item/classes/LedgerItem.md)
 
-Defined in: [ledger/ledger-collection.ts:350](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L350)
+Defined in: [ledger/ledger-collection.ts:402](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L402)
 
 #### Returns
 
@@ -270,7 +290,7 @@ Defined in: [ledger/ledger-collection.ts:350](https://github.com/kvernon/realty-
 
 > **getMinimumSavings**(`properties`, `date`, `minMonthsRequired`): `number`
 
-Defined in: [ledger/ledger-collection.ts:146](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L146)
+Defined in: [ledger/ledger-collection.ts:149](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L149)
 
 This method gets the total of savings needed for all properties by x amount of months.
 
@@ -308,11 +328,35 @@ totals all properties getExpensesByDate * amount needed to save by month, so pro
 
 ---
 
+### getMonthlyCashFlowByYear()
+
+> **getMonthlyCashFlowByYear**(`year`?): `number`[]
+
+Defined in: [ledger/ledger-collection.ts:183](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L183)
+
+used to get the cashFlow of all 12 months
+
+#### Parameters
+
+##### year?
+
+`number`
+
+#### Returns
+
+`number`[]
+
+#### Implementation of
+
+[`ILedgerCollection`](../interfaces/ILedgerCollection.md).[`getMonthlyCashFlowByYear`](../interfaces/ILedgerCollection.md#getmonthlycashflowbyyear)
+
+---
+
 ### getSummariesAnnual()
 
 > **getSummariesAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)[]
 
-Defined in: [ledger/ledger-collection.ts:299](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L299)
+Defined in: [ledger/ledger-collection.ts:354](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L354)
 
 #### Parameters
 
@@ -334,7 +378,7 @@ Defined in: [ledger/ledger-collection.ts:299](https://github.com/kvernon/realty-
 
 > **getSummaryAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)
 
-Defined in: [ledger/ledger-collection.ts:273](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L273)
+Defined in: [ledger/ledger-collection.ts:328](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L328)
 
 #### Parameters
 
@@ -356,7 +400,7 @@ Defined in: [ledger/ledger-collection.ts:273](https://github.com/kvernon/realty-
 
 > **getSummaryMonth**(`date`): [`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)
 
-Defined in: [ledger/ledger-collection.ts:233](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L233)
+Defined in: [ledger/ledger-collection.ts:293](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L293)
 
 #### Parameters
 
@@ -378,7 +422,7 @@ Defined in: [ledger/ledger-collection.ts:233](https://github.com/kvernon/realty-
 
 > **hasMinimumSavings**(`properties`, `date`, `minMonthsRequired`): `boolean`
 
-Defined in: [ledger/ledger-collection.ts:172](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L172)
+Defined in: [ledger/ledger-collection.ts:175](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L175)
 
 determines if there is enough money in the account while forcing a hold on the [getMinimumSavings](LedgerCollection.md#getminimumsavings) amount.
 
@@ -416,7 +460,7 @@ hasMinimumSavings = getBalance >= getMinimumSavings
 
 > **isEmpty**(): `boolean`
 
-Defined in: [ledger/ledger-collection.ts:132](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L132)
+Defined in: [ledger/ledger-collection.ts:135](https://github.com/kvernon/realty-investor-timeline/blob/6b35ed5cc421de617489a7f0ddd7f150a92f9d5b/src/ledger/ledger-collection.ts#L135)
 
 is the collection empty?
 
