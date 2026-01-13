@@ -15,7 +15,7 @@ export const defaultHasMetGoalOrMaxTime: HasMetGoalOrMaxTime = (start: Date, tod
     return false;
   }
 
-  if (user && user.metMonthlyGoal(today)) {
+  if (user && user.metAverageQuarterlyGoal(today)) {
     return true;
   }
 

@@ -59,6 +59,8 @@ describe('looper unit tests', () => {
     }));
 
     ledgerCollection = {
+      getAverageCashFlowMonthByQuarter: jest.fn(),
+      getCashFlowQuarter: jest.fn(),
       add: jest.fn(),
       getMonthlyCashFlowByYear: jest.fn(),
       getCashFlowYearAverage: jest.fn(),
@@ -77,9 +79,11 @@ describe('looper unit tests', () => {
     } as jest.Mocked<ILedgerCollection>;
 
     user = {
+      getCashFlowQuarter: jest.fn(),
       ledgerCollection,
       getCashFlowMonth: jest.fn(),
       getAvailableSavings: jest.fn(),
+      metAverageQuarterlyGoal: jest.fn(),
       metMonthlyGoal: jest.fn(),
       monthlyIncomeAmountGoal: chance.integer({ min: 1, max: 10 }),
       purchaseRules: [new RuleEvaluation(4, PurchaseRuleTypes.MinEstimatedAnnualCashFlow, PropertyType.SingleFamily)],
@@ -388,7 +392,7 @@ describe('looper unit tests', () => {
         });
 
         test('should not buy or sell properties', async () => {
-          user.metMonthlyGoal.mockReturnValueOnce(true);
+          user.metAverageQuarterlyGoal.mockReturnValueOnce(true);
           user.hasMoneyToInvest.mockReturnValueOnce(true);
           rentalSFToPurchase.isAvailableByDate.mockReturnValueOnce(true);
 
@@ -595,7 +599,7 @@ describe('looper unit tests', () => {
         test('should append reasons to passive', () => {
           const historicalPropertySF = actual.rentals.find(
             (x) => x.property.propertyType === PropertyType.SingleFamily && x.property.id === rentalSF.id,
-          ); //?
+          );
           const historicalPropertyPA = actual.rentals.find((x) => x.property.propertyType === PropertyType.PassiveApartment);
 
           expect(historicalPropertySF.reasons.length).toEqual(1);

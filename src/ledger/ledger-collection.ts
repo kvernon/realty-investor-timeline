@@ -6,6 +6,7 @@ import { IRentalPropertyEntity, PropertyType } from '../properties';
 import currency from '../formatters/currency';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import { differenceInMonths } from 'date-fns';
+import { getDateQuarter } from '../utils/get-date-quarter';
 
 export interface ILedgerCollection {
   /**
@@ -19,6 +20,10 @@ export interface ILedgerCollection {
   add(item: LedgerItem | Iterable<LedgerItem>): void;
 
   getCashFlowMonth(date?: Date): number;
+
+  getAverageCashFlowMonthByQuarter(date?: Date): number;
+
+  getCashFlowQuarter(date?: Date): number;
 
   /**
    * This method gets the total of savings needed for all properties by x amount of months.
@@ -224,6 +229,63 @@ export class LedgerCollection implements ILedgerCollection {
     if (boundary.length === 0) {
       return 0;
     }
+
+    return this.getSummaryByType(boundary, LedgerItemType.CashFlow);
+  }
+
+  getAverageCashFlowMonthByQuarter(date?: Date): number {
+    if (this.isEmpty()) {
+      return 0;
+    }
+
+    if (!date) {
+      date = this.collection.last().created;
+    }
+
+    const quarter = Math.floor(date.getUTCMonth() / 3);
+    const year = date.getUTCFullYear();
+
+    const boundary = this.filter((li) => {
+      return li.dateMatchesYearAndQuarter(year, quarter);
+    });
+
+    if (boundary.length === 0) {
+      return 0;
+    }
+
+    const cashFlowItems = boundary.filter((x) => x.typeMatches(LedgerItemType.CashFlow));
+
+    if (cashFlowItems.length === 0) {
+      return 0;
+    }
+
+    if (cashFlowItems.length === 0) {
+      return 0;
+    }
+
+    const firstMonth = cashFlowItems[0].created.getUTCMonth();
+    const lastMonth = cashFlowItems[cashFlowItems.length - 1].created.getUTCMonth();
+    const monthsWithData = lastMonth - firstMonth + 1;
+
+    const totalCashFlow = this.getCashFlowQuarter(date);
+    return totalCashFlow / monthsWithData;
+  }
+
+  getCashFlowQuarter(date?: Date): number {
+    if (this.isEmpty()) {
+      return 0;
+    }
+
+    if (!date) {
+      date = this.collection.last().created;
+    }
+
+    const quarter = getDateQuarter(date);
+    const year = date.getUTCFullYear();
+
+    const boundary = this.filter((li) => {
+      return li.dateMatchesYearAndQuarter(year, quarter);
+    });
 
     return this.getSummaryByType(boundary, LedgerItemType.CashFlow);
   }

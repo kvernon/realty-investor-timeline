@@ -43,6 +43,7 @@ describe('and canInvestByUser', () => {
         getAvailableSavings: jest.fn(),
         ledgerCollection,
         metMonthlyGoal: jest.fn(),
+        metAverageQuarterlyGoal: jest.fn(),
         monthlyIncomeAmountGoal: 0,
         loanSettings: [],
         purchaseRules: [
@@ -76,6 +77,7 @@ describe('and canInvestByUser', () => {
       const user: IUserInvestorCheck = {
         getAvailableSavings: jest.fn(),
         ledgerCollection,
+        metAverageQuarterlyGoal: jest.fn(),
         metMonthlyGoal: jest.fn(),
         monthlyIncomeAmountGoal: 0,
         loanSettings: [],
@@ -111,6 +113,7 @@ describe('and canInvestByUser', () => {
       const user: IUserInvestorCheck = {
         getAvailableSavings: jest.fn(),
         ledgerCollection,
+        metAverageQuarterlyGoal: jest.fn(),
         metMonthlyGoal: jest.fn(),
         monthlyIncomeAmountGoal: 0,
         loanSettings: [],
@@ -133,6 +136,7 @@ describe('and canInvestByUser', () => {
       const user: IUserInvestorCheck = {
         getAvailableSavings: jest.fn(),
         ledgerCollection,
+        metAverageQuarterlyGoal: jest.fn(),
         metMonthlyGoal: jest.fn(),
         monthlyIncomeAmountGoal: 0,
         loanSettings: [],
@@ -181,6 +185,7 @@ describe('and canInvestByUser', () => {
       const user: IUserInvestorCheck = {
         getAvailableSavings: jest.fn(),
         ledgerCollection,
+        metAverageQuarterlyGoal: jest.fn(),
         metMonthlyGoal: jest.fn(),
         monthlyIncomeAmountGoal: 0,
         loanSettings: [],
@@ -255,6 +260,7 @@ describe('and canInvestByUser', () => {
         user = {
           getAvailableSavings: jest.fn(),
           ledgerCollection,
+          metAverageQuarterlyGoal: jest.fn(),
           metMonthlyGoal: jest.fn(),
           monthlyIncomeAmountGoal: 0,
           getBalance: jest.fn().mockReturnValue(1000000),

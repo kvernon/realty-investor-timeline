@@ -22,6 +22,8 @@ describe('movement options unit tests', () => {
     chance = new Chance();
 
     user = {
+      getCashFlowQuarter: jest.fn(),
+      metAverageQuarterlyGoal: jest.fn(),
       ledgerCollection: null,
       getAvailableSavings: jest.fn(),
       getCashFlowMonth: jest.fn(),

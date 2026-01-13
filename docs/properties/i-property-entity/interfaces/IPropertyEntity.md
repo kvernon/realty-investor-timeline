@@ -6,7 +6,7 @@
 
 # Interface: IPropertyEntity
 
-Defined in: [properties/i-property-entity.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L4)
+Defined in: [properties/i-property-entity.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L4)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [properties/i-property-entity.ts:4](https://github.com/kvernon/realt
 
 > **address**: `string`
 
-Defined in: [properties/i-property-entity.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L13)
+Defined in: [properties/i-property-entity.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L13)
 
 address of property
 
@@ -32,7 +32,7 @@ address of property
 
 > **availableEndDate**: `Date`
 
-Defined in: [properties/i-entity-existence.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-entity-existence.ts#L9)
+Defined in: [properties/i-entity-existence.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-entity-existence.ts#L9)
 
 date which property was removed from the timeline.. think of it like someone else purchased this property
 
@@ -46,7 +46,7 @@ date which property was removed from the timeline.. think of it like someone els
 
 > **availableStartDate**: `Date`
 
-Defined in: [properties/i-entity-existence.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-entity-existence.ts#L5)
+Defined in: [properties/i-entity-existence.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-entity-existence.ts#L5)
 
 date which property was generated or was available for purchase
 
@@ -60,7 +60,7 @@ date which property was generated or was available for purchase
 
 > **costDownPrice**: `number`
 
-Defined in: [properties/i-property-entity.ts:23](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L23)
+Defined in: [properties/i-property-entity.ts:23](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L23)
 
 it's the purchase down
 
@@ -70,7 +70,7 @@ it's the purchase down
 
 > **equityCapturePercent**: `number`
 
-Defined in: [properties/i-property-entity.ts:50](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L50)
+Defined in: [properties/i-property-entity.ts:50](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L50)
 
 this can be between 10 - 20%
 
@@ -80,7 +80,7 @@ this can be between 10 - 20%
 
 > **id**: `string`
 
-Defined in: [properties/i-property-entity.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L8)
+Defined in: [properties/i-property-entity.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L8)
 
 unique identifier
 
@@ -90,7 +90,7 @@ unique identifier
 
 > `optional` **minSellYears**: `number`
 
-Defined in: [properties/i-property-entity.ts:35](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L35)
+Defined in: [properties/i-property-entity.ts:35](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L35)
 
 number of years to hold the property before being sold
 
@@ -100,15 +100,15 @@ number of years to hold the property before being sold
 
 > **offeredInvestmentAmounts**: `number`[]
 
-Defined in: [properties/i-property-entity.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L25)
+Defined in: [properties/i-property-entity.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L25)
 
 ---
 
 ### propertyType
 
-> `readonly` **propertyType**: [`PropertyType`](../../property-type/enumerations/PropertyType.md)
+> **propertyType**: [`PropertyType`](../../property-type/enumerations/PropertyType.md)
 
-Defined in: [properties/i-property-entity.ts:55](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L55)
+Defined in: [properties/i-property-entity.ts:55](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L55)
 
 used when evaluating rules
 
@@ -118,7 +118,7 @@ used when evaluating rules
 
 > **purchasePrice**: `number`
 
-Defined in: [properties/i-property-entity.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L18)
+Defined in: [properties/i-property-entity.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L18)
 
 purchase price of the property (may or may not be after repair value, ARV)
 
@@ -128,7 +128,7 @@ purchase price of the property (may or may not be after repair value, ARV)
 
 > **rawCashFlow**: `number`
 
-Defined in: [properties/i-property-entity.ts:40](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L40)
+Defined in: [properties/i-property-entity.ts:40](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L40)
 
 the cashOnCash return
 
@@ -138,7 +138,7 @@ the cashOnCash return
 
 > **sellPriceAppreciationPercent**: `number`
 
-Defined in: [properties/i-property-entity.ts:30](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L30)
+Defined in: [properties/i-property-entity.ts:30](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L30)
 
 the percent at which the property's value grows
 
@@ -150,7 +150,7 @@ the percent at which the property's value grows
 
 > **get** **rawEstimatedAnnualCashFlow**(): `number`
 
-Defined in: [properties/i-property-entity.ts:45](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/properties/i-property-entity.ts#L45)
+Defined in: [properties/i-property-entity.ts:45](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/properties/i-property-entity.ts#L45)
 
 the estimated annual cashFlow return
 

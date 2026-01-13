@@ -8,9 +8,11 @@
 
 > **movement**(`options`, `user`): [`ITimeline`](../../timeline/interfaces/ITimeline.md)
 
-Defined in: [time/movement.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/movement.ts#L19)
+Defined in: [time/movement.ts:21](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/movement.ts#L21)
 
 This is where the magic happens. You provide the options, and you let this calculate the rest.
+The flow is that you do work on a day, then after the changes are done for that day you evaluate it to determine if you met the goal or reached the end.
+If you did not meet the goal you start a new day and try again.
 
 ## Parameters
 

@@ -170,4 +170,56 @@ describe('LedgerItem unit tests', () => {
       });
     });
   });
+  describe('and getQuarter', () => {
+    describe('and no created', () => {
+      test('should be -1', () => {
+        expect(instance.getQuarter()).toEqual(-1);
+      });
+    });
+
+    describe('and created', () => {
+      describe('and first quarter', () => {
+        test('should be 0', () => {
+          instance.created = new Date(2026, 2, 1);
+          expect(instance.getQuarter()).toEqual(0);
+        });
+      });
+
+      describe('and second quarter', () => {
+        test('should be 1', () => {
+          instance.created = new Date(2026, 4, 1);
+          expect(instance.getQuarter()).toEqual(1);
+        });
+      });
+    });
+  });
+  describe('and dateMatchesYearAndQuarter', () => {
+    describe('and no created', () => {
+      test('should be -1', () => {
+        expect(instance.dateMatchesYearAndQuarter(2025, 0)).toEqual(false);
+      });
+    });
+
+    describe('and created', () => {
+      describe('and year no match', () => {
+        test('should be false', () => {
+          instance.created = new Date(2026, 2, 1);
+          expect(instance.dateMatchesYearAndQuarter(2025, 1)).toEqual(false);
+        });
+      });
+      describe('and quarter no match', () => {
+        test('should be false', () => {
+          instance.created = new Date(2026, 2, 1);
+          expect(instance.dateMatchesYearAndQuarter(2026, 1)).toEqual(false);
+        });
+      });
+
+      describe('and quarter match', () => {
+        test('should be true', () => {
+          instance.created = new Date(2026, 6, 1);
+          expect(instance.dateMatchesYearAndQuarter(2026, 2)).toEqual(true);
+        });
+      });
+    });
+  });
 });

@@ -6,7 +6,7 @@
 
 # Class: Timeline
 
-Defined in: [time/timeline.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L19)
+Defined in: [time/timeline.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L18)
 
 ## Implements
 
@@ -18,7 +18,7 @@ Defined in: [time/timeline.ts:19](https://github.com/kvernon/realty-investor-tim
 
 > **new Timeline**(`startDate`, `endDate`, `rentals`, `user`): [`Timeline`](Timeline.md)
 
-Defined in: [time/timeline.ts:20](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L20)
+Defined in: [time/timeline.ts:19](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L19)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [time/timeline.ts:20](https://github.com/kvernon/realty-investor-tim
 
 > **endDate**: `Date`
 
-Defined in: [time/timeline.ts:27](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L27)
+Defined in: [time/timeline.ts:26](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L26)
 
 #### Implementation of
 
@@ -60,7 +60,7 @@ Defined in: [time/timeline.ts:27](https://github.com/kvernon/realty-investor-tim
 
 > **rentals**: [`IHistoricalProperty`](../../i-historical-property/interfaces/IHistoricalProperty.md)[]
 
-Defined in: [time/timeline.ts:28](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L28)
+Defined in: [time/timeline.ts:27](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L27)
 
 #### Implementation of
 
@@ -72,7 +72,7 @@ Defined in: [time/timeline.ts:28](https://github.com/kvernon/realty-investor-tim
 
 > **startDate**: `Date`
 
-Defined in: [time/timeline.ts:29](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L29)
+Defined in: [time/timeline.ts:28](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L28)
 
 #### Implementation of
 
@@ -84,7 +84,7 @@ Defined in: [time/timeline.ts:29](https://github.com/kvernon/realty-investor-tim
 
 > **user**: [`IUser`](../../../account/user/interfaces/IUser.md)
 
-Defined in: [time/timeline.ts:30](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L30)
+Defined in: [time/timeline.ts:29](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L29)
 
 #### Implementation of
 
@@ -96,7 +96,7 @@ Defined in: [time/timeline.ts:30](https://github.com/kvernon/realty-investor-tim
 
 > **clone**(): [`ITimeline`](../interfaces/ITimeline.md)
 
-Defined in: [time/timeline.ts:61](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L61)
+Defined in: [time/timeline.ts:39](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L39)
 
 #### Returns
 
@@ -108,23 +108,11 @@ Defined in: [time/timeline.ts:61](https://github.com/kvernon/realty-investor-tim
 
 ---
 
-### getAllSummariesAnnual()
-
-> **getAllSummariesAnnual**(): [`ILedgerSummary`](../../../ledger/i-ledger-summary/interfaces/ILedgerSummary.md)[]
-
-Defined in: [time/timeline.ts:47](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L47)
-
-#### Returns
-
-[`ILedgerSummary`](../../../ledger/i-ledger-summary/interfaces/ILedgerSummary.md)[]
-
----
-
 ### getBalance()
 
 > **getBalance**(`date`?): `number`
 
-Defined in: [time/timeline.ts:39](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L39)
+Defined in: [time/timeline.ts:35](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L35)
 
 #### Parameters
 
@@ -142,11 +130,11 @@ Defined in: [time/timeline.ts:39](https://github.com/kvernon/realty-investor-tim
 
 ---
 
-### getEstimatedMonthlyCashFlow()
+### getCashFlowMonthByEndDate()
 
-> **getEstimatedMonthlyCashFlow**(): `number`
+> **getCashFlowMonthByEndDate**(): `number`
 
-Defined in: [time/timeline.ts:32](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L32)
+Defined in: [time/timeline.ts:31](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/time/timeline.ts#L31)
 
 #### Returns
 
@@ -154,22 +142,4 @@ Defined in: [time/timeline.ts:32](https://github.com/kvernon/realty-investor-tim
 
 #### Implementation of
 
-[`ITimeline`](../interfaces/ITimeline.md).[`getEstimatedMonthlyCashFlow`](../interfaces/ITimeline.md#getestimatedmonthlycashflow)
-
----
-
-### getSummariesAnnualByYear()
-
-> **getSummariesAnnualByYear**(`year`?): [`ILedgerSummary`](../../../ledger/i-ledger-summary/interfaces/ILedgerSummary.md)[]
-
-Defined in: [time/timeline.ts:43](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/time/timeline.ts#L43)
-
-#### Parameters
-
-##### year?
-
-`number`
-
-#### Returns
-
-[`ILedgerSummary`](../../../ledger/i-ledger-summary/interfaces/ILedgerSummary.md)[]
+[`ITimeline`](../interfaces/ITimeline.md).[`getCashFlowMonthByEndDate`](../interfaces/ITimeline.md#getcashflowmonthbyenddate)

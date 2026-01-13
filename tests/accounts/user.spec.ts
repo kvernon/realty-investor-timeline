@@ -14,6 +14,8 @@ describe('User unit tests', () => {
   beforeEach(() => {
     chance = new Chance();
     ledgerCollection = {
+      getAverageCashFlowMonthByQuarter: jest.fn(),
+      getCashFlowQuarter: jest.fn(),
       getAvailableSavings: jest.fn(),
       filter: jest.fn(),
       getMonthlyCashFlowByYear: jest.fn(),
@@ -171,6 +173,34 @@ describe('User unit tests', () => {
 
       expect(instance.metMonthlyGoal(date)).toBeTruthy();
       expect(instance.getCashFlowMonth(date)).toEqual(expected);
+    });
+
+    test('should be false', () => {
+      const date = new Date();
+
+      const expected = 499;
+
+      instance.monthlyIncomeAmountGoal = 500;
+
+      ledgerCollection.getCashFlowMonth.mockReturnValue(expected);
+
+      expect(instance.metMonthlyGoal(date)).toBeFalsy();
+      expect(instance.getCashFlowMonth(date)).toEqual(expected);
+    });
+  });
+
+  describe('and metAverageQuarterlyGoal', () => {
+    test('should be true', () => {
+      const date = new Date();
+
+      const expected = 500;
+
+      instance.monthlyIncomeAmountGoal = 500;
+
+      ledgerCollection.getAverageCashFlowMonthByQuarter.mockReturnValue(expected);
+
+      expect(instance.metAverageQuarterlyGoal(date)).toBeTruthy();
+      expect(instance.getCashFlowQuarter(date)).toEqual(expected);
     });
 
     test('should be false', () => {

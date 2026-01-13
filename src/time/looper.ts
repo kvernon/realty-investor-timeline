@@ -61,7 +61,7 @@ export const looper: LooperType = (options: ILoopRecursiveOptions, timeline: ITi
     }
   }
 
-  if (result.user.metMonthlyGoal(result.endDate)) {
+  if (result.user.metAverageQuarterlyGoal(result.endDate)) {
     return result;
   }
 

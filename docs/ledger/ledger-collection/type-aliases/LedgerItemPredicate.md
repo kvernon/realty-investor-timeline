@@ -8,7 +8,7 @@
 
 > **LedgerItemPredicate**: (`x`, `index`) => `boolean`
 
-Defined in: [ledger/ledger-collection.ts:80](https://github.com/kvernon/realty-investor-timeline/blob/c7446a8a5576468ac5874a2dd8323180fa97a55b/src/ledger/ledger-collection.ts#L80)
+Defined in: [ledger/ledger-collection.ts:85](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/ledger/ledger-collection.ts#L85)
 
 ## Parameters
 
