@@ -93,7 +93,7 @@ export class LedgerItem {
       return false;
     }
 
-    if (!this.dateLessThanOrEqualTo(date)) {
+    if (!this.dateLessThanOrEqualTo(date) || !this.dateMatchesYear(date.getUTCFullYear())) {
       return false;
     }
 

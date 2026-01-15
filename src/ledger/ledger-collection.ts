@@ -245,21 +245,15 @@ export class LedgerCollection implements ILedgerCollection {
     const quarter = getDateQuarter(date);
 
     const boundary = this.filter((li) => {
-      return li.dateLessThanOrEqualToAndQuarter(date, quarter);
+      return li.dateLessThanOrEqualToAndQuarter(date, quarter) && li.typeMatches(LedgerItemType.CashFlow);
     });
 
     if (boundary.length === 0) {
       return 0;
     }
 
-    const cashFlowItems = boundary.filter((x) => x.typeMatches(LedgerItemType.CashFlow));
-
-    if (cashFlowItems.length === 0) {
-      return 0;
-    }
-
-    const firstMonth = cashFlowItems[0].created.getUTCMonth();
-    const lastMonth = cashFlowItems[cashFlowItems.length - 1].created.getUTCMonth();
+    const firstMonth = boundary[0].created.getUTCMonth();
+    const lastMonth = boundary[boundary.length - 1].created.getUTCMonth();
     const monthsWithData = lastMonth - firstMonth + 1;
 
     if (monthsWithData <= 0) {
