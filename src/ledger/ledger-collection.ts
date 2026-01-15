@@ -262,6 +262,10 @@ export class LedgerCollection implements ILedgerCollection {
     const lastMonth = cashFlowItems[cashFlowItems.length - 1].created.getUTCMonth();
     const monthsWithData = lastMonth - firstMonth + 1;
 
+    if (monthsWithData <= 0) {
+      return 0;
+    }
+
     const totalCashFlow = this.getCashFlowQuarter(date);
 
     if (totalCashFlow === 0) {
