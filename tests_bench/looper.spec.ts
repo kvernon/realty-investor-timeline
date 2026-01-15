@@ -18,7 +18,11 @@ describe('loop performance tests', () => {
   let rentalGeneratorHome: RentalGenerator<RentalSingleFamily>;
 
   beforeEach(() => {
-    suite = new Suite();
+    suite = new Suite('loop performance tests: should be performant for looper run', {
+      onStart: () => console.log('Starting...'),
+      onComplete: () => console.log('Complete!'),
+      setup: () => console.log('Setup...'),
+    });
 
     rentalGeneratorHome = new RentalGenerator<RentalSingleFamily>(new ValueCache(new Date(), [], 2), generateSingleFamily);
     rentalGeneratorHome.lowestCashFlow = 200;

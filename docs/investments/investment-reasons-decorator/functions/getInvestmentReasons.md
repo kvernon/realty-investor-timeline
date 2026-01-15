@@ -8,7 +8,7 @@
 
 > **getInvestmentReasons**\<`T`, `TR`\>(`target`, `metaDataNameSuffix`): [`IReasonToRule`](../../reason-to-rule/interfaces/IReasonToRule.md)\<`T`, `TR`\>[]
 
-Defined in: [investments/investment-reasons-decorator.ts:82](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/investments/investment-reasons-decorator.ts#L82)
+Defined in: [investments/investment-reasons-decorator.ts:82](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/investments/investment-reasons-decorator.ts#L82)
 
 used to get the value for all properties
 

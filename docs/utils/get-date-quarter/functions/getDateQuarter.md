@@ -6,9 +6,11 @@
 
 # Function: getDateQuarter()
 
-> **getDateQuarter**(`date`): `number`
+> **getDateQuarter**(`date`): [`QuarterType`](../type-aliases/QuarterType.md)
 
-Defined in: [utils/get-date-quarter.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/utils/get-date-quarter.ts#L1)
+Defined in: [utils/get-date-quarter.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/utils/get-date-quarter.ts#L10)
+
+takes a date and return the quarter it belongs to, which will be 0, 1, 2, or 3
 
 ## Parameters
 
@@ -18,4 +20,4 @@ Defined in: [utils/get-date-quarter.ts:1](https://github.com/kvernon/realty-inve
 
 ## Returns
 
-`number`
+[`QuarterType`](../type-aliases/QuarterType.md)

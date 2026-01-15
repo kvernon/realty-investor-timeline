@@ -8,7 +8,7 @@
 
 > **genericGenerateProperty**\<`T`\>(`rentalClassType`, `options`, `lifeTime`): `T`
 
-Defined in: [generators/generic-generate-property.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/generators/generic-generate-property.ts#L11)
+Defined in: [generators/generic-generate-property.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/generators/generic-generate-property.ts#L11)
 
 used to dynamically create a rental and hydrate it
 

@@ -1,6 +1,6 @@
 import { LedgerItem } from './ledger-item';
 import itiriri, { IterableQuery } from 'itiriri';
-import { ILedgerSummary } from './i-ledger-summary';
+import { ILedgerDetailSummary, ILedgerSummary } from './i-ledger-summary';
 import { LedgerItemType } from './ledger-item-type';
 import { IRentalPropertyEntity, PropertyType } from '../properties';
 import currency from '../formatters/currency';
@@ -242,11 +242,10 @@ export class LedgerCollection implements ILedgerCollection {
       date = this.collection.last().created;
     }
 
-    const quarter = Math.floor(date.getUTCMonth() / 3);
-    const year = date.getUTCFullYear();
+    const quarter = getDateQuarter(date);
 
     const boundary = this.filter((li) => {
-      return li.dateMatchesYearAndQuarter(year, quarter);
+      return li.dateLessThanOrEqualToAndQuarter(date, quarter);
     });
 
     if (boundary.length === 0) {
@@ -259,16 +258,12 @@ export class LedgerCollection implements ILedgerCollection {
       return 0;
     }
 
-    if (cashFlowItems.length === 0) {
-      return 0;
-    }
-
     const firstMonth = cashFlowItems[0].created.getUTCMonth();
     const lastMonth = cashFlowItems[cashFlowItems.length - 1].created.getUTCMonth();
     const monthsWithData = lastMonth - firstMonth + 1;
 
     const totalCashFlow = this.getCashFlowQuarter(date);
-    return totalCashFlow / monthsWithData;
+    return currency(totalCashFlow / monthsWithData);
   }
 
   getCashFlowQuarter(date?: Date): number {
@@ -281,25 +276,25 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     const quarter = getDateQuarter(date);
-    const year = date.getUTCFullYear();
 
     const boundary = this.filter((li) => {
-      return li.dateMatchesYearAndQuarter(year, quarter);
+      return li.dateLessThanOrEqualToAndQuarter(date, quarter);
     });
 
     return this.getSummaryByType(boundary, LedgerItemType.CashFlow);
   }
 
-  getSummaryMonth(date: Date): ILedgerSummary {
+  getSummaryMonth(date: Date): ILedgerDetailSummary {
     if (!date) {
       throw new Error('no date supplied');
     }
 
-    const result: ILedgerSummary = {
+    const result: ILedgerDetailSummary = {
       date: cloneDateUtc(date),
       balance: 0,
       cashFlow: 0,
       averageCashFlow: 0,
+      averageQuarterlyCashFlow: 0,
       equity: 0,
       purchases: 0,
     };
@@ -321,6 +316,7 @@ export class LedgerCollection implements ILedgerCollection {
     result.equity = this.getSummaryByType(boundary, LedgerItemType.Equity);
     result.purchases = this.getSummaryByType(boundary, LedgerItemType.Purchase);
     result.balance = this.filter((li) => li.dateNotGreaterThan(date)).reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0);
+    result.averageQuarterlyCashFlow = this.getAverageCashFlowMonthByQuarter(date);
 
     return result;
   }
@@ -368,7 +364,7 @@ export class LedgerCollection implements ILedgerCollection {
 
     const collection = [];
     const lastLedgerItem = boundary[boundary.length - 1];
-    //need to determine monthDiff between boundary
+
     const totalMonths = differenceInMonths(boundary[0].created, lastLedgerItem.created);
 
     if (totalMonths === 0) {

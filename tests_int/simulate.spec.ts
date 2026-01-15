@@ -137,6 +137,7 @@ describe('simulate integration tests', () => {
       console.table(actual.user.ledgerCollection.getLastLedgerMonth());
       console.log('getCashFlowMonthByEndDate cash flow', actual.getCashFlowMonthByEndDate());
       console.log('last month cash flow', actual.user.ledgerCollection.getCashFlowMonth(actual.endDate));
+      console.log('last quarter cash flow', actual.user.ledgerCollection.getAverageCashFlowMonthByQuarter(actual.endDate));
 
       expect(actual.endDate).toEqual(cloneDateUtc(actual.user.ledgerCollection.getLatestLedgerItem().created));
       expect(actual.startDate).not.toBeNull();

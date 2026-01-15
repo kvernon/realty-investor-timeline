@@ -8,7 +8,7 @@
 
 > **randomPropertyEntity**(`options`): `Partial`\<[`IPropertyEntity`](../../../properties/i-property-entity/interfaces/IPropertyEntity.md)\>
 
-Defined in: [utils/data-property-entity.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/utils/data-property-entity.ts#L13)
+Defined in: [utils/data-property-entity.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/utils/data-property-entity.ts#L13)
 
 used to generate the basic entity options, which will create id, minSellYears, sellPriceAppreciationPercent, address, and carry over purchasePrice
 
