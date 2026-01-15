@@ -8,7 +8,7 @@
 
 > **generateRentalPassiveApartment**(`options`, `lifeTime`, `userSettings`, `closingCostPercent`): [`RentalPassiveApartment`](../../../properties/rental-passive-apartment/classes/RentalPassiveApartment.md)
 
-Defined in: [generators/factory-passive-apartment.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/generators/factory-passive-apartment.ts#L13)
+Defined in: [generators/factory-passive-apartment.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/generators/factory-passive-apartment.ts#L13)
 
 used to provide exclusive info for generating a [RentalPassiveApartment](../../../properties/rental-passive-apartment/classes/RentalPassiveApartment.md)
 

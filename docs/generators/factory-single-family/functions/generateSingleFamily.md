@@ -8,7 +8,7 @@
 
 > **generateSingleFamily**(`options`, `lifeTime`, `userSettings`, `closingCostPercent`): [`RentalSingleFamily`](../../../properties/rental-single-family/classes/RentalSingleFamily.md)
 
-Defined in: [generators/factory-single-family.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/generators/factory-single-family.ts#L18)
+Defined in: [generators/factory-single-family.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/generators/factory-single-family.ts#L18)
 
 used to provide exclusive info for generating a [RentalSingleFamily](../../../properties/rental-single-family/classes/RentalSingleFamily.md)
 
