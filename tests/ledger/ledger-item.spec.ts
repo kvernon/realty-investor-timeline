@@ -232,8 +232,15 @@ describe('LedgerItem unit tests', () => {
     describe('and created', () => {
       describe('and year no match', () => {
         test('should be false', () => {
-          instance.created = new Date(2026, 2, 1);
-          expect(instance.dateLessThanOrEqualToAndQuarter(instance.created, 1)).toEqual(false);
+          instance.created = new Date(2026, 0, 1);
+          expect(
+            instance.dateLessThanOrEqualToAndQuarter(
+              cloneDateUtc(instance.created, (date) => {
+                date.setUTCFullYear(2024);
+              }),
+              0,
+            ),
+          ).toEqual(false);
         });
       });
       describe('and quarter no match', () => {
