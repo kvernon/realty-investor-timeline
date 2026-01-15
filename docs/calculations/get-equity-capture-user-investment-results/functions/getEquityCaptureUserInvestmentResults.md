@@ -8,7 +8,7 @@
 
 > **getEquityCaptureUserInvestmentResults**(`rental`, `holdRules`, `purchaseRules`, `date`): [`UserInvestResult`](../../../investments/user-invest-result/classes/UserInvestResult.md)[]
 
-Defined in: [calculations/get-equity-capture-user-investment-results.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/calculations/get-equity-capture-user-investment-results.ts#L12)
+Defined in: [calculations/get-equity-capture-user-investment-results.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/calculations/get-equity-capture-user-investment-results.ts#L12)
 
 ## Parameters
 

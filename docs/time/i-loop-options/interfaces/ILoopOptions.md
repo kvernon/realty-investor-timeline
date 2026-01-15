@@ -6,7 +6,7 @@
 
 # Interface: ILoopOptions
 
-Defined in: [time/i-loop-options.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/time/i-loop-options.ts#L4)
+Defined in: [time/i-loop-options.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/time/i-loop-options.ts#L4)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [time/i-loop-options.ts:4](https://github.com/kvernon/realty-investo
 
 > `optional` **hasMetGoalOrMaxTime**: [`HasMetGoalOrMaxTime`](../../has-met-goal-or-max-time/type-aliases/HasMetGoalOrMaxTime.md)
 
-Defined in: [time/i-loop-options.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/time/i-loop-options.ts#L18)
+Defined in: [time/i-loop-options.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/time/i-loop-options.ts#L18)
 
 This is how the system knows when to quit. If no value is supplied, it will use `defaultHasMetGoalOrMaxTime`.
 
@@ -28,7 +28,7 @@ This is how the system knows when to quit. If no value is supplied, it will use 
 
 > `optional` **maxYears**: `number`
 
-Defined in: [time/i-loop-options.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/time/i-loop-options.ts#L13)
+Defined in: [time/i-loop-options.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/time/i-loop-options.ts#L13)
 
 how long should this run in years? A common number is 25 to 30 years before giving up.
 
@@ -38,7 +38,7 @@ how long should this run in years? A common number is 25 to 30 years before givi
 
 > `optional` **propertyGeneratorPassiveApartment**: [`IRentalGenerator`](../../../generators/rental-generator/interfaces/IRentalGenerator.md)\<[`RentalPassiveApartment`](../../../properties/rental-passive-apartment/classes/RentalPassiveApartment.md)\>
 
-Defined in: [time/i-loop-recursive-options.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/time/i-loop-recursive-options.ts#L14)
+Defined in: [time/i-loop-recursive-options.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/time/i-loop-recursive-options.ts#L14)
 
 How the system generates passive apartment properties
 
@@ -52,7 +52,7 @@ How the system generates passive apartment properties
 
 > `optional` **propertyGeneratorSingleFamily**: [`IRentalGenerator`](../../../generators/rental-generator/interfaces/IRentalGenerator.md)\<[`RentalSingleFamily`](../../../properties/rental-single-family/classes/RentalSingleFamily.md)\>
 
-Defined in: [time/i-loop-recursive-options.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/time/i-loop-recursive-options.ts#L9)
+Defined in: [time/i-loop-recursive-options.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/time/i-loop-recursive-options.ts#L9)
 
 How the system generates single family properties
 
@@ -66,6 +66,6 @@ How the system generates single family properties
 
 > `optional` **startDate**: `Date`
 
-Defined in: [time/i-loop-options.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/time/i-loop-options.ts#L8)
+Defined in: [time/i-loop-options.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/time/i-loop-options.ts#L8)
 
 when does this start?
