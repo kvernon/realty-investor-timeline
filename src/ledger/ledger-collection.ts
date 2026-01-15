@@ -61,7 +61,7 @@ export interface ILedgerCollection {
    */
   getCashFlowYearAverage(date?: Date): number;
 
-  getSummaryMonth(date: Date): ILedgerSummary;
+  getSummaryMonth(date: Date): ILedgerDetailSummary;
 
   getSummaryAnnual(year?: number): ILedgerSummary;
 
@@ -263,6 +263,11 @@ export class LedgerCollection implements ILedgerCollection {
     const monthsWithData = lastMonth - firstMonth + 1;
 
     const totalCashFlow = this.getCashFlowQuarter(date);
+
+    if (totalCashFlow === 0) {
+      return 0;
+    }
+
     return currency(totalCashFlow / monthsWithData);
   }
 
