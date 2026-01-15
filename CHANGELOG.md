@@ -1,3 +1,10 @@
+## [5.7.2](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.1...v5.7.2) (2026-01-15)
+
+
+### Bug Fixes
+
+* infinity corrections ([#77](https://github.com/kvernon/realty-investor-timeline/issues/77)) ([8caf790](https://github.com/kvernon/realty-investor-timeline/commit/8caf79086c6386d8af52c213556c91d38cf42388))
+
 ## [5.7.1](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.0...v5.7.1) (2026-01-15)
 
 
