@@ -1,3 +1,10 @@
+## [5.7.3](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.2...v5.7.3) (2026-01-15)
+
+
+### Bug Fixes
+
+* ledger-item filter method update ([#78](https://github.com/kvernon/realty-investor-timeline/issues/78)) ([e8b1c86](https://github.com/kvernon/realty-investor-timeline/commit/e8b1c86c3a290041e67b794811899e2c5d888953))
+
 ## [5.7.2](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.1...v5.7.2) (2026-01-15)
 
 
