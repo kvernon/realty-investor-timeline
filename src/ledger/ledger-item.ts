@@ -1,6 +1,6 @@
 import { LedgerItemType } from './ledger-item-type';
 import compareDates from '../utils/data-compare-date';
-import { getDateQuarter } from '../utils/get-date-quarter';
+import { getDateQuarter, QuarterType } from '../utils/get-date-quarter';
 
 /**
  * this is an entry into the account. Think of it as a checking account, and it's simply a transaction line.
@@ -35,7 +35,7 @@ export class LedgerItem {
   /**
    * if one is found, a zero based quarter number, otherwise you'll get -1
    */
-  getQuarter(): number {
+  getQuarter(): -1 | QuarterType {
     if (!this.created) {
       return -1;
     }
@@ -83,6 +83,28 @@ export class LedgerItem {
     return year === this.created.getUTCFullYear();
   }
 
+  /**
+   * returns true if the date is less than or equal to the date passed in and the quarter matches
+   * @param date
+   * @param quarter
+   */
+  dateLessThanOrEqualToAndQuarter(date: Date, quarter: QuarterType): boolean {
+    if (!this.created) {
+      return false;
+    }
+
+    if (!this.dateLessThanOrEqualTo(date)) {
+      return false;
+    }
+
+    return this.getQuarter() === quarter;
+  }
+
+  /**
+   * @deprecated, use {@link dateLessThanOrEqualToAndQuarter}
+   * @param year
+   * @param quarter
+   */
   dateMatchesYearAndQuarter(year: number, quarter: number): boolean {
     if (!this.created) {
       return false;

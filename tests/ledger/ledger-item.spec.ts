@@ -222,4 +222,41 @@ describe('LedgerItem unit tests', () => {
       });
     });
   });
+  describe('and dateLessThanOrEqualToAndQuarter', () => {
+    describe('and no created', () => {
+      test('should be -1', () => {
+        expect(instance.dateLessThanOrEqualToAndQuarter(instance.created, 0)).toEqual(false);
+      });
+    });
+
+    describe('and created', () => {
+      describe('and year no match', () => {
+        test('should be false', () => {
+          instance.created = new Date(2026, 2, 1);
+          expect(instance.dateLessThanOrEqualToAndQuarter(instance.created, 1)).toEqual(false);
+        });
+      });
+      describe('and quarter no match', () => {
+        test('should be false', () => {
+          instance.created = new Date(2026, 2, 1);
+          expect(instance.dateLessThanOrEqualToAndQuarter(instance.created, 1)).toEqual(false);
+        });
+      });
+
+      describe('and quarter match', () => {
+        test('should be true', () => {
+          instance.created = new Date(2026, 6, 1);
+          expect(instance.dateLessThanOrEqualToAndQuarter(instance.created, 2)).toEqual(true);
+        });
+      });
+
+      describe('and date outside', () => {
+        test('should be false', () => {
+          instance.created = new Date(2026, 6, 1);
+          const outside = new Date(2026, 10, 1);
+          expect(instance.dateLessThanOrEqualToAndQuarter(outside, 2)).toEqual(false);
+        });
+      });
+    });
+  });
 });

@@ -6,6 +6,10 @@
 
 # utils/get-date-quarter
 
+## Type Aliases
+
+- [QuarterType](type-aliases/QuarterType.md)
+
 ## Functions
 
 - [getDateQuarter](functions/getDateQuarter.md)

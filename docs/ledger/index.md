@@ -14,6 +14,12 @@ Re-exports [ILedgerCollection](ledger-collection/interfaces/ILedgerCollection.md
 
 ---
 
+### ILedgerDetailSummary
+
+Re-exports [ILedgerDetailSummary](i-ledger-summary/interfaces/ILedgerDetailSummary.md)
+
+---
+
 ### ILedgerSummary
 
 Re-exports [ILedgerSummary](i-ledger-summary/interfaces/ILedgerSummary.md)

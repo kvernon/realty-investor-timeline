@@ -117,6 +117,7 @@ describe('LedgerCollection unit tests', () => {
           balance: 0,
           cashFlow: 0,
           averageCashFlow: 0,
+          averageQuarterlyCashFlow: 0,
           equity: 0,
           purchases: 0,
         });
@@ -138,7 +139,7 @@ describe('LedgerCollection unit tests', () => {
 
         const cashFlowOut = new LedgerItem();
         cashFlowOut.created = cloneDateUtc(createdDate);
-        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 2);
+        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 3);
         cashFlowOut.amount = 111111;
         cashFlowOut.type = LedgerItemType.CashFlow;
 
@@ -166,6 +167,7 @@ describe('LedgerCollection unit tests', () => {
           averageCashFlow: (cashFlow.amount + cashFlowTwo.amount) / 2,
           equity: equity.amount,
           purchases: purchase.amount,
+          averageQuarterlyCashFlow: 4,
         });
       });
     });
@@ -358,13 +360,61 @@ describe('LedgerCollection unit tests', () => {
 
         const cashFlowOut = new LedgerItem();
         cashFlowOut.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
-        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 2);
+        cashFlowOut.created.setUTCMonth(cashFlowOut.created.getUTCMonth() + 4);
         cashFlowOut.amount = 111111;
         cashFlowOut.type = LedgerItemType.CashFlow;
 
         instance.add([cashFlowOut]);
 
-        expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual(cashFlowOut.amount);
+        expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual(0);
+      });
+
+      describe('and quantity in quarter', () => {
+        test('and matching dates with 2 months', () => {
+          const createdDate = new Date(Date.UTC(dateUtc.getUTCFullYear(), 0, 1));
+
+          const cashFlow1 = new LedgerItem();
+          cashFlow1.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+          cashFlow1.created.setUTCMonth(cashFlow1.created.getUTCMonth());
+          cashFlow1.amount = 2;
+          cashFlow1.type = LedgerItemType.CashFlow;
+
+          const cashFlow2 = new LedgerItem();
+          cashFlow2.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+          cashFlow2.created.setUTCMonth(cashFlow2.created.getUTCMonth() + 1);
+          cashFlow2.amount = 2;
+          cashFlow2.type = LedgerItemType.CashFlow;
+
+          instance.add([cashFlow1, cashFlow2]);
+
+          expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual((cashFlow1.amount + cashFlow2.amount) / 2);
+        });
+
+        test('and matching dates with all months', () => {
+          const createdDate = new Date(Date.UTC(dateUtc.getUTCFullYear(), 0, 1));
+
+          const cashFlow1 = new LedgerItem();
+          cashFlow1.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+          cashFlow1.created.setUTCMonth(cashFlow1.created.getUTCMonth());
+          cashFlow1.amount = 2;
+          cashFlow1.type = LedgerItemType.CashFlow;
+
+          const cashFlow2 = new LedgerItem();
+          cashFlow2.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+          cashFlow2.created.setUTCMonth(cashFlow2.created.getUTCMonth() + 1);
+          cashFlow2.amount = 2;
+          cashFlow2.type = LedgerItemType.CashFlow;
+
+          const cashFlow3 = new LedgerItem();
+          cashFlow3.created = new Date(Date.UTC(dateUtc.getUTCFullYear(), dateUtc.getUTCMonth(), 1));
+          cashFlow3.created.setUTCMonth(cashFlow3.created.getUTCMonth() + 2);
+          cashFlow3.amount = 2;
+          cashFlow3.type = LedgerItemType.CashFlow;
+
+          instance.add([cashFlow1, cashFlow2, cashFlow3]);
+
+          expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual((cashFlow1.amount + cashFlow2.amount + cashFlow3.amount) / 3);
+        });
       });
     });
   });
@@ -547,6 +597,7 @@ describe('LedgerCollection unit tests', () => {
             averageCashFlow: (cashFlow.amount + cashFlowTwo.amount) / 2,
             equity: equity.amount,
             purchases: purchase.amount,
+            averageQuarterlyCashFlow: cashFlowOut.amount + cashFlow.amount + cashFlowTwo.amount,
           },
         ]);
       });

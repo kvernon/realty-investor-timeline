@@ -6,7 +6,7 @@
 
 # Interface: ILoanSetting
 
-Defined in: [loans/i-loan-settings.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/loans/i-loan-settings.ts#L4)
+Defined in: [loans/i-loan-settings.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/loans/i-loan-settings.ts#L4)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [loans/i-loan-settings.ts:4](https://github.com/kvernon/realty-inves
 
 > **name**: [`LoanSettings`](../../loan-settings/enumerations/LoanSettings.md)
 
-Defined in: [loans/i-loan-settings.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/loans/i-loan-settings.ts#L6)
+Defined in: [loans/i-loan-settings.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/loans/i-loan-settings.ts#L6)
 
 ---
 
@@ -22,7 +22,7 @@ Defined in: [loans/i-loan-settings.ts:6](https://github.com/kvernon/realty-inves
 
 > **propertyType**: [`PropertyType`](../../../properties/property-type/enumerations/PropertyType.md)
 
-Defined in: [loans/i-loan-settings.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/loans/i-loan-settings.ts#L5)
+Defined in: [loans/i-loan-settings.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/loans/i-loan-settings.ts#L5)
 
 ---
 
@@ -30,4 +30,4 @@ Defined in: [loans/i-loan-settings.ts:5](https://github.com/kvernon/realty-inves
 
 > **value**: `number`
 
-Defined in: [loans/i-loan-settings.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/5a4b50c05937ef4acec617ccfb5124957036558c/src/loans/i-loan-settings.ts#L7)
+Defined in: [loans/i-loan-settings.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/f5e81c745c9712850008b994845a2db276e2111c/src/loans/i-loan-settings.ts#L7)
