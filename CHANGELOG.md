@@ -1,3 +1,10 @@
+## [5.7.4](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.3...v5.7.4) (2026-01-16)
+
+
+### Bug Fixes
+
+* quarter calculations ([#79](https://github.com/kvernon/realty-investor-timeline/issues/79)) ([9c60f23](https://github.com/kvernon/realty-investor-timeline/commit/9c60f23d4f2fa0d1c87e3c4538f33c13f5f8e0b9))
+
 ## [5.7.3](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.2...v5.7.3) (2026-01-15)
 
 
