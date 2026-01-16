@@ -8,7 +8,7 @@
 
 > **getMonthlyPrincipalInterestTaxInterest**(`purchasePrice`, `cashDownPercent`, `closingCostPercent`, `loanRatePercent`, `loanTermInYears`): `number`
 
-Defined in: [calculations/get-monthly-principal-interest-tax-interest.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/calculations/get-monthly-principal-interest-tax-interest.ts#L12)
+Defined in: [calculations/get-monthly-principal-interest-tax-interest.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/calculations/get-monthly-principal-interest-tax-interest.ts#L12)
 
 This gets you PITI!
 

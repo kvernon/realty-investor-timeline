@@ -6,7 +6,6 @@ import { IRentalPropertyEntity, PropertyType } from '../properties';
 import currency from '../formatters/currency';
 import { cloneDateUtc } from '../utils/data-clone-date';
 import { differenceInMonths } from 'date-fns';
-import { getDateQuarter } from '../utils/get-date-quarter';
 
 export interface ILedgerCollection {
   /**
@@ -242,10 +241,8 @@ export class LedgerCollection implements ILedgerCollection {
       date = this.collection.last().created;
     }
 
-    const quarter = getDateQuarter(date);
-
     const boundary = this.filter((li) => {
-      return li.dateLessThanOrEqualToAndQuarter(date, quarter) && li.typeMatches(LedgerItemType.CashFlow);
+      return li.dateLessThanOrEqualToAndQuarter(date) && li.typeMatches(LedgerItemType.CashFlow);
     });
 
     if (boundary.length === 0) {
@@ -278,10 +275,8 @@ export class LedgerCollection implements ILedgerCollection {
       date = this.collection.last().created;
     }
 
-    const quarter = getDateQuarter(date);
-
     const boundary = this.filter((li) => {
-      return li.dateLessThanOrEqualToAndQuarter(date, quarter);
+      return li.dateLessThanOrEqualToAndQuarter(date);
     });
 
     return this.getSummaryByType(boundary, LedgerItemType.CashFlow);

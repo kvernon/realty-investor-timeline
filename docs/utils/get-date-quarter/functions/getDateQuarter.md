@@ -8,7 +8,7 @@
 
 > **getDateQuarter**(`date`): [`QuarterType`](../type-aliases/QuarterType.md)
 
-Defined in: [utils/get-date-quarter.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/utils/get-date-quarter.ts#L10)
+Defined in: [utils/get-date-quarter.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/utils/get-date-quarter.ts#L10)
 
 takes a date and return the quarter it belongs to, which will be 0, 1, 2, or 3
 

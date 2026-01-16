@@ -1,5 +1,5 @@
 /**
- * used to determine which is before, a or b. If a, then you'll get -1, if b then 1. Finally, if everything is the
+ * used to determine which date is the the oldest, a or b. If a is more in the past, then you'll get -1, if b then 1. Finally, if everything is the
  * same, then 0.
  * @param dateA
  * @param dateB

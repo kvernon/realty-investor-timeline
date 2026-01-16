@@ -8,7 +8,7 @@
 
 > **getSellPriceEstimate**(`purchase`, `sell`, `purchasePrice`, `sellPriceAppreciationPercent`): `number`
 
-Defined in: [calculations/get-sell-price-estimate.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/calculations/get-sell-price-estimate.ts#L4)
+Defined in: [calculations/get-sell-price-estimate.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/calculations/get-sell-price-estimate.ts#L4)
 
 ## Parameters
 

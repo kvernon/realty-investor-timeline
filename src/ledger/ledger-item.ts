@@ -47,32 +47,48 @@ export class LedgerItem {
     return this.amount > 0;
   }
 
-  dateMatchesYearAndMonth(today: Date): boolean {
-    if (!today) {
+  dateMatchesYearAndMonth(date: Date): boolean {
+    if (!date) {
       return false;
     }
 
-    if (!this.dateMatchesYear(today.getUTCFullYear())) {
+    if (!this.dateMatchesYear(date.getUTCFullYear())) {
       return false;
     }
 
-    return today.getUTCMonth() === this.created.getUTCMonth();
+    return date.getUTCMonth() === this.created.getUTCMonth();
   }
 
-  dateLessThanOrEqualTo(today: Date): boolean {
-    if (!today || !this.created) {
+  /**
+   * returns `true` if date's date is less than or equal to the created date
+   * @param date
+   */
+  dateLessThanOrEqualTo(date: Date): boolean {
+    if (!date || !this.created) {
       return false;
     }
 
-    return compareDates(this.created, today) >= 0;
+    return compareDates(this.created, date) >= 0;
   }
 
-  dateNotGreaterThan(today: Date): boolean {
-    if (!today || !this.created) {
+  /**
+   * returns `true` if date's date is grater than or equal to the created date
+   * @param date
+   */
+  dateGreaterThanOrEqualTo(date: Date): boolean {
+    if (!date || !this.created) {
       return false;
     }
 
-    return compareDates(this.created, today) !== 1;
+    return compareDates(this.created, date) <= 0;
+  }
+
+  dateNotGreaterThan(date: Date): boolean {
+    if (!date || !this.created) {
+      return false;
+    }
+
+    return compareDates(this.created, date) !== 1;
   }
 
   dateMatchesYear(year: number): boolean {
@@ -84,20 +100,23 @@ export class LedgerItem {
   }
 
   /**
-   * returns true if the date is less than or equal to the date passed in and the quarter matches
+   * returns `true` if date's date is more recent than or equal to the created date and the quarter matches
    * @param date
-   * @param quarter
    */
-  dateLessThanOrEqualToAndQuarter(date: Date, quarter: QuarterType): boolean {
+  dateLessThanOrEqualToAndQuarter(date: Date): boolean {
     if (!this.created) {
       return false;
     }
 
-    if (!this.dateLessThanOrEqualTo(date) || !this.dateMatchesYear(date.getUTCFullYear())) {
+    if (!this.dateMatchesYear(date.getUTCFullYear())) {
       return false;
     }
 
-    return this.getQuarter() === quarter;
+    if (this.getQuarter() !== getDateQuarter(date)) {
+      return false;
+    }
+
+    return this.dateGreaterThanOrEqualTo(date);
   }
 
   /**

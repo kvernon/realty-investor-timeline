@@ -251,50 +251,52 @@ describe('LedgerCollection unit tests', () => {
       });
     });
     describe('and ledgerItems', () => {
+      let createdDate: Date;
+      let cashFlow: LedgerItem;
+      let cashFlowTwo: LedgerItem;
+      let cashFlowThree: LedgerItem;
+      let equity: LedgerItem;
+      let salary: LedgerItem;
+
+      beforeEach(() => {
+        createdDate = new Date(Date.UTC(dateUtc.getUTCFullYear(), 0, 1));
+        cashFlow = new LedgerItem();
+        cashFlow.created = cloneDateUtc(createdDate);
+        cashFlow.amount = 1;
+        cashFlow.type = LedgerItemType.CashFlow;
+
+        cashFlowTwo = new LedgerItem();
+        cashFlowTwo.created = cloneDateUtc(createdDate);
+        cashFlowTwo.created.setUTCMonth(cashFlowTwo.created.getUTCMonth() + 1);
+        cashFlowTwo.amount = 3;
+        cashFlowTwo.type = LedgerItemType.CashFlow;
+
+        cashFlowThree = new LedgerItem();
+        cashFlowThree.created = cloneDateUtc(createdDate);
+        cashFlowThree.created.setUTCMonth(cashFlowThree.created.getUTCMonth() + 2);
+        cashFlowThree.amount = 4;
+        cashFlowThree.type = LedgerItemType.CashFlow;
+
+        equity = new LedgerItem();
+        equity.created = cloneDateUtc(createdDate);
+        equity.amount = 2;
+        equity.type = LedgerItemType.Equity;
+
+        salary = new LedgerItem();
+        salary.created = cloneDateUtc(createdDate);
+        salary.amount = 4;
+        salary.type = LedgerItemType.Salary;
+      });
+
       describe('and in quarter', () => {
-        let createdDate: Date;
-        let cashFlow: LedgerItem;
-        let cashFlowTwo: LedgerItem;
-        let cashFlowThree: LedgerItem;
-
-        beforeEach(() => {
-          createdDate = new Date(Date.UTC(dateUtc.getUTCFullYear(), 0, 1));
-
-          cashFlow = new LedgerItem();
-          cashFlow.created = cloneDateUtc(createdDate);
-          cashFlow.amount = 1;
-          cashFlow.type = LedgerItemType.CashFlow;
-
-          cashFlowTwo = new LedgerItem();
-          cashFlowTwo.created = cloneDateUtc(createdDate);
-          cashFlowTwo.created.setUTCMonth(cashFlowTwo.created.getUTCMonth() + 1);
-          cashFlowTwo.amount = 3;
-          cashFlowTwo.type = LedgerItemType.CashFlow;
-
-          cashFlowThree = new LedgerItem();
-          cashFlowThree.created = cloneDateUtc(createdDate);
-          cashFlowThree.created.setUTCMonth(cashFlowThree.created.getUTCMonth() + 2);
-          cashFlowThree.amount = 4;
-          cashFlowThree.type = LedgerItemType.CashFlow;
-        });
-
         describe('with data in every month', () => {
           test('should return that data', () => {
-            const equity = new LedgerItem();
-            equity.created = cloneDateUtc(createdDate);
-            equity.amount = 2;
-            equity.type = LedgerItemType.Equity;
-
-            const salary = new LedgerItem();
-            salary.created = cloneDateUtc(createdDate);
-            salary.amount = 4;
-            salary.type = LedgerItemType.Salary;
-
             instance.add([cashFlow, cashFlowTwo, cashFlowThree, equity, salary]);
 
-            expect(instance.getCashFlowQuarter(createdDate)).toEqual(cashFlow.amount + cashFlowTwo.amount + cashFlowThree.amount);
+            expect(instance.getCashFlowQuarter(cashFlowThree.created)).toEqual(cashFlow.amount + cashFlowTwo.amount + cashFlowThree.amount);
           });
         });
+
         describe('with data in first month', () => {
           test('should return empty data', () => {
             const equity = new LedgerItem();
@@ -315,22 +317,14 @@ describe('LedgerCollection unit tests', () => {
 
         describe('with data in first and second month', () => {
           test('should return empty data', () => {
-            const equity = new LedgerItem();
-            equity.created = cloneDateUtc(createdDate);
-            equity.amount = 2;
-            equity.type = LedgerItemType.Equity;
-
-            const salary = new LedgerItem();
-            salary.created = cloneDateUtc(createdDate);
-            salary.amount = 4;
-            salary.type = LedgerItemType.Salary;
-
             instance.add([cashFlow, cashFlowTwo, equity, salary]);
 
-            expect(instance.getCashFlowQuarter(createdDate)).toEqual(cashFlow.amount + cashFlowTwo.amount);
+            expect(instance.getCashFlowQuarter(cashFlowTwo.created)).toEqual(cashFlow.amount + cashFlowTwo.amount);
           });
         });
+      });
 
+      describe('and outside of quarter', () => {
         test('and no matching dates', () => {
           const cashFlowOut = new LedgerItem();
           cashFlowOut.created = cloneDateUtc(createdDate);
@@ -405,7 +399,7 @@ describe('LedgerCollection unit tests', () => {
 
         instance.add([cashFlow, cashFlowTwo, cashFlowOut, equity, purchase, salary]);
 
-        expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual((cashFlow.amount + cashFlowTwo.amount) / 2);
+        expect(instance.getAverageCashFlowMonthByQuarter(cashFlowTwo.created)).toEqual((cashFlow.amount + cashFlowTwo.amount) / 2);
       });
 
       test('and no matching dates', () => {
@@ -427,7 +421,7 @@ describe('LedgerCollection unit tests', () => {
               instance.add([cashFlow, cashFlowTwo, cashFlowThree]);
 
               const expected = currency((cashFlow.amount + cashFlowTwo.amount + cashFlowThree.amount) / 3);
-              expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual(expected);
+              expect(instance.getAverageCashFlowMonthByQuarter(cashFlowThree.created)).toEqual(expected);
             });
           });
           describe('with data in first month', () => {
@@ -441,7 +435,7 @@ describe('LedgerCollection unit tests', () => {
             test('should return empty data', () => {
               instance.add([cashFlow, cashFlowTwo]);
 
-              expect(instance.getAverageCashFlowMonthByQuarter(createdDate)).toEqual((cashFlow.amount + cashFlowTwo.amount) / 2);
+              expect(instance.getAverageCashFlowMonthByQuarter(cashFlowTwo.created)).toEqual((cashFlow.amount + cashFlowTwo.amount) / 2);
             });
           });
         });
