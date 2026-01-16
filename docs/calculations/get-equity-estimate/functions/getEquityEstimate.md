@@ -8,7 +8,7 @@
 
 > **getEquityEstimate**(`sellPrice`, `costDown`, `equityCapturePercent`): `number`
 
-Defined in: [calculations/get-equity-estimate.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/calculations/get-equity-estimate.ts#L7)
+Defined in: [calculations/get-equity-estimate.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/calculations/get-equity-estimate.ts#L7)
 
 returns currency formatted number result
 

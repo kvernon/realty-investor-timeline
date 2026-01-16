@@ -6,7 +6,7 @@
 
 # Interface: ILedgerDetailSummary
 
-Defined in: [ledger/i-ledger-summary.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/ledger/i-ledger-summary.ts#L10)
+Defined in: [ledger/i-ledger-summary.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/i-ledger-summary.ts#L10)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [ledger/i-ledger-summary.ts:10](https://github.com/kvernon/realty-in
 
 > **averageCashFlow**: `number`
 
-Defined in: [ledger/i-ledger-summary.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/ledger/i-ledger-summary.ts#L5)
+Defined in: [ledger/i-ledger-summary.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/i-ledger-summary.ts#L5)
 
 #### Inherited from
 
@@ -30,7 +30,7 @@ Defined in: [ledger/i-ledger-summary.ts:5](https://github.com/kvernon/realty-inv
 
 > **averageQuarterlyCashFlow**: `number`
 
-Defined in: [ledger/i-ledger-summary.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/ledger/i-ledger-summary.ts#L14)
+Defined in: [ledger/i-ledger-summary.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/i-ledger-summary.ts#L14)
 
 a way to determine the average monthly cash flow using the quarterly totals
 
@@ -40,7 +40,7 @@ a way to determine the average monthly cash flow using the quarterly totals
 
 > **balance**: `number`
 
-Defined in: [ledger/i-ledger-summary.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/ledger/i-ledger-summary.ts#L3)
+Defined in: [ledger/i-ledger-summary.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/i-ledger-summary.ts#L3)
 
 #### Inherited from
 
@@ -52,7 +52,7 @@ Defined in: [ledger/i-ledger-summary.ts:3](https://github.com/kvernon/realty-inv
 
 > **cashFlow**: `number`
 
-Defined in: [ledger/i-ledger-summary.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/ledger/i-ledger-summary.ts#L4)
+Defined in: [ledger/i-ledger-summary.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/i-ledger-summary.ts#L4)
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: [ledger/i-ledger-summary.ts:4](https://github.com/kvernon/realty-inv
 
 > **date**: `Date`
 
-Defined in: [ledger/i-ledger-summary.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/ledger/i-ledger-summary.ts#L2)
+Defined in: [ledger/i-ledger-summary.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/i-ledger-summary.ts#L2)
 
 #### Inherited from
 
@@ -76,7 +76,7 @@ Defined in: [ledger/i-ledger-summary.ts:2](https://github.com/kvernon/realty-inv
 
 > **equity**: `number`
 
-Defined in: [ledger/i-ledger-summary.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/ledger/i-ledger-summary.ts#L7)
+Defined in: [ledger/i-ledger-summary.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/i-ledger-summary.ts#L7)
 
 #### Inherited from
 
@@ -88,7 +88,7 @@ Defined in: [ledger/i-ledger-summary.ts:7](https://github.com/kvernon/realty-inv
 
 > **purchases**: `number`
 
-Defined in: [ledger/i-ledger-summary.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/ledger/i-ledger-summary.ts#L6)
+Defined in: [ledger/i-ledger-summary.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/i-ledger-summary.ts#L6)
 
 #### Inherited from
 

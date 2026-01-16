@@ -8,7 +8,7 @@
 
 > **returnOnCapitalGain**(`unrealizedCapitalGain`, `costDownPrice`): `number`
 
-Defined in: [calculations/return-on-capital-gain.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/calculations/return-on-capital-gain.ts#L9)
+Defined in: [calculations/return-on-capital-gain.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/calculations/return-on-capital-gain.ts#L9)
 
 takes unrealized capital gain (equity or profit from sell) and divides it against cash down to determine return on capital gain
 

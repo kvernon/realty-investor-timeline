@@ -6,7 +6,7 @@
 
 # Interface: IRuleEvaluation\<E\>
 
-Defined in: [rules/rule-evaluation.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/rules/rule-evaluation.ts#L7)
+Defined in: [rules/rule-evaluation.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/rule-evaluation.ts#L7)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [rules/rule-evaluation.ts:7](https://github.com/kvernon/realty-inves
 
 > **propertyType**: [`PropertyType`](../../../properties/property-type/enumerations/PropertyType.md)
 
-Defined in: [rules/i-rule.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/rules/i-rule.ts#L6)
+Defined in: [rules/i-rule.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/i-rule.ts#L6)
 
 #### Inherited from
 
@@ -34,7 +34,7 @@ Defined in: [rules/i-rule.ts:6](https://github.com/kvernon/realty-investor-timel
 
 > **type**: `E`
 
-Defined in: [rules/i-rule.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/rules/i-rule.ts#L4)
+Defined in: [rules/i-rule.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/i-rule.ts#L4)
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: [rules/i-rule.ts:4](https://github.com/kvernon/realty-investor-timel
 
 > **value**: `number`
 
-Defined in: [rules/i-rule.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/rules/i-rule.ts#L5)
+Defined in: [rules/i-rule.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/i-rule.ts#L5)
 
 #### Inherited from
 
@@ -58,7 +58,7 @@ Defined in: [rules/i-rule.ts:5](https://github.com/kvernon/realty-investor-timel
 
 > **evaluate**(`dataValue`): `boolean`
 
-Defined in: [rules/rule-evaluation.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/rules/rule-evaluation.ts#L12)
+Defined in: [rules/rule-evaluation.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/rule-evaluation.ts#L12)
 
 Determines if the [dataValue](IRuleEvaluation.md#datavalue) passes the rule
 

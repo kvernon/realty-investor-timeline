@@ -13,3 +13,4 @@
 ## Functions
 
 - [getDateQuarter](functions/getDateQuarter.md)
+- [getDateQuarterByMonth](functions/getDateQuarterByMonth.md)

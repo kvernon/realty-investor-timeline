@@ -8,7 +8,7 @@
 
 > **default**\<`T`\>(`propertyA`, `propertyB`, `rules`): `number`
 
-Defined in: [properties/property-sort.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/a8ee0dbe1cb2541838a433a27053b4875ab05305/src/properties/property-sort.ts#L25)
+Defined in: [properties/property-sort.ts:25](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/properties/property-sort.ts#L25)
 
 property sort based on rules order and property value
 
