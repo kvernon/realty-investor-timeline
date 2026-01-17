@@ -1,5 +1,7 @@
 import { LedgerItem } from '../../src/ledger/ledger-item';
 import { cloneDateUtc } from '../../src/utils/data-clone-date';
+import { LedgerItemType } from '../../src';
+import { getDateQuarter, getDateQuarterByMonth } from '../../src/utils/get-date-quarter';
 import compareDates from '../../src/utils/data-compare-date';
 
 describe('LedgerItem unit tests', () => {
@@ -230,6 +232,72 @@ describe('LedgerItem unit tests', () => {
       });
     });
   });
+  describe('and dateMatchesYearAndQuarter', () => {
+    describe('and no created', () => {
+      test('should be -1', () => {
+        expect(instance.dateMatchesYearAndQuarter(2025, 0)).toEqual(false);
+      });
+    });
+
+    describe('and created', () => {
+      describe('and year no match', () => {
+        test('should be false', () => {
+          instance.created = new Date(2026, 2, 1);
+          expect(instance.dateMatchesYearAndQuarter(2025, 1)).toEqual(false);
+        });
+      });
+
+      describe('and quarter no match', () => {
+        test('should be false', () => {
+          instance.created = new Date(2026, 2, 1);
+          expect(instance.dateMatchesYearAndQuarter(2026, 1)).toEqual(false);
+        });
+      });
+
+      describe('and quarter match', () => {
+        test('should be true', () => {
+          instance.created = new Date(2026, 6, 1);
+          expect(instance.dateMatchesYearAndQuarter(2026, 2)).toEqual(true);
+        });
+      });
+
+      describe('and filter example', () => {
+        test('should return group', () => {
+          const year = 2026;
+          const started = new Date(year, 0, 1);
+          const collection: LedgerItem[] = [];
+          const months = 12;
+
+          const maxYears = [2025, year];
+
+          for (let y = 0; y < maxYears.length; y++) {
+            for (let i = 0; i < months; i++) {
+              const l1 = new LedgerItem(
+                (i + 1) * 10,
+                LedgerItemType.Misc,
+                cloneDateUtc(started, (date) => {
+                  date.setUTCFullYear(maxYears[y]);
+                  date.setUTCMonth(date.getUTCMonth() + i);
+                }),
+              );
+
+              collection.push(l1);
+            }
+          }
+
+          for (let i = 0; i < months; i++) {
+            const dateQuarterByMonth = getDateQuarterByMonth(i);
+            const filtered = collection.filter((l) => l.dateMatchesYearAndQuarter(year, dateQuarterByMonth));
+            const expectedItemsByQuarter = collection.filter((l) => l.getQuarter() === dateQuarterByMonth && l.getYear() === year);
+
+            expect(filtered.length).toEqual(3);
+            expect(filtered.length).toEqual(expectedItemsByQuarter.length);
+            expect(filtered).toEqual(expectedItemsByQuarter);
+          }
+        });
+      });
+    });
+  });
   describe('and dateLessThanOrEqualToAndQuarter', () => {
     describe('and no created', () => {
       test('should be -1', () => {
@@ -292,6 +360,66 @@ describe('LedgerItem unit tests', () => {
             expect(instance.dateLessThanOrEqualToAndQuarter(date)).toEqual(true);
           });
         });
+      });
+    });
+
+    describe('and filter example', () => {
+      let collection: LedgerItem[];
+      const year = 2026;
+      const started = new Date(Date.UTC(2026, 0, 1));
+      const months = 12;
+
+      beforeEach(() => {
+        collection = [];
+        const maxYears = [2025, year];
+
+        for (let y = 0; y < maxYears.length; y++) {
+          for (let i = 0; i < months; i++) {
+            const l1 = new LedgerItem(
+              (i + 1) * 10,
+              LedgerItemType.Misc,
+              cloneDateUtc(started, (date) => {
+                date.setUTCFullYear(maxYears[y]);
+                date.setUTCMonth(date.getUTCMonth() + i);
+              }),
+            );
+
+            collection.push(l1);
+          }
+        }
+      });
+
+      test('should return full group', () => {
+        for (let i = 2; i < months; i = i + 3) {
+          const lastQtrDate = cloneDateUtc(started, (date) => {
+            date.setUTCMonth(date.getUTCMonth() + i);
+          }); //?
+
+          const filtered = collection.filter((l) => {
+            return l.dateLessThanOrEqualToAndQuarter(lastQtrDate);
+          });
+
+          expect(filtered.length).toEqual(3);
+          expect(filtered.map((x) => x.getYear())).toEqual(Array(3).fill(year));
+        }
+      });
+      test('should return first 2 in group', () => {
+        for (let i = 1; i < months / 4; i = i + 3) {
+          const lastQtrDate = cloneDateUtc(started, (date) => {
+            date.setUTCMonth(date.getUTCMonth() + i);
+          }); //?
+
+          const possibleMonths = [lastQtrDate.getUTCMonth() - 1, lastQtrDate.getUTCMonth()]; //?
+
+          const filtered = collection.filter((l) => l.dateLessThanOrEqualToAndQuarter(lastQtrDate)); //?
+          const expectedItemsByQuarter = collection.filter((l) => {
+            return l.getYear() === year && possibleMonths.some((mo) => mo === l.getMonth());
+          });
+
+          expect(filtered.length).toEqual(2);
+          expect(filtered).toEqual(expectedItemsByQuarter);
+          expect(filtered.length).toEqual(expectedItemsByQuarter.length);
+        }
       });
     });
   });

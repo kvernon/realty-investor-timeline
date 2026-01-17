@@ -354,7 +354,7 @@ used to get the cashFlow of all 12 months
 
 ### getSummariesAnnual()
 
-> **getSummariesAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-detail-summary/interfaces/ILedgerSummary.md)[]
+> **getSummariesAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)[]
 
 Defined in: [ledger/ledger-collection.ts:348](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/ledger-collection.ts#L348)
 
@@ -366,7 +366,7 @@ Defined in: [ledger/ledger-collection.ts:348](https://github.com/kvernon/realty-
 
 #### Returns
 
-[`ILedgerSummary`](../../i-ledger-detail-summary/interfaces/ILedgerSummary.md)[]
+[`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)[]
 
 #### Implementation of
 
@@ -376,7 +376,7 @@ Defined in: [ledger/ledger-collection.ts:348](https://github.com/kvernon/realty-
 
 ### getSummaryAnnual()
 
-> **getSummaryAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-detail-summary/interfaces/ILedgerSummary.md)
+> **getSummaryAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)
 
 Defined in: [ledger/ledger-collection.ts:322](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/ledger-collection.ts#L322)
 
@@ -388,7 +388,7 @@ Defined in: [ledger/ledger-collection.ts:322](https://github.com/kvernon/realty-
 
 #### Returns
 
-[`ILedgerSummary`](../../i-ledger-detail-summary/interfaces/ILedgerSummary.md)
+[`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)
 
 #### Implementation of
 
@@ -398,7 +398,7 @@ Defined in: [ledger/ledger-collection.ts:322](https://github.com/kvernon/realty-
 
 ### getSummaryMonth()
 
-> **getSummaryMonth**(`date`): [`ILedgerDetailSummary`](../../i-ledger-detail-summary/interfaces/ILedgerDetailSummary.md)
+> **getSummaryMonth**(`date`): [`ILedgerDetailSummary`](../../i-ledger-summary/interfaces/ILedgerDetailSummary.md)
 
 Defined in: [ledger/ledger-collection.ts:285](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/ledger-collection.ts#L285)
 
@@ -410,7 +410,7 @@ Defined in: [ledger/ledger-collection.ts:285](https://github.com/kvernon/realty-
 
 #### Returns
 
-[`ILedgerDetailSummary`](../../i-ledger-detail-summary/interfaces/ILedgerDetailSummary.md)
+[`ILedgerDetailSummary`](../../i-ledger-summary/interfaces/ILedgerDetailSummary.md)
 
 #### Implementation of
 

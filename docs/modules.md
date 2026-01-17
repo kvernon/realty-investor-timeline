@@ -44,7 +44,7 @@
 - [investments/user-invest-result](investments/user-invest-result/index.md)
 - [investments/user-result-estimates](investments/user-result-estimates/index.md)
 - [ledger](ledger/index.md)
-- [ledger/i-ledger-detail-summary](ledger/i-ledger-detail-summary/index.md)
+- [ledger/i-ledger-summary](ledger/i-ledger-summary/index.md)
 - [ledger/ledger-collection](ledger/ledger-collection/index.md)
 - [ledger/ledger-item](ledger/ledger-item/index.md)
 - [ledger/ledger-item-type](ledger/ledger-item-type/index.md)

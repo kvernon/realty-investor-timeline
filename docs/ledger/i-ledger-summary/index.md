@@ -2,9 +2,9 @@
 
 ---
 
-[@cubedelement.com/realty-investor-timeline](../../modules.md) / ledger/i-ledger-detail-summary
+[@cubedelement.com/realty-investor-timeline](../../modules.md) / ledger/i-ledger-summary
 
-# ledger/i-ledger-detail-summary
+# ledger/i-ledger-summary
 
 ## Interfaces
 
