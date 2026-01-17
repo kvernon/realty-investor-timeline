@@ -140,6 +140,10 @@ describe('simulate integration tests', () => {
       console.log('end date month cash flow', actual.user.ledgerCollection.getCashFlowMonth(actual.endDate));
       console.log('end date quarter cash flow', actual.user.ledgerCollection.getAverageCashFlowMonthByQuarter(actual.endDate));
       console.log('start date first quarter cash flow', actual.user.ledgerCollection.getAverageCashFlowMonthByQuarter(actual.startDate));
+      console.log('start date first quarter summary', actual.user.ledgerCollection.getSummaryAnnual(actual.startDate.getUTCFullYear()));
+      console.log('end date first quarter summary', actual.user.ledgerCollection.getSummaryAnnual(actual.endDate.getUTCFullYear()));
+      console.log('end date summaries quarter year summary', actual.user.ledgerCollection.getSummaryAnnual(actual.endDate.getUTCFullYear()));
+      console.log('end date summaries quarter month summary', actual.user.ledgerCollection.getSummaryMonth(actual.endDate));
 
       expect(actual.endDate).toEqual(cloneDateUtc(actual.user.ledgerCollection.getLatestLedgerItem().created));
       expect(actual.startDate).not.toBeNull();
