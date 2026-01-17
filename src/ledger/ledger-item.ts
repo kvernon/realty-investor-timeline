@@ -119,23 +119,6 @@ export class LedgerItem {
     return this.dateGreaterThanOrEqualTo(date);
   }
 
-  /**
-   * @deprecated, use {@link dateLessThanOrEqualToAndQuarter}
-   * @param year
-   * @param quarter
-   */
-  dateMatchesYearAndQuarter(year: number, quarter: number): boolean {
-    if (!this.created) {
-      return false;
-    }
-
-    if (!this.dateMatchesYear(year)) {
-      return false;
-    }
-
-    return this.getQuarter() === quarter;
-  }
-
   typeMatches(itemType: LedgerItemType): boolean {
     return this.type === itemType;
   }

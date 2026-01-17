@@ -751,6 +751,7 @@ describe('LedgerCollection unit tests', () => {
           balance: 0,
           cashFlow: 0,
           averageCashFlow: 0,
+          averageQuarterlyCashFlow: 0,
           equity: 0,
           purchases: 0,
         });
@@ -801,6 +802,7 @@ describe('LedgerCollection unit tests', () => {
           averageCashFlow: 4,
           equity: equity.amount,
           purchases: -3,
+          averageQuarterlyCashFlow: 4,
         });
       });
     });

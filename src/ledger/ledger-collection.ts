@@ -1,6 +1,6 @@
 import { LedgerItem } from './ledger-item';
 import itiriri, { IterableQuery } from 'itiriri';
-import { ILedgerDetailSummary, ILedgerSummary } from './i-ledger-summary';
+import { ILedgerDetailSummary } from './i-ledger-detail-summary';
 import { LedgerItemType } from './ledger-item-type';
 import { IRentalPropertyEntity, PropertyType } from '../properties';
 import currency from '../formatters/currency';
@@ -62,9 +62,9 @@ export interface ILedgerCollection {
 
   getSummaryMonth(date: Date): ILedgerDetailSummary;
 
-  getSummaryAnnual(year?: number): ILedgerSummary;
+  getSummaryAnnual(year?: number): ILedgerDetailSummary;
 
-  getSummariesAnnual(year?: number): ILedgerSummary[];
+  getSummariesAnnual(year?: number): ILedgerDetailSummary[];
 
   /**
    * should be the total balance - savings for single family
@@ -319,7 +319,7 @@ export class LedgerCollection implements ILedgerCollection {
     return result;
   }
 
-  getSummaryAnnual(year?: number): ILedgerSummary {
+  getSummaryAnnual(year?: number): ILedgerDetailSummary {
     const summaries = this.getSummariesAnnual(year);
 
     if (summaries.length === 0) {
@@ -328,6 +328,7 @@ export class LedgerCollection implements ILedgerCollection {
         balance: 0,
         cashFlow: 0,
         averageCashFlow: 0,
+        averageQuarterlyCashFlow: 0,
         equity: 0,
         purchases: 0,
       };
@@ -342,10 +343,11 @@ export class LedgerCollection implements ILedgerCollection {
       cashFlow: cashFlowSum,
       averageCashFlow: currency(cashFlowSum / summaries.length),
       purchases: summaries.reduce((accumulator, current) => accumulator + current.purchases, 0),
+      averageQuarterlyCashFlow: summaries.reduce((accumulator, current) => accumulator + current.averageQuarterlyCashFlow, 0) / summaries.length,
     };
   }
 
-  getSummariesAnnual(year?: number): ILedgerSummary[] {
+  getSummariesAnnual(year?: number): ILedgerDetailSummary[] {
     if (!year && this.collection.length() === 0) {
       throw new Error('year is missing');
     }
@@ -368,7 +370,7 @@ export class LedgerCollection implements ILedgerCollection {
     if (totalMonths === 0) {
       collection.push(this.getSummaryMonth(boundary[0].created));
     } else {
-      for (let month = boundary[0].created.getUTCMonth(); month < 12; month++) {
+      for (let month = boundary[0].getMonth(); month < 12; month++) {
         const expectedDate = new Date(Date.UTC(year, month, 1));
         if (!boundary.some((x) => x.dateMatchesYearAndMonth(expectedDate)) && expectedDate.getTime() >= lastLedgerItem.created.getTime()) {
           const summaryMonth = this.getSummaryMonth(lastLedgerItem.created);
