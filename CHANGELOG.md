@@ -1,3 +1,15 @@
+# [6.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.4...v6.0.0) (2026-01-17)
+
+
+### Features
+
+* updated quarter; int tests; rm deprecated ledger-item methods ([#80](https://github.com/kvernon/realty-investor-timeline/issues/80)) ([16f8d7e](https://github.com/kvernon/realty-investor-timeline/commit/16f8d7eec54961791ebb31223db733d688a7337b))
+
+
+### BREAKING CHANGES
+
+* deprecated items removed
+
 ## [5.7.4](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.3...v5.7.4) (2026-01-16)
 
 
