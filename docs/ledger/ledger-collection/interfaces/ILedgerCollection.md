@@ -264,7 +264,7 @@ used to get the cashFlow of all 12 months
 
 ### getSummariesAnnual()
 
-> **getSummariesAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)[]
+> **getSummariesAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-detail-summary/interfaces/ILedgerSummary.md)[]
 
 Defined in: [ledger/ledger-collection.ts:67](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/ledger-collection.ts#L67)
 
@@ -276,13 +276,13 @@ Defined in: [ledger/ledger-collection.ts:67](https://github.com/kvernon/realty-i
 
 #### Returns
 
-[`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)[]
+[`ILedgerSummary`](../../i-ledger-detail-summary/interfaces/ILedgerSummary.md)[]
 
 ---
 
 ### getSummaryAnnual()
 
-> **getSummaryAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)
+> **getSummaryAnnual**(`year`?): [`ILedgerSummary`](../../i-ledger-detail-summary/interfaces/ILedgerSummary.md)
 
 Defined in: [ledger/ledger-collection.ts:65](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/ledger-collection.ts#L65)
 
@@ -294,13 +294,13 @@ Defined in: [ledger/ledger-collection.ts:65](https://github.com/kvernon/realty-i
 
 #### Returns
 
-[`ILedgerSummary`](../../i-ledger-summary/interfaces/ILedgerSummary.md)
+[`ILedgerSummary`](../../i-ledger-detail-summary/interfaces/ILedgerSummary.md)
 
 ---
 
 ### getSummaryMonth()
 
-> **getSummaryMonth**(`date`): [`ILedgerDetailSummary`](../../i-ledger-summary/interfaces/ILedgerDetailSummary.md)
+> **getSummaryMonth**(`date`): [`ILedgerDetailSummary`](../../i-ledger-detail-summary/interfaces/ILedgerDetailSummary.md)
 
 Defined in: [ledger/ledger-collection.ts:63](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/ledger/ledger-collection.ts#L63)
 
@@ -312,7 +312,7 @@ Defined in: [ledger/ledger-collection.ts:63](https://github.com/kvernon/realty-i
 
 #### Returns
 
-[`ILedgerDetailSummary`](../../i-ledger-summary/interfaces/ILedgerDetailSummary.md)
+[`ILedgerDetailSummary`](../../i-ledger-detail-summary/interfaces/ILedgerDetailSummary.md)
 
 ---
 
