@@ -85,6 +85,7 @@ export type LedgerItemPredicate = (x: LedgerItem, index: number) => boolean;
 
 export class LedgerCollection implements ILedgerCollection {
   private collection: IterableQuery<LedgerItem>;
+  private _runningBalance = 0;
 
   private getSummaryByType(collection: LedgerItem[], type: LedgerItemType): number {
     if (!collection) {
@@ -118,13 +119,15 @@ export class LedgerCollection implements ILedgerCollection {
     if (this.isEmpty()) {
       return 0;
     }
-    return this.filter((i) => (date ? i.created.getTime() <= date.getTime() : !!i)).reduce(
-      (previousValue, currentValue) => previousValue + currentValue.amount,
-      0,
-    );
+    if (!date) {
+      return this._runningBalance;
+    }
+    return this.filter((i) => i.created.getTime() <= date.getTime()).reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0);
   }
 
   add(item: LedgerItem | Iterable<LedgerItem>): void {
+    const items = item instanceof LedgerItem ? [item] : Array.from(item);
+    items.forEach((i) => (this._runningBalance += i.amount));
     this.collection = itiriri(this.collection.prepend(item).toArray());
   }
 

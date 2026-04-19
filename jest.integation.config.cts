@@ -3,15 +3,14 @@
  * https://jestjs.io/docs/configuration
  */
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const jestConfig = require('./jest.config').default;
+const jestConfig = require('./jest.config.cts');
 
 delete jestConfig.coverageDirectory;
 delete jestConfig.coveragePathIgnorePatterns;
 delete jestConfig.coverageReporters;
 delete jestConfig.testMatch;
 
-export default {
+module.exports = {
   ...jestConfig,
   verbose: false,
   testMatch: ['<rootDir>/tests_int/*.+(spec|test).[jt]s?(x)'],

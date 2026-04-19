@@ -15,7 +15,7 @@ describe('propertySort unit tests', () => {
     purchaseRules: IRuleEvaluation<T>[],
   ) => number;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     propertyA = {
       isAvailable: true,
       sellPriceByDate: jest.fn(),
@@ -87,7 +87,7 @@ describe('propertySort unit tests', () => {
     };
 
     getInvestmentReasons = jest.spyOn(invReasons, 'getInvestmentReasons');
-    propertySort = require('../../src/properties/property-sort').default;
+    propertySort = (await import('../../src/properties/property-sort')).default;
   });
 
   afterEach(() => {

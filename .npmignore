@@ -21,8 +21,8 @@ wallaby*
 .idea
 .husky
 .prettierc
-commitlint.config.js
-lint-staged.config.js
+commitlint.config.cjs
+lint-staged.config.mjs
 *.tgz
 release.config.js
 /.github

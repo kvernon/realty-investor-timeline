@@ -2,7 +2,7 @@
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
-import { createJsWithTsPreset } from 'ts-jest';
+const { createJsWithTsPreset } = require('ts-jest');
 
 const config = {
   ...createJsWithTsPreset({
@@ -178,4 +178,4 @@ const config = {
   // watchman: true,
 };
 
-export default config;
+module.exports = config;

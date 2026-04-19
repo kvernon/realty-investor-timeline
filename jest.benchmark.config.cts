@@ -3,15 +3,14 @@
  * https://jestjs.io/docs/configuration
  */
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import uConfig from './jest.config';
+const uConfig = require('./jest.config.cts');
 
 delete uConfig.coverageDirectory;
 delete uConfig.coveragePathIgnorePatterns;
 delete uConfig.coverageReporters;
 delete uConfig.testMatch;
 
-export default {
+module.exports = {
   ...uConfig,
   maxWorkers: 1,
   verbose: false,

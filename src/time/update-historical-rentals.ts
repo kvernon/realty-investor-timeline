@@ -3,13 +3,14 @@ import { IRentalGenerator } from '../generators/rental-generator';
 import { IHistoricalProperty } from './i-historical-property';
 import cloneDeep from 'lodash.clonedeep';
 import { ILoanSetting } from '../loans/i-loan-settings';
+import { IHistoricalReason } from './i-historical-reason';
 
 export function updateHistoricalRentals<TRental extends IRentalPropertyEntity>(
   type: new () => TRental,
   propertyGenerator: IRentalGenerator<TRental>,
   timelineProperties: IHistoricalProperty[],
   today: Date,
-  loanSettings: ILoanSetting[]
+  loanSettings: ILoanSetting[],
 ): IHistoricalProperty[] {
   let result = (timelineProperties || []).map((x) => {
     return {
@@ -26,15 +27,15 @@ export function updateHistoricalRentals<TRental extends IRentalPropertyEntity>(
     result = result.concat(
       propertyGenerator.getRentals(type, today, loanSettings).map((rental) => ({
         property: rental,
-        reasons: [],
-      }))
+        reasons: [] as IHistoricalReason[],
+      })),
     );
   } else {
     propertyGenerator.getRentals(type, today, loanSettings).forEach((rental) => {
       if (!result.some((historicalProps) => historicalProps.property.id === rental.id)) {
         result.push({
           property: rental,
-          reasons: [],
+          reasons: [] as IHistoricalReason[],
         });
       }
     });
