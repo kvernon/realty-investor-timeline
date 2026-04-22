@@ -8,7 +8,7 @@
 
 > **getMinCostDownByRule**(`rental`, `purchaseRules`): `number`
 
-Defined in: [calculations/get-min-cost-down-by-rule.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/calculations/get-min-cost-down-by-rule.ts#L5)
+Defined in: [calculations/get-min-cost-down-by-rule.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/calculations/get-min-cost-down-by-rule.ts#L5)
 
 ## Parameters
 

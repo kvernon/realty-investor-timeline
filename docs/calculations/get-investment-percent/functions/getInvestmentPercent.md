@@ -8,7 +8,7 @@
 
 > **getInvestmentPercent**(`costDown`, `purchasePrice`): `number`
 
-Defined in: [calculations/get-investment-percent.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/calculations/get-investment-percent.ts#L6)
+Defined in: [calculations/get-investment-percent.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/calculations/get-investment-percent.ts#L6)
 
 returns a percentage number (none float like) xx.xx%
 

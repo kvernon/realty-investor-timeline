@@ -3,7 +3,7 @@ module.exports = () => ({
   testFramework: {
     // the jest configuration file path
     // (relative to project root)
-    configFile: './jest.integation.config.ts',
+    configFile: './jest.integation.config.cts',
   },
   debug: true,
   trace: true,

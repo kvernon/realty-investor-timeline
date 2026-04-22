@@ -3,11 +3,10 @@
  * https://jestjs.io/docs/configuration
  */
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import config from './jest.integation.config';
+const benchConfig = require('./jest.benchmark.config.cts');
 
-export default {
-  ...config,
+module.exports = {
+  ...benchConfig,
   testResultsProcessor: 'jest-junit',
   reporters: ['default', 'jest-junit'],
 };

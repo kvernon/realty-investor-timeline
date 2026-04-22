@@ -9,18 +9,16 @@ import { GenerateProperty } from './generate-property';
  * used to provide exclusive info for generating a {@link RentalPassiveApartment}
  * @param options
  * @param lifeTime
+ * @param _settings
+ * @param _closingCostPercent
  */
 export const generateRentalPassiveApartment: GenerateProperty<RentalPassiveApartment> = (
   options: IPropertyEntityOptions,
   lifeTime: IEntityExistence,
   _settings: ILoanSetting[],
-  _closingCostPercent: number
+  _closingCostPercent: number,
 ): RentalPassiveApartment => {
-  const rentalPassiveApartment = genericGenerateProperty<RentalPassiveApartment>(
-    RentalPassiveApartment,
-    options,
-    lifeTime
-  );
+  const rentalPassiveApartment = genericGenerateProperty<RentalPassiveApartment>(RentalPassiveApartment, options, lifeTime);
 
   rentalPassiveApartment.offeredInvestmentAmounts = [50000, 100000, 150000, 200000, 250000, 500000].filter((e) => {
     const highestAmountWithLoanAndClosingCostsAndRepairs = rentalPassiveApartment.purchasePrice / 3.333;

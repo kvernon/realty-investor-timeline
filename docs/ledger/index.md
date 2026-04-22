@@ -20,12 +20,6 @@ Re-exports [ILedgerDetailSummary](i-ledger-detail-summary/interfaces/ILedgerDeta
 
 ---
 
-### ILedgerSummary
-
-Re-exports [ILedgerSummary](i-ledger-detail-summary/interfaces/ILedgerSummary.md)
-
----
-
 ### LedgerCollection
 
 Re-exports [LedgerCollection](ledger-collection/classes/LedgerCollection.md)

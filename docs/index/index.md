@@ -10,7 +10,7 @@
 
 ### AtLeastOrMore
 
-Re-exports [AtLeastOrMore](../rules/eval-types/functions/AtLeastOrMore.md)
+Re-exports [AtLeastOrMore](../rules/eval-types/variables/AtLeastOrMore.md)
 
 ---
 
@@ -34,7 +34,7 @@ Re-exports [cloneDateUtc](../utils/data-clone-date/functions/cloneDateUtc.md)
 
 ### defaultHasMetGoalOrMaxTime
 
-Re-exports [defaultHasMetGoalOrMaxTime](../time/default-has-met-goal-or-max-time/functions/defaultHasMetGoalOrMaxTime.md)
+Re-exports [defaultHasMetGoalOrMaxTime](../time/default-has-met-goal-or-max-time/variables/defaultHasMetGoalOrMaxTime.md)
 
 ---
 
@@ -64,13 +64,13 @@ Re-exports [GenerateProperty](../generators/generate-property/type-aliases/Gener
 
 ### generateRentalPassiveApartment
 
-Re-exports [generateRentalPassiveApartment](../generators/factory-passive-apartment/functions/generateRentalPassiveApartment.md)
+Re-exports [generateRentalPassiveApartment](../generators/factory-passive-apartment/variables/generateRentalPassiveApartment.md)
 
 ---
 
 ### generateSingleFamily
 
-Re-exports [generateSingleFamily](../generators/factory-single-family/functions/generateSingleFamily.md)
+Re-exports [generateSingleFamily](../generators/factory-single-family/variables/generateSingleFamily.md)
 
 ---
 
@@ -88,7 +88,7 @@ Re-exports [getCostDown](../calculations/get-cost-down/functions/getCostDown.md)
 
 ### getCostDownUserInvestmentResults
 
-Re-exports [getCostDownUserInvestmentResults](../calculations/get-cost-down-user-investment-results/functions/getCostDownUserInvestmentResults.md)
+Re-exports [getCostDownUserInvestmentResults](../calculations/get-cost-down-user-investment-results/variables/getCostDownUserInvestmentResults.md)
 
 ---
 
@@ -106,7 +106,7 @@ Re-exports [getEquityCaptureAmount](../calculations/get-equity-capture-amount/fu
 
 ### getEquityCaptureUserInvestmentResults
 
-Re-exports [getEquityCaptureUserInvestmentResults](../calculations/get-equity-capture-user-investment-results/functions/getEquityCaptureUserInvestmentResults.md)
+Re-exports [getEquityCaptureUserInvestmentResults](../calculations/get-equity-capture-user-investment-results/variables/getEquityCaptureUserInvestmentResults.md)
 
 ---
 
@@ -197,12 +197,6 @@ Re-exports [ILedgerCollection](../ledger/ledger-collection/interfaces/ILedgerCol
 ### ILedgerDetailSummary
 
 Re-exports [ILedgerDetailSummary](../ledger/i-ledger-detail-summary/interfaces/ILedgerDetailSummary.md)
-
----
-
-### ILedgerSummary
-
-Re-exports [ILedgerSummary](../ledger/i-ledger-detail-summary/interfaces/ILedgerSummary.md)
 
 ---
 
@@ -376,7 +370,7 @@ Re-exports [movement](../time/movement/functions/movement.md)
 
 ### NoMoreThan
 
-Re-exports [NoMoreThan](../rules/eval-types/functions/NoMoreThan.md)
+Re-exports [NoMoreThan](../rules/eval-types/variables/NoMoreThan.md)
 
 ---
 
@@ -406,7 +400,7 @@ Re-exports [randomNumberBetween](../utils/data-number/functions/randomNumberBetw
 
 ### randomPropertyEntity
 
-Re-exports [randomPropertyEntity](../utils/data-property-entity/functions/randomPropertyEntity.md)
+Re-exports [randomPropertyEntity](../utils/data-property-entity/variables/randomPropertyEntity.md)
 
 ---
 

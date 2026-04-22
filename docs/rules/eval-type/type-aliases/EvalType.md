@@ -4,11 +4,11 @@
 
 [@cubedelement.com/realty-investor-timeline](../../../modules.md) / [rules/eval-type](../index.md) / EvalType
 
-# Type Alias: EvalType()
+# Type Alias: EvalType
 
-> **EvalType**: (`value1`, `value2`) => `boolean`
+> **EvalType** = (`value1`, `value2`) => `boolean`
 
-Defined in: [rules/eval-type.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/eval-type.ts#L1)
+Defined in: [rules/eval-type.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/rules/eval-type.ts#L1)
 
 ## Parameters
 

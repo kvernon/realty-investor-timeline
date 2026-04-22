@@ -2,16 +2,17 @@
   "$schema": "https://json.schemastore.org/tsconfig.json",
   "extends": "./tsconfig-settings.json",
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "types": ["node", "jest"]
   },
   "exclude": [
     "node_modules",
     "dist",
-    "./jest.config.ts",
-    "./jest.ci.config.ts",
-    "./jest.benchmark.config.ts",
-    "./jest.ci.benchmark.config.ts",
-    "./jest.integation.config.ts",
-    "./jest.ci.integation.config.ts"
+    "./jest.config.cts",
+    "./jest.ci.config.cts",
+    "./jest.benchmark.config.cts",
+    "./jest.ci.benchmark.config.cts",
+    "./jest.integation.config.cts",
+    "./jest.ci.integation.config.cts"
   ]
 }

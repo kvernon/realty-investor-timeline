@@ -6,6 +6,6 @@
 
 # calculations/get-cost-down-user-investment-results
 
-## Functions
+## Variables
 
-- [getCostDownUserInvestmentResults](functions/getCostDownUserInvestmentResults.md)
+- [getCostDownUserInvestmentResults](variables/getCostDownUserInvestmentResults.md)

@@ -10,7 +10,7 @@
 
 ### AtLeastOrMore
 
-Re-exports [AtLeastOrMore](eval-types/functions/AtLeastOrMore.md)
+Re-exports [AtLeastOrMore](eval-types/variables/AtLeastOrMore.md)
 
 ---
 
@@ -52,7 +52,7 @@ Re-exports [IRuleEvaluation](rule-evaluation/interfaces/IRuleEvaluation.md)
 
 ### NoMoreThan
 
-Re-exports [NoMoreThan](eval-types/functions/NoMoreThan.md)
+Re-exports [NoMoreThan](eval-types/variables/NoMoreThan.md)
 
 ---
 

@@ -10,6 +10,6 @@
 
 - [RandomPropertyEntity](type-aliases/RandomPropertyEntity.md)
 
-## Functions
+## Variables
 
-- [randomPropertyEntity](functions/randomPropertyEntity.md)
+- [randomPropertyEntity](variables/randomPropertyEntity.md)

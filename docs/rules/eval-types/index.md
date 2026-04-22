@@ -6,7 +6,7 @@
 
 # rules/eval-types
 
-## Functions
+## Variables
 
-- [AtLeastOrMore](functions/AtLeastOrMore.md)
-- [NoMoreThan](functions/NoMoreThan.md)
+- [AtLeastOrMore](variables/AtLeastOrMore.md)
+- [NoMoreThan](variables/NoMoreThan.md)

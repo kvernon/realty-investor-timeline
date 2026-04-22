@@ -6,11 +6,13 @@
 
 # Class: RuleEvaluation\<E\>
 
-Defined in: [rules/rule-evaluation.ts:15](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/rule-evaluation.ts#L15)
+Defined in: [rules/rule-evaluation.ts:15](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/rules/rule-evaluation.ts#L15)
 
 ## Type Parameters
 
-• **E** _extends_ [`PurchaseRuleTypes`](../../purchase-rule-types/enumerations/PurchaseRuleTypes.md) \| [`HoldRuleTypes`](../../hold-rule-types/enumerations/HoldRuleTypes.md)
+### E
+
+`E` _extends_ [`PurchaseRuleTypes`](../../purchase-rule-types/enumerations/PurchaseRuleTypes.md) \| [`HoldRuleTypes`](../../hold-rule-types/enumerations/HoldRuleTypes.md)
 
 ## Implements
 
@@ -18,11 +20,11 @@ Defined in: [rules/rule-evaluation.ts:15](https://github.com/kvernon/realty-inve
 
 ## Constructors
 
-### new RuleEvaluation()
+### Constructor
 
-> **new RuleEvaluation**\<`E`\>(`value`, `type`, `propertyType`): [`RuleEvaluation`](RuleEvaluation.md)\<`E`\>
+> **new RuleEvaluation**\<`E`\>(`value`, `type`, `propertyType`): `RuleEvaluation`\<`E`\>
 
-Defined in: [rules/rule-evaluation.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/rule-evaluation.ts#L16)
+Defined in: [rules/rule-evaluation.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/rules/rule-evaluation.ts#L16)
 
 #### Parameters
 
@@ -40,7 +42,7 @@ Defined in: [rules/rule-evaluation.ts:16](https://github.com/kvernon/realty-inve
 
 #### Returns
 
-[`RuleEvaluation`](RuleEvaluation.md)\<`E`\>
+`RuleEvaluation`\<`E`\>
 
 ## Properties
 
@@ -48,7 +50,7 @@ Defined in: [rules/rule-evaluation.ts:16](https://github.com/kvernon/realty-inve
 
 > **propertyType**: [`PropertyType`](../../../properties/property-type/enumerations/PropertyType.md)
 
-Defined in: [rules/rule-evaluation.ts:24](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/rule-evaluation.ts#L24)
+Defined in: [rules/rule-evaluation.ts:24](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/rules/rule-evaluation.ts#L24)
 
 #### Implementation of
 
@@ -60,7 +62,7 @@ Defined in: [rules/rule-evaluation.ts:24](https://github.com/kvernon/realty-inve
 
 > **type**: `E`
 
-Defined in: [rules/rule-evaluation.ts:22](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/rule-evaluation.ts#L22)
+Defined in: [rules/rule-evaluation.ts:22](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/rules/rule-evaluation.ts#L22)
 
 #### Implementation of
 
@@ -72,7 +74,7 @@ Defined in: [rules/rule-evaluation.ts:22](https://github.com/kvernon/realty-inve
 
 > **value**: `number`
 
-Defined in: [rules/rule-evaluation.ts:23](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/rule-evaluation.ts#L23)
+Defined in: [rules/rule-evaluation.ts:23](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/rules/rule-evaluation.ts#L23)
 
 #### Implementation of
 
@@ -84,9 +86,9 @@ Defined in: [rules/rule-evaluation.ts:23](https://github.com/kvernon/realty-inve
 
 > **evaluate**(`dataValue`): `boolean`
 
-Defined in: [rules/rule-evaluation.ts:30](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/rule-evaluation.ts#L30)
+Defined in: [rules/rule-evaluation.ts:30](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/rules/rule-evaluation.ts#L30)
 
-Determines if the [dataValue](RuleEvaluation.md#datavalue) passes the rule
+Determines if the [dataValue](#evaluate) passes the rule
 
 #### Parameters
 

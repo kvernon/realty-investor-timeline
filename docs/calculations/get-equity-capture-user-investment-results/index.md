@@ -6,6 +6,6 @@
 
 # calculations/get-equity-capture-user-investment-results
 
-## Functions
+## Variables
 
-- [getEquityCaptureUserInvestmentResults](functions/getEquityCaptureUserInvestmentResults.md)
+- [getEquityCaptureUserInvestmentResults](variables/getEquityCaptureUserInvestmentResults.md)

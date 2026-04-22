@@ -4,11 +4,11 @@
 
 [@cubedelement.com/realty-investor-timeline](../../../modules.md) / [investments/user-result-estimates](../index.md) / UserResultEstimates
 
-# Type Alias: UserResultEstimates()
+# Type Alias: UserResultEstimates
 
-> **UserResultEstimates**: (`rental`, `holdRules`, `purchaseRules`, `date`) => [`UserInvestResult`](../../user-invest-result/classes/UserInvestResult.md)[]
+> **UserResultEstimates** = (`rental`, `holdRules`, `purchaseRules`, `date`) => [`UserInvestResult`](../../user-invest-result/classes/UserInvestResult.md)[]
 
-Defined in: [investments/user-result-estimates.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/investments/user-result-estimates.ts#L7)
+Defined in: [investments/user-result-estimates.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/investments/user-result-estimates.ts#L7)
 
 ## Parameters
 

@@ -8,11 +8,13 @@
 
 > **updateHistoricalRentals**\<`TRental`\>(`type`, `propertyGenerator`, `timelineProperties`, `today`, `loanSettings`): [`IHistoricalProperty`](../../i-historical-property/interfaces/IHistoricalProperty.md)[]
 
-Defined in: [time/update-historical-rentals.ts:7](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/update-historical-rentals.ts#L7)
+Defined in: [time/update-historical-rentals.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/update-historical-rentals.ts#L8)
 
 ## Type Parameters
 
-• **TRental** _extends_ [`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)
+### TRental
+
+`TRental` _extends_ [`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)
 
 ## Parameters
 

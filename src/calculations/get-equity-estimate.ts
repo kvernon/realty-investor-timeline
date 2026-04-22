@@ -1,5 +1,5 @@
 /**
- * returns {@link currency} formatted number result
+ * returns formatted number result
  * @param sellPrice
  * @param costDown
  * @param equityCapturePercent

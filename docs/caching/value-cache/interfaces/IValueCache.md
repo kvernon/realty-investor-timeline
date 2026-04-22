@@ -6,11 +6,13 @@
 
 # Interface: IValueCache\<T\>
 
-Defined in: [caching/value-cache.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/caching/value-cache.ts#L11)
+Defined in: [caching/value-cache.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/caching/value-cache.ts#L11)
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Properties
 
@@ -18,7 +20,7 @@ Defined in: [caching/value-cache.ts:11](https://github.com/kvernon/realty-invest
 
 > **expireDate**: `Date`
 
-Defined in: [caching/value-cache.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/caching/value-cache.ts#L13)
+Defined in: [caching/value-cache.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/caching/value-cache.ts#L13)
 
 ---
 
@@ -26,7 +28,7 @@ Defined in: [caching/value-cache.ts:13](https://github.com/kvernon/realty-invest
 
 > `readonly` **newDefault**: `unknown`
 
-Defined in: [caching/value-cache.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/caching/value-cache.ts#L14)
+Defined in: [caching/value-cache.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/caching/value-cache.ts#L14)
 
 ---
 
@@ -34,7 +36,7 @@ Defined in: [caching/value-cache.ts:14](https://github.com/kvernon/realty-invest
 
 > **renewalInMonths**: `number`
 
-Defined in: [caching/value-cache.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/caching/value-cache.ts#L12)
+Defined in: [caching/value-cache.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/caching/value-cache.ts#L12)
 
 ## Methods
 
@@ -42,7 +44,7 @@ Defined in: [caching/value-cache.ts:12](https://github.com/kvernon/realty-invest
 
 > **getValue**(`currentTime`): `T`[]
 
-Defined in: [caching/value-cache.ts:22](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/caching/value-cache.ts#L22)
+Defined in: [caching/value-cache.ts:22](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/caching/value-cache.ts#L22)
 
 if the cache is expired, then it will return the default value. otherwise
 it will return the stored value
@@ -61,9 +63,9 @@ it will return the stored value
 
 ### isCacheExpired()
 
-> **isCacheExpired**(`currentDate`?): `boolean`
+> **isCacheExpired**(`currentDate?`): `boolean`
 
-Defined in: [caching/value-cache.ts:33](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/caching/value-cache.ts#L33)
+Defined in: [caching/value-cache.ts:33](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/caching/value-cache.ts#L33)
 
 determines if the expiredDate is greater than
 or equal to currentDate. if this is the case it
@@ -87,7 +89,7 @@ while expiredDate exists then it will be expired, aka true
 
 > **setValue**(`value`, `currentDate`): `void`
 
-Defined in: [caching/value-cache.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/caching/value-cache.ts#L16)
+Defined in: [caching/value-cache.ts:16](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/caching/value-cache.ts#L16)
 
 #### Parameters
 

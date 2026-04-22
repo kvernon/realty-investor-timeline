@@ -6,6 +6,6 @@
 
 # generators/factory-passive-apartment
 
-## Functions
+## Variables
 
-- [generateRentalPassiveApartment](functions/generateRentalPassiveApartment.md)
+- [generateRentalPassiveApartment](variables/generateRentalPassiveApartment.md)

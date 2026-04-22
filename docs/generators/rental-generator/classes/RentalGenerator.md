@@ -6,11 +6,13 @@
 
 # Class: RentalGenerator\<T\>
 
-Defined in: [generators/rental-generator.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L14)
+Defined in: [generators/rental-generator.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L14)
 
 ## Type Parameters
 
-• **T** _extends_ [`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)
+### T
+
+`T` _extends_ [`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)
 
 ## Implements
 
@@ -19,11 +21,11 @@ Defined in: [generators/rental-generator.ts:14](https://github.com/kvernon/realt
 
 ## Constructors
 
-### new RentalGenerator()
+### Constructor
 
-> **new RentalGenerator**\<`T`\>(`cache`, `generateProperty`): [`RentalGenerator`](RentalGenerator.md)\<`T`\>
+> **new RentalGenerator**\<`T`\>(`cache`, `generateProperty`): `RentalGenerator`\<`T`\>
 
-Defined in: [generators/rental-generator.ts:43](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L43)
+Defined in: [generators/rental-generator.ts:43](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L43)
 
 #### Parameters
 
@@ -37,7 +39,7 @@ Defined in: [generators/rental-generator.ts:43](https://github.com/kvernon/realt
 
 #### Returns
 
-[`RentalGenerator`](RentalGenerator.md)\<`T`\>
+`RentalGenerator`\<`T`\>
 
 ## Properties
 
@@ -45,7 +47,7 @@ Defined in: [generators/rental-generator.ts:43](https://github.com/kvernon/realt
 
 > **highestCashFlow**: `number`
 
-Defined in: [generators/rental-generator.ts:34](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L34)
+Defined in: [generators/rental-generator.ts:34](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L34)
 
 I've seen as high as 630 a month, but on average, depending on the area, I've seen 450 a month
 
@@ -59,7 +61,7 @@ I've seen as high as 630 a month, but on average, depending on the area, I've se
 
 > **highestEquityCapturePercent**: `number`
 
-Defined in: [generators/rental-generator.ts:37](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L37)
+Defined in: [generators/rental-generator.ts:37](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L37)
 
 used to generate a random equity amount, this is the high value
 
@@ -73,7 +75,7 @@ used to generate a random equity amount, this is the high value
 
 > **highestMinSellInYears**: `number`
 
-Defined in: [generators/rental-generator.ts:31](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L31)
+Defined in: [generators/rental-generator.ts:31](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L31)
 
 For Texas, you should hold for 1 year for the lowest tax rate, but you might want to hold it longer
 
@@ -87,7 +89,7 @@ For Texas, you should hold for 1 year for the lowest tax rate, but you might wan
 
 > **highestPurchasePrice**: `number`
 
-Defined in: [generators/rental-generator.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L18)
+Defined in: [generators/rental-generator.ts:18](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L18)
 
 used to generate a random price amount, this is the high value
 
@@ -101,7 +103,7 @@ used to generate a random price amount, this is the high value
 
 > **highestSellAppreciationPercent**: `number`
 
-Defined in: [generators/rental-generator.ts:28](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L28)
+Defined in: [generators/rental-generator.ts:28](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L28)
 
 for single family it is as high as 14.5 %
 
@@ -115,7 +117,7 @@ for single family it is as high as 14.5 %
 
 > **lowestCashFlow**: `number`
 
-Defined in: [generators/rental-generator.ts:33](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L33)
+Defined in: [generators/rental-generator.ts:33](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L33)
 
 typically 200 is the lowest
 
@@ -129,7 +131,7 @@ typically 200 is the lowest
 
 > **lowestEquityCapturePercent**: `number`
 
-Defined in: [generators/rental-generator.ts:36](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L36)
+Defined in: [generators/rental-generator.ts:36](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L36)
 
 used to generate a random equity amount, this is the low value
 
@@ -143,7 +145,7 @@ used to generate a random equity amount, this is the low value
 
 > **lowestMinSellInYears**: `number`
 
-Defined in: [generators/rental-generator.ts:30](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L30)
+Defined in: [generators/rental-generator.ts:30](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L30)
 
 For Texas, you should hold for 1 year for the lowest tax rate, but you might want to hold it longer
 
@@ -157,7 +159,7 @@ For Texas, you should hold for 1 year for the lowest tax rate, but you might wan
 
 > **lowestPurchasePrice**: `number`
 
-Defined in: [generators/rental-generator.ts:17](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L17)
+Defined in: [generators/rental-generator.ts:17](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L17)
 
 used to generate a random price amount, this is the low value
 
@@ -171,7 +173,7 @@ used to generate a random price amount, this is the low value
 
 > **lowestSellAppreciationPercent**: `number`
 
-Defined in: [generators/rental-generator.ts:23](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L23)
+Defined in: [generators/rental-generator.ts:23](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L23)
 
 for single family it's around 4%
 
@@ -185,15 +187,15 @@ for single family it's around 4%
 
 > **maxRentalOpportunities**: `number`
 
-Defined in: [generators/rental-generator.ts:15](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L15)
+Defined in: [generators/rental-generator.ts:15](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L15)
 
 ## Methods
 
 ### getRentals()
 
-> **getRentals**(`rentalClassType`, `today`, `settings`?): `T`[]
+> **getRentals**(`rentalClassType`, `today`, `settings?`): `T`[]
 
-Defined in: [generators/rental-generator.ts:48](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L48)
+Defined in: [generators/rental-generator.ts:48](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L48)
 
 #### Parameters
 
@@ -221,9 +223,9 @@ Defined in: [generators/rental-generator.ts:48](https://github.com/kvernon/realt
 
 ### removeRentalById()
 
-> **removeRentalById**(`id`, `rentalClassType`, `today`?): `void`
+> **removeRentalById**(`id`, `rentalClassType`, `today?`): `void`
 
-Defined in: [generators/rental-generator.ts:88](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/generators/rental-generator.ts#L88)
+Defined in: [generators/rental-generator.ts:88](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/generators/rental-generator.ts#L88)
 
 #### Parameters
 

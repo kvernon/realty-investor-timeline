@@ -12,6 +12,7 @@ import { PurchaseRuleTypes } from '../../src/rules/purchase-rule-types';
 import { RuleEvaluation } from '../../src/rules/rule-evaluation';
 import { InvestmentReasons } from '../../src/investments/investment-reasons';
 import { ILedgerCollection } from '../../src/ledger/ledger-collection';
+import { IHistoricalReason } from '../../src';
 
 jest.mock('../../src/properties/rental-single-family');
 jest.mock('../../src/properties/rental-passive-apartment');
@@ -173,7 +174,7 @@ describe('looper unit tests', () => {
       });
 
       user.hasMoneyToInvest.mockReturnValueOnce(false);
-      updateHistoricalRentals.mockReturnValue([rentalSF].map((x) => ({ property: x, reasons: [] })));
+      updateHistoricalRentals.mockReturnValue([rentalSF].map((x) => ({ property: x, reasons: [] as IHistoricalReason[] })));
       const looper = (await import('../../src/time/looper')).looper;
       actual = looper(
         {
@@ -303,7 +304,9 @@ describe('looper unit tests', () => {
         value: PropertyType.PassiveApartment,
       });
 
-      updateHistoricalRentals.mockReturnValue([rentalSF, rentalSFToPurchase, rentalPA].map((x) => ({ property: x, reasons: [] })));
+      updateHistoricalRentals.mockReturnValue(
+        [rentalSF, rentalSFToPurchase, rentalPA].map((x) => ({ property: x, reasons: [] as IHistoricalReason[] })),
+      );
     });
 
     describe('and cash flow', () => {

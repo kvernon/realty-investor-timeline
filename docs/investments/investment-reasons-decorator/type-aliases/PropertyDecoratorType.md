@@ -4,15 +4,17 @@
 
 [@cubedelement.com/realty-investor-timeline](../../../modules.md) / [investments/investment-reasons-decorator](../index.md) / PropertyDecoratorType
 
-# Type Alias: PropertyDecoratorType()\<T\>
+# Type Alias: PropertyDecoratorType\<T\>
 
-> **PropertyDecoratorType**\<`T`\>: (`target`, `propertyKey`) => `any`
+> **PropertyDecoratorType**\<`T`\> = (`target`, `propertyKey`) => `any`
 
-Defined in: [investments/investment-reasons-decorator.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/investments/investment-reasons-decorator.ts#L12)
+Defined in: [investments/investment-reasons-decorator.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/investments/investment-reasons-decorator.ts#L12)
 
 ## Type Parameters
 
-• **T** _extends_ [`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)
+### T
+
+`T` _extends_ [`IRentalPropertyEntity`](../../../properties/i-rental-property-entity/interfaces/IRentalPropertyEntity.md)
 
 ## Parameters
 

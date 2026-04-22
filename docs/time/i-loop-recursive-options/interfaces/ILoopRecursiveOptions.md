@@ -6,7 +6,7 @@
 
 # Interface: ILoopRecursiveOptions
 
-Defined in: [time/i-loop-recursive-options.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/i-loop-recursive-options.ts#L5)
+Defined in: [time/i-loop-recursive-options.ts:5](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/i-loop-recursive-options.ts#L5)
 
 ## Extended by
 
@@ -16,9 +16,9 @@ Defined in: [time/i-loop-recursive-options.ts:5](https://github.com/kvernon/real
 
 ### propertyGeneratorPassiveApartment?
 
-> `optional` **propertyGeneratorPassiveApartment**: [`IRentalGenerator`](../../../generators/rental-generator/interfaces/IRentalGenerator.md)\<[`RentalPassiveApartment`](../../../properties/rental-passive-apartment/classes/RentalPassiveApartment.md)\>
+> `optional` **propertyGeneratorPassiveApartment?**: [`IRentalGenerator`](../../../generators/rental-generator/interfaces/IRentalGenerator.md)\<[`RentalPassiveApartment`](../../../properties/rental-passive-apartment/classes/RentalPassiveApartment.md)\>
 
-Defined in: [time/i-loop-recursive-options.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/i-loop-recursive-options.ts#L14)
+Defined in: [time/i-loop-recursive-options.ts:14](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/i-loop-recursive-options.ts#L14)
 
 How the system generates passive apartment properties
 
@@ -26,8 +26,8 @@ How the system generates passive apartment properties
 
 ### propertyGeneratorSingleFamily?
 
-> `optional` **propertyGeneratorSingleFamily**: [`IRentalGenerator`](../../../generators/rental-generator/interfaces/IRentalGenerator.md)\<[`RentalSingleFamily`](../../../properties/rental-single-family/classes/RentalSingleFamily.md)\>
+> `optional` **propertyGeneratorSingleFamily?**: [`IRentalGenerator`](../../../generators/rental-generator/interfaces/IRentalGenerator.md)\<[`RentalSingleFamily`](../../../properties/rental-single-family/classes/RentalSingleFamily.md)\>
 
-Defined in: [time/i-loop-recursive-options.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/i-loop-recursive-options.ts#L9)
+Defined in: [time/i-loop-recursive-options.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/i-loop-recursive-options.ts#L9)
 
 How the system generates single family properties
