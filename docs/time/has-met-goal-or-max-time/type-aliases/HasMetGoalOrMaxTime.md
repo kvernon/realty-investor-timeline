@@ -4,11 +4,11 @@
 
 [@cubedelement.com/realty-investor-timeline](../../../modules.md) / [time/has-met-goal-or-max-time](../index.md) / HasMetGoalOrMaxTime
 
-# Type Alias: HasMetGoalOrMaxTime()
+# Type Alias: HasMetGoalOrMaxTime
 
-> **HasMetGoalOrMaxTime**: (`start`, `today`, `user`, `maxYears`) => `boolean`
+> **HasMetGoalOrMaxTime** = (`start`, `today`, `user`, `maxYears`) => `boolean`
 
-Defined in: [time/has-met-goal-or-max-time.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/has-met-goal-or-max-time.ts#L6)
+Defined in: [time/has-met-goal-or-max-time.ts:6](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/has-met-goal-or-max-time.ts#L6)
 
 a way to determine if the loop should end based on the user's rules
 

@@ -28,7 +28,7 @@ Re-exports [getCostDown](get-cost-down/functions/getCostDown.md)
 
 ### getCostDownUserInvestmentResults
 
-Re-exports [getCostDownUserInvestmentResults](get-cost-down-user-investment-results/functions/getCostDownUserInvestmentResults.md)
+Re-exports [getCostDownUserInvestmentResults](get-cost-down-user-investment-results/variables/getCostDownUserInvestmentResults.md)
 
 ---
 
@@ -40,7 +40,7 @@ Re-exports [getEquityCaptureAmount](get-equity-capture-amount/functions/getEquit
 
 ### getEquityCaptureUserInvestmentResults
 
-Re-exports [getEquityCaptureUserInvestmentResults](get-equity-capture-user-investment-results/functions/getEquityCaptureUserInvestmentResults.md)
+Re-exports [getEquityCaptureUserInvestmentResults](get-equity-capture-user-investment-results/variables/getEquityCaptureUserInvestmentResults.md)
 
 ---
 

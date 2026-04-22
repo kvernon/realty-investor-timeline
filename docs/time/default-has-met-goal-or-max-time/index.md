@@ -6,6 +6,6 @@
 
 # time/default-has-met-goal-or-max-time
 
-## Functions
+## Variables
 
-- [defaultHasMetGoalOrMaxTime](functions/defaultHasMetGoalOrMaxTime.md)
+- [defaultHasMetGoalOrMaxTime](variables/defaultHasMetGoalOrMaxTime.md)

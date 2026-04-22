@@ -10,7 +10,7 @@
 
 ### defaultHasMetGoalOrMaxTime
 
-Re-exports [defaultHasMetGoalOrMaxTime](default-has-met-goal-or-max-time/functions/defaultHasMetGoalOrMaxTime.md)
+Re-exports [defaultHasMetGoalOrMaxTime](default-has-met-goal-or-max-time/variables/defaultHasMetGoalOrMaxTime.md)
 
 ---
 

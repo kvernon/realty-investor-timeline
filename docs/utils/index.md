@@ -34,7 +34,7 @@ Re-exports [randomNumberBetween](data-number/functions/randomNumberBetween.md)
 
 ### randomPropertyEntity
 
-Re-exports [randomPropertyEntity](data-property-entity/functions/randomPropertyEntity.md)
+Re-exports [randomPropertyEntity](data-property-entity/variables/randomPropertyEntity.md)
 
 ---
 

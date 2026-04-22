@@ -10,6 +10,6 @@
 
 - [LooperType](type-aliases/LooperType.md)
 
-## Functions
+## Variables
 
-- [looper](functions/looper.md)
+- [looper](variables/looper.md)

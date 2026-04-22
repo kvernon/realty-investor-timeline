@@ -4,11 +4,11 @@
 
 [@cubedelement.com/realty-investor-timeline](../../../modules.md) / [time/looper](../index.md) / LooperType
 
-# Type Alias: LooperType()
+# Type Alias: LooperType
 
-> **LooperType**: (`options`, `timeline`) => [`ITimeline`](../../timeline/interfaces/ITimeline.md)
+> **LooperType** = (`options`, `timeline`) => [`ITimeline`](../../timeline/interfaces/ITimeline.md)
 
-Defined in: [time/looper.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/looper.ts#L13)
+Defined in: [time/looper.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/looper.ts#L13)
 
 ## Parameters
 

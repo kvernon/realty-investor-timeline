@@ -6,6 +6,6 @@
 
 # generators/factory-single-family
 
-## Functions
+## Variables
 
-- [generateSingleFamily](functions/generateSingleFamily.md)
+- [generateSingleFamily](variables/generateSingleFamily.md)

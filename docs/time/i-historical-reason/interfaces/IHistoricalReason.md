@@ -6,7 +6,7 @@
 
 # Interface: IHistoricalReason
 
-Defined in: [time/i-historical-reason.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/i-historical-reason.ts#L1)
+Defined in: [time/i-historical-reason.ts:1](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/i-historical-reason.ts#L1)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [time/i-historical-reason.ts:1](https://github.com/kvernon/realty-in
 
 > **additionalInfo**: `object`[]
 
-Defined in: [time/i-historical-reason.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/i-historical-reason.ts#L4)
+Defined in: [time/i-historical-reason.ts:4](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/i-historical-reason.ts#L4)
 
 #### name
 
@@ -30,7 +30,7 @@ Defined in: [time/i-historical-reason.ts:4](https://github.com/kvernon/realty-in
 
 > **date**: `Date`
 
-Defined in: [time/i-historical-reason.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/i-historical-reason.ts#L3)
+Defined in: [time/i-historical-reason.ts:3](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/i-historical-reason.ts#L3)
 
 ---
 
@@ -38,4 +38,4 @@ Defined in: [time/i-historical-reason.ts:3](https://github.com/kvernon/realty-in
 
 > **reason**: `string`
 
-Defined in: [time/i-historical-reason.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/time/i-historical-reason.ts#L2)
+Defined in: [time/i-historical-reason.ts:2](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/time/i-historical-reason.ts#L2)

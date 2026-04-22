@@ -8,7 +8,7 @@
 
 > **cashOnCashReturn**(`annualCashFlow`, `costDownPrice`): `number`
 
-Defined in: [calculations/cash-on-cash-return.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/calculations/cash-on-cash-return.ts#L9)
+Defined in: [calculations/cash-on-cash-return.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/calculations/cash-on-cash-return.ts#L9)
 
 determines from the cash down you put on a property and the cash flow, it states how well you leveraged your money
 

@@ -16,13 +16,13 @@ Re-exports [GenerateProperty](generate-property/type-aliases/GenerateProperty.md
 
 ### generateRentalPassiveApartment
 
-Re-exports [generateRentalPassiveApartment](factory-passive-apartment/functions/generateRentalPassiveApartment.md)
+Re-exports [generateRentalPassiveApartment](factory-passive-apartment/variables/generateRentalPassiveApartment.md)
 
 ---
 
 ### generateSingleFamily
 
-Re-exports [generateSingleFamily](factory-single-family/functions/generateSingleFamily.md)
+Re-exports [generateSingleFamily](factory-single-family/variables/generateSingleFamily.md)
 
 ---
 

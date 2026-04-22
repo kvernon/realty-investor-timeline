@@ -6,7 +6,7 @@
 
 # Class: RentalInvestorValidator
 
-Defined in: [investments/rental-investor-validator.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/investments/rental-investor-validator.ts#L8)
+Defined in: [investments/rental-investor-validator.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/investments/rental-investor-validator.ts#L8)
 
 ## Implements
 
@@ -14,13 +14,13 @@ Defined in: [investments/rental-investor-validator.ts:8](https://github.com/kver
 
 ## Constructors
 
-### new RentalInvestorValidator()
+### Constructor
 
-> **new RentalInvestorValidator**(): [`RentalInvestorValidator`](RentalInvestorValidator.md)
+> **new RentalInvestorValidator**(): `RentalInvestorValidator`
 
 #### Returns
 
-[`RentalInvestorValidator`](RentalInvestorValidator.md)
+`RentalInvestorValidator`
 
 ## Properties
 
@@ -28,7 +28,7 @@ Defined in: [investments/rental-investor-validator.ts:8](https://github.com/kver
 
 > **results**: [`IUserInvestResult`](../../user-invest-result/interfaces/IUserInvestResult.md)[] = `[]`
 
-Defined in: [investments/rental-investor-validator.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/investments/rental-investor-validator.ts#L13)
+Defined in: [investments/rental-investor-validator.ts:13](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/investments/rental-investor-validator.ts#L13)
 
 #### Implementation of
 
@@ -42,7 +42,7 @@ Defined in: [investments/rental-investor-validator.ts:13](https://github.com/kve
 
 > **get** **canInvest**(): `boolean`
 
-Defined in: [investments/rental-investor-validator.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/investments/rental-investor-validator.ts#L9)
+Defined in: [investments/rental-investor-validator.ts:9](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/investments/rental-investor-validator.ts#L9)
 
 ##### Returns
 

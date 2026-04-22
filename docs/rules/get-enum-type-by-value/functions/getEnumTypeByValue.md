@@ -8,7 +8,7 @@
 
 > **getEnumTypeByValue**(`value`): `"None"` \| `"PurchaseRuleTypes"` \| `"HoldRuleTypes"`
 
-Defined in: [rules/get-enum-type-by-value.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/rules/get-enum-type-by-value.ts#L8)
+Defined in: [rules/get-enum-type-by-value.ts:8](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/rules/get-enum-type-by-value.ts#L8)
 
 Used to help determine from a string if the value is in one of the enums
 

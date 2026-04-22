@@ -9,4 +9,3 @@
 ## Interfaces
 
 - [ILedgerDetailSummary](interfaces/ILedgerDetailSummary.md)
-- [ILedgerSummary](interfaces/ILedgerSummary.md)

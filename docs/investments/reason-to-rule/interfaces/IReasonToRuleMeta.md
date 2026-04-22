@@ -6,7 +6,7 @@
 
 # Interface: IReasonToRuleMeta\<TR\>
 
-Defined in: [investments/reason-to-rule.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/investments/reason-to-rule.ts#L10)
+Defined in: [investments/reason-to-rule.ts:10](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/investments/reason-to-rule.ts#L10)
 
 ## Extended by
 
@@ -14,7 +14,9 @@ Defined in: [investments/reason-to-rule.ts:10](https://github.com/kvernon/realty
 
 ## Type Parameters
 
-• **TR** _extends_ [`PurchaseRuleTypes`](../../../rules/purchase-rule-types/enumerations/PurchaseRuleTypes.md) \| [`HoldRuleTypes`](../../../rules/hold-rule-types/enumerations/HoldRuleTypes.md)
+### TR
+
+`TR` _extends_ [`PurchaseRuleTypes`](../../../rules/purchase-rule-types/enumerations/PurchaseRuleTypes.md) \| [`HoldRuleTypes`](../../../rules/hold-rule-types/enumerations/HoldRuleTypes.md)
 
 ## Properties
 
@@ -22,12 +24,12 @@ Defined in: [investments/reason-to-rule.ts:10](https://github.com/kvernon/realty
 
 > **investmentReason**: [`InvestmentReasons`](../../investment-reasons/enumerations/InvestmentReasons.md)
 
-Defined in: [investments/reason-to-rule.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/investments/reason-to-rule.ts#L11)
+Defined in: [investments/reason-to-rule.ts:11](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/investments/reason-to-rule.ts#L11)
 
 ---
 
 ### ruleType?
 
-> `optional` **ruleType**: `TR`
+> `optional` **ruleType?**: `TR`
 
-Defined in: [investments/reason-to-rule.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/ea73199cb6880de4072be51a1e62a70c3db0502c/src/investments/reason-to-rule.ts#L12)
+Defined in: [investments/reason-to-rule.ts:12](https://github.com/kvernon/realty-investor-timeline/blob/c883ed2ab8d97e7321be517c12415c9f4188e959/src/investments/reason-to-rule.ts#L12)
