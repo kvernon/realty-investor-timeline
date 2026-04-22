@@ -90,6 +90,7 @@ Once a feature's PR is merged, the pipeline will run checks and publish.
 - Equity (simple) ✔
 - Monthly summaries ✔
 - Annual summaries ✔
+- Balance optimizations ✔ 
 
 ### Needed things (in no order)
 
