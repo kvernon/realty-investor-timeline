@@ -1,3 +1,10 @@
+# [6.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v6.0.0...v6.1.0) (2026-04-22)
+
+
+### Features
+
+* updated ([#90](https://github.com/kvernon/realty-investor-timeline/issues/90)) ([08a8660](https://github.com/kvernon/realty-investor-timeline/commit/08a86605ba8e8ba52c7dfdc78c828df35e6620dc))
+
 # [6.0.0](https://github.com/kvernon/realty-investor-timeline/compare/v5.7.4...v6.0.0) (2026-01-17)
 
 
