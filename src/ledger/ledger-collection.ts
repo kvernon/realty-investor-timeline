@@ -1,5 +1,5 @@
 import { LedgerItem } from './ledger-item';
-import itiriri, { IterableQuery } from 'itiriri';
+import itiriri from 'itiriri';
 import { ILedgerDetailSummary } from './i-ledger-detail-summary';
 import { LedgerItemType } from './ledger-item-type';
 import { IRentalPropertyEntity, PropertyType } from '../properties';
@@ -84,7 +84,7 @@ export interface ILedgerCollection {
 export type LedgerItemPredicate = (x: LedgerItem, index: number) => boolean;
 
 export class LedgerCollection implements ILedgerCollection {
-  private collection: IterableQuery<LedgerItem>;
+  private items: LedgerItem[] = [];
   private _runningBalance = 0;
 
   private getSummaryByType(collection: LedgerItem[], type: LedgerItemType): number {
@@ -95,9 +95,7 @@ export class LedgerCollection implements ILedgerCollection {
     return collection.filter((x) => x.typeMatches(type)).reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0);
   }
 
-  constructor() {
-    this.collection = itiriri([]);
-  }
+  constructor() {}
 
   filter(pred?: LedgerItemPredicate): LedgerItem[] {
     const dateTypeSort = (element1: LedgerItem, element2: LedgerItem) => {
@@ -105,10 +103,10 @@ export class LedgerCollection implements ILedgerCollection {
     };
 
     if (pred) {
-      return itiriri(this.collection).filter(pred).sort(dateTypeSort).toArray();
+      return itiriri(this.items).filter(pred).sort(dateTypeSort).toArray();
     }
 
-    return itiriri(this.collection).sort(dateTypeSort).toArray();
+    return itiriri(this.items).sort(dateTypeSort).toArray();
   }
 
   /**
@@ -126,16 +124,18 @@ export class LedgerCollection implements ILedgerCollection {
   }
 
   add(item: LedgerItem | Iterable<LedgerItem>): void {
-    const items = item instanceof LedgerItem ? [item] : Array.from(item);
-    items.forEach((i) => (this._runningBalance += i.amount));
-    this.collection = itiriri(this.collection.prepend(item).toArray());
+    const newItems = item instanceof LedgerItem ? [item] : Array.from(item);
+    newItems.forEach((i) => {
+      this._runningBalance += i.amount;
+      this.items.push(i);
+    });
   }
 
   /**
    * is the collection empty?
    */
   isEmpty(): boolean {
-    return this.collection.length() === 0;
+    return this.items.length === 0;
   }
 
   /**
@@ -158,9 +158,8 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     return (
-      itiriri(properties.filter((p) => p.propertyType === PropertyType.SingleFamily)).sum((r) =>
-        r.getExpensesByDate(date ?? this.collection.last().created),
-      ) * minMonthsRequired || 0
+      itiriri(properties.filter((p) => p.propertyType === PropertyType.SingleFamily)).sum((r) => r.getExpensesByDate(date ?? this.items[0].created)) *
+        minMonthsRequired || 0
     );
   }
 
@@ -205,7 +204,7 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.collection.last().created;
+      date = this.items[0].created;
     }
 
     const boundary = this.filter((li) => li.dateMatchesYear(date.getUTCFullYear()));
@@ -223,7 +222,7 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.collection.last().created;
+      date = this.items[0].created;
     }
 
     const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date));
@@ -241,7 +240,7 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.collection.last().created;
+      date = this.items[0].created;
     }
 
     const boundary = this.filter((li) => {
@@ -275,7 +274,7 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.collection.last().created;
+      date = this.items[0].created;
     }
 
     const boundary = this.filter((li) => {
@@ -304,7 +303,7 @@ export class LedgerCollection implements ILedgerCollection {
       return result;
     }
 
-    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.collection.last().created));
+    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.items[0].created));
 
     if (!boundary) {
       return result;
@@ -351,7 +350,7 @@ export class LedgerCollection implements ILedgerCollection {
   }
 
   getSummariesAnnual(year?: number): ILedgerDetailSummary[] {
-    if (!year && this.collection.length() === 0) {
+    if (!year && this.items.length === 0) {
       throw new Error('year is missing');
     }
 
@@ -403,7 +402,7 @@ export class LedgerCollection implements ILedgerCollection {
       return null;
     }
 
-    return this.collection.first();
+    return this.items[this.items.length - 1];
   }
 
   getLastLedgerMonth(): LedgerItem[] {
@@ -418,7 +417,7 @@ export class LedgerCollection implements ILedgerCollection {
 
   clone(): ILedgerCollection {
     const ledgerCollection = new LedgerCollection();
-    ledgerCollection.add(this.collection.map((x) => x.clone()));
+    ledgerCollection.add(this.items.map((x) => x.clone()));
     return ledgerCollection;
   }
 }
