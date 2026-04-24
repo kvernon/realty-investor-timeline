@@ -1,5 +1,6 @@
 import { LedgerItem } from './ledger-item';
-import itiriri, { IterableQuery } from 'itiriri';
+import itiriri from 'itiriri';
+import '../utils/array-extensions';
 import { ILedgerDetailSummary } from './i-ledger-detail-summary';
 import { LedgerItemType } from './ledger-item-type';
 import { IRentalPropertyEntity, PropertyType } from '../properties';
@@ -84,7 +85,7 @@ export interface ILedgerCollection {
 export type LedgerItemPredicate = (x: LedgerItem, index: number) => boolean;
 
 export class LedgerCollection implements ILedgerCollection {
-  private collection: IterableQuery<LedgerItem>;
+  private items: LedgerItem[] = [];
   private _runningBalance = 0;
 
   private getSummaryByType(collection: LedgerItem[], type: LedgerItemType): number {
@@ -95,9 +96,7 @@ export class LedgerCollection implements ILedgerCollection {
     return collection.filter((x) => x.typeMatches(type)).reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0);
   }
 
-  constructor() {
-    this.collection = itiriri([]);
-  }
+  constructor() {}
 
   filter(pred?: LedgerItemPredicate): LedgerItem[] {
     const dateTypeSort = (element1: LedgerItem, element2: LedgerItem) => {
@@ -105,10 +104,10 @@ export class LedgerCollection implements ILedgerCollection {
     };
 
     if (pred) {
-      return itiriri(this.collection).filter(pred).sort(dateTypeSort).toArray();
+      return itiriri(this.items).filter(pred).sort(dateTypeSort).toArray();
     }
 
-    return itiriri(this.collection).sort(dateTypeSort).toArray();
+    return itiriri(this.items).sort(dateTypeSort).toArray();
   }
 
   /**
@@ -126,16 +125,18 @@ export class LedgerCollection implements ILedgerCollection {
   }
 
   add(item: LedgerItem | Iterable<LedgerItem>): void {
-    const items = item instanceof LedgerItem ? [item] : Array.from(item);
-    items.forEach((i) => (this._runningBalance += i.amount));
-    this.collection = itiriri(this.collection.prepend(item).toArray());
+    const newItems = item instanceof LedgerItem ? [item] : Array.from(item);
+    newItems.forEach((i) => {
+      this._runningBalance += i.amount;
+      this.items.push(i);
+    });
   }
 
   /**
    * is the collection empty?
    */
   isEmpty(): boolean {
-    return this.collection.length() === 0;
+    return this.items.isEmpty();
   }
 
   /**
@@ -153,13 +154,13 @@ export class LedgerCollection implements ILedgerCollection {
       throw new Error('no date supplied');
     }
 
-    if (!properties || !properties.length) {
+    if (!properties || properties.isEmpty()) {
       return 0;
     }
 
     return (
       itiriri(properties.filter((p) => p.propertyType === PropertyType.SingleFamily)).sum((r) =>
-        r.getExpensesByDate(date ?? this.collection.last().created),
+        r.getExpensesByDate(date ?? this.items.first().created),
       ) * minMonthsRequired || 0
     );
   }
@@ -205,12 +206,12 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.collection.last().created;
+      date = this.items.first().created;
     }
 
     const boundary = this.filter((li) => li.dateMatchesYear(date.getUTCFullYear()));
 
-    if (boundary.length === 0) {
+    if (boundary.isEmpty()) {
       return 0;
     }
 
@@ -223,12 +224,12 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.collection.last().created;
+      date = this.items.first().created;
     }
 
     const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date));
 
-    if (boundary.length === 0) {
+    if (boundary.isEmpty()) {
       return 0;
     }
 
@@ -241,19 +242,19 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.collection.last().created;
+      date = this.items.first().created;
     }
 
     const boundary = this.filter((li) => {
       return li.dateLessThanOrEqualToAndQuarter(date) && li.typeMatches(LedgerItemType.CashFlow);
     });
 
-    if (boundary.length === 0) {
+    if (boundary.isEmpty()) {
       return 0;
     }
 
-    const firstMonth = boundary[0].created.getUTCMonth();
-    const lastMonth = boundary[boundary.length - 1].created.getUTCMonth();
+    const firstMonth = boundary.first().created.getUTCMonth();
+    const lastMonth = boundary.last().created.getUTCMonth();
     const monthsWithData = lastMonth - firstMonth + 1;
 
     if (monthsWithData <= 0) {
@@ -275,7 +276,7 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.collection.last().created;
+      date = this.items.first().created;
     }
 
     const boundary = this.filter((li) => {
@@ -304,19 +305,34 @@ export class LedgerCollection implements ILedgerCollection {
       return result;
     }
 
-    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.collection.last().created));
+    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.items.first().created));
 
     if (!boundary) {
       return result;
     }
 
-    const ledgerItemsCashFlow = boundary.filter((x) => x.type === LedgerItemType.CashFlow);
+    const { cashFlow, cashFlowCount, equity, purchases } = boundary.reduce(
+      (acc, item) => {
+        if (item.typeMatches(LedgerItemType.CashFlow)) {
+          acc.cashFlow += item.amount;
+          acc.cashFlowCount++;
+        } else if (item.typeMatches(LedgerItemType.Equity)) {
+          acc.equity += item.amount;
+        } else if (item.typeMatches(LedgerItemType.Purchase)) {
+          acc.purchases += item.amount;
+        }
+        return acc;
+      },
+      { cashFlow: 0, cashFlowCount: 0, equity: 0, purchases: 0 },
+    );
 
-    result.cashFlow = this.getSummaryByType(boundary, LedgerItemType.CashFlow);
-    result.averageCashFlow = currency(ledgerItemsCashFlow.length > 0 ? result.cashFlow / ledgerItemsCashFlow.length : 0);
-    result.equity = this.getSummaryByType(boundary, LedgerItemType.Equity);
-    result.purchases = this.getSummaryByType(boundary, LedgerItemType.Purchase);
-    result.balance = this.filter((li) => li.dateNotGreaterThan(date)).reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0);
+    result.cashFlow = cashFlow;
+    result.averageCashFlow = currency(cashFlowCount > 0 ? cashFlow / cashFlowCount : 0);
+    result.equity = equity;
+    result.purchases = purchases;
+    result.balance = currency(
+      this.filter((li) => li.dateNotGreaterThan(date)).reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0),
+    );
     result.averageQuarterlyCashFlow = this.getAverageCashFlowMonthByQuarter(date);
 
     return result;
@@ -325,7 +341,7 @@ export class LedgerCollection implements ILedgerCollection {
   getSummaryAnnual(year?: number): ILedgerDetailSummary {
     const summaries = this.getSummariesAnnual(year);
 
-    if (summaries.length === 0) {
+    if (summaries.isEmpty()) {
       return {
         date: null,
         balance: 0,
@@ -340,18 +356,20 @@ export class LedgerCollection implements ILedgerCollection {
     const cashFlowSum = summaries.reduce((accumulator, current) => accumulator + current.cashFlow, 0);
 
     return {
-      date: summaries[0].date,
-      balance: summaries[summaries.length - 1].balance,
-      equity: summaries.reduce((accumulator, current) => accumulator + current.equity, 0),
-      cashFlow: cashFlowSum,
+      date: summaries.first().date,
+      balance: summaries.last().balance,
+      equity: currency(summaries.reduce((accumulator, current) => accumulator + current.equity, 0)),
+      cashFlow: currency(cashFlowSum),
       averageCashFlow: currency(cashFlowSum / summaries.length),
-      purchases: summaries.reduce((accumulator, current) => accumulator + current.purchases, 0),
-      averageQuarterlyCashFlow: summaries.reduce((accumulator, current) => accumulator + current.averageQuarterlyCashFlow, 0) / summaries.length,
+      purchases: currency(summaries.reduce((accumulator, current) => accumulator + current.purchases, 0)),
+      averageQuarterlyCashFlow: currency(
+        summaries.reduce((accumulator, current) => accumulator + current.averageQuarterlyCashFlow, 0) / summaries.length,
+      ),
     };
   }
 
   getSummariesAnnual(year?: number): ILedgerDetailSummary[] {
-    if (!year && this.collection.length() === 0) {
+    if (!year && this.items.isEmpty()) {
       throw new Error('year is missing');
     }
 
@@ -361,19 +379,19 @@ export class LedgerCollection implements ILedgerCollection {
 
     const boundary = year ? this.filter((li) => li.dateMatchesYear(year)) : this.filter();
 
-    if (!boundary || boundary.length === 0) {
+    if (!boundary || boundary.isEmpty()) {
       return [];
     }
 
     const collection = [];
-    const lastLedgerItem = boundary[boundary.length - 1];
+    const lastLedgerItem = boundary.last();
 
-    const totalMonths = differenceInMonths(boundary[0].created, lastLedgerItem.created);
+    const totalMonths = differenceInMonths(boundary.first().created, lastLedgerItem.created);
 
     if (totalMonths === 0) {
-      collection.push(this.getSummaryMonth(boundary[0].created));
+      collection.push(this.getSummaryMonth(boundary.first().created));
     } else {
-      for (let month = boundary[0].getMonth(); month < 12; month++) {
+      for (let month = boundary.first().getMonth(); month < 12; month++) {
         const expectedDate = new Date(Date.UTC(year, month, 1));
         if (!boundary.some((x) => x.dateMatchesYearAndMonth(expectedDate)) && expectedDate.getTime() >= lastLedgerItem.created.getTime()) {
           const summaryMonth = this.getSummaryMonth(lastLedgerItem.created);
@@ -403,7 +421,7 @@ export class LedgerCollection implements ILedgerCollection {
       return null;
     }
 
-    return this.collection.first();
+    return this.items.last();
   }
 
   getLastLedgerMonth(): LedgerItem[] {
@@ -418,7 +436,7 @@ export class LedgerCollection implements ILedgerCollection {
 
   clone(): ILedgerCollection {
     const ledgerCollection = new LedgerCollection();
-    ledgerCollection.add(this.collection.map((x) => x.clone()));
+    ledgerCollection.add(this.items.map((x) => x.clone()));
     return ledgerCollection;
   }
 }
