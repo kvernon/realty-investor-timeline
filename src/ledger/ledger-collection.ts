@@ -1,5 +1,6 @@
 import { LedgerItem } from './ledger-item';
 import itiriri from 'itiriri';
+import '../utils/array-extensions';
 import { ILedgerDetailSummary } from './i-ledger-detail-summary';
 import { LedgerItemType } from './ledger-item-type';
 import { IRentalPropertyEntity, PropertyType } from '../properties';
@@ -135,7 +136,7 @@ export class LedgerCollection implements ILedgerCollection {
    * is the collection empty?
    */
   isEmpty(): boolean {
-    return this.items.length === 0;
+    return this.items.isEmpty();
   }
 
   /**
@@ -153,13 +154,14 @@ export class LedgerCollection implements ILedgerCollection {
       throw new Error('no date supplied');
     }
 
-    if (!properties || !properties.length) {
+    if (!properties || properties.isEmpty()) {
       return 0;
     }
 
     return (
-      itiriri(properties.filter((p) => p.propertyType === PropertyType.SingleFamily)).sum((r) => r.getExpensesByDate(date ?? this.items[0].created)) *
-        minMonthsRequired || 0
+      itiriri(properties.filter((p) => p.propertyType === PropertyType.SingleFamily)).sum((r) =>
+        r.getExpensesByDate(date ?? this.items.first().created),
+      ) * minMonthsRequired || 0
     );
   }
 
@@ -204,12 +206,12 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.items[0].created;
+      date = this.items.first().created;
     }
 
     const boundary = this.filter((li) => li.dateMatchesYear(date.getUTCFullYear()));
 
-    if (boundary.length === 0) {
+    if (boundary.isEmpty()) {
       return 0;
     }
 
@@ -222,12 +224,12 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.items[0].created;
+      date = this.items.first().created;
     }
 
     const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date));
 
-    if (boundary.length === 0) {
+    if (boundary.isEmpty()) {
       return 0;
     }
 
@@ -240,14 +242,14 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.items[0].created;
+      date = this.items.first().created;
     }
 
     const boundary = this.filter((li) => {
       return li.dateLessThanOrEqualToAndQuarter(date) && li.typeMatches(LedgerItemType.CashFlow);
     });
 
-    if (boundary.length === 0) {
+    if (boundary.isEmpty()) {
       return 0;
     }
 
@@ -274,7 +276,7 @@ export class LedgerCollection implements ILedgerCollection {
     }
 
     if (!date) {
-      date = this.items[0].created;
+      date = this.items.first().created;
     }
 
     const boundary = this.filter((li) => {
@@ -303,18 +305,31 @@ export class LedgerCollection implements ILedgerCollection {
       return result;
     }
 
-    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.items[0].created));
+    const boundary = this.filter((li) => li.dateMatchesYearAndMonth(date ?? this.items.first().created));
 
     if (!boundary) {
       return result;
     }
 
-    const ledgerItemsCashFlow = boundary.filter((x) => x.type === LedgerItemType.CashFlow);
+    const { cashFlow, cashFlowCount, equity, purchases } = boundary.reduce(
+      (acc, item) => {
+        if (item.typeMatches(LedgerItemType.CashFlow)) {
+          acc.cashFlow += item.amount;
+          acc.cashFlowCount++;
+        } else if (item.typeMatches(LedgerItemType.Equity)) {
+          acc.equity += item.amount;
+        } else if (item.typeMatches(LedgerItemType.Purchase)) {
+          acc.purchases += item.amount;
+        }
+        return acc;
+      },
+      { cashFlow: 0, cashFlowCount: 0, equity: 0, purchases: 0 },
+    );
 
-    result.cashFlow = this.getSummaryByType(boundary, LedgerItemType.CashFlow);
-    result.averageCashFlow = currency(ledgerItemsCashFlow.length > 0 ? result.cashFlow / ledgerItemsCashFlow.length : 0);
-    result.equity = this.getSummaryByType(boundary, LedgerItemType.Equity);
-    result.purchases = this.getSummaryByType(boundary, LedgerItemType.Purchase);
+    result.cashFlow = cashFlow;
+    result.averageCashFlow = currency(cashFlowCount > 0 ? cashFlow / cashFlowCount : 0);
+    result.equity = equity;
+    result.purchases = purchases;
     result.balance = this.filter((li) => li.dateNotGreaterThan(date)).reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0);
     result.averageQuarterlyCashFlow = this.getAverageCashFlowMonthByQuarter(date);
 
@@ -324,7 +339,7 @@ export class LedgerCollection implements ILedgerCollection {
   getSummaryAnnual(year?: number): ILedgerDetailSummary {
     const summaries = this.getSummariesAnnual(year);
 
-    if (summaries.length === 0) {
+    if (summaries.isEmpty()) {
       return {
         date: null,
         balance: 0,
@@ -350,7 +365,7 @@ export class LedgerCollection implements ILedgerCollection {
   }
 
   getSummariesAnnual(year?: number): ILedgerDetailSummary[] {
-    if (!year && this.items.length === 0) {
+    if (!year && this.items.isEmpty()) {
       throw new Error('year is missing');
     }
 
@@ -360,7 +375,7 @@ export class LedgerCollection implements ILedgerCollection {
 
     const boundary = year ? this.filter((li) => li.dateMatchesYear(year)) : this.filter();
 
-    if (!boundary || boundary.length === 0) {
+    if (!boundary || boundary.isEmpty()) {
       return [];
     }
 
@@ -402,7 +417,7 @@ export class LedgerCollection implements ILedgerCollection {
       return null;
     }
 
-    return this.items[this.items.length - 1];
+    return this.items.last();
   }
 
   getLastLedgerMonth(): LedgerItem[] {
