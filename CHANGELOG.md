@@ -1,3 +1,10 @@
+# [6.2.0](https://github.com/kvernon/realty-investor-timeline/compare/v6.1.0...v6.2.0) (2026-04-24)
+
+
+### Features
+
+* loop reduction ([#91](https://github.com/kvernon/realty-investor-timeline/issues/91)) ([1418c36](https://github.com/kvernon/realty-investor-timeline/commit/1418c36bc94742d8b898ddb09474dcedf91f90d6))
+
 # [6.1.0](https://github.com/kvernon/realty-investor-timeline/compare/v6.0.0...v6.1.0) (2026-04-22)
 
 
